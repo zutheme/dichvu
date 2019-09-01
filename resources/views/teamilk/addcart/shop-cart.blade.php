@@ -217,6 +217,7 @@
 			</div>
 			<?php $subtotal = $subtotal + $item['price_gift']*$item['quality_gift']; ?>
 			@endforeach
+			@endif
 			<!-- END: SHOPPING CART ITEM ROW -->
 			<!-- BEGIN: SUBTOTAL ITEM ROW -->
 			<div class="row">
@@ -229,7 +230,7 @@
 					</div>
 				</div>
 			</div>
-		@endif
+		
 			<!-- END: SUBTOTAL ITEM ROW -->
 			<!-- BEGIN: SUBTOTAL ITEM ROW -->
 			{{-- <div class="row">

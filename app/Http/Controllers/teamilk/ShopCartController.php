@@ -61,10 +61,16 @@ class ShopCartController extends Controller
         $_idstore = 31;
 
        $arr_his = session()->get('idorderhistory');
-      $arr = json_decode($arr_his);
-        foreach ($arr as  $item) {
-        $idproduct = $item->idproduct;
-      }
+       if(isset($arr_his)){
+            $arr = json_decode($arr_his);
+            foreach ($arr as  $item) {
+                $idproduct = $item->idproduct;
+            }
+       }else{
+            return redirect()->to('/');
+            //return redirect()->route('teamilk.product.index');
+       }
+          
 
         //$qr_idproducthis = DB::select('call SelIdproductHisProcedure(?)',array($_idhis));
 
@@ -92,8 +98,6 @@ class ShopCartController extends Controller
 
         return view('teamilk.addcart.shop-cart',compact('idproduct','product','sel_combo_byidproduct','sel_gift_byidproduct'));
 
-        //return view('teamilk.addcart.shop-cart',compact('error')); 
-
     }
 
     public function checkout(Request $request){
@@ -119,25 +123,11 @@ class ShopCartController extends Controller
         $_idstore = 31;
 
         $idproduct = $request->session()->get('idorderhistory');
-        // if(isset($arr_his)){
-        //     foreach ($arr_his as $item) {
-        //         $_idhis = $item['idorderhistory'];
-        //     }
-        //     //$_idhis = $arr_his;
-        // }else{
-        //     return view('teamilk.product.index');
-        // }
-        // foreach ($arr_his as $item) {
-
-        //     $_idhis = $item['idorderhistory'];
-
-        // }
-
-        //$qr_idproducthis = DB::select('call SelIdproductHisProcedure(?)',array($_idhis));
-
-        //$rs_idproducthis = json_decode(json_encode($qr_idproducthis), true);
-
-        //$idproduct = $rs_idproducthis[0]['idproduct'];
+         $arr_his = session()->get('idorderhistory');
+          $arr = json_decode($arr_his);
+            foreach ($arr as  $item) {
+            $idproduct = $item->idproduct;
+          }
 
         $qr_product = DB::select('call SelProductByIdProcedure(?,?)',array($idproduct,$_idstore));
 
