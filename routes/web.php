@@ -46,10 +46,10 @@ Route::get('/getmacshellexec',function()
         //$shellexec = shell_exec('getmac');
         echo substr(exec('getmac'), 0, 17);  
         //dd($shellexec);
-        echo $_SERVER['REMOTE_ADDR'];
-        $ip = trim(shell_exec("dig +short myip.opendns.com @resolver1.opendns.com"));
+        //echo $_SERVER['REMOTE_ADDR'];
+        //$ip = trim(shell_exec("dig +short myip.opendns.com @resolver1.opendns.com"));
 
-		dd("Public IP: ".$ip);
+		//dd("Public IP: ".$ip);
 		$ip1= Request::getClientIp(); 
 		echo $ip1;
     }
