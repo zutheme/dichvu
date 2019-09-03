@@ -61,14 +61,14 @@ class ShopCartController extends Controller
        if(isset($arr_his)){
             $arr = json_decode($arr_his);
             foreach ($arr as  $item) {
-                $str_qr .= "(".$item->idproduct."),";
+                $str_qr .= "(".$item->idproduct.",".$item->quality."),";
                 $idproduct = $item->idproduct;
             }
        }else{
             return redirect()->to('/');
        }
        $str_qr = substr_replace($str_qr ,"", -1);
-       $str_qr = "INSERT into tmp_product(idproduct) VALUES ".$str_qr;
+       $str_qr = "INSERT into tmp_product(idproduct,input_quality) VALUES ".$str_qr;
         //$qr_idproducthis = DB::select('call SelIdproductHisProcedure(?)',array($_idhis));
         //$rs_idproducthis = json_decode(json_encode($qr_idproducthis), true);
         //$idproduct = $rs_idproducthis[0]['idproduct'];

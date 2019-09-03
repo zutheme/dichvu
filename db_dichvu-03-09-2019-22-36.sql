@@ -11,7 +11,7 @@
  Target Server Version : 100136
  File Encoding         : 65001
 
- Date: 02/09/2019 23:24:56
+ Date: 03/09/2019 22:36:54
 */
 
 SET NAMES utf8mb4;
@@ -378,7 +378,7 @@ CREATE TABLE `exp_products`  (
   PRIMARY KEY (`idexp`) USING BTREE,
   INDEX `frm_exp_product`(`idproduct`) USING BTREE,
   CONSTRAINT `frm_exp_product` FOREIGN KEY (`idproduct`) REFERENCES `products` (`idproduct`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 58 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 61 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of exp_products
@@ -392,6 +392,9 @@ INSERT INTO `exp_products` VALUES (54, 49, 7, 1, 12, 0, 0, 72, 800000, '', 11, 0
 INSERT INTO `exp_products` VALUES (55, 55, 12, 0, 0, 0, 2, NULL, 0, NULL, 11, 0, 0, 0, 0, '2019-08-31 15:34:56', '2019-08-31 15:34:56');
 INSERT INTO `exp_products` VALUES (56, 55, 13, 12, 0, 0, 2, 10, 2400000, '', 11, 0, 0, 0, 0, '2019-08-31 15:34:56', '2019-08-31 15:34:56');
 INSERT INTO `exp_products` VALUES (57, 55, 14, 12, 0, 0, 2, 5, 9000000, '', 11, 0, 0, 0, 0, '2019-08-31 15:34:56', '2019-08-31 15:34:56');
+INSERT INTO `exp_products` VALUES (58, 58, 15, 0, 13, 0, 0, NULL, 0, NULL, 11, 0, 0, 0, 0, '2019-09-03 08:35:44', '2019-09-03 08:35:44');
+INSERT INTO `exp_products` VALUES (59, 58, 16, 15, 13, 0, 0, 10, 1800000, '', 11, 0, 0, 0, 0, '2019-09-03 08:35:44', '2019-09-03 08:35:44');
+INSERT INTO `exp_products` VALUES (60, 58, 17, 15, 13, 0, 0, 5, 6000000, '', 11, 0, 0, 0, 0, '2019-09-03 08:35:45', '2019-09-03 08:35:45');
 
 -- ----------------------------
 -- Table structure for expposts
@@ -627,7 +630,7 @@ CREATE TABLE `migrations`  (
   `migration` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 159 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 160 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of migrations
@@ -787,6 +790,7 @@ INSERT INTO `migrations` VALUES (155, '2019_08_30_161407_order_history_procedure
 INSERT INTO `migrations` VALUES (156, '2019_08_30_225055_create_sessions_table', 85);
 INSERT INTO `migrations` VALUES (157, '2019_08_31_092013_sel_idproduct_his_procedure', 86);
 INSERT INTO `migrations` VALUES (158, '2019_09_01_202848_create_sessions_table', 87);
+INSERT INTO `migrations` VALUES (159, '2019_09_03_084821_lst_ord_session_procedure', 88);
 
 -- ----------------------------
 -- Table structure for oauth_access_tokens
@@ -870,6 +874,7 @@ INSERT INTO `oauth_access_tokens` VALUES ('340f7abe85cc72a813f1b8cfdde06734c551a
 INSERT INTO `oauth_access_tokens` VALUES ('34264f67b892acd309407bf9f54fff37cc9dd0469168db9afa520e758657a693defc6539eae5f2b3', 2, 1, 'MyApp', '[]', 0, '2019-05-21 08:10:13', '2019-05-21 08:10:13', '2020-05-21 08:10:13');
 INSERT INTO `oauth_access_tokens` VALUES ('34a74ab1625693d9e64d772dddc35a6aad295a47c079d1b4d963726ce816393e95f3437efdc3d152', 2, 1, 'MyApp', '[]', 0, '2019-05-01 21:05:29', '2019-05-01 21:05:29', '2020-05-01 21:05:29');
 INSERT INTO `oauth_access_tokens` VALUES ('36e48d91998df9621f6e9833f5ba424dcbdfeb69c193813c4ff947797920ea3c0794015a4490c9f5', 2, 1, 'MyApp', '[]', 0, '2019-06-04 08:17:17', '2019-06-04 08:17:17', '2020-06-04 08:17:17');
+INSERT INTO `oauth_access_tokens` VALUES ('37965a97bbe4f241967daa66debd655fb103ac02bfe732eaeefeed9145ec7169436300ab938ce461', 2, 5, 'MyApp', '[]', 0, '2019-09-03 11:51:09', '2019-09-03 11:51:09', '2020-09-03 11:51:09');
 INSERT INTO `oauth_access_tokens` VALUES ('3853eedd8cdad69da0d2604dd6ac6704067111d15cf4460beccd98ac39d98c40f3b24d8f8ba1fd2b', 10, 1, 'MyApp', '[]', 0, '2019-05-07 20:27:10', '2019-05-07 20:27:10', '2020-05-07 20:27:10');
 INSERT INTO `oauth_access_tokens` VALUES ('38ec2a406a32277bb6e0076a6676027854606083ee8f7c341144664bf5d4ca455eb95480c8e09e72', 17, 1, 'MyApp', '[]', 0, '2019-05-17 09:48:00', '2019-05-17 09:48:00', '2020-05-17 09:48:00');
 INSERT INTO `oauth_access_tokens` VALUES ('39b7d38fe8cd344efeb16af4bf982cbc61ddc276e7867ecb4dbb88600ae07b7f08b6918d974ccb99', 2, 3, 'MyApp', '[]', 0, '2019-08-31 14:31:41', '2019-08-31 14:31:41', '2020-08-31 14:31:41');
@@ -1096,7 +1101,7 @@ CREATE TABLE `oauth_clients`  (
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `oauth_clients_user_id_index`(`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of oauth_clients
@@ -1105,6 +1110,8 @@ INSERT INTO `oauth_clients` VALUES (1, NULL, 'Laravel Personal Access Client', '
 INSERT INTO `oauth_clients` VALUES (2, NULL, 'Laravel Password Grant Client', '4Djvc7dyJChiOr3UGmcYTjI0OrpCFenogIdusJDM', 'http://localhost', 0, 1, 0, '2019-02-27 09:46:34', '2019-02-27 09:46:34');
 INSERT INTO `oauth_clients` VALUES (3, NULL, 'Laravel Personal Access Client', '5wBwHFfu9kPhNF00knK43U65WJvdzaRc3wH9nHSu', 'http://localhost', 1, 0, 0, '2019-08-27 10:51:01', '2019-08-27 10:51:01');
 INSERT INTO `oauth_clients` VALUES (4, NULL, 'Laravel Password Grant Client', 'UaHM0IOnA8b4HYRhlasb9CY4VzqICMT0VKxuWdLI', 'http://localhost', 0, 1, 0, '2019-08-27 10:51:02', '2019-08-27 10:51:02');
+INSERT INTO `oauth_clients` VALUES (5, NULL, 'Laravel Personal Access Client', 'RaYtPQVltggi3FPmbDiezmoArJEUtpy5kdNz1lQy', 'http://localhost', 1, 0, 0, '2019-09-03 08:33:54', '2019-09-03 08:33:54');
+INSERT INTO `oauth_clients` VALUES (6, NULL, 'Laravel Password Grant Client', 'YlV8gs9OXBzIyFLMxePrNe4cdreLREoLJjMhY95T', 'http://localhost', 0, 1, 0, '2019-09-03 08:33:55', '2019-09-03 08:33:55');
 
 -- ----------------------------
 -- Table structure for oauth_personal_access_clients
@@ -1117,13 +1124,14 @@ CREATE TABLE `oauth_personal_access_clients`  (
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `oauth_personal_access_clients_client_id_index`(`client_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of oauth_personal_access_clients
 -- ----------------------------
 INSERT INTO `oauth_personal_access_clients` VALUES (1, 1, '2019-02-27 09:46:34', '2019-02-27 09:46:34');
 INSERT INTO `oauth_personal_access_clients` VALUES (2, 3, '2019-08-27 10:51:02', '2019-08-27 10:51:02');
+INSERT INTO `oauth_personal_access_clients` VALUES (3, 5, '2019-09-03 08:33:54', '2019-09-03 08:33:54');
 
 -- ----------------------------
 -- Table structure for oauth_refresh_tokens
@@ -1161,59 +1169,30 @@ CREATE TABLE `order_history`  (
   `userid_order` int(11) NOT NULL,
   `idproduct` int(11) NOT NULL,
   `quality` int(11) NOT NULL,
+  `idordhisparent` int(11) NULL DEFAULT NULL,
   `idcustomer` int(11) NULL DEFAULT NULL,
   `mac_add` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `ip_add` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `created_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`idorderhistory`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 66 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of order_history
 -- ----------------------------
-INSERT INTO `order_history` VALUES (24, 0, 1, 1, NULL, NULL, NULL, '2019-08-31 14:10:13', '2019-08-31 14:10:13');
-INSERT INTO `order_history` VALUES (25, 0, 1, 1, NULL, NULL, NULL, '2019-08-31 14:13:11', '2019-08-31 14:13:11');
-INSERT INTO `order_history` VALUES (26, 0, 1, 1, NULL, NULL, NULL, '2019-08-31 14:15:28', '2019-08-31 14:15:28');
-INSERT INTO `order_history` VALUES (27, 0, 1, 1, NULL, NULL, NULL, '2019-08-31 14:18:35', '2019-08-31 14:18:35');
-INSERT INTO `order_history` VALUES (28, 0, 1, 1, NULL, NULL, NULL, '2019-08-31 14:26:11', '2019-08-31 14:26:11');
-INSERT INTO `order_history` VALUES (29, 0, 1, 1, NULL, NULL, NULL, '2019-08-31 14:29:31', '2019-08-31 14:29:31');
-INSERT INTO `order_history` VALUES (30, 0, 1, 1, NULL, NULL, NULL, '2019-08-31 14:34:33', '2019-08-31 14:34:33');
-INSERT INTO `order_history` VALUES (31, 0, 1, 1, NULL, NULL, NULL, '2019-08-31 14:38:25', '2019-08-31 14:38:25');
-INSERT INTO `order_history` VALUES (32, 0, 1, 1, NULL, NULL, NULL, '2019-08-31 14:41:04', '2019-08-31 14:41:04');
-INSERT INTO `order_history` VALUES (33, 0, 1, 1, NULL, NULL, NULL, '2019-08-31 14:42:58', '2019-08-31 14:42:58');
-INSERT INTO `order_history` VALUES (34, 0, 1, 1, NULL, NULL, NULL, '2019-08-31 14:49:17', '2019-08-31 14:49:17');
-INSERT INTO `order_history` VALUES (35, 0, 1, 1, NULL, NULL, NULL, '2019-08-31 15:00:16', '2019-08-31 15:00:16');
-INSERT INTO `order_history` VALUES (36, 0, 1, 1, NULL, NULL, NULL, '2019-08-31 15:01:24', '2019-08-31 15:01:24');
-INSERT INTO `order_history` VALUES (37, 0, 1, 1, NULL, NULL, NULL, '2019-08-31 15:03:35', '2019-08-31 15:03:35');
-INSERT INTO `order_history` VALUES (38, 0, 1, 1, NULL, NULL, NULL, '2019-08-31 15:03:57', '2019-08-31 15:03:57');
-INSERT INTO `order_history` VALUES (39, 0, 1, 1, NULL, NULL, NULL, '2019-08-31 15:04:28', '2019-08-31 15:04:28');
-INSERT INTO `order_history` VALUES (40, 0, 1, 1, NULL, NULL, NULL, '2019-08-31 15:05:44', '2019-08-31 15:05:44');
-INSERT INTO `order_history` VALUES (41, 0, 12, 1, NULL, NULL, NULL, '2019-08-31 15:34:45', '2019-08-31 15:34:45');
-INSERT INTO `order_history` VALUES (42, 0, 1, 1, NULL, NULL, NULL, '2019-08-31 15:43:20', '2019-08-31 15:43:20');
-INSERT INTO `order_history` VALUES (43, 0, 15, 1, NULL, NULL, NULL, '2019-08-31 16:29:52', '2019-08-31 16:29:52');
-INSERT INTO `order_history` VALUES (44, 0, 15, 1, NULL, NULL, NULL, '2019-08-31 16:37:59', '2019-08-31 16:37:59');
-INSERT INTO `order_history` VALUES (45, 0, 15, 1, NULL, NULL, NULL, '2019-08-31 16:40:30', '2019-08-31 16:40:30');
-INSERT INTO `order_history` VALUES (46, 0, 8, 1, NULL, NULL, NULL, '2019-08-31 22:26:35', '2019-08-31 22:26:35');
-INSERT INTO `order_history` VALUES (47, 0, 1, 1, NULL, NULL, NULL, '2019-09-01 08:11:38', '2019-09-01 08:11:38');
-INSERT INTO `order_history` VALUES (48, 0, 15, 1, NULL, NULL, NULL, '2019-09-01 09:30:14', '2019-09-01 09:30:14');
-INSERT INTO `order_history` VALUES (49, 0, 12, 1, NULL, NULL, NULL, '2019-09-01 09:30:44', '2019-09-01 09:30:44');
-INSERT INTO `order_history` VALUES (50, 0, 15, 1, NULL, NULL, NULL, '2019-09-01 10:13:37', '2019-09-01 10:13:37');
-INSERT INTO `order_history` VALUES (51, 0, 12, 1, NULL, NULL, NULL, '2019-09-01 10:34:04', '2019-09-01 10:34:04');
-INSERT INTO `order_history` VALUES (52, 0, 1, 1, NULL, NULL, NULL, '2019-09-01 11:27:18', '2019-09-01 11:27:18');
-INSERT INTO `order_history` VALUES (53, 0, 8, 1, NULL, NULL, NULL, '2019-09-01 11:44:22', '2019-09-01 11:44:22');
-INSERT INTO `order_history` VALUES (54, 0, 12, 1, NULL, NULL, NULL, '2019-09-01 15:55:07', '2019-09-01 15:55:07');
-INSERT INTO `order_history` VALUES (55, 0, 12, 1, NULL, NULL, NULL, '2019-09-01 15:56:21', '2019-09-01 15:56:21');
-INSERT INTO `order_history` VALUES (56, 0, 12, 1, NULL, NULL, NULL, '2019-09-01 16:10:44', '2019-09-01 16:10:44');
-INSERT INTO `order_history` VALUES (57, 0, 12, 1, NULL, NULL, NULL, '2019-09-01 16:19:31', '2019-09-01 16:19:31');
-INSERT INTO `order_history` VALUES (58, 0, 12, 1, NULL, NULL, NULL, '2019-09-01 16:19:34', '2019-09-01 16:19:34');
-INSERT INTO `order_history` VALUES (59, 0, 8, 1, NULL, NULL, NULL, '2019-09-01 16:47:17', '2019-09-01 16:47:17');
-INSERT INTO `order_history` VALUES (60, 0, 8, 1, NULL, NULL, NULL, '2019-09-01 16:48:02', '2019-09-01 16:48:02');
-INSERT INTO `order_history` VALUES (61, 0, 1, 1, NULL, NULL, NULL, '2019-09-01 16:48:32', '2019-09-01 16:48:32');
-INSERT INTO `order_history` VALUES (62, 0, 15, 1, NULL, NULL, NULL, '2019-09-01 16:48:57', '2019-09-01 16:48:57');
-INSERT INTO `order_history` VALUES (63, 0, 1, 1, NULL, NULL, NULL, '2019-09-01 16:49:11', '2019-09-01 16:49:11');
-INSERT INTO `order_history` VALUES (64, 0, 15, 1, NULL, NULL, NULL, '2019-09-01 16:53:28', '2019-09-01 16:53:28');
-INSERT INTO `order_history` VALUES (65, 0, 15, 1, NULL, NULL, NULL, '2019-09-01 20:32:04', '2019-09-01 20:32:04');
+INSERT INTO `order_history` VALUES (1, 0, 15, 1, NULL, NULL, NULL, NULL, '2019-09-03 16:23:07', '2019-09-03 16:23:07');
+INSERT INTO `order_history` VALUES (2, 0, 8, 1, NULL, NULL, NULL, NULL, '2019-09-03 18:59:42', '2019-09-03 18:59:42');
+INSERT INTO `order_history` VALUES (3, 0, 15, 1, NULL, NULL, NULL, NULL, '2019-09-03 19:02:10', '2019-09-03 19:02:10');
+INSERT INTO `order_history` VALUES (4, 0, 1, 1, NULL, NULL, NULL, NULL, '2019-09-03 19:42:25', '2019-09-03 19:42:25');
+INSERT INTO `order_history` VALUES (5, 0, 12, 1, NULL, NULL, NULL, NULL, '2019-09-03 19:44:51', '2019-09-03 19:44:51');
+INSERT INTO `order_history` VALUES (6, 0, 8, 1, NULL, NULL, NULL, NULL, '2019-09-03 19:45:59', '2019-09-03 19:45:59');
+INSERT INTO `order_history` VALUES (7, 0, 8, 1, NULL, NULL, NULL, NULL, '2019-09-03 20:22:27', '2019-09-03 20:22:27');
+INSERT INTO `order_history` VALUES (8, 0, 1, 1, NULL, NULL, NULL, NULL, '2019-09-03 20:26:26', '2019-09-03 20:26:26');
+INSERT INTO `order_history` VALUES (9, 0, 12, 1, NULL, NULL, NULL, NULL, '2019-09-03 22:30:08', '2019-09-03 22:30:08');
+INSERT INTO `order_history` VALUES (10, 0, 12, 3, NULL, NULL, NULL, NULL, '2019-09-03 22:30:35', '2019-09-03 22:30:35');
+INSERT INTO `order_history` VALUES (11, 0, 16, 2, NULL, NULL, NULL, NULL, '2019-09-03 22:33:40', '2019-09-03 22:33:40');
+INSERT INTO `order_history` VALUES (12, 0, 10, 3, NULL, NULL, NULL, NULL, '2019-09-03 22:34:36', '2019-09-03 22:34:36');
 
 -- ----------------------------
 -- Table structure for password_resets
@@ -1606,7 +1585,7 @@ CREATE TABLE `sv_customers`  (
   `created_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
   `updated_at` timestamp(0) NOT NULL,
   PRIMARY KEY (`idcustomer`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of sv_customers
@@ -1623,6 +1602,7 @@ INSERT INTO `sv_customers` VALUES (9, 'duong', NULL, 'Hau', 'admin@mgkgroup.vn',
 INSERT INTO `sv_customers` VALUES (10, 'duong', NULL, 'Hau', 'admin@mgkgroup.vn', NULL, '0967655819', 'thu duc', 17, 1, '', NULL, NULL, '2019-08-31 12:51:14', '2019-08-31 12:51:14');
 INSERT INTO `sv_customers` VALUES (11, 'duong', NULL, 'Hau', 'admin@mgkgroup.vn', NULL, '0967655819', 'thu duc', 17, 1, '', NULL, NULL, '2019-08-31 12:51:47', '2019-08-31 12:51:47');
 INSERT INTO `sv_customers` VALUES (12, 'duong', NULL, 'Hau', 'admin@mgkgroup.vn', NULL, '0967655819', 'thu duc', 2, 1, '', NULL, 'dfgdg', '2019-08-31 15:11:19', '2019-08-31 15:11:19');
+INSERT INTO `sv_customers` VALUES (13, 'duong', NULL, 'Hau', 'admin@mgkgroup.vn', NULL, '0967655819', 'thu duc', 2, 1, '', NULL, NULL, '2019-09-03 08:35:44', '2019-09-03 08:35:44');
 
 -- ----------------------------
 -- Table structure for sv_post_types
@@ -2592,6 +2572,28 @@ BEGIN
 delimiter ;
 
 -- ----------------------------
+-- Procedure structure for LstOrdSessionProcedure
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `LstOrdSessionProcedure`;
+delimiter ;;
+CREATE PROCEDURE `LstOrdSessionProcedure`(IN _str_query varchar(255), IN _idstore int(11))
+BEGIN
+               DROP TABLE IF EXISTS tmp_product;
+                DROP TABLE IF EXISTS temp_products;
+                create TEMPORARY TABLE tmp_product(id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY , idproduct INTEGER not NULL, input_quality INTEGER not null);
+                SET @queryString = _str_query;
+                PREPARE stmt FROM @queryString;
+                EXECUTE stmt;
+                DEALLOCATE PREPARE stmt;
+                create TEMPORARY TABLE temp_products(id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY , idproduct INTEGER not NULL, input_quality INTEGER not null) as (select idproduct,input_quality from tmp_product);
+                select rs_info.* from (select inf.*,f.urlfile from (select al_info.*,phf.idfile FROM (select info_pro.namepro,info_pro.slug,info_pro.short_desc,info_pro.description,info_pro.idcrosstype,info_pro.parent,info_pro.id,(CASE WHEN info_pro.parent = 0 THEN info_pro.input_quality ELSE 1 END) as inp_qua,imp.* from (select al_pros.*,0 as parent,0 as idcrosstype from (select p.idproduct,p.namepro,p.slug,p.short_desc,p.description,tmp_prs.id,tmp_prs.input_quality from temp_products as tmp_prs JOIN products as p on tmp_prs.idproduct = p.idproduct) as al_pros UNION all select al_pro.* from (select p.idproduct,p.namepro,p.slug,p.short_desc,p.description,pr.id, (CASE WHEN pr.parent = 0 THEN pr.input_quality ELSE 1 END) as inp_qua,pr.parent,pr.idcrosstype from (select cp.idproduct,cp.idcrosstype,cp.idproduct_cross,tmp_p.id as parent,tmp_p.id, tmp_p.input_quality from tmp_product as tmp_p join cross_product as cp on tmp_p.idproduct = cp.idproduct) as pr join products as p on pr.idproduct_cross = p.idproduct) as al_pro) as info_pro join (select * from imp_products WHERE idstore = _idstore) as imp on info_pro.idproduct = imp.idproduct) as al_info LEFT JOIN producthasfile as phf on al_info.idproduct = phf.idproduct) as inf LEFT JOIN files as f on inf.idfile = f.idfile) as rs_info;
+                DROP TABLE tmp_product;
+                DROP TABLE temp_products;
+            END
+;;
+delimiter ;
+
+-- ----------------------------
 -- Procedure structure for MenuHasIdcateProcedure
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `MenuHasIdcateProcedure`;
@@ -2896,6 +2898,7 @@ delimiter ;;
 CREATE PROCEDURE `SelIdproductHisProcedure`(IN `_idhis` BIGINT(20))
   NO SQL 
 SELECT idproduct FROM `order_history` where idorderhistory = _idhis
+;
 ;;
 delimiter ;
 

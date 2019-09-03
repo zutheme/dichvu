@@ -40,7 +40,7 @@
 			<?php $str_session = Session::get('idorderhistory'); 
 			 	$Object = json_decode($str_session);
 				   foreach ($Object as $item) {
-				   		echo $item->idproduct.",".$item->quality;
+				   		echo $item->idproduct.",".$item->quality.",";
 				   	}	?>
 			{{ $str_qr }}
 			@if(isset($error))
@@ -113,7 +113,7 @@
 			<div class="col-md-1 col-sm-3 col-xs-6 c-cart-qty">
 				<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">SL</p>
 				<div class="c-input-group c-spinner">
-				    <input type="text" class="form-control c-item-1" value="{{ $row['amount'] }}">
+				    <input type="text" class="form-control c-item-1" value="{{ $row['inp_qua'] }}">
 				    <div class="c-input-group-btn-vertical">
 				    	<button class="btn btn-default" type="button" data_input="c-item-1" data-maximum="10"><i class="fa fa-caret-up"></i></button>
 				    	<button class="btn btn-default" type="button" data_input="c-item-1"><i class="fa fa-caret-down"></i></button>
@@ -126,14 +126,14 @@
 			</div>
 			<div class="col-md-1 col-sm-3 col-xs-6 c-cart-total">
 				<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">Tổng</p>
-				<p class="c-cart-price c-font-bold"><span class="currency">{{ $row['price']*$row['amount'] }}</span><span class="vnd"></span></p>
+				<p class="c-cart-price c-font-bold"><span class="currency">{{ $row['price']*$row['inp_qua'] }}</span><span class="vnd"></span></p>
 			</div>
 			<div class="col-md-1 col-sm-12 c-cart-remove">
 				<a href="#" class="c-theme-link c-cart-remove-desktop">×</a>
 				<a href="#" class="c-cart-remove-mobile btn c-btn c-btn-md c-btn-square c-btn-red c-btn-border-1x c-font-uppercase">Xóa</a>
 			</div>
 		</div>
-		<?php $subtotal = $subtotal + $row['price']*$row['amount']; ?>
+		<?php $subtotal = $subtotal + $row['price']*$row['inp_qua']; ?>
 		<?php $title_combo = 0; ?>
 		@foreach($rs_lstordsess as $item)
 			@if($item['parent'] == $idparent)
