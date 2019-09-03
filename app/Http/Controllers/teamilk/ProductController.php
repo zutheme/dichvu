@@ -311,10 +311,10 @@ class ProductController extends Controller
 
 	    if(isset($arr_his)){
 	    	$Object = json_decode($arr_his,true);
-	    	$Object[] = ['idproduct' => $_idproduct];
+	    	$Object[] = ['idproduct' => $_idproduct,'quality' => $_quality];
 	    	$str_Object = json_encode($Object);
 	    }else{	    	
-	    	$str_Object = '[{"idproduct":'.$_idproduct.'}]';
+	    	$str_Object = '[{"idproduct":'.$_idproduct.',"quality":'. $_quality.'}]';
 	    }
 	    session()->put('idorderhistory', $str_Object);
         //session()->save();

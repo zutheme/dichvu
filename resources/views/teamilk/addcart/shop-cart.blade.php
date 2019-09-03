@@ -37,8 +37,12 @@
 			<h3 class="c-font-uppercase c-font-sbold">Giỏ hàng</h3>
 
 			<h4 class="">Danh sách sản phẩm đã mua</h4>
-			
-			<?php //var_dump($product); ?>
+			<?php $str_session = Session::get('idorderhistory'); 
+			 	$Object = json_decode($str_session);
+				   foreach ($Object as $item) {
+				   		echo $item->idproduct.",".$item->quality;
+				   	}	?>
+			{{ $str_qr }}
 			@if(isset($error))
 
 				{{-- <h4>{{ $error }}</h4> --}}
@@ -87,138 +91,153 @@
 			</div>
 			<!-- BEGIN: SHOPPING CART ITEM ROW -->
 			<?php $subtotal = 0; ?>
-			@foreach($product as $item)
-			<div class="row c-cart-table-row">
-				<h2 class="c-font-uppercase c-font-bold c-theme-bg c-font-white c-cart-item-title c-cart-item-first">Item 1</h2>
-				<div class="col-md-2 col-sm-3 col-xs-5 c-cart-image">
-					<img src="{{ asset($item['url_thumbnail']) }}">
+	@foreach($rs_lstordsess as $row)
+		@if($row['parent']==0)
+		<?php $idparent = $row['id']; ?>
+		<div class="row c-cart-table-row">
+			{{-- <h3 class="c-font-uppercase c-font-bold c-font-dark c-cart-item-first">Dịch vụ</h3> --}}
+			<p>{{ $row['namepro'] }}</p>
+		</div>
+		<div class="row c-cart-table-row">
+			<h2 class="c-font-uppercase c-font-bold c-theme-bg c-font-white c-cart-item-title c-cart-item-first">{{ $row['namepro'] }}</h2>
+			<div class="col-md-2 col-sm-3 col-xs-5 c-cart-image">
+				<img src="{{ asset($row['urlfile']) }}">
+			</div>
+			<div class="col-md-4 col-sm-9 col-xs-7 c-cart-desc">
+				<h3><a href="{{ action('teamilk\ProductController@show',$row['idproduct']) }}" class="c-font-bold c-theme-link c-font-22 c-font-dark">{{ $row['namepro'] }}</a></h3>
+				<p>{{ $row['short_desc'] }}</p>
+			</div>
+			<div class="col-md-1 col-sm-3 col-xs-6 c-cart-ref">
+				<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold"></p>
+			</div>
+			<div class="col-md-1 col-sm-3 col-xs-6 c-cart-qty">
+				<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">SL</p>
+				<div class="c-input-group c-spinner">
+				    <input type="text" class="form-control c-item-1" value="{{ $row['amount'] }}">
+				    <div class="c-input-group-btn-vertical">
+				    	<button class="btn btn-default" type="button" data_input="c-item-1" data-maximum="10"><i class="fa fa-caret-up"></i></button>
+				    	<button class="btn btn-default" type="button" data_input="c-item-1"><i class="fa fa-caret-down"></i></button>
+				    </div>
 				</div>
-				<div class="col-md-4 col-sm-9 col-xs-7 c-cart-desc">
-					<h3><a href="{{ action('teamilk\ProductController@show',$item['idproduct']) }}" class="c-font-bold c-theme-link c-font-22 c-font-dark">{{ $item['namepro'] }}</a></h3>
-					<p>{{ $item['short_desc'] }}</p>
+			</div>
+			<div class="col-md-2 col-sm-3 col-xs-6 c-cart-price">
+				<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">Đơn giá</p>
+				<p class="c-cart-price c-font-bold"><span class="currency">{{ $row['price'] }}</span><span class="vnd"></span></p>
+			</div>
+			<div class="col-md-1 col-sm-3 col-xs-6 c-cart-total">
+				<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">Tổng</p>
+				<p class="c-cart-price c-font-bold"><span class="currency">{{ $row['price']*$row['amount'] }}</span><span class="vnd"></span></p>
+			</div>
+			<div class="col-md-1 col-sm-12 c-cart-remove">
+				<a href="#" class="c-theme-link c-cart-remove-desktop">×</a>
+				<a href="#" class="c-cart-remove-mobile btn c-btn c-btn-md c-btn-square c-btn-red c-btn-border-1x c-font-uppercase">Xóa</a>
+			</div>
+		</div>
+		<?php $subtotal = $subtotal + $row['price']*$row['amount']; ?>
+		<?php $title_combo = 0; ?>
+		@foreach($rs_lstordsess as $item)
+			@if($item['parent'] == $idparent)
+				@if($item['idcrosstype']==1)
+				<div class="row c-cart-table-row">
+					@if($title_combo == 0)
+						{{-- <h3 class="c-font-uppercase c-font-bold c-font-dark c-cart-item-first">Combo</h3> --}}
+						<p>Combo Pháp đồ điều trị theo Chương trình khuyến mãi:</p>
+						<?php $title_combo = 1; ?>
+					@endif
 				</div>
-				<div class="col-md-1 col-sm-3 col-xs-6 c-cart-ref">
-					<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold"></p>
-				</div>
-				<div class="col-md-1 col-sm-3 col-xs-6 c-cart-qty">
-					<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">QTY</p>
-					<div class="c-input-group c-spinner">
-					    <input type="text" class="form-control c-item-1" value="{{ $item['amount'] }}">
-					    <div class="c-input-group-btn-vertical">
-					    	<button class="btn btn-default" type="button" data_input="c-item-1" data-maximum="10"><i class="fa fa-caret-up"></i></button>
-					    	<button class="btn btn-default" type="button" data_input="c-item-1"><i class="fa fa-caret-down"></i></button>
-					    </div>
+				<div class="row c-cart-table-row">
+					<h2 class="c-font-uppercase c-font-bold c-theme-bg c-font-white c-cart-item-title c-cart-item-first">{{ $item['namepro'] }}</h2>
+					<div class="col-md-2 col-sm-3 col-xs-5 c-cart-image">
+						<img src="{{ asset($item['urlfile']) }}">
+					</div>
+					<div class="col-md-4 col-sm-9 col-xs-7 c-cart-desc">
+						<h3><a href="{{ action('teamilk\ProductController@show',$item['idproduct']) }}" class="c-font-bold c-theme-link c-font-22 c-font-dark">{{ $item['namepro'] }}</a></h3>
+						<p>{{ $item['short_desc'] }}</p>
+					</div>
+					<div class="col-md-1 col-sm-3 col-xs-6 c-cart-ref">
+						<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold"></p>
+					</div>
+					<div class="col-md-1 col-sm-3 col-xs-6 c-cart-qty">
+						<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">SL</p>
+						<div class="c-input-group c-spinner">
+						    <input type="text" class="form-control c-item-1" value="{{ $item['quality_combo'] }}">
+						    <div class="c-input-group-btn-vertical">
+						    	<button class="btn btn-default" type="button" data_input="c-item-1" data-maximum="10"><i class="fa fa-caret-up"></i></button>
+						    	<button class="btn btn-default" type="button" data_input="c-item-1"><i class="fa fa-caret-down"></i></button>
+						    </div>
+						</div>
+					</div>
+					<div class="col-md-2 col-sm-3 col-xs-6 c-cart-price">
+						<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">Đơn giá</p>
+						<p class="c-cart-price c-font-bold"><span class="currency">{{ $item['price_combo'] }}</span><span class="vnd"></span></p>
+					</div>
+					<div class="col-md-1 col-sm-3 col-xs-6 c-cart-total">
+						<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">Tổng</p>
+						<p class="c-cart-price c-font-bold"><span class="currency">{{ $item['price_combo']*$item['quality_combo'] }}</span><span class="vnd"></span></p>
+					</div>
+					<div class="col-md-1 col-sm-12 c-cart-remove">
+						<a href="#" class="c-theme-link c-cart-remove-desktop">×</a>
+						<a href="#" class="c-cart-remove-mobile btn c-btn c-btn-md c-btn-square c-btn-red c-btn-border-1x c-font-uppercase">Xóa</a>
 					</div>
 				</div>
-				<div class="col-md-2 col-sm-3 col-xs-6 c-cart-price">
-					<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">Unit Price</p>
-					<p class="c-cart-price c-font-bold"><span class="currency">{{ $item['price'] }}</span><span class="vnd"></span></p>
-				</div>
-				<div class="col-md-1 col-sm-3 col-xs-6 c-cart-total">
-					<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">Total</p>
-					<p class="c-cart-price c-font-bold"><span class="currency">{{ $item['price']*$item['amount'] }}</span><span class="vnd"></span></p>
-				</div>
-				<div class="col-md-1 col-sm-12 c-cart-remove">
-					<a href="#" class="c-theme-link c-cart-remove-desktop">×</a>
-					<a href="#" class="c-cart-remove-mobile btn c-btn c-btn-md c-btn-square c-btn-red c-btn-border-1x c-font-uppercase">Remove item from Cart</a>
-				</div>
-			</div>
-			<?php $subtotal = $subtotal + $item['price']*$item['amount']; ?>
-			@endforeach
-			<!-- END: SHOPPING CART ITEM ROW -->
-			<!-- BEGIN: COMBO ROW -->
-		@if(isset($sel_combo_byidproduct) && count($sel_combo_byidproduct) > 0)
-			<div class="row c-cart-table-row">
-				<h3 class="c-font-uppercase c-font-bold c-font-dark c-cart-item-first">Combo</h3>
-				<p>Pháp đồ điều trị theo Chương trình khuyến mãi 40%:</p>
-			</div>
-			@foreach($sel_combo_byidproduct as $item)
-			<div class="row c-cart-table-row">
-				<h2 class="c-font-uppercase c-font-bold c-theme-bg c-font-white c-cart-item-title c-cart-item-first">Item 1</h2>
-				<div class="col-md-2 col-sm-3 col-xs-5 c-cart-image">
-					<img src="{{ asset($item['urlfile']) }}">
-				</div>
-				<div class="col-md-4 col-sm-9 col-xs-7 c-cart-desc">
-					<h3><a href="{{ action('teamilk\ProductController@show',$item['idproduct']) }}" class="c-font-bold c-theme-link c-font-22 c-font-dark">{{ $item['namepro'] }}</a></h3>
-					<p>{{ $item['short_desc'] }}</p>
-				</div>
-				<div class="col-md-1 col-sm-3 col-xs-6 c-cart-ref">
-					<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold"></p>
-				</div>
-				<div class="col-md-1 col-sm-3 col-xs-6 c-cart-qty">
-					<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">QTY</p>
-					<div class="c-input-group c-spinner">
-					    <input type="text" class="form-control c-item-1" value="{{ $item['quality_combo'] }}">
-					    <div class="c-input-group-btn-vertical">
-					    	<button class="btn btn-default" type="button" data_input="c-item-1" data-maximum="10"><i class="fa fa-caret-up"></i></button>
-					    	<button class="btn btn-default" type="button" data_input="c-item-1"><i class="fa fa-caret-down"></i></button>
-					    </div>
-					</div>
-				</div>
-				<div class="col-md-2 col-sm-3 col-xs-6 c-cart-price">
-					<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">Unit Price</p>
-					<p class="c-cart-price c-font-bold"><span class="currency">{{ $item['price_combo'] }}</span><span class="vnd"></span></p>
-				</div>
-				<div class="col-md-1 col-sm-3 col-xs-6 c-cart-total">
-					<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">Total</p>
-					<p class="c-cart-price c-font-bold"><span class="currency">{{ $item['price_combo']*$item['quality_combo'] }}</span><span class="vnd"></span></p>
-				</div>
-				<div class="col-md-1 col-sm-12 c-cart-remove">
-					<a href="#" class="c-theme-link c-cart-remove-desktop">×</a>
-					<a href="#" class="c-cart-remove-mobile btn c-btn c-btn-md c-btn-square c-btn-red c-btn-border-1x c-font-uppercase">Xóa</a>
-				</div>
-			</div>
-			<?php $subtotal = $subtotal + $item['price_combo']*$item['quality_combo']; ?>
-			@endforeach
-		@endif
-			<!-- END: COMBO ROW -->
-			<!-- BEGIN: GIFT ROW -->
-		@if(isset($sel_gift_byidproduct) && count($sel_gift_byidproduct) > 0)
-			<div class="row c-cart-table-row">
-				<h3 class="c-font-uppercase c-font-bold c-font-dark c-cart-item-first">Quà tặng</h3>
-				{{-- <p>Thẻ bảo hành 24 tháng & Thẻ chăm sóc trị giá 105.000.000đ</p> --}}
-				<?php var_dump($sel_gift_byidproduct); ?>
-			</div>
-			@foreach($sel_gift_byidproduct as $item)
-			<div class="row c-cart-table-row">
-				<h2 class="c-font-uppercase c-font-bold c-theme-bg c-font-white c-cart-item-title c-cart-item-first">Item 1</h2>
-				<div class="col-md-2 col-sm-3 col-xs-5 c-cart-image">
-					<img src="{{ asset($item['urlfile']) }}">
-				</div>
-				<div class="col-md-4 col-sm-9 col-xs-7 c-cart-desc">
-					<h3><a href="{{ action('teamilk\ProductController@show',$item['idproduct']) }}" class="c-font-bold c-theme-link c-font-22 c-font-dark">{{ $item['namepro'] }}</a></h3>
-					<p>{{ $item['short_desc'] }}</p>
-				</div>
-				<div class="col-md-1 col-sm-3 col-xs-6 c-cart-ref">
-					<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold"></p>
-				</div>
-				<div class="col-md-1 col-sm-3 col-xs-6 c-cart-qty">
-					<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">QTY</p>
-					<div class="c-input-group c-spinner">
-					    <input type="text" class="form-control c-item-1" value="{{ $item['quality_gift'] }}">
-					    <div class="c-input-group-btn-vertical">
-					    	<button class="btn btn-default" type="button" data_input="c-item-1" data-maximum="10"><i class="fa fa-caret-up"></i></button>
-					    	<button class="btn btn-default" type="button" data_input="c-item-1"><i class="fa fa-caret-down"></i></button>
-					    </div>
-					</div>
-				</div>
-				<div class="col-md-2 col-sm-3 col-xs-6 c-cart-price">
-					<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">Unit Price</p>
-					<p class="c-cart-price c-font-bold"><span class="currency">{{ $item['price_gift']}}</span><span class="vnd"></span></p>
-				</div>
-				<div class="col-md-1 col-sm-3 col-xs-6 c-cart-total">
-					<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">Total</p>
-					<p class="c-cart-price c-font-bold"><span class="currency">{{ $item['price_gift']*$item['quality_gift'] }}</span><span class="vnd"></span></p>
-				</div>
-				<div class="col-md-1 col-sm-12 c-cart-remove">
-					<a href="#" class="c-theme-link c-cart-remove-desktop">×</a>
-					<a href="#" class="c-cart-remove-mobile btn c-btn c-btn-md c-btn-square c-btn-red c-btn-border-1x c-font-uppercase">Remove item from Cart</a>
-				</div>
-			</div>
-			<?php $subtotal = $subtotal + $item['price_gift']*$item['quality_gift']; ?>
-			@endforeach
+				<?php $subtotal = $subtotal + $item['price_combo']*$item['quality_combo']; ?>
+				@endif
 			@endif
+		@endforeach
+		<?php $title_gift = 0; ?>
+		@foreach($rs_lstordsess as $item)
+			@if($item['parent'] == $idparent)
+				@if($item['idcrosstype']==2)
+					@if($title_gift ==0 )
+					<div class="row c-cart-table-row">
+						{{-- <h3 class="c-font-uppercase c-font-bold c-font-dark c-cart-item-first">Quà tặng</h3> --}}
+						<p>Quà tặng Pháp đồ điều trị theo Chương trình khuyến mãi:</p>
+					</div>
+					<?php $title_gift = 1; ?>
+					@endif
+				<div class="row c-cart-table-row">
+					<h2 class="c-font-uppercase c-font-bold c-theme-bg c-font-white c-cart-item-title c-cart-item-first">{{ $item['namepro'] }}</h2>
+					<div class="col-md-2 col-sm-3 col-xs-5 c-cart-image">
+						<img src="{{ asset($item['urlfile']) }}">
+					</div>
+					<div class="col-md-4 col-sm-9 col-xs-7 c-cart-desc">
+						<h3><a href="{{ action('teamilk\ProductController@show',$item['idproduct']) }}" class="c-font-bold c-theme-link c-font-22 c-font-dark">{{ $item['namepro'] }}</a></h3>
+						<p>{{ $item['short_desc'] }}</p>
+					</div>
+					<div class="col-md-1 col-sm-3 col-xs-6 c-cart-ref">
+						<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold"></p>
+					</div>
+					<div class="col-md-1 col-sm-3 col-xs-6 c-cart-qty">
+						<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">SL</p>
+						<div class="c-input-group c-spinner">
+						    <input type="text" class="form-control c-item-1" value="{{ $item['quality_gift'] }}">
+						    <div class="c-input-group-btn-vertical">
+						    	<button class="btn btn-default" type="button" data_input="c-item-1" data-maximum="10"><i class="fa fa-caret-up"></i></button>
+						    	<button class="btn btn-default" type="button" data_input="c-item-1"><i class="fa fa-caret-down"></i></button>
+						    </div>
+						</div>
+					</div>
+					<div class="col-md-2 col-sm-3 col-xs-6 c-cart-price">
+						<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">Đơn giá</p>
+						<p class="c-cart-price c-font-bold"><span class="currency">{{ $item['price_gift'] }}</span><span class="vnd"></span></p>
+					</div>
+					<div class="col-md-1 col-sm-3 col-xs-6 c-cart-total">
+						<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">Tổng</p>
+						<p class="c-cart-price c-font-bold"><span class="currency">{{ $item['price_gift']*$item['quality_gift'] }}</span><span class="vnd"></span></p>
+					</div>
+					<div class="col-md-1 col-sm-12 c-cart-remove">
+						<a href="#" class="c-theme-link c-cart-remove-desktop">×</a>
+						<a href="#" class="c-cart-remove-mobile btn c-btn c-btn-md c-btn-square c-btn-red c-btn-border-1x c-font-uppercase">Xóa</a>
+					</div>
+				</div>
+				<?php $subtotal = $subtotal + $item['price_gift']*$item['quality_gift']; ?>
+				@endif
+			@endif
+		@endforeach
+		@endif
+	@endforeach
 			<!-- END: SHOPPING CART ITEM ROW -->
+			
 			<!-- BEGIN: SUBTOTAL ITEM ROW -->
 			<div class="row">
 				<div class="c-cart-subtotal-row c-margin-t-20">
@@ -257,7 +276,7 @@
 			</div> --}}
 			<!-- END: SUBTOTAL ITEM ROW -->
 			<div class="c-cart-buttons">
-				<a href="{{ url('/') }}" class="btn c-btn btn-lg c-btn-red c-btn-square c-font-white c-font-bold c-font-uppercase c-cart-float-l">Tiếp tục mua</a>
+				<a href="{{ url('/') }}" class="btn c-btn btn-lg c-btn-red c-btn-square c-font-white c-font-bold c-font-uppercase c-cart-float-l">Mua thêm</a>
 				<a href="{{ url('/teamilk/checkout') }}" class="btn c-btn btn-lg c-theme-btn c-btn-square c-font-white c-font-bold c-font-uppercase c-cart-float-r">Kế tiếp</a>
 			</div>
 		</div>
