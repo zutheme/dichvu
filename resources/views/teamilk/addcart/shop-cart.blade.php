@@ -1,7 +1,4 @@
 @extends('teamilk.master')
-
-
-
 @section('other_styles')
 
    {{-- <link href="{{ asset('dashboard/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet"> --}}
@@ -38,10 +35,8 @@
 
 			<h4 class="">Danh sách sản phẩm đã mua</h4>
 			<?php $str_session = Session::get('idorderhistory'); 
-			 	$Object = json_decode($str_session);
-				   foreach ($Object as $item) {
-				   		echo $item->idproduct.",".$item->quality.",";
-				   	}	?>
+			 	$Object = json_decode($str_session,true);
+				var_dump($Object); ?>
 			{{ $str_qr }}
 			@if(isset($error))
 
@@ -98,6 +93,7 @@
 			{{-- <h3 class="c-font-uppercase c-font-bold c-font-dark c-cart-item-first">Dịch vụ</h3> --}}
 			<p>{{ $row['namepro'] }}</p>
 		</div>
+		<?php $_total_item_parent = $row['price']*$row['input_quality'];?>
 		<div class="row c-cart-table-row">
 			<h2 class="c-font-uppercase c-font-bold c-theme-bg c-font-white c-cart-item-title c-cart-item-first">{{ $row['namepro'] }}</h2>
 			<div class="col-md-2 col-sm-3 col-xs-5 c-cart-image">
@@ -113,27 +109,29 @@
 			<div class="col-md-1 col-sm-3 col-xs-6 c-cart-qty">
 				<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">SL</p>
 				<div class="c-input-group c-spinner">
-				    <input type="text" class="form-control c-item-1" value="{{ $row['inp_qua'] }}">
+				    <input type="text" class="form-control c-item-parent amount" value="{{ $row['input_quality'] }}">
 				    <div class="c-input-group-btn-vertical">
-				    	<button class="btn btn-default" type="button" data_input="c-item-1" data-maximum="10"><i class="fa fa-caret-up"></i></button>
-				    	<button class="btn btn-default" type="button" data_input="c-item-1"><i class="fa fa-caret-down"></i></button>
+				    	<button class="btn btn-default" type="button" onclick="func_up(this)"><i class="fa fa-caret-up"></i></button>
+				    	<button class="btn btn-default" type="button" onclick="func_down(this)"><i class="fa fa-caret-down"></i></button>
 				    </div>
 				</div>
 			</div>
 			<div class="col-md-2 col-sm-3 col-xs-6 c-cart-price">
+				<input type="hidden" name="unit-price" class="unit-price" value="{{ $row['price'] }}">
 				<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">Đơn giá</p>
 				<p class="c-cart-price c-font-bold"><span class="currency">{{ $row['price'] }}</span><span class="vnd"></span></p>
 			</div>
 			<div class="col-md-1 col-sm-3 col-xs-6 c-cart-total">
 				<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">Tổng</p>
-				<p class="c-cart-price c-font-bold"><span class="currency">{{ $row['price']*$row['inp_qua'] }}</span><span class="vnd"></span></p>
+				<p class="c-cart-price c-font-bold"><span class="currency total-item">{{ $_total_item_parent }}</span><span class="vnd"></span></p>
+				<input type="hidden" name="subtotal" class="subtotal" value="{{ $_total_item_parent }}">
 			</div>
 			<div class="col-md-1 col-sm-12 c-cart-remove">
-				<a href="#" class="c-theme-link c-cart-remove-desktop">×</a>
-				<a href="#" class="c-cart-remove-mobile btn c-btn c-btn-md c-btn-square c-btn-red c-btn-border-1x c-font-uppercase">Xóa</a>
+				<a href="javascript:void(0)" onclick="remove_itemt(this);" class="c-theme-link c-cart-remove-desktop">×</a>
+				<a href="javascript:void(0)" onclick="remove_itemt(this);" class="c-cart-remove-mobile btn c-btn c-btn-md c-btn-square c-btn-red c-btn-border-1x c-font-uppercase">Xóa</a>
 			</div>
 		</div>
-		<?php $subtotal = $subtotal + $row['price']*$row['inp_qua']; ?>
+		<?php $subtotal = $subtotal + $_total_item_parent; ?>
 		<?php $title_combo = 0; ?>
 		@foreach($rs_lstordsess as $item)
 			@if($item['parent'] == $idparent)
@@ -145,6 +143,10 @@
 						<?php $title_combo = 1; ?>
 					@endif
 				</div>
+				<?php
+						$_quality_combo = $item['input_quality']*$item['quality_combo'];
+						$_total_item_combo = $item['price_combo']*$_quality_combo;
+					?>
 				<div class="row c-cart-table-row">
 					<h2 class="c-font-uppercase c-font-bold c-theme-bg c-font-white c-cart-item-title c-cart-item-first">{{ $item['namepro'] }}</h2>
 					<div class="col-md-2 col-sm-3 col-xs-5 c-cart-image">
@@ -160,27 +162,29 @@
 					<div class="col-md-1 col-sm-3 col-xs-6 c-cart-qty">
 						<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">SL</p>
 						<div class="c-input-group c-spinner">
-						    <input type="text" class="form-control c-item-1" value="{{ $item['quality_combo'] }}">
+						    <input type="text" class="form-control c-item-combo amount" value="{{ $_quality_combo }}">
 						    <div class="c-input-group-btn-vertical">
-						    	<button class="btn btn-default" type="button" data_input="c-item-1" data-maximum="10"><i class="fa fa-caret-up"></i></button>
-						    	<button class="btn btn-default" type="button" data_input="c-item-1"><i class="fa fa-caret-down"></i></button>
+						    	<button class="btn btn-default" type="button" onclick="func_up(this)"><i class="fa fa-caret-up"></i></button>
+				    			<button class="btn btn-default" type="button" onclick="func_down(this)"><i class="fa fa-caret-down"></i></button>
 						    </div>
 						</div>
 					</div>
 					<div class="col-md-2 col-sm-3 col-xs-6 c-cart-price">
+						<input type="hidden" name="unit-price" class="unit-price" value="{{ $item['price_combo'] }}">
 						<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">Đơn giá</p>
 						<p class="c-cart-price c-font-bold"><span class="currency">{{ $item['price_combo'] }}</span><span class="vnd"></span></p>
 					</div>
 					<div class="col-md-1 col-sm-3 col-xs-6 c-cart-total">
 						<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">Tổng</p>
-						<p class="c-cart-price c-font-bold"><span class="currency">{{ $item['price_combo']*$item['quality_combo'] }}</span><span class="vnd"></span></p>
+						<p class="c-cart-price c-font-bold"><span class="currency total-item">{{ $_total_item_combo }}</span><span class="vnd"></span></p>
+						<input type="hidden" name="subtotal" class="subtotal" value="{{ $_total_item_combo }}">
 					</div>
 					<div class="col-md-1 col-sm-12 c-cart-remove">
-						<a href="#" class="c-theme-link c-cart-remove-desktop">×</a>
-						<a href="#" class="c-cart-remove-mobile btn c-btn c-btn-md c-btn-square c-btn-red c-btn-border-1x c-font-uppercase">Xóa</a>
+						<a href="javascript:void(0)" onclick="remove_itemt(this);" class="c-theme-link c-cart-remove-desktop">×</a>
+						<a href="javascript:void(0)" onclick="remove_itemt(this);" class="c-cart-remove-mobile btn c-btn c-btn-md c-btn-square c-btn-red c-btn-border-1x c-font-uppercase">Xóa</a>
 					</div>
 				</div>
-				<?php $subtotal = $subtotal + $item['price_combo']*$item['quality_combo']; ?>
+				<?php $subtotal = $subtotal + $_total_item_combo ?>
 				@endif
 			@endif
 		@endforeach
@@ -195,6 +199,10 @@
 					</div>
 					<?php $title_gift = 1; ?>
 					@endif
+					<?php
+						$_quality_gift = $item['input_quality']*$item['quality_gift'];
+						$_total_item_gift = $item['price_gift']*$_quality_gift;
+					?>
 				<div class="row c-cart-table-row">
 					<h2 class="c-font-uppercase c-font-bold c-theme-bg c-font-white c-cart-item-title c-cart-item-first">{{ $item['namepro'] }}</h2>
 					<div class="col-md-2 col-sm-3 col-xs-5 c-cart-image">
@@ -210,27 +218,29 @@
 					<div class="col-md-1 col-sm-3 col-xs-6 c-cart-qty">
 						<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">SL</p>
 						<div class="c-input-group c-spinner">
-						    <input type="text" class="form-control c-item-1" value="{{ $item['quality_gift'] }}">
+						    <input type="text" class="form-control c-item-gift amount" value="{{ $_quality_gift }}">
 						    <div class="c-input-group-btn-vertical">
-						    	<button class="btn btn-default" type="button" data_input="c-item-1" data-maximum="10"><i class="fa fa-caret-up"></i></button>
-						    	<button class="btn btn-default" type="button" data_input="c-item-1"><i class="fa fa-caret-down"></i></button>
+						    	<button class="btn btn-default" type="button" onclick="func_up(this)"><i class="fa fa-caret-up"></i></button>
+				    			<button class="btn btn-default" type="button" onclick="func_down(this)"><i class="fa fa-caret-down"></i></button>
 						    </div>
 						</div>
 					</div>
 					<div class="col-md-2 col-sm-3 col-xs-6 c-cart-price">
+						<input type="hidden" name="unit-price" class="unit-price" value="{{ $item['price_gift'] }}">
 						<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">Đơn giá</p>
 						<p class="c-cart-price c-font-bold"><span class="currency">{{ $item['price_gift'] }}</span><span class="vnd"></span></p>
 					</div>
 					<div class="col-md-1 col-sm-3 col-xs-6 c-cart-total">
 						<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">Tổng</p>
-						<p class="c-cart-price c-font-bold"><span class="currency">{{ $item['price_gift']*$item['quality_gift'] }}</span><span class="vnd"></span></p>
+						<p class="c-cart-price c-font-bold"><span class="currency total-item">{{ $_total_item_gift }}</span><span class="vnd"></span></p>
+						<input type="hidden" name="subtotal" class="subtotal" value="{{ $_total_item_gift }}">
 					</div>
 					<div class="col-md-1 col-sm-12 c-cart-remove">
-						<a href="#" class="c-theme-link c-cart-remove-desktop">×</a>
-						<a href="#" class="c-cart-remove-mobile btn c-btn c-btn-md c-btn-square c-btn-red c-btn-border-1x c-font-uppercase">Xóa</a>
+						<a href="javascript:void(0)" onclick="remove_itemt(this);" class="c-theme-link c-cart-remove-desktop">×</a>
+						<a href="javascript:void(0)" onclick="remove_itemt(this);" class="c-cart-remove-mobile btn c-btn c-btn-md c-btn-square c-btn-red c-btn-border-1x c-font-uppercase">Xóa</a>
 					</div>
 				</div>
-				<?php $subtotal = $subtotal + $item['price_gift']*$item['quality_gift']; ?>
+				<?php $subtotal = $subtotal + $_total_item_gift; ?>
 				@endif
 			@endif
 		@endforeach
@@ -239,13 +249,13 @@
 			<!-- END: SHOPPING CART ITEM ROW -->
 			
 			<!-- BEGIN: SUBTOTAL ITEM ROW -->
-			<div class="row">
+			<div class="row row-total">
 				<div class="c-cart-subtotal-row c-margin-t-20">
 					<div class="col-md-2 col-md-offset-9 col-sm-6 col-xs-6 c-cart-subtotal-border">
 						<h3 class="c-font-uppercase c-font-bold c-right c-font-16 c-font-grey-2">Tổng cộng</h3>
 					</div>
 					<div class="col-md-1 col-sm-6 col-xs-6 c-cart-subtotal-border">
-						<h3 class="c-font-bold c-font-16"><span class="currency">{{ $subtotal }}</span><span class="vnd"></span></h3>
+						<h3 class="c-font-bold c-font-16"><span class="currency total">{{ $subtotal }}</span><span class="vnd"></span></h3>
 					</div>
 				</div>
 			</div>
@@ -346,5 +356,5 @@
     <!-- BEGIN: PAGE SCRIPTS -->
 	<script src="{{ asset('assets-tea/assets/plugins/zoom-master/jquery.zoom.min.js') }}" type="text/javascript"></script>
 	<!-- END: PAGE SCRIPTS -->
-	<script src="{{ asset('assets-tea/js/shop_cart_service.js?v=0.0.0.1') }}" type="text/javascript"></script>
+	<script src="{{ asset('assets-tea/js/shop_cart_service.js?v=0.0.2.1') }}" type="text/javascript"></script>
 @stop

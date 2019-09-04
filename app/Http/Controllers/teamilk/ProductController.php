@@ -293,6 +293,37 @@ class ProductController extends Controller
     }
 
     public function orderhistory(Request $request){
+        $input = json_decode(file_get_contents('php://input'),true);
+        $_idproduct = $input['idproduct'];
+        $_quality = $input['quality'];
+        $_userid_order = $input['userid_order'];
+        $_idstore = 31;
+        //list order product save to session
+        //$_str_query = "INSERT into tmp_product(idproduct,input_quality) VALUES ".$str_qr;
+        //$qr_orderhis = DB::select('call LstOrdSessionProcedure(?,?)',array($_str_query, $_idstore));
+        //$idorderhistory = json_decode(json_encode($qr_orderhis), true);
+
+        //$qr_orderhis = DB::select('call OrderHistoryProcedure(?,?,?)',array($_userid_order,$_idproduct,$_quality));
+        //$idorderhistory = json_decode(json_encode($qr_orderhis), true);
+
+        //$idorderhis = $idorderhistory[0]['idorderhistory'];
+        $idorderhis = 1;
+        $arr_his = session()->get('idorderhistory');
+        $_trash = 1;
+	    if(isset($arr_his)){
+	    	$Object = json_decode($arr_his,true);
+	    	$Object[] = ['idproduct' => $_idproduct,'quality' => $_quality,'trash' => 1,'id'=>0,'parent'=>0];
+	    	$str_Object = json_encode($Object);
+	    }else{	    	
+	    	$str_Object = '[{"idproduct":'.$_idproduct.',"quality":'. $_quality.',"trash":1,"id":0,"parent":0}]';
+	    }
+	    session()->put('idorderhistory', $str_Object);
+        $str_session = session()->get('idorderhistory');
+        $Object = json_decode($str_session,true);
+        return response()->json($idorderhistory);
+    }
+
+     public function remove_item(Request $request){
 
         $input = json_decode(file_get_contents('php://input'),true);
 
@@ -302,21 +333,19 @@ class ProductController extends Controller
 
         $_userid_order = $input['userid_order'];
 
-        $qr_orderhis = DB::select('call OrderHistoryProcedure(?,?,?)',array($_userid_order,$_idproduct,$_quality));
+        //$qr_orderhis = DB::select('call OrderHistoryProcedure(?,?,?)',array($_userid_order,$_idproduct,$_quality));
 
-        $idorderhistory = json_decode(json_encode($qr_orderhis), true);
-        $idorderhis = $idorderhistory[0]['idorderhistory'];
+        //$idorderhistory = json_decode(json_encode($qr_orderhis), true);
+        //$idorderhis = $idorderhistory[0]['idorderhistory'];
 
         $arr_his = session()->get('idorderhistory');
-
-	    if(isset($arr_his)){
-	    	$Object = json_decode($arr_his,true);
-	    	$Object[] = ['idproduct' => $_idproduct,'quality' => $_quality];
-	    	$str_Object = json_encode($Object);
-	    }else{	    	
-	    	$str_Object = '[{"idproduct":'.$_idproduct.',"quality":'. $_quality.'}]';
-	    }
-	    session()->put('idorderhistory', $str_Object);
+        $_trash = 1;
+        if(isset($arr_his)){
+            $Object = json_decode($arr_his,true);
+            $Object[] = ['idproduct' => $_idproduct,'quality' => $_quality,'trash' => $_trash];
+            $str_Object = json_encode($Object);
+        }
+        session()->put('idorderhistory', $str_Object);
         //session()->save();
         return response()->json($idorderhistory);
     }

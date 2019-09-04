@@ -14,9 +14,9 @@ class SelIdproductHisProcedure extends Migration
     public function up()
     {
         DB::unprepared("
-            CREATE PROCEDURE SelIdproductHisProcedure(IN _idhis bigint(20))
+            CREATE PROCEDURE SelIdproductHisProcedure(IN _str_query varchar(255), IN _idstore int(11))
             BEGIN
-                SELECT idproduct FROM `order_history` where idorderhistory = _idhis;
+               SELECT idproduct FROM `order_history` where idorderhistory = _idhis;
             END"
         );
     }
