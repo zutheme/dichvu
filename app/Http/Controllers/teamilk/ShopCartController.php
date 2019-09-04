@@ -61,7 +61,7 @@ class ShopCartController extends Controller
        if(isset($arr_his)){
             $arr = json_decode($arr_his);
             foreach ($arr as  $item) {
-                $str_qr .= "(".$item->idproduct.",".$item->quality."),";
+                $str_qr .= "(".$item->idproduct.",".$item->input_quality."),";
                 $idproduct = $item->idproduct;
             }
        }else{

@@ -56,12 +56,13 @@ Route::get('/getmacshellexec',function()
 );
 Route::get('/showsession', function () {
 
-    $arr_his = session()->get('idorderhistory');
-    //var_dump($arr_his);
-	  $arr = json_decode($arr_his);
+    $str_Object = session()->get('idorderhistory');
+    
+	  $arr = json_decode($str_Object);
+	  //var_dump($arr);
 		foreach ($arr as  $item) {
-	  	echo $item->idproduct.",";
-	  }
+		  	echo $item->idproduct.",". $item->input_quality;
+		  }
 });
 
 
