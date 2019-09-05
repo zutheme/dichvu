@@ -93,9 +93,10 @@
 			{{-- <h3 class="c-font-uppercase c-font-bold c-font-dark c-cart-item-first">Dịch vụ</h3> --}}
 			<p>{{ $row['namepro'] }}</p>
 		</div>
-		<?php $_total_item_parent = $row['price']*$row['input_quality'];?>
+		<?php $_total_item_parent = $row['price']*$row['inp_session'];?>
 		<div class="row c-cart-table-row">
 			<input type="hidden" class="idorder" name="idoder" value="{{ $row['idorder'] }}">
+			<input type="hidden" class="parent" name="parent" value="0">
 			<h2 class="c-font-uppercase c-font-bold c-theme-bg c-font-white c-cart-item-title c-cart-item-first">{{ $row['namepro'] }}</h2>
 			<div class="col-md-2 col-sm-3 col-xs-5 c-cart-image">
 				<img src="{{ asset($row['urlfile']) }}">
@@ -110,7 +111,7 @@
 			<div class="col-md-1 col-sm-3 col-xs-6 c-cart-qty">
 				<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">SL</p>
 				<div class="c-input-group c-spinner">
-				    <input type="text" class="form-control c-item-parent amount" value="{{ $row['input_quality'] }}">
+				    <input type="text" class="form-control c-item-parent amount" value="{{ $row['inp_session'] }}">
 				    <div class="c-input-group-btn-vertical">
 				    	
 				    	<button class="btn btn-default" type="button" onclick="func_up(this)"><i class="fa fa-caret-up"></i></button>
@@ -151,6 +152,7 @@
 					?>
 				<div class="row c-cart-table-row">
 					<input type="hidden" class="idorder" name="idoder" value="{{ $item['idorder'] }}">
+					<input type="hidden" class="parent" name="parent" value="{{ $idparent }}">
 					<h2 class="c-font-uppercase c-font-bold c-theme-bg c-font-white c-cart-item-title c-cart-item-first">{{ $item['namepro'] }}</h2>
 					<div class="col-md-2 col-sm-3 col-xs-5 c-cart-image">
 						<img src="{{ asset($item['urlfile']) }}">
@@ -208,6 +210,7 @@
 					?>
 				<div class="row c-cart-table-row">
 					<input type="hidden" class="idorder" name="idoder" value="{{ $item['idorder'] }}">
+					<input type="hidden" class="parent" name="parent" value="{{ $idparent }}">
 					<h2 class="c-font-uppercase c-font-bold c-theme-bg c-font-white c-cart-item-title c-cart-item-first">{{ $item['namepro'] }}</h2>
 					<div class="col-md-2 col-sm-3 col-xs-5 c-cart-image">
 						<img src="{{ asset($item['urlfile']) }}">
@@ -360,5 +363,5 @@
     <!-- BEGIN: PAGE SCRIPTS -->
 	<script src="{{ asset('assets-tea/assets/plugins/zoom-master/jquery.zoom.min.js') }}" type="text/javascript"></script>
 	<!-- END: PAGE SCRIPTS -->
-	<script src="{{ asset('assets-tea/js/shop_cart_service.js?v=0.0.2.4') }}" type="text/javascript"></script>
+	<script src="{{ asset('assets-tea/js/shop_cart_service.js?v=0.0.3.5') }}" type="text/javascript"></script>
 @stop

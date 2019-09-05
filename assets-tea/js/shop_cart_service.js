@@ -9,6 +9,8 @@
 // exist_item();
 function func_up(element){
 	var _e_parent = element.parentElement.parentElement.parentElement.parentElement;
+	var _e_parent_order = _e_parent.getElementsByClassName("parent")[0];
+	var _parent_order = _e_parent_order.value;
 	var _e_amount = _e_parent.getElementsByClassName("amount")[0];	
 	var _amount_cart = parseInt(_e_amount.value) + 1;
 	 _e_amount.value = _amount_cart;
@@ -19,6 +21,27 @@ function func_up(element){
 	e_total_item.innerHTML = show_currency(sub_total);
 	var _e_subtotal = _e_parent.getElementsByClassName("subtotal")[0];
 	_e_subtotal.value = sub_total;
+	var _e_order = _e_parent.getElementsByClassName("idorder")[0];
+	var _e_quality = _e_parent.getElementsByClassName("idorder")[0];
+	var _idorder = _e_order.value;
+	if(_parent_order==0){
+		var _e_lstparentord = _e_parent.parentElement.getElementsByClassName("parent");
+		for (var i = _e_lstparentord.length - 1; i >= 0; i--) {
+			if(_e_lstparentord[i].value==_idorder){
+				var _e_parent_i = _e_lstparentord[i].parentElement;
+				var _e_parent_amount = _e_parent_i.getElementsByClassName("amount")[0];
+				_e_parent_amount.value = parseInt(_e_parent_amount.value)*_amount_cart;
+				var _e_unit_price = _e_parent_i.getElementsByClassName("unit-price")[0];
+				var _unit_price = parseInt(_e_unit_price.value);
+				var e_total_item = _e_parent_i.getElementsByClassName("total-item")[0];
+				var sub_total = _unit_price*_amount_cart;
+				e_total_item.innerHTML = show_currency(sub_total);
+				var _e_subtotal = _e_parent_i.getElementsByClassName("subtotal")[0];
+				_e_subtotal.value = sub_total;
+			}
+		}
+	}
+	changequality(_idorder,_amount_cart,renderchange);
 	total();
 }
 
@@ -84,7 +107,7 @@ function changequality(_idorder,_quality,callback){
  function renderchange(data){
  	if(data){
  		var myArr = JSON.parse(data);
- 		console.log(myArr);
+ 		//console.log(myArr);
     }
 	//var _e_loading = _e_modal_cart.getElementsByClassName("loading")[0];
     //_e_loading.style.display = "none";
