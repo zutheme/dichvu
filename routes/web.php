@@ -56,13 +56,18 @@ Route::get('/getmacshellexec',function()
 );
 Route::get('/showsession', function () {
 
-    $str_Object = session()->get('idorderhistory');
-    
-	  $arr = json_decode($str_Object);
+      $str_Object = session()->get('idorderhistory');
+	  $data = json_decode($str_Object,true);
 	  //var_dump($arr);
-		foreach ($arr as  $item) {
-		  	echo $item->idproduct.",". $item->input_quality;
-		  }
+	  $_idorder = 3; $_quality = 15;
+	  foreach($data as $key => $value){
+	  	if($data[$key]['idorder']==$_idorder){
+		  	$data[$key]['inp_session'] = $_quality;
+	  		}
+		}
+		//var_dump($data);
+		 $str_item = json_encode($data); 
+		 session()->put('idorderhistory', $str_item);
 });
 
 
@@ -166,8 +171,9 @@ Route::get('teamilk/getsesstion', ['uses' =>'teamilk\ProductController@get_sesst
 Route::get('teamilk/orderhistory', ['uses' =>'teamilk\ProductController@orderhistory']);
 
 Route::post('teamilk/orderhistory', ['uses' =>'teamilk\ProductController@orderhistory']);
-
-
+//change session quality
+Route::get('teamilk/changequality', ['uses' =>'teamilk\ProductController@changequality']);
+Route::post('teamilk/changequality', ['uses' =>'teamilk\ProductController@changequality']);
 
 Route::get('teamilk/shopcart', ['uses' =>'teamilk\ShopCartController@index']);
 

@@ -36,7 +36,7 @@
 			<h4 class="">Danh sách sản phẩm đã mua</h4>
 			<?php $str_session = Session::get('idorderhistory'); 
 			 	$Object = json_decode($str_session,true);
-				var_dump($Object); ?>
+				//var_dump($Object); ?>
 			{{ $str_qr }}
 			@if(isset($error))
 
@@ -88,13 +88,14 @@
 			<?php $subtotal = 0; ?>
 	@foreach($rs_lstordsess as $row)
 		@if($row['parent']==0)
-		<?php $idparent = $row['id']; ?>
+		<?php $idparent = $row['idorder']; ?>
 		<div class="row c-cart-table-row">
 			{{-- <h3 class="c-font-uppercase c-font-bold c-font-dark c-cart-item-first">Dịch vụ</h3> --}}
 			<p>{{ $row['namepro'] }}</p>
 		</div>
 		<?php $_total_item_parent = $row['price']*$row['input_quality'];?>
 		<div class="row c-cart-table-row">
+			<input type="hidden" class="idorder" name="idoder" value="{{ $row['idorder'] }}">
 			<h2 class="c-font-uppercase c-font-bold c-theme-bg c-font-white c-cart-item-title c-cart-item-first">{{ $row['namepro'] }}</h2>
 			<div class="col-md-2 col-sm-3 col-xs-5 c-cart-image">
 				<img src="{{ asset($row['urlfile']) }}">
@@ -111,6 +112,7 @@
 				<div class="c-input-group c-spinner">
 				    <input type="text" class="form-control c-item-parent amount" value="{{ $row['input_quality'] }}">
 				    <div class="c-input-group-btn-vertical">
+				    	
 				    	<button class="btn btn-default" type="button" onclick="func_up(this)"><i class="fa fa-caret-up"></i></button>
 				    	<button class="btn btn-default" type="button" onclick="func_down(this)"><i class="fa fa-caret-down"></i></button>
 				    </div>
@@ -144,10 +146,11 @@
 					@endif
 				</div>
 				<?php
-						$_quality_combo = $item['input_quality']*$item['quality_combo'];
+						$_quality_combo = $item['inp_session'];
 						$_total_item_combo = $item['price_combo']*$_quality_combo;
 					?>
 				<div class="row c-cart-table-row">
+					<input type="hidden" class="idorder" name="idoder" value="{{ $item['idorder'] }}">
 					<h2 class="c-font-uppercase c-font-bold c-theme-bg c-font-white c-cart-item-title c-cart-item-first">{{ $item['namepro'] }}</h2>
 					<div class="col-md-2 col-sm-3 col-xs-5 c-cart-image">
 						<img src="{{ asset($item['urlfile']) }}">
@@ -200,10 +203,11 @@
 					<?php $title_gift = 1; ?>
 					@endif
 					<?php
-						$_quality_gift = $item['input_quality']*$item['quality_gift'];
+						$_quality_gift = $item['inp_session'];
 						$_total_item_gift = $item['price_gift']*$_quality_gift;
 					?>
 				<div class="row c-cart-table-row">
+					<input type="hidden" class="idorder" name="idoder" value="{{ $item['idorder'] }}">
 					<h2 class="c-font-uppercase c-font-bold c-theme-bg c-font-white c-cart-item-title c-cart-item-first">{{ $item['namepro'] }}</h2>
 					<div class="col-md-2 col-sm-3 col-xs-5 c-cart-image">
 						<img src="{{ asset($item['urlfile']) }}">
@@ -356,5 +360,5 @@
     <!-- BEGIN: PAGE SCRIPTS -->
 	<script src="{{ asset('assets-tea/assets/plugins/zoom-master/jquery.zoom.min.js') }}" type="text/javascript"></script>
 	<!-- END: PAGE SCRIPTS -->
-	<script src="{{ asset('assets-tea/js/shop_cart_service.js?v=0.0.2.1') }}" type="text/javascript"></script>
+	<script src="{{ asset('assets-tea/js/shop_cart_service.js?v=0.0.2.4') }}" type="text/javascript"></script>
 @stop

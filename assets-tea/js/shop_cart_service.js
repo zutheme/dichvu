@@ -27,7 +27,7 @@ function func_down(element){
 	var _e_amount = _e_parent.getElementsByClassName("amount")[0];	
 	var _amount_cart = parseInt(_e_amount.value);
 	if(_amount_cart > 1){
-		_amount_cart =  parseInt(_e_amount.value) - 1;
+		_amount_cart =  _amount_cart - 1;
 		_e_amount.value = _amount_cart;
 	}
 	 _e_amount.value = _amount_cart;
@@ -39,6 +39,10 @@ function func_down(element){
 	var _e_subtotal = _e_parent.getElementsByClassName("subtotal")[0];
 	_e_subtotal.value = sub_total;
 	total();
+	var _e_order = _e_parent.getElementsByClassName("idorder")[0];
+	var _e_quality = _e_parent.getElementsByClassName("idorder")[0];
+	var _idorder = _e_order.value;
+	changequality(_idorder,_amount_cart,renderchange);
 }
 function total(){
 	var _e_subtotal = document.getElementsByName("subtotal");
@@ -56,3 +60,32 @@ function remove_itemt(element){
 	_e_parent.getElementsByClassName("subtotal")[0].value = 0;
 	total();
 }
+function changequality(_idorder,_quality,callback){
+	var _userid_order = 0;
+	var _csrf_token = document.getElementsByName("csrf-token")[0].getAttribute("content");
+    var http = new XMLHttpRequest();
+    var url = url_home+"/teamilk/changequality";
+    var params = JSON.stringify({"userid_order":_userid_order,"idorder":_idorder,"quality":_quality});
+    http.open("POST", url, true);
+    http.setRequestHeader("X-CSRF-TOKEN", _csrf_token);
+    http.setRequestHeader("Accept", "application/json");
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    //var _e_loading = _e_modal_cart.getElementsByClassName("loading")[0];
+    //_e_loading.style.display = "block";
+    http.onreadystatechange = function() {
+        if(http.readyState == 4 && http.status == 200) {
+        	callback(this.responseText);
+            //_e_modal_cart.style.display = "block";          
+        }
+    }
+    http.send(params);
+   console.log("request sent to the server");
+ }
+ function renderchange(data){
+ 	if(data){
+ 		var myArr = JSON.parse(data);
+ 		console.log(myArr);
+    }
+	//var _e_loading = _e_modal_cart.getElementsByClassName("loading")[0];
+    //_e_loading.style.display = "none";
+ }
