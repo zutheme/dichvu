@@ -137,3 +137,28 @@ for (var i = _e_currency.length - 1; i >= 0; i--) {
   _format_current = _e_currency[i].innerHTML;
   _e_currency[i].innerHTML = show_currency(_format_current);
 }
+function cart_number(){
+  var e_cart_number = document.getElementsByClassName("c-mega-menu")[0].getElementsByClassName("c-cart-number")[0];
+  var _csrf_token = document.getElementsByName("csrf-token")[0].getAttribute("content");
+    var http = new XMLHttpRequest();
+    var _userid_order = 0;
+    var url = url_home+"/teamilk/cartnumber";
+    var params = JSON.stringify({"userid_order":_userid_order});  
+    //var params = JSON.stringify({"userid_order":_userid_order,"idorder":_idorder,"quality":_quality});
+    http.open("POST", url, true);
+    http.setRequestHeader("X-CSRF-TOKEN", _csrf_token);
+    http.setRequestHeader("Accept", "application/json");
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    http.onreadystatechange = function() {
+        if(http.readyState == 4 && http.status == 200) {
+          //callback(this.responseText);
+          var count = JSON.parse(this.responseText);
+          e_cart_number.innerHTML = count;
+          console.log(e_cart_number);        
+        }
+    }
+    http.send(params);
+}
+document.addEventListener('DOMContentLoaded', (event) => {
+  cart_number();
+})

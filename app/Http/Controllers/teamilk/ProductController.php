@@ -355,19 +355,44 @@ class ProductController extends Controller
     //change quality session
     public function changequality(Request $request){
         $input = json_decode(file_get_contents('php://input'),true);
-        $_idorder = $input['idorder'];
-        $_quality = $input['quality'];
+        //$_idorder = $input['idorder'];
+        //$_quality = $input['quality'];
         $_userid_order = $input['userid_order'];
+        $_listchange = $input['listchange'];
+        $Object = json_decode($_listchange,true);
+        //return response()->json($Object);
         $str_Object = session()->get('idorderhistory');
         $data = json_decode($str_Object,true);
-        foreach($data as $key => $value){
-            if($data[$key]['idorder']==$_idorder){
-                $data[$key]['inp_session'] = $_quality;
+        foreach ($Object as $row) {
+            $_idorder = $row['idorder'];
+            $_quality = $row['quality'];
+            $_trash = $row['trash'];
+            foreach($data as $key => $value){
+                if($data[$key]['idorder']==$_idorder){
+                    $data[$key]['inp_session'] = $_quality;
+                    $data[$key]['trash'] = $_trash;
+                }
             }
         }
          $str_item = json_encode($data); 
          session()->put('idorderhistory', $str_item);
          return response()->json($str_item);
+    }
+    //change quality session
+    public function cartnumber(Request $request){
+        $input = json_decode(file_get_contents('php://input'),true);
+        $_userid_order = $input['userid_order'];
+        $str_Object = session()->get('idorderhistory');
+        $data = json_decode($str_Object,true);
+        $numbercart = 0;
+        if(!empty($data)){
+            foreach ($data as $row) {
+                if($row['trash'] > 0 ){
+                    $numbercart++;
+                }
+            }
+        }
+        return response()->json($numbercart);
     }
      public function remove_item(Request $request){
 

@@ -174,6 +174,8 @@ Route::post('teamilk/orderhistory', ['uses' =>'teamilk\ProductController@orderhi
 //change session quality
 Route::get('teamilk/changequality', ['uses' =>'teamilk\ProductController@changequality']);
 Route::post('teamilk/changequality', ['uses' =>'teamilk\ProductController@changequality']);
+Route::get('teamilk/cartnumber', ['uses' =>'teamilk\ProductController@cartnumber']);
+Route::post('teamilk/cartnumber', ['uses' =>'teamilk\ProductController@cartnumber']);
 
 Route::get('teamilk/shopcart', ['uses' =>'teamilk\ShopCartController@index']);
 

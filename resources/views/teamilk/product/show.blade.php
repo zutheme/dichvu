@@ -11,7 +11,7 @@
 			<link href="{{ asset('assets-tea/assets/plugins/fancybox/jquery.fancybox.css') }}" rel="stylesheet" type="text/css">
 			<link href="{{ asset('assets-tea/assets/plugins/slider-for-bootstrap/css/slider.css') }}" rel="stylesheet" type="text/css">
 				<!-- END: BASE PLUGINS -->
-			<link href="{{ asset('assets-tea/css/custom-product.css?v=0.7.3') }}" rel="stylesheet" type="text/css">
+			<link href="{{ asset('assets-tea/css/custom-product.css?v=0.7.8') }}" rel="stylesheet" type="text/css">
 @stop
 
 
@@ -749,27 +749,19 @@
       <span class="close">&times;</span>
 
       	<form class="frm-cart">
-      		<p><img class="loading" style="display:none;width:80px;" src="{{ asset('dashboard/production/images/loader.gif') }}"></p>
-      		<div class="col-sm-12">
-
-		  		<h3>Sản phẩm đã thêm vào giỏ hàng</h3>
-
-		  	</div>
-
-		  	<div class="col-sm-6 text-center">
-
-		  		<a href="{{ url('/') }}" class="btn btn-default btn-cart-continue">Tiếp tục mua hàng</a>
-
-		  	</div>
-
-		  	<div class="col-sm-6 text-center">
-
-		  		<a href="{{ url('/teamilk/shopcart') }}" class="btn btn-default btn-view-cart">Xem giỏ hàng</a>
-
-		  	</div>
-
-		  		 
-
+      		<div class="area-process">
+      		<a href="javascript:void(0)"><img class="processing" style="display:none;width:100%;" src="{{ asset('dashboard/production/images/processing.gif') }}"></a></div>
+      		<div class="note" style="display: none;">
+	      		<div class="col-sm-12">
+			  		<h3>Sản phẩm đã thêm vào giỏ hàng</h3>
+			  	</div>
+			  	<div class="col-sm-6 text-center">
+			  		<a href="{{ url('/') }}" class="btn btn-default btn-cart-continue">Tiếp tục mua hàng</a>
+			  	</div>
+			  	<div class="col-sm-6 text-center">
+			  		<a href="{{ url('/teamilk/shopcart') }}" class="btn btn-default btn-view-cart">Xem giỏ hàng</a>
+			  	</div>
+			 </div>
 		</form>	  	
 
     </div>
@@ -792,6 +784,6 @@
 
 	<!-- END: PAGE SCRIPTS -->
 
-	<script src="{{ asset('assets-tea/js/custom-product.js?v=1.4.9') }}" type="text/javascript"></script>
+	<script src="{{ asset('assets-tea/js/custom-product.js?v=1.6.2') }}" type="text/javascript"></script>
 
 @stop

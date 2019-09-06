@@ -137,6 +137,13 @@
    -moz-border-radius: 5px; 
    border-radius: 5px;  
 }
+.modal-cart-form .modal-content-cart .frm-cart {
+    background: transparent !important;
+}
+.modal-cart-form .modal-content-cart .area-process {
+    background: transparent !important;
+    text-align: center;
+}
 .modal-cart-form .modal-content-cart .btn {
     font-size:15px; 
     font-weight: 400;
@@ -173,7 +180,10 @@
     max-width: 20px;
     max-height: 20px;
 }
-
+.modal-cart-form .modal-content-cart .process {
+    max-width: 100%
+    max-height: auto;
+}
 @media (max-width: 768px){
     .modal-cart-form .modal-content-cart {
         text-align: center;
@@ -285,3 +295,90 @@ ul.c-page-breadcrumbs li:last-child:after{
     content: "";
     display: inline-block;
 }
+/*cart*/
+.modal-remove-item .modal-cart {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0%;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-remove-item .modal-content-cart {
+    text-align: center;
+    background: transparent;
+   /* background-image: url(../images/nen-frm2.jpg);*/
+    margin: 15% auto; 
+    padding: 20px 20px;
+    border: 0px solid #888;
+    max-width: 300px;
+    min-height: 200px;
+}
+.modal-remove-item .modal-content-cart .frm-cart {
+    background: transparent !important;
+}
+.modal-remove-item .modal-content-cart .area-process {
+    background: transparent !important;
+    text-align: center;
+}
+.modal-remove-item .modal-content-cart .btn {
+    font-size:15px; 
+    font-weight: 400;
+    color:#451511;
+    width: 100%;
+}
+.modal-remove-item .modal-content-cart h3 {
+    font-size: 18px;
+    font-weight: 600px;
+    color: #451511;
+    line-height: 1.8em;
+}
+
+/* The Close Button */
+.modal-remove-item .modal-content-cart .close{
+    color: #000;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    z-index: 0;
+    top: -20px;
+    right: -10px;
+    position: relative;
+    background: transparent;
+}
+
+.modal-remove-item .modal-content-cart .close:hover,
+.modal-remove-item .modal-content-cart .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+.modal-remove-item .modal-content-cart .loading {
+    max-width: 100%;
+    max-height: auto;
+}
+.modal-remove-item .modal-content-cart .process {
+    max-width: 100%
+    max-height: auto;
+}
+@media (max-width: 768px){
+    .modal-remove-item .modal-content-cart {
+        text-align: center;
+        background: #fff;
+       /* background-image: url(../images/nen-frm2.jpg);*/
+        margin: 15% auto; 
+        padding: 20px 20px;
+        border: 1px solid #888;
+        max-width: 450px;
+       -webkit-border-radius: 5px; 
+       -moz-border-radius: 5px; 
+       border-radius: 5px;  
+    }
+}
+/*end cart*/

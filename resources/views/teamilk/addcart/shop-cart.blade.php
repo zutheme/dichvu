@@ -15,7 +15,7 @@
 
 				<!-- END: BASE PLUGINS -->
 
-			<link href="{{ asset('assets-tea/css/custom-product.css?v=0.8.6') }}" rel="stylesheet" type="text/css">
+			<link href="{{ asset('assets-tea/css/custom-product.css?v=0.9.0') }}" rel="stylesheet" type="text/css">
 
 @stop
 
@@ -324,7 +324,26 @@
 </script>
 
 <!-- END: PAGE CONTENT -->
+<div class="modal-remove-item">
 
+  <div class="modal-cart">
+
+    <!-- Modal content -->
+
+    <div class="modal-content-cart">
+
+     {{--  <span class="close">&times;</span> --}}
+
+      	<form class="frm-cart">
+      		<div class="area-process">
+      		<a href="javascript:void(0)"><img class="loading" style="display:none;width:100%;" src="{{ asset('dashboard/production/images/bluespinner.gif') }}"></a></div>
+		</form>	  	
+
+    </div>
+
+  </div>
+
+</div>  
 <div class="modal-nocart-form">
 
   <div class="modal-nocart">
@@ -347,7 +366,7 @@
 
 		  	</div>
 
-		  	<p><img class="loading" style="display:none;width:30px;" src="{{ asset('dashboard/production/images/loader.gif') }}"></p>	 
+		  	<p><img class="loading" style="display:none;width:80px;" src="{{ asset('dashboard/production/images/processing.gif') }}"></p>	 
 
 		</form>	  	
 
@@ -363,5 +382,5 @@
     <!-- BEGIN: PAGE SCRIPTS -->
 	<script src="{{ asset('assets-tea/assets/plugins/zoom-master/jquery.zoom.min.js') }}" type="text/javascript"></script>
 	<!-- END: PAGE SCRIPTS -->
-	<script src="{{ asset('assets-tea/js/shop_cart_service.js?v=0.0.3.5') }}" type="text/javascript"></script>
+	<script src="{{ asset('assets-tea/js/shop_cart_service.js?v=0.1.0.0') }}" type="text/javascript"></script>
 @stop

@@ -1,16 +1,19 @@
 var _e_modal_form_cart = document.getElementsByClassName("modal-cart-form")[0];
 var _e_modal_cart = _e_modal_form_cart.getElementsByClassName("modal-cart")[0];
 var _e_close = _e_modal_cart.getElementsByClassName("close")[0];
-function note_addcart(){
-	_e_modal_cart.style.display = "block";
-	var _l_itemts = getCookie('lcart');
-	if(!isRealValue(_l_itemts)){
-		setCookie('lcart',1,3);
-	}
-}
+var _e_loading = _e_modal_cart.getElementsByClassName("processing")[0];
+var _e_note = _e_modal_cart.getElementsByClassName("note")[0];
+// function note_addcart(){
+// 	_e_modal_cart.style.display = "block";
+// 	var _l_itemts = getCookie('lcart');
+// 	if(!isRealValue(_l_itemts)){
+// 		setCookie('lcart',1,3);
+// 	}
+// }
 _e_close.addEventListener("click",close_note_cart);
 function close_note_cart(){
 	_e_modal_cart.style.display = "none";
+	_e_note.style.display ="none";
 }
 function func_up(element){
 	var _e_parent = element.parentElement.parentElement;
@@ -61,12 +64,11 @@ function makeAJAXCall(element,callback){
     http.setRequestHeader("X-CSRF-TOKEN", _csrf_token);
     http.setRequestHeader("Accept", "application/json");
     http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    var _e_loading = _e_modal_cart.getElementsByClassName("loading")[0];
+    _e_modal_cart.style.display = "block";
     _e_loading.style.display = "block";
     http.onreadystatechange = function() {
         if(http.readyState == 4 && http.status == 200) {
-        	callback(this.responseText);
-            _e_modal_cart.style.display = "block";          
+        	callback(this.responseText);     
         }
     }
     http.send(params);
@@ -91,8 +93,9 @@ function makeAJAXCall(element,callback){
   //       	var json_arr = JSON.stringify(arr_lcart);    
 		// 	setCookie('lcart',json_arr,3);
 		// }
+    	_e_loading.style.display = "none";
+    	_e_note.style.display = "block";
+    	cart_number();
     }
-	var _e_loading = _e_modal_cart.getElementsByClassName("loading")[0];
-    _e_loading.style.display = "none";
  }
 

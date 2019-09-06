@@ -262,7 +262,7 @@
 
     <!-- END: LAYOUT/BASE/BOTTOM -->
 
-     <script src="{{ asset('assets-tea/js/custom.js?v=0.3.6') }}" type="text/javascript"></script>
+     <script src="{{ asset('assets-tea/js/custom.js?v=0.3.8') }}" type="text/javascript"></script>
 
      <script src="{{ asset('assets-tea/js/menu.js?v=0.0.5') }}" type="text/javascript"></script>
      <!-- Load Facebook SDK for JavaScript -->

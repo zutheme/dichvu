@@ -56,10 +56,12 @@ class ShopCartController extends Controller
         $_idstore = 31;
         $str_qr = "";
         $arr_his = session()->get('idorderhistory');
-       if(isset($arr_his)){
+       if(!empty($arr_his)){
             $arr = json_decode($arr_his);
             foreach ($arr as  $item) {
-                $str_qr .= '('.$item->idorder.','.$item->idcrosstype.','.$item->parent.','.$item->id.','.$item->input_quality.','.$item->idproduct.','.$item->inp_session.','.$item->trash.'),';
+                if($item->trash > 0) {
+                    $str_qr .= '('.$item->idorder.','.$item->idcrosstype.','.$item->parent.','.$item->id.','.$item->input_quality.','.$item->idproduct.','.$item->inp_session.','.$item->trash.'),';
+                }
              }
        }else{
             return redirect()->to('/');
