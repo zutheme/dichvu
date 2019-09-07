@@ -282,43 +282,27 @@ class ShopCartController extends Controller
 
         $count_order = 0;
 
-        foreach( $_l_idproduct as $key => $_idproduct ) {
-
-          $parent_id = $_l_parent_id[$key];
-
-          $quality = $_l_quality[$key];
-
-          $unit_price = $_l_unit_price[$key];
-
-          if($parent_id==0){
-
-            $_note_order = $_note;
-
-          }else {
-
-            $_note_order = "";
-
-          }
-
-          if($count_order == 0 && $parent_id==0){
-
-            $qr_order = DB::select('call OrderProductProcedure(?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',array($ordernumber,$_idproduct, $parent_id, $_idcustomer, $_id_reci_customer, $_iduser_curent, $quality, $unit_price, $_note_order, $_namestore, $_axis_x, $_axis_y, $_axis_z, 0));
-
-            $rs_order = json_decode(json_encode($qr_order), true);
-
-            $ordernumber = $rs_order[0]['ordernumber'];
-
-            $qr_update_order = DB::select('call UpdateOrderNumberProcedure(?)',array($ordernumber));
-
-          }else{
-
-            DB::select('call OrderProductProcedure(?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',array($ordernumber,$_idproduct, $parent_id, $_idcustomer, $_id_reci_customer, $_iduser_curent, $quality, $unit_price, $_note_order, $_namestore, $_axis_x, $_axis_y, $_axis_z, 0));
-
-          }
-
-          $count_order++;
-
-        }
+        $_idstore = 31;
+        $str_qr = "";$rs_lstordsess=array();$bool_str = false;
+        $arr_his = session()->get('idorderhistory');
+       if(!empty($arr_his)){
+            $arr = json_decode($arr_his);
+            foreach ($arr as  $item) {
+                if($item->trash > 0) {
+                    $str_qr .= '('.$item->idorder.','.$item->idcrosstype.','.$item->parent.','.$item->id.','.$item->input_quality.','.$item->idproduct.','.$item->inp_session.','.$item->trash.'),';
+                    $bool_str = true;
+                }
+             }
+       }else{
+            return redirect()->to('/');
+       }
+       if($bool_str) {
+            $_namestore='import';$_note='';$_idcustomer=0;$_idrecipent=0;$_iduser=0;
+            $str_qr = substr_replace($str_qr ,"", -1);
+            $str_qr = "INSERT into tmp_product(idorder,idcrosstype,parent,id,input_quality,idproduct,inp_session,trash) VALUES ".$str_qr;
+            $qr_lstordsess = DB::select('call OrderProductFromSessionProcedure(?,?,?,?,?,?)',array($_idcustomer, $_idrecipent, $_iduser,$_note,$_namestore,$str_qr));
+            //$rs_lstordsess = json_decode(json_encode($qr_lstordsess), true);       
+       }
 
         $qr_shorttotal = DB::select('call ShortTotalProcedure(?)',array($ordernumber));
 

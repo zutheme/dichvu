@@ -37,7 +37,7 @@
 			<?php $str_session = Session::get('idorderhistory'); 
 			 	$Object = json_decode($str_session,true);
 				//var_dump($Object); ?>
-			{{-- {{ $str_qr }} --}}
+			{{ $str_qr }}
 			@if(isset($error))
 
 				{{-- <h4>{{ $error }}</h4> --}}
