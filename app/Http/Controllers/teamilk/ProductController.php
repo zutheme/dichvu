@@ -359,8 +359,8 @@ class ProductController extends Controller
         //$_quality = $input['quality'];
         $_userid_order = $input['userid_order'];
         $_listchange = $input['listchange'];
+        //$str_json = stripslashes($_listchange);
         $Object = json_decode($_listchange,true);
-        //return response()->json($Object);
         $str_Object = session()->get('idorderhistory');
         $data = json_decode($str_Object,true);
         foreach ($Object as $row) {
@@ -376,7 +376,9 @@ class ProductController extends Controller
         }
          $str_item = json_encode($data); 
          session()->put('idorderhistory', $str_item);
-         return response()->json($str_item);
+         session()->save();
+         $str_Object = session()->get('idorderhistory');
+         return response()->json($str_Object);
     }
     //change quality session
     public function cartnumber(Request $request){

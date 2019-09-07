@@ -55,19 +55,9 @@ Route::get('/getmacshellexec',function()
     }
 );
 Route::get('/showsession', function () {
-
       $str_Object = session()->get('idorderhistory');
 	  $data = json_decode($str_Object,true);
-	  //var_dump($arr);
-	  $_idorder = 3; $_quality = 15;
-	  foreach($data as $key => $value){
-	  	if($data[$key]['idorder']==$_idorder){
-		  	$data[$key]['inp_session'] = $_quality;
-	  		}
-		}
-		//var_dump($data);
-		 $str_item = json_encode($data); 
-		 session()->put('idorderhistory', $str_item);
+	  var_dump($data);
 });
 
 

@@ -26,7 +26,7 @@ function func_up(element){
 	_e_subtotal.value = sub_total;
 	var _e_order = _e_parent.getElementsByClassName("idorder")[0];
 	var _idorder = _e_order.value;
-	var _lst_order = '{"idorder":'+_idorder+',"quality":'+_amount_cart+'"trash":1},';
+	var _lst_order = '{"idorder":'+_idorder+',"quality":'+_amount_cart+',"trash":1},';
 	if(_parent_order==0){
 		var _e_lstparentord = _e_parent.parentElement.getElementsByClassName("parent");
 		for (var i = _e_lstparentord.length - 1; i >= 0; i--) {
@@ -43,7 +43,7 @@ function func_up(element){
 				_e_subtotal.value = sub_total;
 				var _i_e_order = _e_parent_i.getElementsByClassName("idorder")[0];
 				var _i_idorder = _i_e_order.value;
-				_lst_order = _lst_order + '{"idorder":'+_i_idorder+',"quality":'+_e_parent_amount.value+'"trash":1},';
+				_lst_order = _lst_order + '{"idorder":'+_i_idorder+',"quality":'+_e_parent_amount.value+',"trash":1},';
 			}
 		}
 	}
@@ -74,7 +74,7 @@ function func_down(element){
 	_e_subtotal.value = sub_total;
 	var _e_order = _e_parent.getElementsByClassName("idorder")[0];
 	var _idorder = _e_order.value;
-	var _lst_order = '{"idorder":'+_idorder+',"quality":'+_amount_cart+'"trash":1},';
+	var _lst_order = '{"idorder":'+_idorder+',"quality":'+_amount_cart+',"trash":1},';
 	if(_parent_order==0){
 		var _e_lstparentord = _e_parent.parentElement.getElementsByClassName("parent");
 		for (var i = _e_lstparentord.length - 1; i >= 0; i--) {
@@ -91,7 +91,7 @@ function func_down(element){
 				_e_subtotal.value = sub_total;
 				var _i_e_order = _e_parent_i.getElementsByClassName("idorder")[0];
 				var _i_idorder = _i_e_order.value;
-				_lst_order = _lst_order + '{"idorder":'+_i_idorder+',"quality":'+_e_parent_amount.value+'"trash":1},';
+				_lst_order = _lst_order + '{"idorder":'+_i_idorder+',"quality":'+_e_parent_amount.value+',"trash":1},';
 			}
 		}
 	}
@@ -111,9 +111,17 @@ function total(){
 	_e_row_total.innerHTML = _total;
 	cart_number();	
 }
-
+function hasClass(element, className) {
+    return (' ' + element.className + ' ').indexOf(' ' + className+ ' ') > -1;
+}
 function remove_itemt(element){
 	var _e_parent = element.parentElement.parentElement;
+	var _e_prev_header = _e_parent.previousElementSibling;
+	if(_e_prev_header){
+		if(hasClass(_e_prev_header, "header")){
+			_e_prev_header.style.display = "none";
+		}
+	}
 	var _e_parent_order = _e_parent.getElementsByClassName("parent")[0];
 	var _parent_order = _e_parent_order.value;
 	var _e_amount = _e_parent.getElementsByClassName("amount")[0];
@@ -127,6 +135,13 @@ function remove_itemt(element){
 		for (var i = _e_lstparentord.length - 1; i >= 0; i--) {
 			if(_e_lstparentord[i].value==_idorder){
 				var _e_parent_i = _e_lstparentord[i].parentElement;
+				var _e_prev_header = _e_parent_i.previousElementSibling;
+				if(_e_prev_header){
+					if(hasClass(_e_prev_header, "header")){
+						_e_prev_header.style.display = "none";
+					}
+				}
+				_e_parent_i.style.display="none";
 				var _e_parent_amount = _e_parent_i.getElementsByClassName("amount")[0];
 				_e_parent_amount.value = 0;
 				var _e_unit_price = _e_parent_i.getElementsByClassName("unit-price")[0];
@@ -184,7 +199,7 @@ function change_lst_qua_ord(_lst_change,callback){
  function renderlstchange(data){
  	if(data){
  		var myArr = JSON.parse(data);
- 		//console.log(myArr);
+ 		console.log(myArr);
  		_e_modal_cart_remove.style.display = "none";
  		var _e_loading = e_modal_remove_item.getElementsByClassName("loading")[0];
     	_e_loading.style.display = "none";

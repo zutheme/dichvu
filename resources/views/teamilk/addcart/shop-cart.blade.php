@@ -37,7 +37,7 @@
 			<?php $str_session = Session::get('idorderhistory'); 
 			 	$Object = json_decode($str_session,true);
 				//var_dump($Object); ?>
-			{{ $str_qr }}
+			{{-- {{ $str_qr }} --}}
 			@if(isset($error))
 
 				{{-- <h4>{{ $error }}</h4> --}}
@@ -89,116 +89,121 @@
 	@foreach($rs_lstordsess as $row)
 		@if($row['parent']==0)
 		<?php $idparent = $row['idorder']; ?>
-		<div class="row c-cart-table-row">
-			{{-- <h3 class="c-font-uppercase c-font-bold c-font-dark c-cart-item-first">Dịch vụ</h3> --}}
-			<p>{{ $row['namepro'] }}</p>
-		</div>
-		<?php $_total_item_parent = $row['price']*$row['inp_session'];?>
-		<div class="row c-cart-table-row">
-			<input type="hidden" class="idorder" name="idoder" value="{{ $row['idorder'] }}">
-			<input type="hidden" class="parent" name="parent" value="0">
-			<h2 class="c-font-uppercase c-font-bold c-theme-bg c-font-white c-cart-item-title c-cart-item-first">{{ $row['namepro'] }}</h2>
-			<div class="col-md-2 col-sm-3 col-xs-5 c-cart-image">
-				<img src="{{ asset($row['urlfile']) }}">
+		
+			<div class="row c-cart-table-row header">
+				{{-- <h3 class="c-font-uppercase c-font-bold c-font-dark c-cart-item-first">Dịch vụ</h3> --}}
+				<p>{{ $row['namepro'] }}</p>
 			</div>
-			<div class="col-md-4 col-sm-9 col-xs-7 c-cart-desc">
-				<h3><a href="{{ action('teamilk\ProductController@show',$row['idproduct']) }}" class="c-font-bold c-theme-link c-font-22 c-font-dark">{{ $row['namepro'] }}</a></h3>
-				<p>{{ $row['short_desc'] }}</p>
-			</div>
-			<div class="col-md-1 col-sm-3 col-xs-6 c-cart-ref">
-				<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold"></p>
-			</div>
-			<div class="col-md-1 col-sm-3 col-xs-6 c-cart-qty">
-				<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">SL</p>
-				<div class="c-input-group c-spinner">
-				    <input type="text" class="form-control c-item-parent amount" value="{{ $row['inp_session'] }}">
-				    <div class="c-input-group-btn-vertical">
-				    	
-				    	<button class="btn btn-default" type="button" onclick="func_up(this)"><i class="fa fa-caret-up"></i></button>
-				    	<button class="btn btn-default" type="button" onclick="func_down(this)"><i class="fa fa-caret-down"></i></button>
-				    </div>
+			<?php $_total_item_parent = $row['price']*$row['inp_session'];?>
+			<div class="row c-cart-table-row">
+				<input type="hidden" class="idorder" name="idoder" value="{{ $row['idorder'] }}">
+				<input type="hidden" class="parent" name="parent" value="0">
+				<h2 class="c-font-uppercase c-font-bold c-theme-bg c-font-white c-cart-item-title c-cart-item-first">{{ $row['namepro'] }}</h2>
+				<div class="col-md-2 col-sm-3 col-xs-5 c-cart-image">
+					<img src="{{ asset($row['urlfile']) }}">
+				</div>
+				<div class="col-md-4 col-sm-9 col-xs-7 c-cart-desc">
+					<h3><a href="{{ action('teamilk\ProductController@show',$row['idproduct']) }}" class="c-font-bold c-theme-link c-font-22 c-font-dark">{{ $row['namepro'] }}</a></h3>
+					<p>{{ $row['short_desc'] }}</p>
+				</div>
+				<div class="col-md-1 col-sm-3 col-xs-6 c-cart-ref">
+					<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold"></p>
+				</div>
+				<div class="col-md-1 col-sm-3 col-xs-6 c-cart-qty">
+					<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">SL</p>
+					<div class="c-input-group c-spinner">
+					    <input type="text" class="form-control c-item-parent amount" value="{{ $row['inp_session'] }}">
+					    <div class="c-input-group-btn-vertical">
+					    	
+					    	<button class="btn btn-default" type="button" onclick="func_up(this)"><i class="fa fa-caret-up"></i></button>
+					    	<button class="btn btn-default" type="button" onclick="func_down(this)"><i class="fa fa-caret-down"></i></button>
+					    </div>
+					</div>
+				</div>
+				<div class="col-md-2 col-sm-3 col-xs-6 c-cart-price">
+					<input type="hidden" name="unit-price" class="unit-price" value="{{ $row['price'] }}">
+					<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">Đơn giá</p>
+					<p class="c-cart-price c-font-bold"><span class="currency">{{ $row['price'] }}</span><span class="vnd"></span></p>
+				</div>
+				<div class="col-md-1 col-sm-3 col-xs-6 c-cart-total">
+					<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">Tổng</p>
+					<p class="c-cart-price c-font-bold"><span class="currency total-item">{{ $_total_item_parent }}</span><span class="vnd"></span></p>
+					<input type="hidden" name="subtotal" class="subtotal" value="{{ $_total_item_parent }}">
+				</div>
+				<div class="col-md-1 col-sm-12 c-cart-remove">
+					<a href="javascript:void(0)" onclick="remove_itemt(this);" class="c-theme-link c-cart-remove-desktop">×</a>
+					<a href="javascript:void(0)" onclick="remove_itemt(this);" class="c-cart-remove-mobile btn c-btn c-btn-md c-btn-square c-btn-red c-btn-border-1x c-font-uppercase">Xóa</a>
 				</div>
 			</div>
-			<div class="col-md-2 col-sm-3 col-xs-6 c-cart-price">
-				<input type="hidden" name="unit-price" class="unit-price" value="{{ $row['price'] }}">
-				<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">Đơn giá</p>
-				<p class="c-cart-price c-font-bold"><span class="currency">{{ $row['price'] }}</span><span class="vnd"></span></p>
-			</div>
-			<div class="col-md-1 col-sm-3 col-xs-6 c-cart-total">
-				<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">Tổng</p>
-				<p class="c-cart-price c-font-bold"><span class="currency total-item">{{ $_total_item_parent }}</span><span class="vnd"></span></p>
-				<input type="hidden" name="subtotal" class="subtotal" value="{{ $_total_item_parent }}">
-			</div>
-			<div class="col-md-1 col-sm-12 c-cart-remove">
-				<a href="javascript:void(0)" onclick="remove_itemt(this);" class="c-theme-link c-cart-remove-desktop">×</a>
-				<a href="javascript:void(0)" onclick="remove_itemt(this);" class="c-cart-remove-mobile btn c-btn c-btn-md c-btn-square c-btn-red c-btn-border-1x c-font-uppercase">Xóa</a>
-			</div>
-		</div>
+		
 		<?php $subtotal = $subtotal + $_total_item_parent; ?>
+		
 		<?php $title_combo = 0; ?>
-		@foreach($rs_lstordsess as $item)
-			@if($item['parent'] == $idparent)
-				@if($item['idcrosstype']==1)
-				<div class="row c-cart-table-row">
-					@if($title_combo == 0)
-						{{-- <h3 class="c-font-uppercase c-font-bold c-font-dark c-cart-item-first">Combo</h3> --}}
-						<p>Combo Pháp đồ điều trị theo Chương trình khuyến mãi:</p>
-						<?php $title_combo = 1; ?>
-					@endif
-				</div>
-				<?php
-						$_quality_combo = $item['inp_session'];
-						$_total_item_combo = $item['price_combo']*$_quality_combo;
-					?>
-				<div class="row c-cart-table-row">
-					<input type="hidden" class="idorder" name="idoder" value="{{ $item['idorder'] }}">
-					<input type="hidden" class="parent" name="parent" value="{{ $idparent }}">
-					<h2 class="c-font-uppercase c-font-bold c-theme-bg c-font-white c-cart-item-title c-cart-item-first">{{ $item['namepro'] }}</h2>
-					<div class="col-md-2 col-sm-3 col-xs-5 c-cart-image">
-						<img src="{{ asset($item['urlfile']) }}">
+			@foreach($rs_lstordsess as $item)
+				@if($item['parent'] == $idparent)
+					@if($item['idcrosstype']==1)
+					<div class="row c-cart-table-row header">
+						@if($title_combo == 0)
+							{{-- <h3 class="c-font-uppercase c-font-bold c-font-dark c-cart-item-first">Combo</h3> --}}
+							<p>Combo Pháp đồ điều trị theo Chương trình khuyến mãi:</p>
+							<?php $title_combo = 1; ?>
+						@endif
 					</div>
-					<div class="col-md-4 col-sm-9 col-xs-7 c-cart-desc">
-						<h3><a href="{{ action('teamilk\ProductController@show',$item['idproduct']) }}" class="c-font-bold c-theme-link c-font-22 c-font-dark">{{ $item['namepro'] }}</a></h3>
-						<p>{{ $item['short_desc'] }}</p>
-					</div>
-					<div class="col-md-1 col-sm-3 col-xs-6 c-cart-ref">
-						<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold"></p>
-					</div>
-					<div class="col-md-1 col-sm-3 col-xs-6 c-cart-qty">
-						<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">SL</p>
-						<div class="c-input-group c-spinner">
-						    <input type="text" class="form-control c-item-combo amount" value="{{ $_quality_combo }}">
-						    <div class="c-input-group-btn-vertical">
-						    	<button class="btn btn-default" type="button" onclick="func_up(this)"><i class="fa fa-caret-up"></i></button>
-				    			<button class="btn btn-default" type="button" onclick="func_down(this)"><i class="fa fa-caret-down"></i></button>
-						    </div>
+					<?php
+							$_quality_combo = $item['inp_session'];
+							$_total_item_combo = $item['price_combo']*$_quality_combo;
+						?>
+					<div class="row c-cart-table-row">
+						<input type="hidden" class="idorder" name="idoder" value="{{ $item['idorder'] }}">
+						<input type="hidden" class="parent" name="parent" value="{{ $idparent }}">
+						<h2 class="c-font-uppercase c-font-bold c-theme-bg c-font-white c-cart-item-title c-cart-item-first">{{ $item['namepro'] }}</h2>
+						<div class="col-md-2 col-sm-3 col-xs-5 c-cart-image">
+							<img src="{{ asset($item['urlfile']) }}">
+						</div>
+						<div class="col-md-4 col-sm-9 col-xs-7 c-cart-desc">
+							<h3><a href="{{ action('teamilk\ProductController@show',$item['idproduct']) }}" class="c-font-bold c-theme-link c-font-22 c-font-dark">{{ $item['namepro'] }}</a></h3>
+							<p>{{ $item['short_desc'] }}</p>
+						</div>
+						<div class="col-md-1 col-sm-3 col-xs-6 c-cart-ref">
+							<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold"></p>
+						</div>
+						<div class="col-md-1 col-sm-3 col-xs-6 c-cart-qty">
+							<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">SL</p>
+							<div class="c-input-group c-spinner">
+							    <input type="text" class="form-control c-item-combo amount" value="{{ $_quality_combo }}">
+							    <div class="c-input-group-btn-vertical">
+							    	<button class="btn btn-default" type="button" onclick="func_up(this)"><i class="fa fa-caret-up"></i></button>
+					    			<button class="btn btn-default" type="button" onclick="func_down(this)"><i class="fa fa-caret-down"></i></button>
+							    </div>
+							</div>
+						</div>
+						<div class="col-md-2 col-sm-3 col-xs-6 c-cart-price">
+							<input type="hidden" name="unit-price" class="unit-price" value="{{ $item['price_combo'] }}">
+							<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">Đơn giá</p>
+							<p class="c-cart-price c-font-bold"><span class="currency">{{ $item['price_combo'] }}</span><span class="vnd"></span></p>
+						</div>
+						<div class="col-md-1 col-sm-3 col-xs-6 c-cart-total">
+							<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">Tổng</p>
+							<p class="c-cart-price c-font-bold"><span class="currency total-item">{{ $_total_item_combo }}</span><span class="vnd"></span></p>
+							<input type="hidden" name="subtotal" class="subtotal" value="{{ $_total_item_combo }}">
+						</div>
+						<div class="col-md-1 col-sm-12 c-cart-remove">
+							<a href="javascript:void(0)" onclick="remove_itemt(this);" class="c-theme-link c-cart-remove-desktop">×</a>
+							<a href="javascript:void(0)" onclick="remove_itemt(this);" class="c-cart-remove-mobile btn c-btn c-btn-md c-btn-square c-btn-red c-btn-border-1x c-font-uppercase">Xóa</a>
 						</div>
 					</div>
-					<div class="col-md-2 col-sm-3 col-xs-6 c-cart-price">
-						<input type="hidden" name="unit-price" class="unit-price" value="{{ $item['price_combo'] }}">
-						<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">Đơn giá</p>
-						<p class="c-cart-price c-font-bold"><span class="currency">{{ $item['price_combo'] }}</span><span class="vnd"></span></p>
-					</div>
-					<div class="col-md-1 col-sm-3 col-xs-6 c-cart-total">
-						<p class="c-cart-sub-title c-theme-font c-font-uppercase c-font-bold">Tổng</p>
-						<p class="c-cart-price c-font-bold"><span class="currency total-item">{{ $_total_item_combo }}</span><span class="vnd"></span></p>
-						<input type="hidden" name="subtotal" class="subtotal" value="{{ $_total_item_combo }}">
-					</div>
-					<div class="col-md-1 col-sm-12 c-cart-remove">
-						<a href="javascript:void(0)" onclick="remove_itemt(this);" class="c-theme-link c-cart-remove-desktop">×</a>
-						<a href="javascript:void(0)" onclick="remove_itemt(this);" class="c-cart-remove-mobile btn c-btn c-btn-md c-btn-square c-btn-red c-btn-border-1x c-font-uppercase">Xóa</a>
-					</div>
-				</div>
-				<?php $subtotal = $subtotal + $_total_item_combo ?>
+					<?php $subtotal = $subtotal + $_total_item_combo ?>
+					@endif
 				@endif
-			@endif
-		@endforeach
+			@endforeach
+		
 		<?php $title_gift = 0; ?>
+		
 		@foreach($rs_lstordsess as $item)
 			@if($item['parent'] == $idparent)
 				@if($item['idcrosstype']==2)
 					@if($title_gift ==0 )
-					<div class="row c-cart-table-row">
+					<div class="row c-cart-table-row header">
 						{{-- <h3 class="c-font-uppercase c-font-bold c-font-dark c-cart-item-first">Quà tặng</h3> --}}
 						<p>Quà tặng Pháp đồ điều trị theo Chương trình khuyến mãi:</p>
 					</div>
@@ -336,7 +341,7 @@
 
       	<form class="frm-cart">
       		<div class="area-process">
-      		<a href="javascript:void(0)"><img class="loading" style="display:none;width:100%;" src="{{ asset('dashboard/production/images/bluespinner.gif') }}"></a></div>
+      		<a href="javascript:void(0)"><img class="loading" style="display:none;width:100%;" src="{{ asset('dashboard/production/images/spinner.gif') }}"></a></div>
 		</form>	  	
 
     </div>
@@ -366,7 +371,7 @@
 
 		  	</div>
 
-		  	<p><img class="loading" style="display:none;width:80px;" src="{{ asset('dashboard/production/images/processing.gif') }}"></p>	 
+		  	<p><img class="loading" style="display:none;width:80px;" src="{{ asset('dashboard/production/images/spinner.gif') }}"></p>	 
 
 		</form>	  	
 
@@ -382,5 +387,5 @@
     <!-- BEGIN: PAGE SCRIPTS -->
 	<script src="{{ asset('assets-tea/assets/plugins/zoom-master/jquery.zoom.min.js') }}" type="text/javascript"></script>
 	<!-- END: PAGE SCRIPTS -->
-	<script src="{{ asset('assets-tea/js/shop_cart_service.js?v=0.1.0.0') }}" type="text/javascript"></script>
+	<script src="{{ asset('assets-tea/js/shop_cart_service.js?v=0.1.2.3') }}" type="text/javascript"></script>
 @stop

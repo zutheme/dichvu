@@ -154,7 +154,7 @@ function cart_number(){
           //callback(this.responseText);
           var count = JSON.parse(this.responseText);
           e_cart_number.innerHTML = count;
-          console.log(e_cart_number);        
+          //console.log(e_cart_number);        
         }
     }
     http.send(params);

@@ -175,55 +175,68 @@
 							<div class="col-md-6 c-font-20"><h2>Tổng</h2></div>
 						</li>
 						<?php $subtotal = 0; ?>
-						@if(isset($product))
-						@foreach($product as $item)
-							<li class="row c-border-bottom"></li>
-							<li class="row c-margin-b-15 c-margin-t-15">
-								<div class="col-md-6 c-font-20"><a href="{{ action('teamilk\ProductController@show',$item['idproduct']) }}" class="c-theme-link">{{ $item['namepro'] }} x  {{ $item['amount'] }} (buổi)</a></div>
-								<div class="col-md-6 c-font-20">
-									<p class=""><span class="currency">{{ $item['amount']*$item['price'] }}</span><span class="vnd"></span></p>
-								</div>
-							</li>
-	   		  				<input type="hidden" name="l_idproduct[]" value="{{ $item['idproduct'] }}">
-			  				<input type="hidden" name="l_parent_id[]" value="0">
-			 				<input type="hidden" name="l_quality[]" value="{{ $item['amount'] }}">
-			  				<input type="hidden" name="l_unit_price[]" value="{{ $item['price'] }}">
-			  				<?php $idparent = $item['idproduct']; ?>
-							<?php $subtotal = $subtotal + ($item['amount']*$item['price']); ?>
-						@endforeach
-						@endif
-						@if(isset($sel_combo_byidproduct))
-						@foreach($sel_combo_byidproduct as $item)
-							<li class="row c-border-bottom"></li>
-							<li class="row c-margin-b-15 c-margin-t-15">
-								<div class="col-md-6 c-font-20"><a href="{{ action('teamilk\ProductController@show',$item['idproduct']) }}" class="c-theme-link">{{ $item['namepro'] }} x  {{ $item['quality_combo'] }} (buổi)</a></div>
-								<div class="col-md-6 c-font-20">
-									<p class=""><span class="currency">{{ $item['quality_combo']*$item['price_combo'] }}</span><span class="vnd"></span></p>
-								</div>
-							</li>
-							<input type="hidden" name="l_idproduct[]" value="{{ $item['idproduct'] }}">
-			  				<input type="hidden" name="l_parent_id[]" value="{{ $idparent }}">
-			 				<input type="hidden" name="l_quality[]" value="{{ $item['quality_combo'] }}">
-			  				<input type="hidden" name="l_unit_price[]" value="{{ $item['price_combo'] }}">
-							<?php $subtotal = $subtotal + ($item['quality_combo']*$item['price_combo']); ?>
-						@endforeach
-						@endif
-						@if(isset($sel_gift_byidproduct))
-						@foreach($sel_gift_byidproduct as $item)
-							<li class="row c-border-bottom"></li>
-							<li class="row c-margin-b-15 c-margin-t-15">
-								<div class="col-md-6 c-font-20"><a href="{{ action('teamilk\ProductController@show',$item['idproduct']) }}" class="c-theme-link">{{ $item['namepro'] }} x  {{ $item['quality_gift'] }} (buổi)</a></div>
-								<div class="col-md-6 c-font-20">
-									<p class=""><span class="currency">{{ $item['quality_gift']*$item['price_gift']}}</span><span class="vnd"></span></p>
-								</div>
-							</li>
-							<input type="hidden" name="l_idproduct[]" value="{{ $item['idproduct'] }}">
-			  				<input type="hidden" name="l_parent_id[]" value="{{ $idparent }}">
-			 				<input type="hidden" name="l_quality[]" value="{{ $item['quality_gift'] }}">
-			  				<input type="hidden" name="l_unit_price[]" value="{{ $item['price_gift'] }}">
-							<?php $subtotal = $subtotal + ($item['quality_gift']*$item['price_gift']); ?>
-						@endforeach
-						@endif
+			@foreach($rs_lstordsess as $row)
+				@if($row['parent']==0) <!--if parent-->
+					<?php $idparent = $row['idorder']; 
+					 $_total_item_parent = $row['price']*$row['inp_session'];?>
+					 	<li class="row c-border-bottom"></li>
+						<li class="row c-margin-b-15 c-margin-t-15">
+							<div class="col-md-6 c-font-20"><a href="{{ action('teamilk\ProductController@show',$row['idproduct']) }}" class="c-theme-link">{{ $row['namepro'] }} x  {{ $row['inp_session'] }} (buổi)</a></div>
+							<div class="col-md-6 c-font-20">
+								<p class=""><span class="currency">{{ $_total_item_parent }}</span><span class="vnd"></span></p>
+							</div>
+						</li>
+   		  				<input type="hidden" name="l_idproduct[]" value="{{ $row['idproduct'] }}">
+		  				<input type="hidden" name="l_parent_id[]" value="{{ $row['parent'] }}">
+		 				<input type="hidden" name="l_quality[]" value="{{ $row['inp_session'] }}">
+		  				<input type="hidden" name="l_unit_price[]" value="{{ $row['price'] }}">
+					 <?php $subtotal = $subtotal + $_total_item_parent; ?>
+					@foreach($rs_lstordsess as $item)
+						@if($item['parent'] == $idparent) <!--if have child-->
+							@if($item['idcrosstype']==1) <!--if have combo-->
+								<?php
+									$_quality_combo = $item['inp_session'];
+									$_total_item_combo = $item['price_combo']*$_quality_combo;
+								?>	
+								<li class="row c-border-bottom"></li>
+								<li class="row c-margin-b-15 c-margin-t-15">
+									<div class="col-md-6 c-font-20"><a href="{{ action('teamilk\ProductController@show',$item['idproduct']) }}" class="c-theme-link">{{ $item['namepro'] }} x  {{ $_quality_combo }} (buổi)</a></div>
+									<div class="col-md-6 c-font-20">
+										<p class=""><span class="currency">{{ $_total_item_combo }}</span><span class="vnd"></span></p>
+									</div>
+								</li>
+		   		  				<input type="hidden" name="l_idproduct[]" value="{{ $item['idproduct'] }}">
+				  				<input type="hidden" name="l_parent_id[]" value="{{ $idparent }}">
+				 				<input type="hidden" name="l_quality[]" value="{{ $_quality_combo }}">
+				  				<input type="hidden" name="l_unit_price[]" value="{{ $item['price_combo'] }}">
+								<?php $subtotal = $subtotal + $_total_item_combo; ?>
+							@endif <!--if end combo-->
+						@endif <!--end if child-->	
+					@endforeach
+					@foreach($rs_lstordsess as $item)
+						@if($item['parent'] == $idparent) <!--if have child-->
+							@if($item['idcrosstype']==2) <!--if have combo-->
+								<?php
+									$_quality_gift = $item['inp_session'];
+									$_total_item_gift = $item['price_gift']*$_quality_gift;
+								?>	
+								<li class="row c-border-bottom"></li>
+								<li class="row c-margin-b-15 c-margin-t-15">
+									<div class="col-md-6 c-font-20"><a href="{{ action('teamilk\ProductController@show',$item['idproduct']) }}" class="c-theme-link">{{ $item['namepro'] }} x  {{ $_quality_gift }} (buổi)</a></div>
+									<div class="col-md-6 c-font-20">
+										<p class=""><span class="currency">{{ $_total_item_gift }}</span><span class="vnd"></span></p>
+									</div>
+								</li>
+		   		  				<input type="hidden" name="l_idproduct[]" value="{{ $item['idproduct'] }}">
+				  				<input type="hidden" name="l_parent_id[]" value="{{ $idparent }}">
+				 				<input type="hidden" name="l_quality[]" value="{{ $_quality_gift }}">
+				  				<input type="hidden" name="l_unit_price[]" value="{{ $item['price_gift'] }}">
+								<?php $subtotal = $subtotal + $_total_item_gift; ?>
+							@endif <!--if end combo-->
+						@endif <!--end if child-->	
+					@endforeach
+				@endif <!--end if parent-->
+			@endforeach
 						
 						<li class="row c-margin-b-15 c-margin-t-15">
 							<div class="col-md-6 c-font-20">

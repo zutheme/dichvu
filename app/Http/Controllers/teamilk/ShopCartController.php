@@ -54,23 +54,26 @@ class ShopCartController extends Controller
     {
     	$_namecattype="product";
         $_idstore = 31;
-        $str_qr = "";
+        $str_qr = "";$rs_lstordsess=array();$bool_str = false;
         $arr_his = session()->get('idorderhistory');
        if(!empty($arr_his)){
             $arr = json_decode($arr_his);
             foreach ($arr as  $item) {
                 if($item->trash > 0) {
                     $str_qr .= '('.$item->idorder.','.$item->idcrosstype.','.$item->parent.','.$item->id.','.$item->input_quality.','.$item->idproduct.','.$item->inp_session.','.$item->trash.'),';
+                    $bool_str = true;
                 }
              }
        }else{
             return redirect()->to('/');
        }
-       $str_qr = substr_replace($str_qr ,"", -1);
-       $str_qr = "INSERT into tmp_product(idorder,idcrosstype,parent,id,input_quality,idproduct,inp_session,trash) VALUES ".$str_qr;
-       //list order by array
-        $qr_lstordsess = DB::select('call LstOrderFromSessionProcedure(?,?)',array($str_qr,$_idstore));
-        $rs_lstordsess = json_decode(json_encode($qr_lstordsess), true);       
+       if($bool_str) {
+            $str_qr = substr_replace($str_qr ,"", -1);
+            $str_qr = "INSERT into tmp_product(idorder,idcrosstype,parent,id,input_quality,idproduct,inp_session,trash) VALUES ".$str_qr;
+           //list order by array
+            $qr_lstordsess = DB::select('call LstOrderFromSessionProcedure(?,?)',array($str_qr,$_idstore));
+            $rs_lstordsess = json_decode(json_encode($qr_lstordsess), true);       
+       }
         return view('teamilk.addcart.shop-cart',compact('idproduct','str_qr','rs_lstordsess'));
     }
 
@@ -93,35 +96,31 @@ class ShopCartController extends Controller
         //list product
 
         $_namecattype="product";
-
         $_idstore = 31;
-
-        $idproduct = $request->session()->get('idorderhistory');
-         $arr_his = session()->get('idorderhistory');
-          $arr = json_decode($arr_his);
+        $str_qr = "";$rs_lstordsess=array();$bool_str = false;
+        $arr_his = session()->get('idorderhistory');
+       if(!empty($arr_his)){
+            $arr = json_decode($arr_his);
             foreach ($arr as  $item) {
-            $idproduct = $item->idproduct;
-          }
-
-        $qr_product = DB::select('call SelProductByIdProcedure(?,?)',array($idproduct,$_idstore));
-
-        $product = json_decode(json_encode($qr_product), true); 
-
-        $_idcombo = 1;
-
-        $qr_sel_combo_byidproduct = DB::select('call SelCrossProductByIdProcedure(?,?)',array($idproduct,$_idcombo));
-
-        $sel_combo_byidproduct = json_decode(json_encode($qr_sel_combo_byidproduct), true);
-
-        $_idgift = 2;
-
-        $qr_sel_gif_byidproduct = DB::select('call SelCrossProductByIdProcedure(?,?)',array($idproduct,$_idgift));
-
-        $sel_gift_byidproduct = json_decode(json_encode($qr_sel_gif_byidproduct), true);
+                if($item->trash > 0) {
+                    $str_qr .= '('.$item->idorder.','.$item->idcrosstype.','.$item->parent.','.$item->id.','.$item->input_quality.','.$item->idproduct.','.$item->inp_session.','.$item->trash.'),';
+                    $bool_str = true;
+                }
+             }
+       }else{
+            return redirect()->to('/');
+       }
+       if($bool_str) {
+            $str_qr = substr_replace($str_qr ,"", -1);
+            $str_qr = "INSERT into tmp_product(idorder,idcrosstype,parent,id,input_quality,idproduct,inp_session,trash) VALUES ".$str_qr;
+           //list order by array
+            $qr_lstordsess = DB::select('call LstOrderFromSessionProcedure(?,?)',array($str_qr,$_idstore));
+            $rs_lstordsess = json_decode(json_encode($qr_lstordsess), true);       
+       }
 
         //end list product
 
-        return view('teamilk.addcart.check-out',compact('rs_district','rs_citytown','rs_sex','iduser','idproduct','product','sel_combo_byidproduct','sel_gift_byidproduct')); 
+        return view('teamilk.addcart.check-out',compact('rs_district','rs_citytown','rs_sex','iduser','idproduct','rs_lstordsess')); 
 
     }
 

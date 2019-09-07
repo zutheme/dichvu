@@ -101,7 +101,7 @@
 							<div class="c-content-overlay">
 								<div class="c-overlay-wrapper">
 									<div class="c-overlay-content">
-										<a href="{{ action('teamilk\ProductController@show',$row['idproduct']) }}" class="btn btn-md c-btn-grey-1 c-btn-uppercase c-btn-bold c-btn-border-1x c-btn-square">Explore</a>
+										<a href="{{ action('teamilk\ProductController@show',$row['idproduct']) }}" class="btn btn-md c-btn-grey-1 c-btn-uppercase c-btn-bold c-btn-border-1x c-btn-square">Tìm hiểu</a>
 									</div>
 								</div>
 								<div class="c-bg-img-top-center c-overlay-object text-center" data-height="height">
@@ -127,7 +127,7 @@
 							<p class="c-font-sbold c-font-uppercase c-font-18"><span class="currency">{{ $unit_price }}</span><span class="vnd"></span></p>
 						</div>
 						<div class="col-md-2 col-sm-2">
-							<p class="visible-xs-block c-theme-font c-font-uppercase c-font-bold">Total</p>
+							<p class="visible-xs-block c-theme-font c-font-uppercase c-font-bold">Tộng cổng</p>
 							<?php $unitprice_quality = $unit_price ; ?>
 							<p class="c-font-sbold c-font-18"><span class="currency">{{ $unitprice_quality }}</span><span class="vnd"></span></p>
 						</div>

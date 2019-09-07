@@ -750,7 +750,7 @@
 
       	<form class="frm-cart">
       		<div class="area-process">
-      		<a href="javascript:void(0)"><img class="processing" style="display:none;width:100%;" src="{{ asset('dashboard/production/images/processing.gif') }}"></a></div>
+      		<a href="javascript:void(0)"><img class="processing" style="display:none;width:100%;" src="{{ asset('dashboard/production/images/spinner.gif') }}"></a></div>
       		<div class="note" style="display: none;">
 	      		<div class="col-sm-12">
 			  		<h3>Sản phẩm đã thêm vào giỏ hàng</h3>
@@ -784,6 +784,6 @@
 
 	<!-- END: PAGE SCRIPTS -->
 
-	<script src="{{ asset('assets-tea/js/custom-product.js?v=1.6.2') }}" type="text/javascript"></script>
+	<script src="{{ asset('assets-tea/js/custom-product.js?v=1.6.3') }}" type="text/javascript"></script>
 
 @stop
