@@ -16,15 +16,7 @@
 			{{-- <li><a href="shop-checkout-complete.htm">Checkout Complete</a></li>
 			<li>/</li>
 			<li class="c-state_active">Jango Components</li> --}}
-			@if(isset($ordernumber))	
-            	<script type="text/javascript">
-            		var _l_itemts = localStorage.getItem('l_items');
-				    if(typeof _l_itemts != "undefined"){
-				      localStorage.removeItem("l_items");
-				    }
-            	</script> 
-            	<li class="c-state_active"></li>
-			@endif						
+								
 		</ul>
 	</div>
 </div><!-- END: LAYOUT/BREADCRUMBS/BREADCRUMBS-2 -->
@@ -33,7 +25,7 @@
 	<div class="container">
 		<div class="c-shop-order-complete-1 c-content-bar-1 c-align-left c-bordered c-theme-border c-shadow">
 			<div class="c-content-title-1">
-				<h3 class="c-center c-font-uppercase c-font-bold">Đặt hàng thành công</h3>
+				<h3 class="c-center c-font-uppercase c-font-bold">Đặt dịch vụ thành công</h3>
 				<div class="c-line-center c-theme-bg"></div>
 			</div>
 			<div class="c-theme-bg">
@@ -46,7 +38,7 @@
 				<ul class="c-list-inline list-inline">
 					<li>
 						<h3>Mã đơn hàng</h3>
-						<p>{{ $ordernumber }}</p>
+						<p>{{ $rs_orderproduct[0]['idnumberorder'] }}</p>
 					</li>
 					<li>
 						<h3>Ngày đặt</h3>
@@ -54,11 +46,11 @@
 					</li>
 					<li>
 						<h3>Tổng số tiền</h3>
-						<p><span class="currency">{{ $rs_shortotal[0]['total'] }}</span> <span class="vnd"></span></p>
+						<p><span class="currency">{{ $rs_orderproduct[0]['ordertotal'] }}</span> <span class="vnd"></span></p>
 					</li>
 					<li>
 						<h3>Phương thức thanh toán</h3>
-						<p>Thanh toán khi giao hàng</p>
+						<p>Chuyển khoản</p>
 					</li>
 				</ul>
 			</div>
@@ -90,12 +82,13 @@
 	}?>
 	@if(isset($rs_orderproduct))
 		@foreach($rs_orderproduct as $row)
-			@if( $row['parentidproduct'] == 0 )
-				<?php $idproductparent = $row['idproduct'];
-						$subtotal = 0; 
-						$unit_price = $row['price']*$row['amount'];
+			@if( $row['parentidorder'] == 0 )
+				<?php $idorderparent = $row['idorder'];
+					$totalitem = $row['price']*$row['amount'];
+					$subtotal = $subtotal + $totalitem;
 				?>
-				<div class="c-border-bottom c-row-item checkout-complete">
+				<!-- BEGIN: PRODUCT ITEM ROW -->
+				<div class="c-border-bottom c-row-item">
 					<div class="row">
 						<div class="col-md-3 col-sm-12 c-image">
 							<div class="c-content-overlay">
@@ -104,36 +97,70 @@
 										<a href="{{ action('teamilk\ProductController@show',$row['idproduct']) }}" class="btn btn-md c-btn-grey-1 c-btn-uppercase c-btn-bold c-btn-border-1x c-btn-square">Tìm hiểu</a>
 									</div>
 								</div>
-								<div class="c-bg-img-top-center c-overlay-object text-center" data-height="height">
-									<a href="{{ action('teamilk\ProductController@show',$row['idproduct']) }}"><img width="100%" class="img-responsive comp-img" src="{{ asset($row['urlfile']) }}"></a>
+								<div class="c-bg-img-top-center c-overlay-object" data-height="height">
+									<img width="100%" class="img-responsive" src="{{ asset($row['urlfile']) }}">
 								</div>
 							</div>
 						</div>
 						<div class="col-md-5 col-sm-8">
 							<ul class="c-list list-unstyled">
 								<li class="c-margin-b-25"><a href="{{ action('teamilk\ProductController@show',$row['idproduct']) }}" class="c-font-bold c-font-22 c-theme-link">{{ $row['namepro'] }}</a></li>
-								<ul class="cart-list-topping">
-									@foreach($rs_orderproduct as $item)
-										@if($item['parentidproduct'] == $idproductparent )
-											<li>&nbsp;&nbsp;<label>{{ $item['namepro'] }}</label>&nbsp;&nbsp;<span class="currency">{{ $item['price'] }}</span><span class="vnd"></span>x{{ $item['amount'] }} (buổi)</li>
-											<?php $unit_price = $unit_price + ($item['price']*$item['amount']); ?>
-										@endif
-									@endforeach
-								</ul>
+								<li>{{ $row['short_desc'] }}</li>
+								<li>Số lượng: x {{ $row['amount'] }}(buổi)</li>
 							</ul>
 						</div>
 						<div class="col-md-2 col-sm-2">
 							<p class="visible-xs-block c-theme-font c-font-uppercase c-font-bold">Đơn giá</p>
-							<p class="c-font-sbold c-font-uppercase c-font-18"><span class="currency">{{ $unit_price }}</span><span class="vnd"></span></p>
+							<p class="c-font-sbold c-font-uppercase c-font-18"><span class="currency">{{ $row['price'] }}</span><span class="vnd"></span></p>
 						</div>
 						<div class="col-md-2 col-sm-2">
-							<p class="visible-xs-block c-theme-font c-font-uppercase c-font-bold">Tộng cổng</p>
-							<?php $unitprice_quality = $unit_price ; ?>
-							<p class="c-font-sbold c-font-18"><span class="currency">{{ $unitprice_quality }}</span><span class="vnd"></span></p>
+							<p class="visible-xs-block c-theme-font c-font-uppercase c-font-bold">Tổng</p>
+							<p class="c-font-sbold c-font-18"><span class="currency">{{ $totalitem }}</span><span class="vnd"></p>
 						</div>
 					</div>
 				</div>
-				<?php $subtotal = $subtotal + $unitprice_quality; ?>
+				<!-- END: PRODUCT ITEM ROW -->
+				@foreach($rs_orderproduct as $item)
+				@if($item['parentidorder'] == $idorderparent )
+					<?php 
+					$totalitem = $item['price']*$item['amount'];
+					$subtotal = $subtotal + $totalitem;
+					?>
+					<!-- BEGIN: PRODUCT ITEM ROW -->
+				<div class="c-border-bottom c-row-item">
+					<div class="row">
+						<div class="col-md-3 col-sm-12 c-image">
+							<div class="c-content-overlay">
+								<div class="c-overlay-wrapper">
+									<div class="c-overlay-content">
+										<a href="{{ action('teamilk\ProductController@show',$item['idproduct']) }}" class="btn btn-md c-btn-grey-1 c-btn-uppercase c-btn-bold c-btn-border-1x c-btn-square">Tìm hiểu</a>
+									</div>
+								</div>
+								<div class="c-bg-img-top-center c-overlay-object" data-height="height">
+									<img width="100%" class="img-responsive" src="{{ asset($item['urlfile']) }}">
+								</div>
+							</div>
+						</div>
+						<div class="col-md-5 col-sm-8">
+							<ul class="c-list list-unstyled">
+								<li class="c-margin-b-25"><a href="{{ action('teamilk\ProductController@show',$item['idproduct']) }}" class="c-font-bold c-font-22 c-theme-link">{{ $item['namepro'] }}</a></li>
+								<li>{{ $item['short_desc'] }}</li>
+								<li>Số lượng: x {{ $item['amount'] }}(buổi)</li>
+							</ul>
+						</div>
+						<div class="col-md-2 col-sm-2">
+							<p class="visible-xs-block c-theme-font c-font-uppercase c-font-bold">Đơn giá</p>
+							<p class="c-font-sbold c-font-uppercase c-font-18"><span class="currency">{{ $item['price'] }}</span><span class="vnd"></span></p>
+						</div>
+						<div class="col-md-2 col-sm-2">
+							<p class="visible-xs-block c-theme-font c-font-uppercase c-font-bold">Tổng</p>
+							<p class="c-font-sbold c-font-18"><span class="currency">{{ $totalitem }}</span><span class="vnd"></p>
+						</div>
+					</div>
+				</div>
+				<!-- END: PRODUCT ITEM ROW -->	
+				@endif
+			@endforeach
 			@endif
 		@endforeach
 	@endif

@@ -297,24 +297,12 @@ class ShopCartController extends Controller
             return redirect()->to('/');
        }
        if($bool_str) {
-            $_namestore='import';$_note='';$_idcustomer=0;$_idrecipent=0;$_iduser=0;
+            $_fromnamestore='import';$_tonamestore='order';$_note='';
             $str_qr = substr_replace($str_qr ,"", -1);
             $str_qr = "INSERT into tmp_product(idorder,idcrosstype,parent,id,input_quality,idproduct,inp_session,trash) VALUES ".$str_qr;
-            $qr_lstordsess = DB::select('call OrderProductFromSessionProcedure(?,?,?,?,?,?)',array($_idcustomer, $_idrecipent, $_iduser,$_note,$_namestore,$str_qr));
-            //$rs_lstordsess = json_decode(json_encode($qr_lstordsess), true);       
+            $qr_orderproduct = DB::select('call OrderProductFromSessionProcedure(?,?,?,?,?,?,?)',array( $_idcustomer, $_id_reci_customer, $_iduser_curent,$_note,$_fromnamestore,$_tonamestore,$str_qr));
+            $rs_orderproduct = json_decode(json_encode($qr_orderproduct), true);       
        }
-
-        $qr_shorttotal = DB::select('call ShortTotalProcedure(?)',array($ordernumber));
-
-        $rs_shortotal = json_decode(json_encode($qr_shorttotal), true);
-
-        $qr_orderproduct = DB::select('call CompleteListOrderProcedure(?)',array($ordernumber));
-
-        $rs_orderproduct = json_decode(json_encode($qr_orderproduct), true);
-
-        //$qr_orderproduct = DB::select('call InfoOrderProductProcedure(?)',array($ordernumber));
-
-        //$rs_orderproduct = json_decode(json_encode($qr_orderproduct), true);
 
         if($_id_reci_customer > 0) {
 
@@ -338,7 +326,7 @@ class ShopCartController extends Controller
 
         $request->session()->forget('idorderhistory');
 
-        return view('teamilk.addcart.checkout-complete',compact('ordernumber','rs_orderproduct','rs_customer','rs_shortotal'));
+        return view('teamilk.addcart.checkout-complete',compact('rs_orderproduct','rs_customer'));
 
     }
 
