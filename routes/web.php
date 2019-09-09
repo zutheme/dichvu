@@ -55,9 +55,12 @@ Route::get('/getmacshellexec',function()
     }
 );
 Route::get('/showsession', function () {
-      $str_Object = session()->get('idorderhistory');
-	  $data = json_decode($str_Object,true);
-	  var_dump($data);
+      //$str_Object = session()->get('idorderhistory');
+	  //$data = json_decode($str_Object,true);
+	  //var_dump($data);
+	 $_idcrosstype = '';
+	 $_idcrosstype = (isset($_idcrosstype)&&$_idcrosstype > 0) ? $_idcrosstype:0;
+	 echo $_idcrosstype;
 });
 
 

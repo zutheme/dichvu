@@ -14,7 +14,12 @@
 		<h2>Thêm mới</h2>
 		{{-- {{ app('request')->input('idparent') }},{{ app('request')->input('idcrosstype') }} --}}
 		<?php $idparent = app('request')->input('idparent'); 
-			$idcrosstype = app('request')->input('idcrosstype'); ?>
+			$idcrosstype = app('request')->input('idcrosstype'); 
+			$_idcombo = 1;
+        	$qr_sel_combo_byidproduct = DB::select('call SelCrossProductByIdProcedure(?,?)',array($idparent,$_idcombo));
+        	$sel_combo_byidproduct = json_decode(json_encode($qr_sel_combo_byidproduct), true);
+        	//var_dump($sel_combo_byidproduct);
+			?>
 		@if(count($errors) > 0)
 		<div class="alert alert-danger">
 			<ul>
@@ -98,6 +103,17 @@
 	              <input type="text" name="price" class="form-controls" />
 	            </div>
 	          </div>
+	          <div class="form-group">
+	          	 <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá theo:</label>
+	          	<div class="col-md-9 col-sm-9 col-xs-12">
+			          <select name="sel_cross">
+			          	<option value="0">-----</option>
+			          	@foreach($sel_cross_type as $option)
+			          	<option value="{{ $option['idcrosstype'] }}" {{ $option['idcrosstype'] == $idcrosstype ? 'selected="selected"' : '' }}>{{ $option['namecross']}}</option>
+			          	@endforeach
+			          </select>
+		      		</div>
+		      </div>
 	          <div class="form-group">
 	            <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá combo:</label>
 	            <div class="col-md-9 col-sm-9 col-xs-12">

@@ -68,7 +68,9 @@ class ProductsController extends Controller
         $_namecattype = "product";
         $result = DB::select('call ListParentCatByTypeProcedure(?)',array($_namecattype));
         $categories = json_decode(json_encode($result), true);
-        return view('admin.product.create',compact('posttypes','categories','statustypes','str','size','color','idcrossproduct','idcrosstype'));
+        $qr_cross_type = DB::select('call SelCrossTypeProcedure');
+        $sel_cross_type = json_decode(json_encode($qr_cross_type), true);
+        return view('admin.product.create',compact('posttypes','categories','statustypes','str','size','color','idcrossproduct','idcrosstype','sel_cross_type'));
     }
 
     /**
@@ -83,6 +85,9 @@ class ProductsController extends Controller
         $_idemployee = Auth::id();
         $_idcustomer = '0';$_amount= '0'; $_price='0';$_note =""; $_idstore= 31;$_axis_x='0';$_axis_y='0'; $_axis_z='0'; $message ="";
         $_idthumbnail = 1;$_idgallery = 2;
+        $_idcrosstype = $request->get('idcrosstype'); $_idparent = $request->get('idparent');
+        $_idcrosstype = (isset($_idcrosstype)&&$_idcrosstype > 0) ? $_idcrosstype:0;
+        $_idparent = (isset($_idparent)&&$_idparent > 0) ? $_idparent:0;
         $func_global = new func_global();
         try {
             $_namepro = $request->get('title');
@@ -166,12 +171,12 @@ class ProductsController extends Controller
              }
              
             $_catnametype = 'store'; $_shortname = 'import';
-            $insertproduct = DB::select('call ImportProductProcedure(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',array($idproduct, $_idcustomer, $_idemployee, $_amount, $_price_import, $_price, $_price_sale_origin,$_price_combo, $_quality_combo,$_price_gift, $_quality_gift, $_note, $_axis_x, $_axis_y, $_axis_z, $_id_status_type, $_catnametype, $_shortname));
+            $insertproduct = DB::select('call ImportProductProcedure(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',array($idproduct, $_idcustomer, $_idemployee, $_idcrosstype, $_idparent, $_amount, $_price_import, $_price, $_price_sale_origin,$_price_combo, $_quality_combo,$_price_gift, $_quality_gift, $_note, $_axis_x, $_axis_y, $_axis_z, $_id_status_type, $_catnametype, $_shortname));
             //insert cross product
-            $_idcrosstype = $request->get('idcrosstype'); $_idparent = $request->get('idparent');
-            if($_idcrosstype > 0 && $_idparent > 0){
-                $insert_crossproduct = DB::select('call InsertCrossProductProcedure(?,?,?)',array($_idparent,$_idcrosstype,$idproduct));
-            }
+            
+            //if($_idcrosstype > 0 && $_idparent > 0){
+                //$insert_crossproduct = DB::select('call InsertCrossProductProcedure(?,?,?)',array($_idparent,$_idcrosstype,$idproduct));
+            //}
         } catch (\Illuminate\Database\QueryException $ex) {
             $errors = new MessageBag(['error' => $ex->getMessage()]);
             return redirect()->back()->withInput()->withErrors($errors);

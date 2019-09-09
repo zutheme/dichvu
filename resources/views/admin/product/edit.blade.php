@@ -9,6 +9,8 @@
     <link href="{{ asset('dashboard/production/css/custom.css?v=0.4.4') }}" rel="stylesheet">
 @stop
 @section('content')
+<?php $idparent = app('request')->input('idparent'); 
+			$idcrosstype = app('request')->input('idcrosstype'); ?>
 <?php $no_thumbnail = 'dashboard/production/images/no_photo.jpg'; ?>
 <div class="row">
 	<div class="col-md-12 col-xs-12">
@@ -119,6 +121,14 @@
 		              <input type="text" name="amount" class="form-controls" value="{{ $product[0]['amount'] }}"/>
 		            </div>
 		          </div>
+		          <div class="form-group">
+			          <select name="sel_cross">
+			          	<option value="0">-----</option>
+			          	@foreach($sel_cross_type as $option)
+			          	<option value="{{ $option['idcrosstype'] }}" {{ $option['idcrosstype'] == $idcrosstype ? 'selected="selected"' : '' }}>{{ $option['namecross']}}</option>
+			          	@endforeach
+			          </select>
+		      		</div>
 		          <div class="form-group">
 		            <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá combo:</label>
 		            <div class="col-md-9 col-sm-9 col-xs-12">
