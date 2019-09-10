@@ -10,7 +10,14 @@
 @stop
 @section('content')
 <?php $idparent = app('request')->input('idparent'); 
-			$idcrosstype = app('request')->input('idcrosstype'); ?>
+			$idcrosstype = app('request')->input('idcrosstype'); 
+			$idparentcross = app('request')->input('idparentcross'); 
+			$price = app('request')->input('price');
+			$price = isset($price) ? $price : 0;
+			$quality_sale = app('request')->input('quality_sale');
+			$quality_sale = isset($quality_sale) ? $quality_sale : 0;
+			$idimpcross = app('request')->input('idimpcross');
+			?>
 <?php $no_thumbnail = 'dashboard/production/images/no_photo.jpg'; ?>
 <div class="row">
 	<div class="col-md-12 col-xs-12">
@@ -122,127 +129,83 @@
 		            </div>
 		          </div>
 		          <div class="form-group">
-			          <select name="sel_cross">
-			          	<option value="0">-----</option>
-			          	@foreach($sel_cross_type as $option)
-			          	<option value="{{ $option['idcrosstype'] }}" {{ $option['idcrosstype'] == $idcrosstype ? 'selected="selected"' : '' }}>{{ $option['namecross']}}</option>
-			          	@endforeach
-			          </select>
-		      		</div>
+		          	  <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá theo:</label>
+			          <div class="col-md-9 col-sm-9 col-xs-12">
+				          <select name="sel_cross">
+				          	<option value="0">-----</option>
+				          	@foreach($sel_cross_type as $option)
+				          	<option value="{{ $option['idcrosstype'] }}" {{ $option['idcrosstype'] == $idcrosstype ? 'selected="selected"' : '' }}>{{ $option['namecross']}}</option>
+				          	@endforeach
+				          </select>
+				      </div>
+		      	  </div>
+		      	  <input type="hidden" name="idimpcross" value="{{ $idimpcross }}">
 		          <div class="form-group">
-		            <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá combo:</label>
+		            <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá sale:</label>
 		            <div class="col-md-9 col-sm-9 col-xs-12">
-		              <input type="text" name="price_combo" class="form-controls" value="{{ $product[0]['price_combo'] }}" />
+		              <input type="text" name="price_sale" class="form-controls" value="{{ $price }}" />
 		            </div>
 		          </div>
 		          <div class="form-group">
-		            <label class="control-label col-md-3 col-sm-3 col-xs-12">Số lượng combo:</label>
+		            <label class="control-label col-md-3 col-sm-3 col-xs-12">Số lượng sale:</label>
 		            <div class="col-md-9 col-sm-9 col-xs-12">
-		              <input type="text" name="quality_combo" class="form-controls" value="{{ $product[0]['quality_combo'] }}" />
+		              <input type="text" name="quality_sale" class="form-controls" value="{{ $quality_sale }}" />
 		            </div>
 		          </div>
-		          <div class="form-group">
-		            <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá quà tặng:</label>
-		            <div class="col-md-9 col-sm-9 col-xs-12">
-		              <input type="text" name="price_gift" class="form-controls" value="{{ $product[0]['price_gift'] }}"/>
-		            </div>
-		          </div>
-		          <div class="form-group">
-		            <label class="control-label col-md-3 col-sm-3 col-xs-12">Số lượng quà tặng:</label>
-		            <div class="col-md-9 col-sm-9 col-xs-12">
-		              <input type="text" name="quality_gift" class="form-controls" value="{{ $product[0]['quality_gift'] }}" />
-		            </div>
-		          </div>
+	
 	              </div>
 	              <div class="col-sm-12 col-xs-12"></div>
               </div>
               	<!--extend atribute-->
               <div class="ln_solid"></div>
-              	<h5 class="tip">Sản phẩm combo</h5>
+              	<h5 class="tip">Sản phẩm liên quan</h5>
 	          	<div class="cross-product">
-		          @foreach($sel_combo_byidproduct as $row)
-		          	  <div class="row">
-		          	  	<label>{{ $row['namepro'] }}</label>
-		          	  </div>
-			          <div class="row">
-			          			<div class="col-sm-9">
-					                 <div class="form-group">
-							            <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá gốc:</label>
-							            <div class="col-md-9 col-sm-9 col-xs-12">
-							              <input type="text" name="cross_price" class="form-controls" value="{{ $row['price'] }}" />
-							            </div>
-							          </div>
-							          <div class="form-group">
-							            <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá combo:</label>
-							            <div class="col-md-9 col-sm-9 col-xs-12">
-							              <input type="text" name="cross_price_combo" class="form-controls" value="{{ $row['price_combo'] }}" />
-							            </div>
-							          </div>
-							          <div class="form-group">
-							            <label class="control-label col-md-3 col-sm-3 col-xs-12">Số lượng combo:</label>
-							            <div class="col-md-9 col-sm-9 col-xs-12">
-							              <input type="text" name="cross_amount" class="form-controls" value="{{ $row['quality_combo'] }}" />
-							            </div>
-							          </div>
-							          
-							          <div class="form-group">
-							          	<a href="{{ action('Admin\ProductsController@edit',$row['idproduct']) }}" class="info-number">Chỉnh sửa <i class="fa fa-pencil-square"></i></a>
-							      	  </div>
-							    </div>
-							    <div class="col-sm-3 text-center">
-							    	<?php $thumbnail = $row['urlfile']; 
-							    	if(!$thumbnail) { $thumbnail = $no_thumbnail; } ?>
-							    	<a href="{{ action('Admin\ProductsController@edit',$row['idproduct']) }}"><img class="thumb-cross" src="{{ asset($thumbnail) }}" /></a>
-							    </div>
-						</div>
+		         @foreach($sel_cross_byidproduct as $row)
+		         		  <p>{{ $row['namecross'] }}</p>	
+			          	  <div class="row">
+			          	  	<label>{{ $row['namepro'] }}</label>
+			          	  </div>
+				          <div class="row">
+				          			<div class="col-sm-9">
+				          				{{-- <div class="form-group">
+								            <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá bán gốc:</label>
+								            <div class="col-md-9 col-sm-9 col-xs-12">
+								              <input type="text" name="cross_price_combo" class="form-controls" value="{{ $row['price_sale_origin'] }}" />
+								            </div>
+								          </div> --}}
+						                 <div class="form-group">
+								            <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá sale:</label>
+								            <div class="col-md-9 col-sm-9 col-xs-12">
+								              <input type="text" name="cross_price" class="form-controls" value="{{ $row['price'] }}" />
+								            </div>
+								          </div>
+								          <div class="form-group">
+								            <label class="control-label col-md-3 col-sm-3 col-xs-12">Số lượng sale:</label>
+								            <div class="col-md-9 col-sm-9 col-xs-12">
+								              <input type="text" name="cross_amount" class="form-controls" value="{{ $row['quality_sale'] }}" />
+								            </div>
+								          </div>
+								          
+								          <div class="form-group">
+								          	<a href="{{ action('Admin\ProductsController@edit',[$row['idproduct'],'idcrosstype' => $row['idcrosstype'],'quality_sale' => $row['quality_sale'],'price' => $row['price'],'idimpcross' => $row['idimp'] ]) }}" class="info-number">Chỉnh sửa <i class="fa fa-pencil-square"></i></a>
+								      	  </div>
+								    </div>
+								    <div class="col-sm-3 text-center">
+								    	<?php $thumbnail = $row['urlfile']; 
+								    	if(!$thumbnail) { $thumbnail = $no_thumbnail; } ?>
+								    	<a href="{{ action('Admin\ProductsController@edit',$row['idproduct']) }}"><img class="thumb-cross" src="{{ asset($thumbnail) }}" /></a>
+								    </div>
+							</div>
+							
 				  @endforeach
 				</div>
-				<div class="ln_solid"></div>
-              	<h5 class="tip">Quà tặng</h5>
-	          	<div class="cross-product">
-		          @foreach($sel_gift_byidproduct as $row)
-		          	  <div class="row">
-		          	  	<label>{{ $row['namepro'] }}</label>
-		          	  </div>
-			          <div class="row">
-			          			<div class="col-sm-9">
-					                 <div class="form-group">
-							            <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá:</label>
-							            <div class="col-md-9 col-sm-9 col-xs-12">
-							              <input type="text" name="cross_gift_price" class="form-controls" value="{{ $row['price'] }}" />
-							            </div>
-							          </div>
-							          <div class="form-group">
-							            <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá quà tặng:</label>
-							            <div class="col-md-9 col-sm-9 col-xs-12">
-							              <input type="text" name="cross_gift_price_gift" class="form-controls" value="{{ $row['price_gift'] }}" />
-							            </div>
-							          </div>
-							          <div class="form-group">
-							            <label class="control-label col-md-3 col-sm-3 col-xs-12">Số lượng:</label>
-							            <div class="col-md-9 col-sm-9 col-xs-12">
-							              <input type="text" name="cross_gift_amount" class="form-controls" value="{{ $row['quality_gift'] }}" />
-							            </div>
-							          </div>
-							          
-							          <div class="form-group">
-							          	<a href="{{ action('Admin\ProductsController@edit',$row['idproduct']) }}" class="info-number">Chỉnh sửa <i class="fa fa-pencil-square"></i></a>
-							      	  </div>
-							    </div>
-							    <div class="col-sm-3 text-center">
-							    	<?php $thumbnail = $row['urlfile']; 
-							    	if(!$thumbnail) { $thumbnail = $no_thumbnail; } ?>
-							    	<a href="{{ action('Admin\ProductsController@edit',$row['idproduct']) }}"><img class="thumb-cross" src="{{ asset($thumbnail) }}" /></a>
-							    </div>
-						</div>
-				  @endforeach
-				</div>
+				
 				<div class="ln_solid"></div>
 				<label class="col-lg-12 col-form-label" for="sel_idposttype">Sảm phẩm liên quan:</label>
 				{{-- <a href="javascript:void(0);" onclick="cross_product();" class="btn btn-primary btn-cross-product">Timeline</a>--}}
 				@foreach($sel_parent_cross_product as $item)
-					@if(isset($item) && $item['idproduct'])
-						<a class="btn btn-primary" href="{{ action('Admin\ProductsController@edit',$item['idproduct']) }}">&nbsp;<i class="fa fa-angle-double-left"></i>&nbsp;Về sản phẩm chính</a>
+					@if(isset($item) && $item['idparentcross'] > 0)
+						<a class="btn btn-primary" href="{{ action('Admin\ProductsController@edit',$item['idparentcross']) }}">&nbsp;<i class="fa fa-angle-double-left"></i>&nbsp;Về sản phẩm chính</a>
 					@endif
 				@endforeach 
 				<div class="dropdown">

@@ -15,9 +15,9 @@
 		{{-- {{ app('request')->input('idparent') }},{{ app('request')->input('idcrosstype') }} --}}
 		<?php $idparent = app('request')->input('idparent'); 
 			$idcrosstype = app('request')->input('idcrosstype'); 
-			$_idcombo = 1;
-        	$qr_sel_combo_byidproduct = DB::select('call SelCrossProductByIdProcedure(?,?)',array($idparent,$_idcombo));
-        	$sel_combo_byidproduct = json_decode(json_encode($qr_sel_combo_byidproduct), true);
+			//$_idcombo = 0;
+        	//$qr_sel_combo_byidproduct = DB::select('call SelCrossProductByIdProcedure(?,?)',array($idparent,$_idcombo));
+        	//$sel_combo_byidproduct = json_decode(json_encode($qr_sel_combo_byidproduct), true);
         	//var_dump($sel_combo_byidproduct);
 			?>
 		@if(count($errors) > 0)
@@ -115,29 +115,18 @@
 		      		</div>
 		      </div>
 	          <div class="form-group">
-	            <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá combo:</label>
+	            <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá sale:</label>
 	            <div class="col-md-9 col-sm-9 col-xs-12">
 	              <input type="text" name="price_combo" class="form-controls" />
 	            </div>
 	          </div>
 	          <div class="form-group">
-	            <label class="control-label col-md-3 col-sm-3 col-xs-12">Số lượng combo:</label>
+	            <label class="control-label col-md-3 col-sm-3 col-xs-12">Số lượng sale:</label>
 	            <div class="col-md-9 col-sm-9 col-xs-12">
 	              <input type="text" name="quality_combo" class="form-controls" />
 	            </div>
 	          </div>
-	          <div class="form-group">
-	            <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá quà tặng:</label>
-	            <div class="col-md-9 col-sm-9 col-xs-12">
-	              <input type="text" name="price_gift" class="form-controls" />
-	            </div>
-	          </div>
-	          <div class="form-group">
-	            <label class="control-label col-md-3 col-sm-3 col-xs-12">Số lượng quà tặng:</label>
-	            <div class="col-md-9 col-sm-9 col-xs-12">
-	              <input type="text" name="quality_gift" class="form-controls" />
-	            </div>
-	          </div>
+	
 	          	<div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Kích thước</label>
                 <div class="col-md-9 col-sm-9 col-xs-12">

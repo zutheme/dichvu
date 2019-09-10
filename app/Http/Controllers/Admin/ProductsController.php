@@ -222,20 +222,22 @@ class ProductsController extends Controller
 
         $qr_color = DB::select('call SelAllColorProcedure');
         $color = json_decode(json_encode($qr_color), true);
-        $_idcombo = 1;
-        $qr_sel_combo_byidproduct = DB::select('call SelCrossProductByIdProcedure(?,?)',array($idproduct,$_idcombo));
-        $sel_combo_byidproduct = json_decode(json_encode($qr_sel_combo_byidproduct), true);
-        $_idgift = 2;
-        $qr_sel_gif_byidproduct = DB::select('call SelCrossProductByIdProcedure(?,?)',array($idproduct,$_idgift));
-        $sel_gift_byidproduct = json_decode(json_encode($qr_sel_gif_byidproduct), true);
+        $qr_sel_cross_byidproduct = DB::select('call SelProductCrossByIdProcedure(?)',array($idproduct));
+        $sel_cross_byidproduct = json_decode(json_encode($qr_sel_cross_byidproduct), true);
+        //$_idcombo = 1;
+        //$qr_sel_combo_byidproduct = DB::select('call SelCrossProductByIdProcedure(?,?)',array($idproduct,$_idcombo));
+        //$sel_combo_byidproduct = json_decode(json_encode($qr_sel_combo_byidproduct), true);
+        //$_idgift = 2;
+        //$qr_sel_gif_byidproduct = DB::select('call SelCrossProductByIdProcedure(?,?)',array($idproduct,$_idgift));
+        //$sel_gift_byidproduct = json_decode(json_encode($qr_sel_gif_byidproduct), true);
 
-        $qr_parent_cross_product = DB::select('call SelParentCrossProductProcedure(?)',array($idproduct));
+        $qr_parent_cross_product = DB::select('call SelParentProductCrossProcedure(?)',array($idproduct));
         $sel_parent_cross_product = json_decode(json_encode($qr_parent_cross_product), true);
 
         $qr_cross_type = DB::select('call SelCrossTypeProcedure');
         $sel_cross_type = json_decode(json_encode($qr_cross_type), true);
        
-        return view('admin.product.edit',compact('gallery','product','posttypes','categories','statustypes','str','idproduct','size','color','sel_combo_byidproduct','sel_gift_byidproduct','sel_parent_cross_product','sel_cross_type'));
+        return view('admin.product.edit',compact('gallery','product','posttypes','categories','statustypes','str','idproduct','size','color','sel_cross_byidproduct','sel_parent_cross_product','sel_cross_type'));
     }
 
     /**
@@ -248,7 +250,7 @@ class ProductsController extends Controller
     public function update(Request $request, $idproduct)
     {
         $posttypes = PostType::all()->toArray();
-        $_idemployee = Auth::id();
+        $_iduser = Auth::id();
         $_idcustomer = '0';$_note =""; $_idstore= '31';$_axis_x='0';$_axis_y='0'; $_axis_z='0';$message ="";
         $func_global = new func_global();
         try {
@@ -364,13 +366,21 @@ class ProductsController extends Controller
                     DB::select('call ProducthasFileProcedure(?,?,?,?,?,?)',array($_urlfile, $_name_origin, $_namefile , $_typefile, $idproduct,$_idgalery));
                 }             
              }
-            $updateproduct = DB::select('call UpdateImportProductProcedure(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',array($_idimp,$_idcustomer, $_idemployee, $_amount, $_price_import, $_price, $_price_sale_origin, $_price_combo, $_quality_combo, $_price_gift, $_quality_gift, $_note, $_idstore, $_axis_x, $_axis_y, $_axis_z, $_id_status_type));    
+             //$_idimp,$_idcustomer,$_iduser,$_amount,$_price_import,$_price,$_price_sale_origin,$_quality_sale,$_note,$_idstore,$_axis_x,$_axis_y,$_axis_z,$_id_status_type
+            $updateproduct = DB::select('call UpdateImportProductProcedure(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',array($_idimp,$_idcustomer,$_iduser,0,$_amount,$_price_import,$_price,$_price_sale_origin,0,$_note,$_idstore,$_axis_x,$_axis_y,$_axis_z,$_id_status_type));
+            $_sel_cross = $request->get('sel_cross');
+            $_idimpcross = $request->get('idimpcross');
+            $_price_sale = $request->get('price_sale');
+            $_quality_sale = $request->get('quality_sale');
+            if(isset($_idimpcross) && $_idimpcross > 0 ){
+                $updateproductcross = DB::select('call UpdateImportProductProcedure(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',array($_idimpcross,$_idcustomer,$_iduser,$_sel_cross,$_amount,$_price_import,$_price_sale,$_price_sale_origin,$_quality_sale,$_note,$_idstore,$_axis_x,$_axis_y,$_axis_z,$_id_status_type));
+            }   
         } catch (\Illuminate\Database\QueryException $ex) {
             $errors = new MessageBag(['error' => $ex->getMessage()]);
             return redirect()->back()->withInput()->withErrors($errors);
         }
         $message = "success";
-        return redirect()->action('Admin\ProductsController@edit',$idproduct)->with('success',$message);
+        return redirect()->action('Admin\ProductsController@edit',[$idproduct,'idimpcross' => $_idimpcross ])->with('success',$message);
     }
 
     /**
