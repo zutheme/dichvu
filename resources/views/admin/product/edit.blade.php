@@ -9,9 +9,9 @@
     <link href="{{ asset('dashboard/production/css/custom.css?v=0.4.4') }}" rel="stylesheet">
 @stop
 @section('content')
-<?php $idparent = app('request')->input('idparent'); 
-			$idcrosstype = app('request')->input('idcrosstype'); 
-			$idparentcross = app('request')->input('idparentcross'); 
+<?php 		$idcrosstype = app('request')->input('idcrosstype'); 
+			$idparentcross = app('request')->input('idparentcross');
+			$idparentcross = isset($idparentcross) ? $idparentcross : 0; 
 			$price = app('request')->input('price');
 			$price = isset($price) ? $price : 0;
 			$quality_sale = app('request')->input('quality_sale');
@@ -152,7 +152,11 @@
 		              <input type="text" name="quality_sale" class="form-controls" value="{{ $quality_sale }}" />
 		            </div>
 		          </div>
-	
+		          @if($idparentcross > 0)
+		          	<div class="form-group">
+	          		<a href="{{ action('Admin\ProductsController@edit',$idparentcross) }}" class="info-number">&nbsp;<i class="fa fa-angle-double-left"></i>&nbsp;Về sản phẩm chính</a>
+	      	  		</div>
+	      	  		@endif
 	              </div>
 	              <div class="col-sm-12 col-xs-12"></div>
               </div>
@@ -187,7 +191,7 @@
 								          </div>
 								          
 								          <div class="form-group">
-								          	<a href="{{ action('Admin\ProductsController@edit',[$row['idproduct'],'idcrosstype' => $row['idcrosstype'],'quality_sale' => $row['quality_sale'],'price' => $row['price'],'idimpcross' => $row['idimp'] ]) }}" class="info-number">Chỉnh sửa <i class="fa fa-pencil-square"></i></a>
+								          	<a href="{{ action('Admin\ProductsController@edit',[$row['idproduct'],'idcrosstype' => $row['idcrosstype'],'quality_sale' => $row['quality_sale'],'price' => $row['price'],'idimpcross' => $row['idimp'],'idparentcross' => $row['idparentcross']]) }}" class="info-number">Chỉnh sửa <i class="fa fa-pencil-square"></i></a>
 								      	  </div>
 								    </div>
 								    <div class="col-sm-3 text-center">
@@ -203,11 +207,11 @@
 				<div class="ln_solid"></div>
 				<label class="col-lg-12 col-form-label" for="sel_idposttype">Sảm phẩm liên quan:</label>
 				{{-- <a href="javascript:void(0);" onclick="cross_product();" class="btn btn-primary btn-cross-product">Timeline</a>--}}
-				@foreach($sel_parent_cross_product as $item)
+				{{-- @foreach($sel_parent_cross_product as $item)
 					@if(isset($item) && $item['idparentcross'] > 0)
 						<a class="btn btn-primary" href="{{ action('Admin\ProductsController@edit',$item['idparentcross']) }}">&nbsp;<i class="fa fa-angle-double-left"></i>&nbsp;Về sản phẩm chính</a>
 					@endif
-				@endforeach 
+				@endforeach  --}}
 				<div class="dropdown">
 			    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Chọn kiểu cross
 			    <span class="caret"></span></button>

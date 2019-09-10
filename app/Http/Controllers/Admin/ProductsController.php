@@ -374,13 +374,14 @@ class ProductsController extends Controller
             $_quality_sale = $request->get('quality_sale');
             if(isset($_idimpcross) && $_idimpcross > 0 ){
                 $updateproductcross = DB::select('call UpdateImportProductProcedure(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',array($_idimpcross,$_idcustomer,$_iduser,$_sel_cross,$_amount,$_price_import,$_price_sale,$_price_sale_origin,$_quality_sale,$_note,$_idstore,$_axis_x,$_axis_y,$_axis_z,$_id_status_type));
+                return redirect()->action('Admin\ProductsController@edit',[$idproduct,'idcrosstype'=>$_sel_cross,'quality_sale'=>$_quality_sale,'price'=>$_price_sale,'idimpcross' => $_idimpcross ])->with('success',$message);
             }   
         } catch (\Illuminate\Database\QueryException $ex) {
             $errors = new MessageBag(['error' => $ex->getMessage()]);
             return redirect()->back()->withInput()->withErrors($errors);
         }
         $message = "success";
-        return redirect()->action('Admin\ProductsController@edit',[$idproduct,'idimpcross' => $_idimpcross ])->with('success',$message);
+        return redirect()->action('Admin\ProductsController@edit',$idproduct)->with('success',$message);
     }
 
     /**
