@@ -641,3 +641,136 @@ table tbody .thumb {
 .frm_edit_post label.control-label {
     font-weight: 400;
 }
+.fade-row {
+    padding: 10px 0px;
+    border: 1px solid #ddd;
+    background: #fff;
+    z-index: 0;
+}
+.visable-row {
+    padding: 10px 0px;
+    background: #F7F7F7;
+}
+/*cate*/
+.modal-cate-form .modal-cate {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0%;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-cate-form .modal-content-cate {
+    text-align: left;
+    background: #fff;
+   /* background-image: url(../images/nen-frm2.jpg);*/
+    margin: 10% auto; 
+    padding: 20px 20px;
+    border: 1px solid #888;
+    max-width: 600px;
+   -webkit-border-radius: 5px; 
+   -moz-border-radius: 5px; 
+   border-radius: 5px;  
+}
+.modal-cate-form .modal-content-cate h2 {
+    font-size: 18px;
+    font-weight: 600px;
+    color: #451511;
+}
+.modal-cate-form .modal-content-cate h3 {
+    font-size: 16px;
+    font-weight: 600px;
+    color: #451511;
+}
+.modal-cate-form .modal-content-cate p {
+    font-size: 14px;
+    font-weight: 500px;
+    color: #451511;
+}
+.modal-cate-form .frm-cate .cate {
+    position: relative;
+    padding: 5px 10px;
+}
+.modal-cate-form .frm-cate .cate h2 {
+    text-transform: uppercase;
+}
+.modal-cate-form .frm-cate .cate .logo {
+    max-width: 200px;
+    height: auto;
+}
+.modal-cate-form .input-group-cate select.form-control-cate,
+.modal-cate-form .frm-cate .input-group-cate {
+    width: 100%;
+    padding:3px 5px;
+    text-align: center;
+}
+.modal-cate-form .input-group-cate.capture {
+    text-align: center;
+}
+.modal-cate-form .input-group-cate .btn-insert-picture {
+    padding: 5px 15px;
+    color: #000;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+    background: #fff;
+    -webkit-border-radius: 5px; 
+   -moz-border-radius: 5px; 
+   border-radius: 5px; 
+}
+.modal-cate-form .frm-cate .input-group-cate input.form-control-cate{
+    width: 100%;
+    padding:5px 5px;
+    -webkit-border-radius: 5px; 
+   -moz-border-radius: 5px; 
+   border-radius: 5px;
+   border: 1px solid #EAD868;
+}
+/* The Close Button */
+.modal-cate-form .modal-content-cate .close{
+    color: #000;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    z-index: 0;
+    top: -20px;
+    right: -10px;
+    position: relative;
+    background: transparent;
+}
+
+.modal-cate-form .modal-content-cate .close:hover,
+.modal-cate-form .modal-content-cate .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+.modal-cate-form .modal-content-cate .loading {
+    max-width: 20px;
+    max-height: 20px;
+}
+.modal-cate-form .frm-cate canvas {
+    width: 100%;
+    height: auto;
+}
+@media (max-width: 768px){
+    .modal-cate-form .modal-content-cate {
+        text-align: center;
+        background: #fff;
+       /* background-image: url(../images/nen-frm2.jpg);*/
+        margin: 15% auto; 
+        padding: 20px 20px;
+        border: 1px solid #888;
+        max-width: 450px;
+       -webkit-border-radius: 5px; 
+       -moz-border-radius: 5px; 
+       border-radius: 5px;  
+    }
+}
+/*end promtion*/

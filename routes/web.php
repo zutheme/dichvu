@@ -58,9 +58,19 @@ Route::get('/showsession', function () {
       //$str_Object = session()->get('idorderhistory');
 	  //$data = json_decode($str_Object,true);
 	  //var_dump($data);
-	 $_idcrosstype = '';
-	 $_idcrosstype = (isset($_idcrosstype)&&$_idcrosstype > 0) ? $_idcrosstype:0;
-	 echo $_idcrosstype;
+	 $getlist = "";
+	 $l_idimpcross = array(4,5,6,0);
+	 $l_sel_cross = array(1,2,3,0);
+	 $l_price_sale = array(7,8,9,0);
+	 $l_quality_sale = array(11,12,13,0);
+    foreach( $l_idimpcross as $key => $_idimpcro ) {
+            $_idimpcross = $_idimpcro;
+            $_sel_cross = $l_sel_cross[$key];
+            $_price_sale = $l_price_sale[$key];
+            $_quality_sale =$l_quality_sale[$key];
+            $getlist .= "(".$_idimpcross.",".$_sel_cross.",".$_price_sale.",".$_quality_sale.")";
+        }
+        echo $getlist;
 });
 
 

@@ -224,20 +224,17 @@ class ProductsController extends Controller
         $color = json_decode(json_encode($qr_color), true);
         $qr_sel_cross_byidproduct = DB::select('call SelProductCrossByIdProcedure(?)',array($idproduct));
         $sel_cross_byidproduct = json_decode(json_encode($qr_sel_cross_byidproduct), true);
-        //$_idcombo = 1;
-        //$qr_sel_combo_byidproduct = DB::select('call SelCrossProductByIdProcedure(?,?)',array($idproduct,$_idcombo));
-        //$sel_combo_byidproduct = json_decode(json_encode($qr_sel_combo_byidproduct), true);
-        //$_idgift = 2;
-        //$qr_sel_gif_byidproduct = DB::select('call SelCrossProductByIdProcedure(?,?)',array($idproduct,$_idgift));
-        //$sel_gift_byidproduct = json_decode(json_encode($qr_sel_gif_byidproduct), true);
-
+        
+        $qr_sel_impbyidpro = DB::select('call SelImportByIDProductProcedure(?)',array($idproduct));
+        $rs_sel_impbyidpro = json_decode(json_encode($qr_sel_impbyidpro), true);
+        
         $qr_parent_cross_product = DB::select('call SelParentProductCrossProcedure(?)',array($idproduct));
         $sel_parent_cross_product = json_decode(json_encode($qr_parent_cross_product), true);
 
         $qr_cross_type = DB::select('call SelCrossTypeProcedure');
         $sel_cross_type = json_decode(json_encode($qr_cross_type), true);
        
-        return view('admin.product.edit',compact('gallery','product','posttypes','categories','statustypes','str','idproduct','size','color','sel_cross_byidproduct','sel_parent_cross_product','sel_cross_type'));
+        return view('admin.product.edit',compact('gallery','product','posttypes','categories','statustypes','str','idproduct','size','color','sel_cross_byidproduct','sel_parent_cross_product','sel_cross_type','rs_sel_impbyidpro'));
     }
 
     /**
@@ -368,20 +365,34 @@ class ProductsController extends Controller
              }
              //$_idimp,$_idcustomer,$_iduser,$_amount,$_price_import,$_price,$_price_sale_origin,$_quality_sale,$_note,$_idstore,$_axis_x,$_axis_y,$_axis_z,$_id_status_type
             $updateproduct = DB::select('call UpdateImportProductProcedure(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',array($_idimp,$_idcustomer,$_iduser,0,$_amount,$_price_import,$_price,$_price_sale_origin,0,$_note,$_idstore,$_axis_x,$_axis_y,$_axis_z,$_id_status_type));
-            $_sel_cross = $request->get('sel_cross');
             $_idimpcross = $request->get('idimpcross');
-            $_price_sale = $request->get('price_sale');
-            $_quality_sale = $request->get('quality_sale');
-            if(isset($_idimpcross) && $_idimpcross > 0 ){
-                $updateproductcross = DB::select('call UpdateImportProductProcedure(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',array($_idimpcross,$_idcustomer,$_iduser,$_sel_cross,$_amount,$_price_import,$_price_sale,$_price_sale_origin,$_quality_sale,$_note,$_idstore,$_axis_x,$_axis_y,$_axis_z,$_id_status_type));
-                return redirect()->action('Admin\ProductsController@edit',[$idproduct,'idcrosstype'=>$_sel_cross,'quality_sale'=>$_quality_sale,'price'=>$_price_sale,'idimpcross' => $_idimpcross ])->with('success',$message);
+            $l_idimpcross = $request->get('l_idimpcross');
+            if(!empty($l_idimpcross)){
+                $l_sel_cross = $request->get('l_sel_cross');
+                $l_idparentcross = $request->get('l_idparentcross');
+                $l_price_sale = $request->get('l_price_sale');
+                $l_quality_sale = $request->get('l_quality_sale');
+                $str_qr = "";
+                foreach( $l_idimpcross as $key => $_idimpcro ) {
+                        $_idimpcross = $_idimpcro;
+                        $_sel_cross = $l_sel_cross[$key];
+                        $_idparentcross = $l_idparentcross[$key];
+                        $_price_sale = $l_price_sale[$key];
+                        $_quality_sale =$l_quality_sale[$key];
+                        $str_qr .= "(".$_idimpcross.",".$_idparentcross.",".$_sel_cross.",".$_price_sale.",".$_quality_sale."),";
+                }
+                $str_qr = substr_replace($str_qr ,"", -1);
+                $str_qr = "INSERT into tmp_import(idimp, idcrosstype, price, quality_sale) VALUES ".$str_qr;
+                //$updateproductcross = DB::select('call UpdateImportProductProcedure(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',array($_idimpcross,$_idcustomer,$_iduser,$_sel_cross,$_amount,$_price_import,$_price_sale,$_price_sale_origin,$_quality_sale,$_note,$_idstore,$_axis_x,$_axis_y,$_axis_z,$_id_status_type));
+                $updateproductcross = DB::select('call UpdateImpProductProcedure(?)',array($str_qr));
+                return redirect()->action('Admin\ProductsController@edit',[$idproduct,'idimpcross' => $_idimpcross ])->with(compact('getlist'));
             }   
         } catch (\Illuminate\Database\QueryException $ex) {
             $errors = new MessageBag(['error' => $ex->getMessage()]);
             return redirect()->back()->withInput()->withErrors($errors);
         }
         $message = "success";
-        return redirect()->action('Admin\ProductsController@edit',$idproduct)->with('success',$message);
+        return redirect()->action('Admin\ProductsController@edit',$idproduct)->with('getlist',$str_qr);
     }
 
     /**

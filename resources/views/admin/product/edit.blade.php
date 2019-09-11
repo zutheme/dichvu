@@ -6,17 +6,12 @@
   
      <!-- Custom Theme Style -->
     <link href="{{ asset('dashboard/build/css/custom.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('dashboard/production/css/custom.css?v=0.4.4') }}" rel="stylesheet">
+    <link href="{{ asset('dashboard/production/css/custom.css?v=0.5.1') }}" rel="stylesheet">
 @stop
 @section('content')
-<?php 		$idcrosstype = app('request')->input('idcrosstype'); 
-			$idparentcross = app('request')->input('idparentcross');
-			$idparentcross = isset($idparentcross) ? $idparentcross : 0; 
-			$price = app('request')->input('price');
-			$price = isset($price) ? $price : 0;
-			$quality_sale = app('request')->input('quality_sale');
-			$quality_sale = isset($quality_sale) ? $quality_sale : 0;
+<?php 		
 			$idimpcross = app('request')->input('idimpcross');
+			//var_dump($getlist);
 			?>
 <?php $no_thumbnail = 'dashboard/production/images/no_photo.jpg'; ?>
 <div class="row">
@@ -31,9 +26,9 @@
 			</ul>
 		</div>
 		@endif
-		@if(\Session::has('success'))
+		@if(\Session::has('getlist'))
 			<div class="alert alert-success">
-				<p>{!! \Session::get('success') !!}</p>
+				<p>{!! \Session::get('getlist') !!}</p>
 			</div>
 		@endif
 	</div>
@@ -128,38 +123,52 @@
 		              <input type="text" name="amount" class="form-controls" value="{{ $product[0]['amount'] }}"/>
 		            </div>
 		          </div>
-		          <div class="form-group">
-		          	  <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá theo:</label>
-			          <div class="col-md-9 col-sm-9 col-xs-12">
-				          <select name="sel_cross">
-				          	<option value="0">-----</option>
-				          	@foreach($sel_cross_type as $option)
-				          	<option value="{{ $option['idcrosstype'] }}" {{ $option['idcrosstype'] == $idcrosstype ? 'selected="selected"' : '' }}>{{ $option['namecross']}}</option>
-				          	@endforeach
-				          </select>
-				      </div>
-		      	  </div>
-		      	  <input type="hidden" name="idimpcross" value="{{ $idimpcross }}">
-		          <div class="form-group">
-		            <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá sale:</label>
-		            <div class="col-md-9 col-sm-9 col-xs-12">
-		              <input type="text" name="price_sale" class="form-controls" value="{{ $price }}" />
-		            </div>
-		          </div>
-		          <div class="form-group">
-		            <label class="control-label col-md-3 col-sm-3 col-xs-12">Số lượng sale:</label>
-		            <div class="col-md-9 col-sm-9 col-xs-12">
-		              <input type="text" name="quality_sale" class="form-controls" value="{{ $quality_sale }}" />
-		            </div>
-		          </div>
-		          @if($idparentcross > 0)
-		          	<div class="form-group">
-	          		<a href="{{ action('Admin\ProductsController@edit',$idparentcross) }}" class="info-number">&nbsp;<i class="fa fa-angle-double-left"></i>&nbsp;Về sản phẩm chính</a>
-	      	  		</div>
-	      	  		@endif
+		   
 	              </div>
 	              <div class="col-sm-12 col-xs-12"></div>
               </div>
+              <!--product relative with another product-->
+               @foreach($rs_sel_impbyidpro as $item)
+               <?php $class = ($item['idimp']==$idimpcross) ? "fade-row":"visable-row"; ?>
+               		<div class="ln_solid"></div>
+	            	<div class="row <?php echo $class; ?>">
+					 <div class="col-sm-12 col-xs-12">	
+				   	  <input type="hidden" name="l_idimpcross[]" value="{{ $item['idimp'] }}">
+			          <div class="form-group">
+			          	  <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá theo:</label>
+				          <div class="col-md-9 col-sm-9 col-xs-12">
+					          <select name="l_sel_cross[]">
+					          	<option value="0">-----</option>
+					          	@foreach($sel_cross_type as $option)
+					          	<option value="{{ $option['idcrosstype'] }}" {{ $option['idcrosstype'] == $item['idcrosstype'] ? 'selected="selected"' : '' }}>{{ $option['namecross']}}</option>
+					          	@endforeach
+					          </select>
+					      </div>
+			      	  </div>
+			          <div class="form-group">
+			            <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá sale:</label>
+			            <div class="col-md-9 col-sm-9 col-xs-12">
+			              <input type="text" name="l_price_sale[]" class="form-controls" value="{{ $item['price'] }}" />
+			            </div>
+			          </div>
+			          <div class="form-group">
+			            <label class="control-label col-md-3 col-sm-3 col-xs-12">Số lượng sale:</label>
+			            <div class="col-md-9 col-sm-9 col-xs-12">
+			              <input type="text" name="l_quality_sale[]" class="form-controls" value="{{ $item['quality_sale'] }}" />
+			            </div>
+			          </div>
+			          @if($item['idparentcross'] > 0)
+			          	<div class="form-group">
+			          	<input type="hidden" name="l_idparentcross[]" value="{{ $item['idparentcross'] }}">
+		          		<a href="{{ action('Admin\ProductsController@edit',$item['idparentcross']) }}" class="info-number">&nbsp;<i class="fa fa-angle-double-left"></i>&nbsp;Về sản phẩm chính</a>
+		      	  		</div>
+		      	  		<a class="edit-product-belong" href="javascript:void(0)" onclick="cate_product(this);"><i class="fa fa-angle-double-left"></i>&nbsp;Chỉnh sửa</a>
+		      	  		@endif
+		              </div>  
+	              </div>
+
+              @endforeach
+              <!--end another product -->
               	<!--extend atribute-->
               <div class="ln_solid"></div>
               	<h5 class="tip">Sản phẩm liên quan</h5>
@@ -191,7 +200,7 @@
 								          </div>
 								          
 								          <div class="form-group">
-								          	<a href="{{ action('Admin\ProductsController@edit',[$row['idproduct'],'idcrosstype' => $row['idcrosstype'],'quality_sale' => $row['quality_sale'],'price' => $row['price'],'idimpcross' => $row['idimp'],'idparentcross' => $row['idparentcross']]) }}" class="info-number">Chỉnh sửa <i class="fa fa-pencil-square"></i></a>
+								          	<a href="{{ action('Admin\ProductsController@edit',[$row['idproduct'],'idimpcross' => $row['idimp']]) }}" class="info-number">Chỉnh sửa <i class="fa fa-pencil-square"></i></a>
 								      	  </div>
 								    </div>
 								    <div class="col-sm-3 text-center">
@@ -203,15 +212,7 @@
 							
 				  @endforeach
 				</div>
-				
-				<div class="ln_solid"></div>
-				<label class="col-lg-12 col-form-label" for="sel_idposttype">Sảm phẩm liên quan:</label>
-				{{-- <a href="javascript:void(0);" onclick="cross_product();" class="btn btn-primary btn-cross-product">Timeline</a>--}}
-				{{-- @foreach($sel_parent_cross_product as $item)
-					@if(isset($item) && $item['idparentcross'] > 0)
-						<a class="btn btn-primary" href="{{ action('Admin\ProductsController@edit',$item['idparentcross']) }}">&nbsp;<i class="fa fa-angle-double-left"></i>&nbsp;Về sản phẩm chính</a>
-					@endif
-				@endforeach  --}}
+	
 				<div class="dropdown">
 			    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Chọn kiểu cross
 			    <span class="caret"></span></button>
@@ -221,7 +222,6 @@
 					@endforeach 
 			    </ul>
 			  </div>
-				{{-- <a href="{{ action('Admin\ProductsController@create',['idparent' => $idproduct,'idcrosstype' => 2] ) }}" class="btn btn-default btn-create-new">Tạo mới</a> --}}
 				<a href="javascript:void(0);" class="btn btn-default btn-search-relative">Tìm kiếm</a>
 			</div>
 			<div class="col-md-3 col-xs-12">
@@ -368,19 +368,54 @@
     </div>
   </div>
 </div>
+<div class="modal-cate-form">
+  <div class="modal-cate">
+    <!-- Modal content -->
+    <div class="modal-content-cate">
+      <span class="close" onclick="close_cate();">&times;</span>
+      	<form class="frm-cate" method="post">
+			<div class="form-group row">
+			    <label class="col-sm-12 col-form-label" for="sel_idcategory">Chuyên mục chính<span class="text-danger">*</span></label>
+			    <div class="col-sm-12">
+			        <select class="form-control cus-drop" name="sel_idcat_main_edit" required>
+			        	<option value="0">--Tất cả--</option>
+			        	@foreach($categories as $row)
+			        		 <option value="{{ $row['idcategory'] }}">{{ $row['namecat'] }}</option>
+						@endforeach        
+			        </select>
+			    </div>
+			</div>
+			<div class="form-group row">
+	        	<div class="col-lg-12">
+	        		<div class="select_dynamic_edit">
+		            	@if(isset($str))
+		            		{!! $str !!}
+		            	@endif
+	            	</div>
+	            </div>
+	        </div>
+	        <div class="form-group">
+	        	<div class="col-lg-12">
+	        	<a class="btn btn-primary" href="javascript:void(0);">Tìm sản phẩm <i class="fa fa-search" aria-hidden="true"></i></a>
+	        	</div>
+	        </div>
+		</form>  	
+    </div>
+  </div>
+</div>
 <script>var _idproduct = '{{ $idproduct }}';</script>
 @stop
 @section('other_scripts')
 	<script src="{{ asset('dashboard/production/js/process_images/capture_image.js?v=0.3.1') }}"></script>
   	<script src="{{ asset('dashboard/production/editor/editor.js?v=0.0.1') }}"></script>
   	<script src="{{ asset('dashboard/production/js/edit_post.js?v=0.1.0') }}"></script>
-  	<script src="{{ asset('dashboard/production/js/create_mutiselect.js?v=0.6.8') }}"></script>	
+  	<script src="{{ asset('dashboard/production/js/create_mutiselect.js?v=0.7.6') }}"></script>	
   	{{-- <script src="{{ asset('dashboard/production/js/process_images/image_product.js.js?v=0.0.2') }}"></script> --}}
   	<script src="{{ asset('dashboard/production/js/uploadmultifile.js?v=0.8.7') }}"></script>
     <script src="{{ asset('dashboard/production/js/media-galerry.js?v=0.5.8') }}"></script>
      <!-- Custom Theme Scripts -->
-     <script src="{{ asset('dashboard/production/js/cross_product.js?v=0.0.3') }}"></script>
+     <script src="{{ asset('dashboard/production/js/cross_product.js?v=0.0.5') }}"></script>
     {{-- <script src="{{ asset('dashboard/build/js/custom.min.js') }}"></script> --}}
     <script src="{{ asset('dashboard/build/js/custom.js') }}"></script>
-    <script src="{{ asset('dashboard/production/js/custom.js?v=0.0.4') }}"></script>
+    <script src="{{ asset('dashboard/production/js/custom.js?v=0.0.5') }}"></script>
 @stop

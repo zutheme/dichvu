@@ -26,8 +26,6 @@ _e_sel_idcat_main.addEventListener("change", function(){
 
 });
 
-
-
 function select_category(select_idcat){
 
   var _csrf_token = document.getElementsByName("csrf-token")[0].getAttribute("content");
@@ -37,7 +35,7 @@ function select_category(select_idcat){
   var host = window.location.hostname;
 
   var url = url_home + "/admin/product/categorybyid/product/"+select_idcat+"/"+_idproduct;
-  console.log(url);
+ 
   var params = JSON.stringify({"sel_idcategory":select_idcat});
 
   http.open("POST", url, true);
@@ -72,4 +70,54 @@ function select_category(select_idcat){
 }
 
   
+var _e_sel_idcat_main_edit = document.getElementsByName("sel_idcat_main_edit")[0];
+_e_sel_idcat_main_edit.addEventListener("change", function(){
+    var select_idcat = this.options[this.selectedIndex].value;
+    if(select_idcat > -1){
+      select_category_search(select_idcat);     
+    }
+});
 
+function select_category_search(select_idcat){
+
+  console.log("idcat="+select_idcat);
+  var _csrf_token = document.getElementsByName("csrf-token")[0].getAttribute("content");
+
+  var http = new XMLHttpRequest();
+
+  var host = window.location.hostname;
+
+  var url = url_home + "/admin/product/categorybyid/product/"+select_idcat+"/"+_idproduct;
+ 
+  var params = JSON.stringify({"sel_idcategory":select_idcat});
+
+  http.open("POST", url, true);
+
+  http.setRequestHeader("X-CSRF-TOKEN", _csrf_token);
+
+  http.setRequestHeader("Accept", "application/json");
+
+  http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+  //var load = _e_frm_reg.getElementsByClassName("loading")[0];
+
+  //load.style.display = "block";
+
+  http.onreadystatechange = function() {
+      if(http.readyState == 4 && http.status == 200) {
+           var myArr = JSON.parse(this.responseText);
+           var e_sel_dynamic =  document.getElementsByClassName("select_dynamic_edit")[0];
+           //var e_ul =  document.getElementsByClassName("list-check")[0];
+           var idcat;
+           if(e_sel_dynamic){
+              while (e_sel_dynamic.firstChild) {
+                  e_sel_dynamic.removeChild(e_sel_dynamic.firstChild);
+              }
+            }
+          //console.log(myArr);
+           e_sel_dynamic.innerHTML = myArr;
+          //load.style.display = "none";      
+      }
+  }
+  http.send(params);
+}

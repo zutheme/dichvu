@@ -5,12 +5,14 @@ function getSelectedText(elementId) {
     return elt.options[elt.selectedIndex].text;
 }
 var _e_sel_idcat_main = document.getElementsByName("sel_idcat_main")[0];
-_e_sel_idcat_main.addEventListener("change", function(){
-    var select_idcat = this.options[this.selectedIndex].value;
-    if(select_idcat > 0){
-      select_category(select_idcat);
-    }
-});
+for (var i = 0; i < _e_sel_idcat_main.length; i++) {
+    _e_sel_idcat_main[i].addEventListener("change", function(){
+        var select_idcat = this.options[this.selectedIndex].value;
+        if(select_idcat > 0){
+          select_category(select_idcat);
+        }
+    });
+}
 function comp_listcat(myarrs,idcmp){
     var idcat;
     var idimppost = 0;
