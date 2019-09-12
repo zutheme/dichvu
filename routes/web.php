@@ -757,9 +757,6 @@ Route::group(['middleware' => 'auth'], function() {
 
 
 
-
-
-
 	Route::post('admin/product/categorybyid/{_cattype}/{_idcat}/{_idproduct}',['uses' =>'Admin\ProductsController@categorybyid', 'as'=>'admin']);
 
 
@@ -767,10 +764,12 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('admin/product/categorybyid/{_cattype}/{_idcat}/{_idproduct}',['uses' =>'Admin\ProductsController@categorybyid', 'as'=>'admin']);
 
 
+	Route::post('admin/product/listcategorybyid/{_cattype}/{_idcat}/{_idproduct}',['uses' =>'Admin\ProductsController@listcategorybyid', 'as'=>'admin']);
+	Route::get('admin/product/listcategorybyid/{_cattype}/{_idcat}/{_idproduct}',['uses' =>'Admin\ProductsController@listcategorybyid', 'as'=>'admin']);
 
 
-
-
+	Route::post('/admin/product/listproductbyidcate',['uses' =>'Admin\ProductsController@listproductbyidcate', 'as'=>'admin']);
+	Route::get('/admin/product/listproductbyidcate/{_idcat}/{_idproduct}',['uses' =>'Admin\ProductsController@listproductbyidcate', 'as'=>'admin']);
 
 	Route::post('admin/product/cross/{_idproduct}',['uses' =>'Admin\ProductsController@crossproduct', 'as'=>'admin']);
 

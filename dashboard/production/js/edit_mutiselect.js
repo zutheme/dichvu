@@ -175,7 +175,6 @@ function comp_idstatustype(myarrs,idcmp){
   var _e_sel_idstatustype = document.getElementsByName("sel_idstatustype")[0];
   var _e_option_idstatustype = _e_sel_idstatustype.getElementsByTagName("option");
   var id_status_type;
-
   for (var i =  _e_option_idstatustype.length - 1; i >= 0; i--) {
     id_status_type = _e_option_idstatustype[i].value;
     if(id_status_type > 0) {

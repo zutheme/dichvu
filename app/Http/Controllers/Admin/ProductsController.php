@@ -440,7 +440,33 @@ class ProductsController extends Controller
         $result = json_decode(json_encode($str_html), true);     
         return response()->json($result); 
     }
-
+    public function listcategorybyid($_cattype='product', $_idcat=0 , $_idproduct = 0) {
+        $qr_cateselected = DB::select('call SelCateSelectedProcedure(?)',array($_idproduct));
+        $_cate_selected = json_decode(json_encode($qr_cateselected), true);
+        //if($_idproduct > 0){
+            //$qr_cateselected = DB::select('call SelCateSelectedProcedure(?)',array($_idproduct));
+            //$_cate_selected = json_decode(json_encode($qr_cateselected), true);
+        if(isset($_cate_selected)){
+            $_cate_selected[0]['idcategory'] = 0;
+        }
+        $result = DB::select('call ListAllCatByTypeProcedure(?)',array($_cattype));
+        $categories = json_decode(json_encode($result), true);
+        $str_ul="";$str_li="";
+        if($_idcat > 0){
+           $this->showCategories($categories, $_idcat,'',$_cate_selected);
+           $s_catename = DB::select('call SelRowCategoryByIdProcedure(?)',array($_idcat));
+           $r_catename = json_decode(json_encode($s_catename), true);
+           foreach ($r_catename as $item) {
+               $selected = ($this->compare_in_list($_cate_selected,$item['idcategory']) >0) ? 'checked' : '';
+               $str_li = '<li><input class="listcheck" type="checkbox" name="list_check[]" value="'.$item['idcategory'].'"'.$selected.'>'.$item['namecat'];
+            }
+       }else{
+           $this->showCategories($categories, 0,'',$_cate_selected);
+       }      
+        $str_html = '<ul class="list-check">'.$str_li.$this->main_menu."</li></ul>";
+        $result = json_decode(json_encode($str_html), true);     
+        return response()->json($result); 
+    }
     public function showCategories($categories, $idparent = 0, $char = '', $_cate_selected)
     {
         $cate_child = array();
@@ -462,7 +488,7 @@ class ProductsController extends Controller
                 $selected = ($this->compare_in_list($_cate_selected,$item['idcategory']) > 0) ? ' checked' : '';
                 //$idcateproduct = $this->compare_in_list($_cate_selected,$item['idcategory']);
                 //$this->main_menu .= '<li><input type="checkbox" name="list_check[]" value="'.$item['idcategory'].'-'.$idcateproduct.'"'.$selected.'>'.$item['namecat'].":".$list_cat;
-                $this->main_menu .= '<li><input type="checkbox" name="list_check[]" value="'.$item['idcategory'].'"'.$selected.'>'.$item['namecat'].":".$list_cat;
+                $this->main_menu .= '<li><input class="checklist" type="checkbox" name="list_check[]" value="'.$item['idcategory'].'"'.$selected.'>'.$item['namecat'].":".$list_cat;
                 // Tiếp tục đệ quy để tìm chuyên mục con của chuyên mục đang lặp
                 $this->showCategories($categories, $item['idcategory'], $char.'|---', $_cate_selected);
                 $this->main_menu .= '</li>';
@@ -569,6 +595,35 @@ class ProductsController extends Controller
                 $this->main_menu .= '</li>';
             }
             $this->main_menu .= '</ul>';
+        }
+    }
+    public function listproductbyidcate(Request $request){
+        $input = json_decode(file_get_contents('php://input'),true);
+        $str_lstidcate = $input['list_idcate'];
+        $lst_idcate = json_decode($str_lstidcate);
+        $_str_query = "";
+        $urlpath = asset('/');
+        if(empty($lst_idcate)){
+            return response()->json($strlst);
+        }
+        foreach ($lst_idcate as $item) {
+            $_str_query .= '('.$item->idcate.'),';
+        }
+        $_str_query = substr_replace($_str_query ,"", -1);
+        $_str_query = "insert INTO tmp_cate(idcate) VALUES ".$_str_query;   
+        try {
+            $qr_lst = DB::select('call ListProductByLstIdCateProcedure(?)',array($_str_query));
+            $rs_lstcate = json_decode(json_encode($qr_lst));
+            $strlst = "";
+            foreach ($rs_lstcate as $item) {
+            $url = action('Admin\ProductsController@edit', ['idproduct' => $item->idproduct]);
+            $strlst .= '<li><input class="listcheck" type="checkbox" value="'.$item->idproduct.'"><img src="'.$urlpath.$item->urlfile.'"><label><a target="_blank" href="'.$url.'">'.$item->namepro.'</a></label><p>&nbsp;&nbsp;('.$item->price.')</p></li>';  
+            }     
+            return response()->json($strlst); 
+        } catch (\Illuminate\Database\QueryException $ex) {
+            $errors = new MessageBag(['error' => $ex->getMessage()]);
+            $errors = "";
+            return response()->json($errors); 
         }
     }
 }

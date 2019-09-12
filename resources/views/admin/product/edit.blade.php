@@ -6,7 +6,7 @@
   
      <!-- Custom Theme Style -->
     <link href="{{ asset('dashboard/build/css/custom.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('dashboard/production/css/custom.css?v=0.5.1') }}" rel="stylesheet">
+    <link href="{{ asset('dashboard/production/css/custom.css?v=0.7.1') }}" rel="stylesheet">
 @stop
 @section('content')
 <?php 		
@@ -133,7 +133,7 @@
                		<div class="ln_solid"></div>
 	            	<div class="row <?php echo $class; ?>">
 					 <div class="col-sm-12 col-xs-12">	
-				   	  <input type="hidden" name="l_idimpcross[]" value="{{ $item['idimp'] }}">
+				   	  <input ca type="hidden" name="l_idimpcross[]" value="{{ $item['idimp'] }}">
 			          <div class="form-group">
 			          	  <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá theo:</label>
 				          <div class="col-md-9 col-sm-9 col-xs-12">
@@ -159,10 +159,9 @@
 			          </div>
 			          @if($item['idparentcross'] > 0)
 			          	<div class="form-group">
-			          	<input type="hidden" name="l_idparentcross[]" value="{{ $item['idparentcross'] }}">
-		          		<a href="{{ action('Admin\ProductsController@edit',$item['idparentcross']) }}" class="info-number">&nbsp;<i class="fa fa-angle-double-left"></i>&nbsp;Về sản phẩm chính</a>
-		      	  		</div>
-		      	  		<a class="edit-product-belong" href="javascript:void(0)" onclick="cate_product(this);"><i class="fa fa-angle-double-left"></i>&nbsp;Chỉnh sửa</a>
+			          	<input class="idparentcross" type="hidden" name="l_idparentcross[]" value="{{ $item['idparentcross'] }}">
+		          		<a href="{{ action('Admin\ProductsController@edit',$item['idparentcross']) }}" class="info-number">&nbsp;<i class="fa fa-angle-double-left"></i>&nbsp;Về sản phẩm liên quan</a>&nbsp;&nbsp;&nbsp;<a class="edit-product-belong" href="javascript:void(0)" onclick="cate_product(this);"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
+		      	  		</div>	      	  		
 		      	  		@endif
 		              </div>  
 	              </div>
@@ -396,7 +395,20 @@
 	        </div>
 	        <div class="form-group">
 	        	<div class="col-lg-12">
-	        	<a class="btn btn-primary" href="javascript:void(0);">Tìm sản phẩm <i class="fa fa-search" aria-hidden="true"></i></a>
+	        	<a class="btn btn-primary btn-search" href="javascript:void(0);">Tìm sản phẩm <i class="fa fa-search" aria-hidden="true"></i></a>
+	        	</div>
+	        </div>
+	        <div class="form-group">
+	        	<div class="col-lg-12 result">
+	        		<ul class="list-check-result"></ul>
+	        	</div>
+	        </div>
+	        <div class="form-group submit">
+	        	<div class="col-lg-6">
+	        		<a class="btn btn-primary btn-update-relative" href="javascript:void(0)">Cập nhật</a>
+	        	</div>
+	        	<div class="col-lg-6">
+	        		<a class="btn btn-primary btn-create-new-relative" href="javascript:void(0)">Tạo liên quan mới</a>
 	        	</div>
 	        </div>
 		</form>  	
@@ -409,12 +421,12 @@
 	<script src="{{ asset('dashboard/production/js/process_images/capture_image.js?v=0.3.1') }}"></script>
   	<script src="{{ asset('dashboard/production/editor/editor.js?v=0.0.1') }}"></script>
   	<script src="{{ asset('dashboard/production/js/edit_post.js?v=0.1.0') }}"></script>
-  	<script src="{{ asset('dashboard/production/js/create_mutiselect.js?v=0.7.6') }}"></script>	
+  	<script src="{{ asset('dashboard/production/js/create_mutiselect.js?v=1.0.1') }}"></script>	
   	{{-- <script src="{{ asset('dashboard/production/js/process_images/image_product.js.js?v=0.0.2') }}"></script> --}}
   	<script src="{{ asset('dashboard/production/js/uploadmultifile.js?v=0.8.7') }}"></script>
     <script src="{{ asset('dashboard/production/js/media-galerry.js?v=0.5.8') }}"></script>
      <!-- Custom Theme Scripts -->
-     <script src="{{ asset('dashboard/production/js/cross_product.js?v=0.0.5') }}"></script>
+    {{--  <script src="{{ asset('dashboard/production/js/cross_product.js?v=0.0.5') }}"></script> --}}
     {{-- <script src="{{ asset('dashboard/build/js/custom.min.js') }}"></script> --}}
     <script src="{{ asset('dashboard/build/js/custom.js') }}"></script>
     <script src="{{ asset('dashboard/production/js/custom.js?v=0.0.5') }}"></script>
