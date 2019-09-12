@@ -751,14 +751,8 @@ table tbody .thumb {
     text-decoration: none;
     cursor: pointer;
 }
-.modal-cate-form .modal-content-cate .loading {
-    max-width: 20px;
-    max-height: 20px;
-}
-.modal-cate-form .frm-cate canvas {
-    width: 100%;
-    height: auto;
-}
+
+
 .modal-cate-form .frm-cate .result {
     position: relative;
     margin-top: 15px;
@@ -816,3 +810,14 @@ table tbody .thumb {
     }
 }
 /*end promtion*/
+.fade-row figcaption,
+.visable-row figcaption{
+    padding: 0.5em;
+}
+.fade-row .thumb,
+.visable-row .thumb {
+    max-width: 80px;
+    height: auto;
+    float: left;
+    padding: 3px;
+}

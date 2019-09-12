@@ -6,7 +6,7 @@
   
      <!-- Custom Theme Style -->
     <link href="{{ asset('dashboard/build/css/custom.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('dashboard/production/css/custom.css?v=0.7.1') }}" rel="stylesheet">
+    <link href="{{ asset('dashboard/production/css/custom.css?v=0.8.0') }}" rel="stylesheet">
 @stop
 @section('content')
 <?php 		
@@ -132,8 +132,8 @@
                <?php $class = ($item['idimp']==$idimpcross) ? "fade-row":"visable-row"; ?>
                		<div class="ln_solid"></div>
 	            	<div class="row <?php echo $class; ?>">
-					 <div class="col-sm-12 col-xs-12">	
-				   	  <input ca type="hidden" name="l_idimpcross[]" value="{{ $item['idimp'] }}">
+					 <div class="col-sm-6 col-xs-6">	
+				   	  <input type="hidden" name="l_idimpcross[]" value="{{ $item['idimp'] }}">
 			          <div class="form-group">
 			          	  <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá theo:</label>
 				          <div class="col-md-9 col-sm-9 col-xs-12">
@@ -157,10 +157,18 @@
 			              <input type="text" name="l_quality_sale[]" class="form-controls" value="{{ $item['quality_sale'] }}" />
 			            </div>
 			          </div>
+			      	</div>
 			          @if($item['idparentcross'] > 0)
+			           <div class="col-sm-6 col-xs-6">
 			          	<div class="form-group">
 			          	<input class="idparentcross" type="hidden" name="l_idparentcross[]" value="{{ $item['idparentcross'] }}">
-		          		<a href="{{ action('Admin\ProductsController@edit',$item['idparentcross']) }}" class="info-number">&nbsp;<i class="fa fa-angle-double-left"></i>&nbsp;Về sản phẩm liên quan</a>&nbsp;&nbsp;&nbsp;<a class="edit-product-belong" href="javascript:void(0)" onclick="cate_product(this);"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
+			          	<figure>
+						  <img class="thumb" src="{{ asset($item['urlfile']) }}" alt="" style="width:100%">
+						  <figcaption><a href="{{ action('Admin\ProductsController@edit',$item['idparentcross']) }}" class="info-number">&nbsp;<i class="fa fa-angle-double-left"></i>&nbsp;{{ $item['namepro'] }}</a>
+						  	{{-- <p>{{ $item['short_desc'] }}</p> --}}
+						  </figcaption>
+						</figure>
+		          		<a class="edit-product-belong" href="javascript:void(0)" onclick="cate_product(this);"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
 		      	  		</div>	      	  		
 		      	  		@endif
 		              </div>  
@@ -396,6 +404,7 @@
 	        <div class="form-group">
 	        	<div class="col-lg-12">
 	        	<a class="btn btn-primary btn-search" href="javascript:void(0);">Tìm sản phẩm <i class="fa fa-search" aria-hidden="true"></i></a>
+	        	<img class="loading" style="display:none;width:100%;height: auto;" src="{{ asset('dashboard/production/images/searching.gif') }}">
 	        	</div>
 	        </div>
 	        <div class="form-group">
@@ -403,7 +412,7 @@
 	        		<ul class="list-check-result"></ul>
 	        	</div>
 	        </div>
-	        <div class="form-group submit">
+	        <di v class="form-group submit">
 	        	<div class="col-lg-6">
 	        		<a class="btn btn-primary btn-update-relative" href="javascript:void(0)">Cập nhật</a>
 	        	</div>
@@ -421,7 +430,7 @@
 	<script src="{{ asset('dashboard/production/js/process_images/capture_image.js?v=0.3.1') }}"></script>
   	<script src="{{ asset('dashboard/production/editor/editor.js?v=0.0.1') }}"></script>
   	<script src="{{ asset('dashboard/production/js/edit_post.js?v=0.1.0') }}"></script>
-  	<script src="{{ asset('dashboard/production/js/create_mutiselect.js?v=1.0.1') }}"></script>	
+  	<script src="{{ asset('dashboard/production/js/create_mutiselect.js?v=1.0.7') }}"></script>	
   	{{-- <script src="{{ asset('dashboard/production/js/process_images/image_product.js.js?v=0.0.2') }}"></script> --}}
   	<script src="{{ asset('dashboard/production/js/uploadmultifile.js?v=0.8.7') }}"></script>
     <script src="{{ asset('dashboard/production/js/media-galerry.js?v=0.5.8') }}"></script>

@@ -146,20 +146,23 @@ var _e_btn_search = _e_form_cate.getElementsByClassName("btn-search")[0];
 _e_btn_search.addEventListener("click",function(){
     var listcheck = _e_form_cate.getElementsByClassName("select_dynamic_edit")[0];
     var e_lst_check = listcheck.getElementsByClassName("checklist");
-    var lst_value = "";
+    var lst_value = ""; var _search = false;
     if(e_lst_check){
       for (var i = 0; i < e_lst_check.length; i++) {
         if(e_lst_check[i].checked){
             lst_value = lst_value + '{"idcate":'+e_lst_check[i].value + '},';
+            _search = true;
         }
       }
-
-      lst_value = '['+lst_value.replace(/,\s*$/, "")+']';
-      search_productbyidcate(lst_value);
+      if(_search){
+        lst_value = '['+lst_value.replace(/,\s*$/, "")+']';
+        search_productbyidcate(lst_value);
+      }else{
+         alert("Bạn chọn ít nhất một chuyên mục");
+      } 
     }  
 });
 function search_productbyidcate(_list_idcate){
-  console.log(_e_idparentcrosss);
   var _csrf_token = document.getElementsByName("csrf-token")[0].getAttribute("content");
   var http = new XMLHttpRequest();
 
@@ -177,9 +180,8 @@ function search_productbyidcate(_list_idcate){
 
   http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-  //var load = _e_frm_reg.getElementsByClassName("loading")[0];
-
-  //load.style.display = "block";
+  var load = _e_form_cate.getElementsByClassName("loading")[0];
+  load.style.display = "block";
 
   http.onreadystatechange = function() {
       if(http.readyState == 4 && http.status == 200) {
@@ -187,8 +189,23 @@ function search_productbyidcate(_list_idcate){
            //console.log(myArr);
            var e_ul =  _e_form_cate.getElementsByClassName("list-check-result")[0]; 
             e_ul.innerHTML = myArr;
-          //load.style.display = "none";      
+           load.style.display = "none";      
       }
   }
   http.send(params);
 }
+var _e_btn_update_relative = _e_form_cate.getElementsByClassName("btn-update-relative")[0];
+_e_btn_update_relative.addEventListener("click",function(){
+    //console.log(_e_idparentcrosss);
+    var e_ul =  _e_form_cate.getElementsByClassName("list-check-result")[0]; 
+    if(e_ul){
+        var lst_item=""; 
+        var _e_lstchk = e_ul.getElementsByClassName("listcheck");
+        for (var i = 0; i < _e_lstchk.length; i++) {
+          if(_e_lstchk[i].checked){
+              lst_item = lst_item + _e_lstchk[i].value + ',';
+          }
+        }
+        lst_item = lst_item.replace(/,\s*$/, "");
+    }
+});
