@@ -82,12 +82,10 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
         $posttypes = PostType::all()->toArray();
-        $_idemployee = Auth::id();
-        $_idcustomer = '0';$_amount= '0'; $_price='0';$_note =""; $_idstore= 31;$_axis_x='0';$_axis_y='0'; $_axis_z='0'; $message ="";
+        $_iduser = Auth::id();
+        $_idcustomer = 0;$_amount= 0; $_price=0;$_note =""; $_idstore= 31;$_axis_x=0;$_axis_y=0; $_axis_z=0; $message ="";
         $_idthumbnail = 1;$_idgallery = 2;
-        $_idcrosstype = $request->get('idcrosstype'); $_idparent = $request->get('idparent');
-        $_idcrosstype = (isset($_idcrosstype)&&$_idcrosstype > 0) ? $_idcrosstype:0;
-        $_idparent = (isset($_idparent)&&$_idparent > 0) ? $_idparent:0;
+        
         $func_global = new func_global();
         try {
             $_namepro = $request->get('title');
@@ -101,10 +99,6 @@ class ProductsController extends Controller
             $_price_import = $request->get('price_import');
             $_price_sale_origin = $request->get('price_sale_origin');
             $_price = $request->get('price');
-            $_price_combo = $request->get('price_combo');
-            $_quality_combo = $request->get('quality_combo');
-            $_price_gift = $request->get('price_gift');
-            $_quality_gift = $request->get('quality_gift');
             $_short_desc = $request->get('short_desc');
             $_amount = $request->get('amount');
             $_idsize = $request->get('size');
@@ -120,7 +114,6 @@ class ProductsController extends Controller
             //create product
             $product = new Products(['namepro'=> $_namepro,'slug'=> $_slug,'short_desc'=> $_short_desc,'description'=>$_description,'idsize'=>$_idsize,'idcolor'=>$_idcolor,'id_post_type'=>$_id_post_type]);
             $product->save();
-  
             $idproduct = $product->idproduct;
             $list_checks = $request->input('list_check');
             $_list_idcat="";
@@ -170,13 +163,18 @@ class ProductsController extends Controller
                 }
              }
              
-            $_catnametype = 'store'; $_shortname = 'import';
-            $insertproduct = DB::select('call ImportProductProcedure(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',array($idproduct, $_idcustomer, $_idemployee, $_idcrosstype, $_idparent, $_amount, $_price_import, $_price, $_price_sale_origin,$_price_combo, $_quality_combo,$_price_gift, $_quality_gift, $_note, $_axis_x, $_axis_y, $_axis_z, $_id_status_type, $_catnametype, $_shortname));
-            //insert cross product
+            $_catnametype = 'store'; $_shortname = 'import';$_id_status_type=4;
+            $qr_insertproduct = DB::select('call ImportProductProcedure(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',array($idproduct,$_idcustomer,$_iduser,0,0,$_amount,$_price_import,$_price,$_price_sale_origin,0,$_note,$_axis_x,$_axis_y,$_axis_z,$_id_status_type,$_catnametype,$_shortname));
+            $rs_insertproduct = json_decode(json_encode($qr_insertproduct), true);
+            $_idcrosstype = $request->get('idcrosstype'); 
+            $_idparent = $request->get('idparent');
+            if( $_idcrosstype > 0 && $_idparent > 0){
+                $_price_sale = $request->get('price_sale');
+                $_quality_sale = $request->get('quality_sale');
+                $insertproduct = DB::select('call ImportProductProcedure(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',array($idproduct,$_idcustomer,$_iduser,$_idcrosstype,$_idparent,$_amount,$_price_import,$_price_sale,$_price_sale_origin,$_quality_sale,$_note,$_axis_x,$_axis_y,$_axis_z,$_id_status_type,$_catnametype,$_shortname));
+            }
             
-            //if($_idcrosstype > 0 && $_idparent > 0){
-                //$insert_crossproduct = DB::select('call InsertCrossProductProcedure(?,?,?)',array($_idparent,$_idcrosstype,$idproduct));
-            //}
+           
         } catch (\Illuminate\Database\QueryException $ex) {
             $errors = new MessageBag(['error' => $ex->getMessage()]);
             return redirect()->back()->withInput()->withErrors($errors);

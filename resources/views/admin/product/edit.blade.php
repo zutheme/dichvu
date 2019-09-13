@@ -6,7 +6,7 @@
   
      <!-- Custom Theme Style -->
     <link href="{{ asset('dashboard/build/css/custom.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('dashboard/production/css/custom.css?v=0.8.1') }}" rel="stylesheet">
+    <link href="{{ asset('dashboard/production/css/custom.css?v=0.8.2') }}" rel="stylesheet">
 @stop
 @section('content')
 <?php 		
@@ -226,17 +226,17 @@
 				</div>		
 				  @endforeach
 				</div>
-				<a class="btn btn-primary edit-product-belong" href="javascript:void(0)" onclick="cate_product(this);"><i class="fa fa-edit"></i>&nbsp;Tạo liên quan mới</a>
-				<div class="dropdown">
-				    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Chọn kiểu cross
+				<a class="btn btn-primary edit-product-belong" href="javascript:void(0)" onclick="cate_product(this);"><i class="fa fa-edit"></i>&nbsp;Tạo mới quan hệ với sp khác</a>&nbsp;
+				<span class="dropdown">
+				    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Tạo sp mới quan hệ với sp hiện tại
 				    <span class="caret"></span></button>
 				    <ul class="dropdown-menu">
 				      @foreach($sel_cross_type as $row)
 	                		<li><a href="{{ action('Admin\ProductsController@create',['idparent' => $idproduct,'idcrosstype' => $row['idcrosstype']] ) }}" class="btn btn-default btn-create-new">{{ $row['namecross'] }}</a></li>
 						@endforeach 
 				    </ul>
-				  </div>
-				<a href="javascript:void(0);" class="btn btn-default btn-search-relative">Tìm kiếm</a>
+				  </span>
+				
 			</div>
 			<div class="col-md-3 col-xs-12">
 				<div class="form-group row">

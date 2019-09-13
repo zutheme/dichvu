@@ -103,30 +103,31 @@
 	              <input type="text" name="price" class="form-controls" />
 	            </div>
 	          </div>
-	          <div class="form-group">
-	          	 <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá theo:</label>
-	          	<div class="col-md-9 col-sm-9 col-xs-12">
-			          <select name="sel_cross">
-			          	<option value="0">-----</option>
-			          	@foreach($sel_cross_type as $option)
-			          	<option value="{{ $option['idcrosstype'] }}" {{ $option['idcrosstype'] == $idcrosstype ? 'selected="selected"' : '' }}>{{ $option['namecross']}}</option>
-			          	@endforeach
-			          </select>
-		      		</div>
-		      </div>
-	          <div class="form-group">
-	            <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá sale:</label>
-	            <div class="col-md-9 col-sm-9 col-xs-12">
-	              <input type="text" name="price_combo" class="form-controls" />
-	            </div>
-	          </div>
-	          <div class="form-group">
-	            <label class="control-label col-md-3 col-sm-3 col-xs-12">Số lượng sale:</label>
-	            <div class="col-md-9 col-sm-9 col-xs-12">
-	              <input type="text" name="quality_combo" class="form-controls" />
-	            </div>
-	          </div>
-	
+	          @if($idcrosstype==1 or $idcrosstype==2)
+		          <div class="form-group">
+		          	 <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá theo:</label>
+		          	<div class="col-md-9 col-sm-9 col-xs-12">
+				          <select name="sel_cross">
+				          	<option value="0">-----</option>
+				          	@foreach($sel_cross_type as $option)
+				          	<option value="{{ $option['idcrosstype'] }}" {{ $option['idcrosstype'] == $idcrosstype ? 'selected="selected"' : '' }}>{{ $option['namecross']}}</option>
+				          	@endforeach
+				          </select>
+			      		</div>
+			      </div>
+		          <div class="form-group">
+		            <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá sale:</label>
+		            <div class="col-md-9 col-sm-9 col-xs-12">
+		              <input type="text" name="price_sale" class="form-controls" />
+		            </div>
+		          </div>
+		          <div class="form-group">
+		            <label class="control-label col-md-3 col-sm-3 col-xs-12">Số lượng sale:</label>
+		            <div class="col-md-9 col-sm-9 col-xs-12">
+		              <input type="text" name="quality_sale" class="form-controls" />
+		            </div>
+		          </div>
+				@endif
 	          	<div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Kích thước</label>
                 <div class="col-md-9 col-sm-9 col-xs-12">

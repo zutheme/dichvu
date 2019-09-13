@@ -748,7 +748,8 @@ table tbody .thumb {
 }
 .modal-cate-form .frm-cate .form-group select {
     position: relative;
-    width: 100%;
+    min-width: 172px;
+    padding: 3px;
 }
 @media (max-width: 768px){
     .modal-cate-form .modal-content-cate {
