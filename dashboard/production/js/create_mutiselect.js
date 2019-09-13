@@ -16,6 +16,7 @@ function cate_product(element){
    _e_idparentcrosss = element.parentElement;
   _e_modal_cate.style.display = "block";
 }
+
 function close_cate(){
   _e_modal_cate.style.display = "none";
 }
@@ -196,16 +197,32 @@ function search_productbyidcate(_list_idcate){
 }
 var _e_btn_update_relative = _e_form_cate.getElementsByClassName("btn-update-relative")[0];
 _e_btn_update_relative.addEventListener("click",function(){
-    //console.log(_e_idparentcrosss);
     var e_ul =  _e_form_cate.getElementsByClassName("list-check-result")[0]; 
     if(e_ul){
-        var lst_item=""; 
+        var lst_item=""; var count = 0;
         var _e_lstchk = e_ul.getElementsByClassName("listcheck");
         for (var i = 0; i < _e_lstchk.length; i++) {
           if(_e_lstchk[i].checked){
-              lst_item = lst_item + _e_lstchk[i].value + ',';
+              var _e_parent_lst = _e_lstchk[i].parentElement;
+              var _href = _e_parent_lst.getElementsByTagName("a")[0].getAttribute('href');
+              var _title = _e_parent_lst.getElementsByTagName("a")[0].innerHTML;
+              var _src = _e_parent_lst.getElementsByTagName("img")[0].getAttribute('src');
+              //console.log(_src,_href,_title);
+              var _e_id_status_type = _e_idparentcrosss.getElementsByClassName("id_status_type")[0];
+              //_e_id_status_type.value = ;
+              console.log(_e_id_status_type);
+              _e_idparentcrosss.getElementsByClassName("idparentcross")[0].value = _e_lstchk[i].value;
+              _e_idparentcrosss.getElementsByTagName("img")[0].src = _src;
+              _e_idparentcrosss.getElementsByClassName("name-product")[0].innerHTML = _title;
+              //lst_item = lst_item + _e_lstchk[i].value + ',';
           }
         }
-        lst_item = lst_item.replace(/,\s*$/, "");
+        //lst_item = lst_item.replace(/,\s*$/, "");
+       close_cate();
     }
 });
+function remove(element){
+  var _e_parent = element.parentElement.parentElement.parentElement;
+  _e_parent.getElementsByClassName("cross_id_status_type")[0].value = 5;
+  _e_parent.style.display = "none";
+}

@@ -678,59 +678,10 @@ table tbody .thumb {
    -moz-border-radius: 5px; 
    border-radius: 5px;  
 }
-.modal-cate-form .modal-content-cate h2 {
-    font-size: 18px;
-    font-weight: 600px;
-    color: #451511;
-}
-.modal-cate-form .modal-content-cate h3 {
-    font-size: 16px;
-    font-weight: 600px;
-    color: #451511;
-}
 .modal-cate-form .modal-content-cate p {
     font-size: 14px;
     font-weight: 500px;
     color: #451511;
-}
-.modal-cate-form .frm-cate .cate {
-    position: relative;
-    padding: 5px 10px;
-}
-.modal-cate-form .frm-cate .cate h2 {
-    text-transform: uppercase;
-}
-.modal-cate-form .frm-cate .cate .logo {
-    max-width: 200px;
-    height: auto;
-}
-.modal-cate-form .input-group-cate select.form-control-cate,
-.modal-cate-form .frm-cate .input-group-cate {
-    width: 100%;
-    padding:3px 5px;
-    text-align: center;
-}
-.modal-cate-form .input-group-cate.capture {
-    text-align: center;
-}
-.modal-cate-form .input-group-cate .btn-insert-picture {
-    padding: 5px 15px;
-    color: #000;
-    font-size: 14px;
-    font-weight: 400;
-    text-align: center;
-    background: #fff;
-    -webkit-border-radius: 5px; 
-   -moz-border-radius: 5px; 
-   border-radius: 5px; 
-}
-.modal-cate-form .frm-cate .input-group-cate input.form-control-cate{
-    width: 100%;
-    padding:5px 5px;
-    -webkit-border-radius: 5px; 
-   -moz-border-radius: 5px; 
-   border-radius: 5px;
-   border: 1px solid #EAD868;
 }
 /* The Close Button */
 .modal-cate-form .modal-content-cate .close{
@@ -795,12 +746,16 @@ table tbody .thumb {
     width: 100%;
     border:none;
 }
+.modal-cate-form .frm-cate .form-group select {
+    position: relative;
+    width: 100%;
+}
 @media (max-width: 768px){
     .modal-cate-form .modal-content-cate {
         text-align: center;
         background: #fff;
        /* background-image: url(../images/nen-frm2.jpg);*/
-        margin: 15% auto; 
+        margin: 5% auto; 
         padding: 20px 20px;
         border: 1px solid #888;
         max-width: 450px;

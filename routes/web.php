@@ -729,76 +729,29 @@ Route::group(['middleware' => 'auth'], function() {
 
 
 	//deparment
-
-
-
 	Route::get('admin/department/listdepartmentbyid', 'Admin\DepartmentController@listdepartmentbyid');
-
-
-
 	Route::post('admin/department/listdepartmentbyid', 'Admin\DepartmentController@listdepartmentbyid');
-
-
-
 	Route::resource('admin/department','Admin\DepartmentController', array('as'=>'admin'));
-
-
-
 	//products
-
-
-
 	Route::post('admin/producthasfile/delete',['uses' =>'Admin\ProductsController@trash', 'as'=>'admin']);
 
-
-
 	Route::get('admin/producthasfile/delete',['uses' =>'Admin\ProductsController@trash', 'as'=>'admin']);
-
-
-
-
 	Route::post('admin/product/categorybyid/{_cattype}/{_idcat}/{_idproduct}',['uses' =>'Admin\ProductsController@categorybyid', 'as'=>'admin']);
-
-
-
 	Route::get('admin/product/categorybyid/{_cattype}/{_idcat}/{_idproduct}',['uses' =>'Admin\ProductsController@categorybyid', 'as'=>'admin']);
-
 
 	Route::post('admin/product/listcategorybyid/{_cattype}/{_idcat}/{_idproduct}',['uses' =>'Admin\ProductsController@listcategorybyid', 'as'=>'admin']);
 	Route::get('admin/product/listcategorybyid/{_cattype}/{_idcat}/{_idproduct}',['uses' =>'Admin\ProductsController@listcategorybyid', 'as'=>'admin']);
-
 
 	Route::post('/admin/product/listproductbyidcate',['uses' =>'Admin\ProductsController@listproductbyidcate', 'as'=>'admin']);
 	Route::get('/admin/product/listproductbyidcate/{_idcat}/{_idproduct}',['uses' =>'Admin\ProductsController@listproductbyidcate', 'as'=>'admin']);
 
 	Route::post('admin/product/cross/{_idproduct}',['uses' =>'Admin\ProductsController@crossproduct', 'as'=>'admin']);
-
-
-
 	Route::get('admin/product/cross/{_idproduct}',['uses' =>'Admin\ProductsController@crossproduct', 'as'=>'admin']);
 
-
-
-
-
-
-
+	Route::post('admin/product/makenewcrosstype/{_idproduct}',['uses' =>'Admin\ProductsController@makenewcrosstype', 'as'=>'admin']);
+	Route::get('admin/product/makenewcrosstype/{_idproduct}',['uses' =>'Admin\ProductsController@makenewcrosstype', 'as'=>'admin']);
 	Route::resource('admin/product','Admin\ProductsController', array('as'=>'admin'));
-
-
-
-
-
-
-
-	//grant permistion
-
-
-
-
-
-
-
+	//grant permistio
 	Route::resource('admin/roles','Admin\RoleController', array('as'=>'admin'));
 
 

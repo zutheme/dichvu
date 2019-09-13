@@ -366,33 +366,34 @@ class ProductsController extends Controller
              //$_idimp,$_idcustomer,$_iduser,$_amount,$_price_import,$_price,$_price_sale_origin,$_quality_sale,$_note,$_idstore,$_axis_x,$_axis_y,$_axis_z,$_id_status_type
             $updateproduct = DB::select('call UpdateImportProductProcedure(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',array($_idimp,$_idcustomer,$_iduser,0,$_amount,$_price_import,$_price,$_price_sale_origin,0,$_note,$_idstore,$_axis_x,$_axis_y,$_axis_z,$_id_status_type));
             $_idimpcross = $request->get('idimpcross');
-            $l_idimpcross = $request->get('l_idimpcross');
-            if(!empty($l_idimpcross)){
-                $l_sel_cross = $request->get('l_sel_cross');
-                $l_idparentcross = $request->get('l_idparentcross');
-                $l_price_sale = $request->get('l_price_sale');
-                $l_quality_sale = $request->get('l_quality_sale');
+            $l_cross_idimp = $request->get('l_cross_idimp');
+            if(!empty($l_cross_idimp)){
+                $l_cross_selidtype = $request->get('l_cross_selidtype');
+                //$l_idparentcross = $request->get('l_idparentcross');
+                $l_cross_price = $request->get('l_cross_price');
+                $l_cross_quality_sale = $request->get('l_cross_quality_sale');
+                $l_cross_id_status_type = $request->get('l_cross_id_status_type');
                 $str_qr = "";
-                foreach( $l_idimpcross as $key => $_idimpcro ) {
-                        $_idimpcross = $_idimpcro;
-                        $_sel_cross = $l_sel_cross[$key];
-                        $_idparentcross = $l_idparentcross[$key];
-                        $_price_sale = $l_price_sale[$key];
-                        $_quality_sale =$l_quality_sale[$key];
-                        $str_qr .= "(".$_idimpcross.",".$_idparentcross.",".$_sel_cross.",".$_price_sale.",".$_quality_sale."),";
+                foreach( $l_cross_idimp as $key => $_cross_idimp ) {
+                        $_cross_selidtype = $l_cross_selidtype[$key];
+                        //$_idparentcross = $l_idparentcross[$key];
+                        $_cross_price = $l_cross_price[$key];
+                        $_cross_quality_sale =$l_cross_quality_sale[$key];
+                        $_cross_id_status_type = $l_cross_id_status_type[$key];
+                        $str_qr .= "(".$_cross_idimp.",".$_cross_selidtype.",".$_cross_price.",".$_cross_quality_sale.",".$_cross_id_status_type."),";
                 }
                 $str_qr = substr_replace($str_qr ,"", -1);
-                $str_qr = "INSERT into tmp_import(idimp, idcrosstype, price, quality_sale) VALUES ".$str_qr;
+                $str_qr = "INSERT into tmp_import(idimp, idcrosstype, price, quality_sale, id_status_type) VALUES ".$str_qr;
                 //$updateproductcross = DB::select('call UpdateImportProductProcedure(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',array($_idimpcross,$_idcustomer,$_iduser,$_sel_cross,$_amount,$_price_import,$_price_sale,$_price_sale_origin,$_quality_sale,$_note,$_idstore,$_axis_x,$_axis_y,$_axis_z,$_id_status_type));
                 $updateproductcross = DB::select('call UpdateImpProductProcedure(?)',array($str_qr));
-                return redirect()->action('Admin\ProductsController@edit',[$idproduct,'idimpcross' => $_idimpcross ])->with(compact('getlist'));
+                return redirect()->action('Admin\ProductsController@edit',[$idproduct,'idimpcross' => $_idimpcross ])->with('getlist',$str_qr);
             }   
         } catch (\Illuminate\Database\QueryException $ex) {
             $errors = new MessageBag(['error' => $ex->getMessage()]);
             return redirect()->back()->withInput()->withErrors($errors);
         }
-        $message = "success";
-        return redirect()->action('Admin\ProductsController@edit',$idproduct)->with('getlist',$str_qr);
+        $message = "update";
+        return redirect()->action('Admin\ProductsController@edit',$idproduct)->with('getlist',$message);
     }
 
     /**
@@ -617,7 +618,7 @@ class ProductsController extends Controller
             $strlst = "";
             foreach ($rs_lstcate as $item) {
             $url = action('Admin\ProductsController@edit', ['idproduct' => $item->idproduct]);
-            $strlst .= '<li><input class="listcheck" type="checkbox" value="'.$item->idproduct.'"><img src="'.$urlpath.$item->urlfile.'"><label><a target="_blank" href="'.$url.'">'.$item->namepro.'</a></label><p>&nbsp;&nbsp;('.$item->price.')</p></li>';  
+            $strlst .= '<li><input class="listcheck" type="radio" value="'.$item->idproduct.'" name="listchoose"><img src="'.$urlpath.$item->urlfile.'"><label><a target="_blank" href="'.$url.'">'.$item->namepro.'</a></label><p>&nbsp;&nbsp;('.$item->price.')</p></li>';  
             }     
             return response()->json($strlst); 
         } catch (\Illuminate\Database\QueryException $ex) {
@@ -625,5 +626,26 @@ class ProductsController extends Controller
             $errors = "";
             return response()->json($errors); 
         }
+    }
+    public function makenewcrosstype(Request $request, $idproduct){
+        $_idparentcross = $idproduct;
+        $_idcrosstype = $request->get('new_id_type_cross');
+        $_idproduct = $request->get('listchoose');
+        $_id_status_type = 4;
+        $_price = $request->get('new_cross_price');
+        $_quality_sale = $request->get('new_cross_quality_sale');
+        $_iduser = Auth::id();
+        $_idcustomer=0; $_amount = 0; $_note = ""; $_idstore = 11;
+        try {//$_idproduct,$_iduser,$_idcrosstype,$_idparentcross,$_price,$_quality_sale,$_idstore,$_id_status_type
+            $qr_insert_new_cross = DB::select('call MakeCrosstypeProcedure(?,?,?,?,?,?,?,?)',array($_idproduct,$_iduser,$_idcrosstype,$_idparentcross,$_price,$_quality_sale,$_idstore,$_id_status_type));
+            $rs_insert_new_cross = json_decode(json_encode($qr_insert_new_cross), true);
+            $idimp = $rs_insert_new_cross[0]['idimp'];
+            return redirect()->action('Admin\ProductsController@edit',$idproduct)->with('getlist',$idimp);     
+        } catch (\Illuminate\Database\QueryException $ex) {
+            $errors = new MessageBag(['error' => $ex->getMessage()]);
+            return redirect()->action('Admin\ProductsController@edit',$idproduct)->with('getlist',$errors);
+        }
+        $message = "_new_id_type_cross:".$_new_id_type_cross." idproductcross:".$idproductcross;
+        return redirect()->action('Admin\ProductsController@edit',$idproduct)->with('getlist',$message);
     }
 }
