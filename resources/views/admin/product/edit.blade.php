@@ -6,7 +6,11 @@
   
      <!-- Custom Theme Style -->
     <link href="{{ asset('dashboard/build/css/custom.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('dashboard/production/css/custom.css?v=0.8.2') }}" rel="stylesheet">
+    <link href="{{ asset('dashboard/production/css/custom.css?v=0.8.5') }}" rel="stylesheet">
+    <!-- bootstrap-daterangepicker -->
+    <link href="{{ asset('dashboard/vendors/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet">
+    <!-- bootstrap-datetimepicker -->
+    <link href="{{ asset('dashboard/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css') }}" rel="stylesheet">
 @stop
 @section('content')
 <?php 		
@@ -33,7 +37,10 @@
 		@endif
 	</div>
 </div>
-
+<script type="text/javascript">
+  var _start_date_sl = '';
+  var _end_date_sl = '';
+</script>
 <div class="row">
 		<form class="frm_edit_post" method="post" action="{{ action('Admin\ProductsController@update',$idproduct) }}" onsubmit="return readytextarea()" enctype="multipart/form-data">
 			{{ csrf_field() }}
@@ -125,19 +132,79 @@
 		          </div>
 		   
 	              </div>
-	              <div class="col-sm-12 col-xs-12"></div>
+	              
               </div>
+              <!--promotion policy-->
+              <div class="ln_solid"></div>
+              <div class="row">
+              	<div class="form-group">
+					 <a class="btn btn-default btn-apply-promo" href="javascript:void(0)" onclick="apply_promo(this)">Áp dụng khuyến mãi</a>
+			    </div>
+              	<div class="promo" style="display: none;">
+					 <div class="col-sm-12 col-xs-12">
+					 <div class="form-group">
+				          	  <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá theo:</label>
+					          <div class="col-md-9 col-sm-9 col-xs-12">
+						          <select name="sel_type_promo">
+						          	<option value="0">-----</option>
+						          	@foreach($sel_cross_type as $option)
+						          	<option value="{{ $option['idcrosstype'] }}" {{ $option['idcrosstype'] == 4 ? 'selected="selected"' : '' }}>{{ $option['namecross']}}</option>
+						          	@endforeach
+						          </select>
+						      </div>
+				      	  </div>				       
+			          <div class="form-group">
+			            <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá bán:</label>
+			            <div class="col-md-9 col-sm-9 col-xs-12">
+			              <input type="text" name="price_promo" class="form-controls" value="0" />
+			            </div>
+			          </div>
+			          <div class="form-group">
+			            <label class="control-label col-md-3 col-sm-3 col-xs-12">Số lượng:</label>
+			            <div class="col-md-9 col-sm-9 col-xs-12">
+			              <input type="text" name="quality_promo" class="form-controls" value="0" />
+			            </div>
+			          </div>
+		              </div>
+		              <div class="row">
+		              <div class="col-md-3 col-sm-6 col-xs-12">
+		              	<div class="form-group">
+		              	   <label class="control-label col-md-3 col-sm-3 col-xs-12">Từ ngày:</label>
+	                       <div class="col-md-8 col-sm-9 col-xs-12 input-group sel-control myDatepicker1">
+	                            <input type="text" class="form-control _start_date" name="_start_date">
+	                            <span class="input-group-addon">
+	                               <span class="glyphicon glyphicon-calendar"></span>
+	                            </span>
+	                        </div>
+	                    </div>
+		              </div>
+		              <div class="col-md-3 col-sm-6 col-xs-12">
+		              	<div class="form-group">
+		              	 <label class="control-label col-md-4 col-sm-3 col-xs-12">Đến ngày:</label>
+	                      <div class="col-md-8 col-sm-9 col-xs-12 input-group sel-control myDatepicker2">
+	                        <input type="text" class="form-control _end_date" name="_end_date">
+	                        <span class="input-group-addon">
+	                           <span class="glyphicon glyphicon-calendar"></span>
+	                        </span>
+	                        </div>
+	                    </div>
+		              </div>
+		             </div>
+	              </div>   
+              </div>
+              <!--end policy-->
               <!--product relative with another product-->
                @foreach($rs_sel_impbyidpro as $item)
                <?php $class = ($item['idimp']==$idimpcross) ? "fade-row":"visable-row"; ?>
                		<div class="ln_solid"></div>
 	            	<div class="row <?php echo $class; ?>">
 					 <div class="col-sm-6 col-xs-6">	
-				   	  <input type="hidden" name="l_idimpcross[]" value="{{ $item['idimp'] }}">
+				   	  <input type="hidden" name="l_cross_idimp[]" value="{{ $item['idimp'] }}">
+				   	  <input class="cross_id_status_type" type="hidden" name="l_cross_id_status_type[]" value="{{ $item['id_status_type'] }}"> 
 			          <div class="form-group">
 			          	  <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá theo:</label>
 				          <div class="col-md-9 col-sm-9 col-xs-12">
-					          <select name="l_sel_cross[]">
+					          <select name="l_cross_selidtype[]">
 					          	<option value="0">-----</option>
 					          	@foreach($sel_cross_type as $option)
 					          	<option value="{{ $option['idcrosstype'] }}" {{ $option['idcrosstype'] == $item['idcrosstype'] ? 'selected="selected"' : '' }}>{{ $option['namecross']}}</option>
@@ -148,17 +215,41 @@
 			          <div class="form-group">
 			            <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá sale:</label>
 			            <div class="col-md-9 col-sm-9 col-xs-12">
-			              <input type="text" name="l_price_sale[]" class="form-controls" value="{{ $item['price'] }}" />
+			              <input type="text" name="l_cross_price[]" class="form-controls" value="{{ $item['price'] }}" />
 			            </div>
 			          </div>
 			          <div class="form-group">
 			            <label class="control-label col-md-3 col-sm-3 col-xs-12">Số lượng sale:</label>
 			            <div class="col-md-9 col-sm-9 col-xs-12">
-			              <input type="text" name="l_quality_sale[]" class="form-controls" value="{{ $item['quality_sale'] }}" />
+			              <input type="text" name="l_cross_quality_sale[]" class="form-controls" value="{{ $item['quality_sale'] }}" />
 			            </div>
 			          </div>
+			          <div class="row">
+		              <div class="col-md-6 col-sm-6 col-xs-12">
+		              	<div class="form-group">
+		              	   <label class="control-label col-md-3 col-sm-3 col-xs-12">Từ ngày:</label>
+	                       <div class="col-md-8 col-sm-9 col-xs-12 input-group sel-control myDatepicker1">
+	                            <input type="text" class="form-control _start_date" name="l_cross_start_date[]" value="{{ $item['fromdate'] }}">
+	                            <span class="input-group-addon">
+	                               <span class="glyphicon glyphicon-calendar"></span>
+	                            </span>
+	                        </div>
+	                    </div>
+		              </div>
+		              <div class="col-md-6 col-sm-6 col-xs-12">
+		              	<div class="form-group">
+		              	 <label class="control-label col-md-4 col-sm-3 col-xs-12">Đến ngày:</label>
+	                      <div class="col-md-8 col-sm-9 col-xs-12 input-group sel-control myDatepicker2">
+	                        <input type="text" class="form-control _end_date" name="l_cross_end_date[]" value="{{ $item['todate'] }}">
+	                        <span class="input-group-addon">
+	                           <span class="glyphicon glyphicon-calendar"></span>
+	                        </span>
+	                        </div>
+	                    </div>
+		              </div>
+		             </div>
 			      	</div>
-			          @if($item['idparentcross'] > 0)
+			          @if($item['idparentcross'] > 0 && $item['idparentcross'] != $idproduct)
 			           <div class="col-sm-6 col-xs-6">
 			          	<div class="form-group">         	
 			          	<figure>
@@ -168,9 +259,9 @@
 						  </figcaption>
 						</figure>
 		          		
+		      	  		</div>
 		      	  		</div>	      	  		
-		      	  		@endif
-		              </div>  
+		      	  		@endif 
 	              </div>
 
               @endforeach
@@ -180,9 +271,6 @@
               	<h5 class="tip">Sản phẩm liên quan</h5>
 	          	<div class="cross-product">
 		         @foreach($sel_cross_byidproduct as $row)	         		  
-	          	  <div class="row">
-	          	  	
-	          	  </div>
 		          <div class="row">
 		          	<div class="col-sm-9">
 		          		<div class="form-group">
@@ -217,16 +305,41 @@
 				          <div class="form-group">
 				          	<a href="{{ action('Admin\ProductsController@edit',[$row['idproduct'],'idimpcross' => $row['idimp']]) }}" class="info-number">Chỉnh sửa <i class="fa fa-pencil-square"></i></a>&nbsp;&nbsp;<a class="remove-product-belong" href="javascript:void(0)" onclick="remove(this)"><i class="fa fa-trash"></i>&nbsp;Xóa</a>
 				      	  </div>
+				      	  <div class="row">
+				              <div class="col-md-4 col-sm-6 col-xs-12">
+				              	<div class="form-group">
+				              	   <label class="control-label col-md-3 col-sm-3 col-xs-12">Từ ngày:</label>
+			                       <div class="col-md-8 col-sm-9 col-xs-12 input-group sel-control myDatepicker1">
+			                            <input type="text" class="form-control _start_date" name="l_cross_start_date[]" value="{{ $row['fromdate'] }}">
+			                            <span class="input-group-addon">
+			                               <span class="glyphicon glyphicon-calendar"></span>
+			                            </span>
+			                        </div>
+			                    </div>
+				              </div>
+				              <div class="col-md-4 col-sm-6 col-xs-12">
+				              	<div class="form-group">
+				              	 <label class="control-label col-md-4 col-sm-3 col-xs-12">Đến ngày:</label>
+			                      <div class="col-md-8 col-sm-9 col-xs-12 input-group sel-control myDatepicker2">
+			                        <input type="text" class="form-control _end_date" name="l_cross_end_date[]" value="{{ $row['todate'] }}">
+			                        <span class="input-group-addon">
+			                           <span class="glyphicon glyphicon-calendar"></span>
+			                        </span>
+			                        </div>
+			                    </div>
+				              </div>
+				           </div>
 				    </div>
 				    <div class="col-sm-3 text-center">
 				    	<?php $thumbnail = $row['urlfile']; 
 				    	if(!$thumbnail) { $thumbnail = $no_thumbnail; } ?>
 				    	<a href="{{ action('Admin\ProductsController@edit',$row['idproduct']) }}"><img class="thumb-cross" src="{{ asset($thumbnail) }}" /></a>
 				    </div>
-				</div>		
+				</div>
+				<div class="ln_solid"></div>		
 				  @endforeach
 				</div>
-				<a class="btn btn-primary edit-product-belong" href="javascript:void(0)" onclick="cate_product(this);"><i class="fa fa-edit"></i>&nbsp;Tạo mới quan hệ với sp khác</a>&nbsp;
+				<a class="btn btn-primary edit-product-belong" href="javascript:void(0)" onclick="cate_products(this);"><i class="fa fa-edit"></i>&nbsp;Tạo mới quan hệ với sp khác</a>&nbsp;
 				<span class="dropdown">
 				    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Tạo sp mới quan hệ với sp hiện tại
 				    <span class="caret"></span></button>
@@ -424,19 +537,19 @@
 	        <div class="form-group row">
 	        	<label class="control-label col-md-4 col-sm-6 col-xs-12">Giá sale:</label>
 			     <div class="col-md-8 col-sm-6 col-xs-12">
-	        		<input type="text" name="new_cross_price">
+	        		<input type="text" name="new_cross_price" required>
 	        	</div>
 	        </div>
 	        <div class="form-group row">
-	        	<label class="control-label col-md-4 col-sm-6 col-xs-12">Số lượng sale:</label>
+	        	<label class="control-label col-md-4 col-sm-6 col-xs-12" required>Số lượng sale:</label>
 			     <div class="col-md-8 col-sm-6 col-xs-12">
 	        		<input type="text" name="new_cross_quality_sale">
 	        	</div>
 	        </div>
 	        <div class="form-group row">
-	          	  <label class="control-label col-md-4 col-sm-6 col-xs-12">Kiểu liên quan:</label>
+	          	  <label class="control-label col-md-4 col-sm-6 col-xs-12" required>Kiểu liên quan:</label>
 		          <div class="col-md-8 col-sm-6 col-xs-12">
-			          <select class="sel-cross" name="new_id_type_cross">
+			          <select class="sel-cross" name="new_id_type_cross" required>
 			          	<option value="0">-----</option>
 			          	@foreach($sel_cross_type as $option)
 			          	<option value="{{ $option['idcrosstype'] }}">{{ $option['namecross']}}</option>
@@ -446,7 +559,7 @@
 	        </div>
 	         <div class="form-group row">
 	         	<div class="col-lg-12">
-	        		<button type="submit" class="btn btn-primary btn-create-new-relative" href="javascript:void(0)">Tạo liên quan mới</button>
+	        		<a class="btn btn-primary btn-create-new-relative" href="javascript:void(0)">Tạo liên quan mới</a>
 	        	</div>
 	         </div>
 		</form>  	
@@ -456,10 +569,14 @@
 <script>var _idproduct = '{{ $idproduct }}';</script>
 @stop
 @section('other_scripts')
+	<script src="{{ asset('dashboard/vendors/moment/min/moment.min.js') }}"></script>
+	<script src="{{ asset('dashboard/vendors/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+    <!-- bootstrap-datetimepicker -->    
+    <script src="{{ asset('dashboard/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}"></script>
 	<script src="{{ asset('dashboard/production/js/process_images/capture_image.js?v=0.3.1') }}"></script>
   	<script src="{{ asset('dashboard/production/editor/editor.js?v=0.0.1') }}"></script>
   	<script src="{{ asset('dashboard/production/js/edit_post.js?v=0.1.0') }}"></script>
-  	<script src="{{ asset('dashboard/production/js/create_mutiselect.js?v=1.3.7') }}"></script>	
+  	<script src="{{ asset('dashboard/production/js/edit_muti_select.js?v=0.1.0') }}"></script>	
   	{{-- <script src="{{ asset('dashboard/production/js/process_images/image_product.js.js?v=0.0.2') }}"></script> --}}
   	<script src="{{ asset('dashboard/production/js/uploadmultifile.js?v=0.8.7') }}"></script>
     <script src="{{ asset('dashboard/production/js/media-galerry.js?v=0.5.8') }}"></script>

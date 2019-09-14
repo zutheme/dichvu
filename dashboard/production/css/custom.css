@@ -624,6 +624,21 @@ table tbody .thumb {
     position: relative;
     padding-top: 10px;
 }
+.frm_edit_post .input-group-addon {
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+    color: #ccc;
+    text-align: center;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.frm_edit_post .cross-product .form-group .form-control {
+    color: #7387A8;
+    background: #fff;
+} 
 .cross-product img {
     width: 100%;
     height: auto;

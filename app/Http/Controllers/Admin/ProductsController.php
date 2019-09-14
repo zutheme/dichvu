@@ -371,6 +371,8 @@ class ProductsController extends Controller
                 $l_cross_price = $request->get('l_cross_price');
                 $l_cross_quality_sale = $request->get('l_cross_quality_sale');
                 $l_cross_id_status_type = $request->get('l_cross_id_status_type');
+                $l_cross_start_date = $request->get('l_cross_start_date');
+                $l_cross_end_date = $request->get('l_cross_end_date');
                 $str_qr = "";
                 foreach( $l_cross_idimp as $key => $_cross_idimp ) {
                         $_cross_selidtype = $l_cross_selidtype[$key];
@@ -378,20 +380,34 @@ class ProductsController extends Controller
                         $_cross_price = $l_cross_price[$key];
                         $_cross_quality_sale =$l_cross_quality_sale[$key];
                         $_cross_id_status_type = $l_cross_id_status_type[$key];
-                        $str_qr .= "(".$_cross_idimp.",".$_cross_selidtype.",".$_cross_price.",".$_cross_quality_sale.",".$_cross_id_status_type."),";
+                        $_cross_start_date = $l_cross_start_date[$key];
+                        $_cross_end_date = $l_cross_end_date[$key];
+                        $str_qr .= '('.$_cross_idimp.','.$_cross_selidtype.','.$_cross_price.','.$_cross_quality_sale.','.$_cross_id_status_type.','.$_cross_start_date.','.$_cross_end_date.'),';
                 }
                 $str_qr = substr_replace($str_qr ,"", -1);
-                $str_qr = "INSERT into tmp_import(idimp, idcrosstype, price, quality_sale, id_status_type) VALUES ".$str_qr;
-                //$updateproductcross = DB::select('call UpdateImportProductProcedure(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',array($_idimpcross,$_idcustomer,$_iduser,$_sel_cross,$_amount,$_price_import,$_price_sale,$_price_sale_origin,$_quality_sale,$_note,$_idstore,$_axis_x,$_axis_y,$_axis_z,$_id_status_type));
-                $updateproductcross = DB::select('call UpdateImpProductProcedure(?)',array($str_qr));
-                return redirect()->action('Admin\ProductsController@edit',[$idproduct,'idimpcross' => $_idimpcross ])->with('getlist',$str_qr);
-            }   
+                $str_qr = "INSERT into tmp_import(idimp, idcrosstype, price, quality_sale, id_status_type, fromdate, todate) VALUES ".$str_qr;
+                //$updateproductcross = DB::select('call UpdateImpProductProcedure(?)',array($str_qr));
+                //return redirect()->action('Admin\ProductsController@edit',[$idproduct,'idimpcross' => $_idimpcross ])->with('getlist',$str_qr);
+            }
+            //update promotion
+            $sel_type_promo = $request->get('sel_type_promo'); 
+            $price_promo = $request->get('price_promo');
+            $quality_promo = $request->get('quality_promo');
+            $_start_date_promo = $request->get('_start_date');
+            $_end_date_promo = $request->get('_end_date');
+            $_idstore = 31;
+            $_id_status_type = 4;
+            if($price_promo > 0 ){
+                $qr_insert_new_imp = DB::select('call InsertImportProductProcedure(?,?,?,?,?,?,?,?,?,?)',array($idproduct,$_iduser,$sel_type_promo,0,$price_promo,$quality_promo,$_idstore,$_id_status_type,$_start_date_promo,$_end_date_promo));
+                $rs_insert_new_imp = json_decode(json_encode($qr_insert_new_imp), true);
+                $idimp = $rs_insert_new_imp[0]['idimp'];
+            }
         } catch (\Illuminate\Database\QueryException $ex) {
             $errors = new MessageBag(['error' => $ex->getMessage()]);
             return redirect()->back()->withInput()->withErrors($errors);
         }
-        $message = "update";
-        return redirect()->action('Admin\ProductsController@edit',$idproduct)->with('getlist',$message);
+        $message = "update ";
+        return redirect()->action('Admin\ProductsController@edit',$idproduct)->with('getlist',$str_qr);
     }
 
     /**
