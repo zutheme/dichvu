@@ -91,12 +91,12 @@
 	              <input type="text" name="price_import" class="form-controls" />
 	            </div>
 	          </div> 
-	          <div class="form-group">
+	          {{-- <div class="form-group">
 	            <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá bán gốc:</label>
 	            <div class="col-md-9 col-sm-9 col-xs-12">
 	              <input type="text" name="price_sale_origin" class="form-controls" />
 	            </div>
-	          </div>
+	          </div> --}}
 	          <div class="form-group">
 	            <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá bán:</label>
 	            <div class="col-md-9 col-sm-9 col-xs-12">

@@ -34,8 +34,8 @@ class HomeController extends Controller
             $_limit = 8;
             $rs_selected = array('_start_date'=>$_start_date,'_end_date'=>$_end_date,'_idcategory'=>$_idcategory,'_id_post_type'=>$_id_post_type,'_id_status_type'=>$_id_status_type,'_sel_receive'=>$_sel_receive);
             $list_selected = json_encode($rs_selected);
-            //$qr_banner = DB::select('call ListProductByIdcateProcedure(?,?,?,?,?)',array($_start_date,$_end_date, $_idcategory, $_id_post_type, $_id_status_type));
-            //$shop_banner = json_decode(json_encode($qr_banner), true);
+            $qr_LstProCombo = DB::select('call ListProductComboProcedure()');
+            $rs_LstProCombo = json_decode(json_encode($qr_LstProCombo), true);
             //teamilk
             $qr_teamilk = DB::select('call ListProductByIdcateProcedure(?,?,?,?,?,?)',array($_start_date,$_end_date, $_idcategory, $_id_post_type, $_id_status_type, $_limit));
             $teamilks = json_decode(json_encode($qr_teamilk), true);
@@ -49,7 +49,7 @@ class HomeController extends Controller
 
             $qr_popular = DB::select('call RelateProductProcedure');
             $popular = json_decode(json_encode($qr_popular), true);
-            return view('teamilk.home',compact('popular','teamilks','teamilks1','teamilks2','list_selected'));
+            return view('teamilk.home',compact('popular','rs_LstProCombo','teamilks1','teamilks2','list_selected'));
         } catch (\Illuminate\Database\QueryException $ex) {
             $errors = new MessageBag(['error' => $ex->getMessage()]);
             //return redirect()->route('teamilk.home')->with('error',$errors);

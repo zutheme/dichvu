@@ -24,13 +24,13 @@
 
 @include('teamilk.promo-1-2')
 
-{{-- @include('teamilk.shop-4-1') --}}
+{{--  @include('teamilk.shop-4-1') --}}
 
 @include('teamilk.shop-2-7')
 
 {{-- @include('teamilk.shop-3-1') --}}
 
-{{-- @include('teamilk.shop-6-1') --}}
+{{-- @include('teamilk.shop-6-1')  --}}
 
 @stop
 

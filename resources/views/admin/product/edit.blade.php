@@ -112,14 +112,14 @@
 		              <input type="text" name="price_import" class="form-controls" value="{{ $product[0]['price_import'] }}" />
 		            </div>
 		          </div> 
-		          <div class="form-group">
+		          {{-- <div class="form-group">
 		            <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá bán gốc:</label>
 		            <div class="col-md-9 col-sm-9 col-xs-12">
 		              <input type="text" name="price_sale_origin" class="form-controls" value="{{ $product[0]['price_sale_origin'] }}" />
 		            </div>
-		          </div>
+		          </div> --}}
 		          <div class="form-group">
-		            <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá bán cuối:</label>
+		            <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá bán:</label>
 		            <div class="col-md-9 col-sm-9 col-xs-12">
 		              <input type="text" name="price" class="form-controls" value="{{ $product[0]['price'] }}" />
 		            </div>
@@ -167,9 +167,9 @@
 			          </div>
 		              </div>
 		              <div class="row">
-		              <div class="col-md-3 col-sm-6 col-xs-12">
+		              <div class="col-md-6 col-sm-6 col-xs-12">
 		              	<div class="form-group">
-		              	   <label class="control-label col-md-3 col-sm-3 col-xs-12">Từ ngày:</label>
+		              	   <label class="control-label col-md-4 col-sm-3 col-xs-12">Từ ngày:</label>
 	                       <div class="col-md-8 col-sm-9 col-xs-12 input-group sel-control myDatepicker1">
 	                            <input type="text" class="form-control _start_date" name="_start_date">
 	                            <span class="input-group-addon">
@@ -178,7 +178,7 @@
 	                        </div>
 	                    </div>
 		              </div>
-		              <div class="col-md-3 col-sm-6 col-xs-12">
+		              <div class="col-md-6 col-sm-6 col-xs-12">
 		              	<div class="form-group">
 		              	 <label class="control-label col-md-4 col-sm-3 col-xs-12">Đến ngày:</label>
 	                      <div class="col-md-8 col-sm-9 col-xs-12 input-group sel-control myDatepicker2">
@@ -225,29 +225,35 @@
 			            </div>
 			          </div>
 			          <div class="row">
-		              <div class="col-md-6 col-sm-6 col-xs-12">
-		              	<div class="form-group">
-		              	   <label class="control-label col-md-3 col-sm-3 col-xs-12">Từ ngày:</label>
-	                       <div class="col-md-8 col-sm-9 col-xs-12 input-group sel-control myDatepicker1">
-	                            <input type="text" class="form-control _start_date" name="l_cross_start_date[]" value="{{ $item['fromdate'] }}">
-	                            <span class="input-group-addon">
-	                               <span class="glyphicon glyphicon-calendar"></span>
-	                            </span>
-	                        </div>
-	                    </div>
-		              </div>
-		              <div class="col-md-6 col-sm-6 col-xs-12">
-		              	<div class="form-group">
-		              	 <label class="control-label col-md-4 col-sm-3 col-xs-12">Đến ngày:</label>
-	                      <div class="col-md-8 col-sm-9 col-xs-12 input-group sel-control myDatepicker2">
-	                        <input type="text" class="form-control _end_date" name="l_cross_end_date[]" value="{{ $item['todate'] }}">
-	                        <span class="input-group-addon">
-	                           <span class="glyphicon glyphicon-calendar"></span>
-	                        </span>
-	                        </div>
-	                    </div>
-		              </div>
+			          	<a class="btn btn-default btn-apply-date" href="javascript:void(0);" onclick="showdate(this);">Áp dụng ngày</a>
+			          	<div class="apply-date" style="display:none">
+			              <div class="col-md-12 col-sm-6 col-xs-12">
+			              	<div class="form-group">
+			              	   <label class="control-label col-md-3 col-sm-3 col-xs-12">Từ ngày:</label>
+		                       <div class="col-md-8 col-sm-9 col-xs-12 input-group sel-control myDatepicker1">
+		                            <input type="text" class="form-control _start_date" name="l_cross_start_date[]" value="{{ $item['fromdate'] }}">
+		                            <span class="input-group-addon">
+		                               <span class="glyphicon glyphicon-calendar"></span>
+		                            </span>
+		                        </div>
+		                    </div>
+			              </div>
+			              <div class="col-md-12 col-sm-6 col-xs-12">
+			              	<div class="form-group">
+			              	 <label class="control-label col-md-4 col-sm-3 col-xs-12">Đến ngày:</label>
+		                      <div class="col-md-8 col-sm-9 col-xs-12 input-group sel-control myDatepicker2">
+		                        <input type="text" class="form-control _end_date" name="l_cross_end_date[]" value="{{ $item['todate'] }}">
+		                        <span class="input-group-addon">
+		                           <span class="glyphicon glyphicon-calendar"></span>
+		                        </span>
+		                        </div>
+		                    </div>
+			              </div>
+			            </div>
 		             </div>
+		             <div class="form-group">
+				          	<a class="remove-product-belong" href="javascript:void(0)" onclick="remove(this)"><i class="fa fa-trash"></i>&nbsp;Xóa</a>
+				      	  </div>
 			      	</div>
 			          @if($item['idparentcross'] > 0 && $item['idparentcross'] != $idproduct)
 			           <div class="col-sm-6 col-xs-6">
@@ -301,34 +307,36 @@
 				              <input type="text" name="l_cross_quality_sale[]" class="form-controls" value="{{ $row['quality_sale'] }}" />
 				            </div>
 				          </div>
-				          
-				          <div class="form-group">
+				      	  <div class="row">
+				      	  	<a class="btn btn-default btn-apply-date" href="javascript:void(0);" onclick="showdate(this);">Áp dụng ngày</a>
+			          		<div class="apply-date" style="display:none">
+					              <div class="col-md-6 col-sm-6 col-xs-12">
+					              	<div class="form-group">
+					              	   <label class="control-label col-md-4 col-sm-3 col-xs-12">Từ ngày:</label>
+				                       <div class="col-md-8 col-sm-9 col-xs-12 input-group sel-control myDatepicker1">
+				                            <input type="text" class="form-control _start_date" name="l_cross_start_date[]" value="{{ $row['fromdate'] }}">
+				                            <span class="input-group-addon">
+				                               <span class="glyphicon glyphicon-calendar"></span>
+				                            </span>
+				                        </div>
+				                    </div>
+					              </div>
+					              <div class="col-md-6 col-sm-6 col-xs-12">
+					              	<div class="form-group">
+					              	 <label class="control-label col-md-4 col-sm-3 col-xs-12">Đến ngày:</label>
+				                      <div class="col-md-8 col-sm-9 col-xs-12 input-group sel-control myDatepicker2">
+				                        <input type="text" class="form-control _end_date" name="l_cross_end_date[]" value="{{ $row['todate'] }}">
+				                        <span class="input-group-addon">
+				                           <span class="glyphicon glyphicon-calendar"></span>
+				                        </span>
+				                        </div>
+				                    </div>
+					              </div>
+					            </div>
+				           </div>
+				           <div class="form-group">
 				          	<a href="{{ action('Admin\ProductsController@edit',[$row['idproduct'],'idimpcross' => $row['idimp']]) }}" class="info-number">Chỉnh sửa <i class="fa fa-pencil-square"></i></a>&nbsp;&nbsp;<a class="remove-product-belong" href="javascript:void(0)" onclick="remove(this)"><i class="fa fa-trash"></i>&nbsp;Xóa</a>
 				      	  </div>
-				      	  <div class="row">
-				              <div class="col-md-4 col-sm-6 col-xs-12">
-				              	<div class="form-group">
-				              	   <label class="control-label col-md-3 col-sm-3 col-xs-12">Từ ngày:</label>
-			                       <div class="col-md-8 col-sm-9 col-xs-12 input-group sel-control myDatepicker1">
-			                            <input type="text" class="form-control _start_date" name="l_cross_start_date[]" value="{{ $row['fromdate'] }}">
-			                            <span class="input-group-addon">
-			                               <span class="glyphicon glyphicon-calendar"></span>
-			                            </span>
-			                        </div>
-			                    </div>
-				              </div>
-				              <div class="col-md-4 col-sm-6 col-xs-12">
-				              	<div class="form-group">
-				              	 <label class="control-label col-md-4 col-sm-3 col-xs-12">Đến ngày:</label>
-			                      <div class="col-md-8 col-sm-9 col-xs-12 input-group sel-control myDatepicker2">
-			                        <input type="text" class="form-control _end_date" name="l_cross_end_date[]" value="{{ $row['todate'] }}">
-			                        <span class="input-group-addon">
-			                           <span class="glyphicon glyphicon-calendar"></span>
-			                        </span>
-			                        </div>
-			                    </div>
-				              </div>
-				           </div>
 				    </div>
 				    <div class="col-sm-3 text-center">
 				    	<?php $thumbnail = $row['urlfile']; 
@@ -576,7 +584,7 @@
 	<script src="{{ asset('dashboard/production/js/process_images/capture_image.js?v=0.3.1') }}"></script>
   	<script src="{{ asset('dashboard/production/editor/editor.js?v=0.0.1') }}"></script>
   	<script src="{{ asset('dashboard/production/js/edit_post.js?v=0.1.0') }}"></script>
-  	<script src="{{ asset('dashboard/production/js/edit_muti_select.js?v=0.1.0') }}"></script>	
+  	<script src="{{ asset('dashboard/production/js/edit_muti_select.js?v=0.1.5') }}"></script>	
   	{{-- <script src="{{ asset('dashboard/production/js/process_images/image_product.js.js?v=0.0.2') }}"></script> --}}
   	<script src="{{ asset('dashboard/production/js/uploadmultifile.js?v=0.8.7') }}"></script>
     <script src="{{ asset('dashboard/production/js/media-galerry.js?v=0.5.8') }}"></script>

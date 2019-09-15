@@ -14,9 +14,9 @@
 
 		<div class="c-content-isotope-grid c-opt-3">
 
-			@if(isset($teamilks))
+			@if(isset($rs_LstProCombo))
 
-				@foreach($teamilks as $row)
+				@foreach($rs_LstProCombo as $row)
 
 					<div class="c-content-isotope-item">
 

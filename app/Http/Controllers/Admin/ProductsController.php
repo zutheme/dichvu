@@ -97,7 +97,7 @@ class ProductsController extends Controller
             $_id_post_type = $request->get('sel_idposttype');
             $_id_status_type = $request->get('sel_idstatustype');
             $_price_import = $request->get('price_import');
-            $_price_sale_origin = $request->get('price_sale_origin');
+            //$_price_sale_origin = $request->get('price_sale_origin');
             $_price = $request->get('price');
             $_short_desc = $request->get('short_desc');
             $_amount = $request->get('amount');
@@ -164,14 +164,14 @@ class ProductsController extends Controller
              }
              
             $_catnametype = 'store'; $_shortname = 'import';$_id_status_type=4;
-            $qr_insertproduct = DB::select('call ImportProductProcedure(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',array($idproduct,$_idcustomer,$_iduser,0,0,$_amount,$_price_import,$_price,$_price_sale_origin,0,$_note,$_axis_x,$_axis_y,$_axis_z,$_id_status_type,$_catnametype,$_shortname));
+            $qr_insertproduct = DB::select('call ImportProductProcedure(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',array($idproduct,$_idcustomer,$_iduser,0,0,$_amount,$_price_import,$_price,0,$_note,$_axis_x,$_axis_y,$_axis_z,$_id_status_type,$_catnametype,$_shortname));
             $rs_insertproduct = json_decode(json_encode($qr_insertproduct), true);
             $_idcrosstype = $request->get('idcrosstype'); 
             $_idparent = $request->get('idparent');
             if( $_idcrosstype > 0 && $_idparent > 0){
                 $_price_sale = $request->get('price_sale');
                 $_quality_sale = $request->get('quality_sale');
-                $insertproduct = DB::select('call ImportProductProcedure(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',array($idproduct,$_idcustomer,$_iduser,$_idcrosstype,$_idparent,$_amount,$_price_import,$_price_sale,$_price_sale_origin,$_quality_sale,$_note,$_axis_x,$_axis_y,$_axis_z,$_id_status_type,$_catnametype,$_shortname));
+                $insertproduct = DB::select('call ImportProductProcedure(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',array($idproduct,$_idcustomer,$_iduser,$_idcrosstype,$_idparent,$_amount,$_price_import,$_price_sale,$_quality_sale,$_note,$_axis_x,$_axis_y,$_axis_z,$_id_status_type,$_catnametype,$_shortname));
             }
             
            
@@ -264,7 +264,7 @@ class ProductsController extends Controller
             $_id_status_type = $request->get('sel_idstatustype');
             $_amount = $request->get('amount');
             $_price_import = $request->get('price_import');
-            $_price_sale_origin = $request->get('price_sale_origin');
+            //$_price_sale_origin = $request->get('price_sale_origin');
             $_price = $request->get('price');
             $_price_combo = $request->get('price_combo');
             $_quality_combo = $request->get('quality_combo');
@@ -362,7 +362,7 @@ class ProductsController extends Controller
                 }             
              }
              //$_idimp,$_idcustomer,$_iduser,$_amount,$_price_import,$_price,$_price_sale_origin,$_quality_sale,$_note,$_idstore,$_axis_x,$_axis_y,$_axis_z,$_id_status_type
-            $updateproduct = DB::select('call UpdateImportProductProcedure(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',array($_idimp,$_idcustomer,$_iduser,0,$_amount,$_price_import,$_price,$_price_sale_origin,0,$_note,$_idstore,$_axis_x,$_axis_y,$_axis_z,$_id_status_type));
+            $updateproduct = DB::select('call UpdateImportProductProcedure(?,?,?,?,?,?,?,?,?,?,?,?,?,?)',array($_idimp,$_idcustomer,$_iduser,0,$_amount,$_price_import,$_price,0,$_note,$_idstore,$_axis_x,$_axis_y,$_axis_z,$_id_status_type));
             $_idimpcross = $request->get('idimpcross');
             $l_cross_idimp = $request->get('l_cross_idimp');
             if(!empty($l_cross_idimp)){
@@ -382,11 +382,11 @@ class ProductsController extends Controller
                         $_cross_id_status_type = $l_cross_id_status_type[$key];
                         $_cross_start_date = $l_cross_start_date[$key];
                         $_cross_end_date = $l_cross_end_date[$key];
-                        $str_qr .= '('.$_cross_idimp.','.$_cross_selidtype.','.$_cross_price.','.$_cross_quality_sale.','.$_cross_id_status_type.','.$_cross_start_date.','.$_cross_end_date.'),';
+                        $str_qr .= '('.$_cross_idimp.','.$_cross_selidtype.','.$_cross_price.','.$_cross_quality_sale.','.$_cross_id_status_type.',"'.$_cross_start_date.'","'.$_cross_end_date.'"),';
                 }
                 $str_qr = substr_replace($str_qr ,"", -1);
                 $str_qr = "INSERT into tmp_import(idimp, idcrosstype, price, quality_sale, id_status_type, fromdate, todate) VALUES ".$str_qr;
-                //$updateproductcross = DB::select('call UpdateImpProductProcedure(?)',array($str_qr));
+                $updateproductcross = DB::select('call UpdateImpProductProcedure(?)',array($str_qr));
                 //return redirect()->action('Admin\ProductsController@edit',[$idproduct,'idimpcross' => $_idimpcross ])->with('getlist',$str_qr);
             }
             //update promotion

@@ -242,15 +242,16 @@ $(document).ready(function(){
     // $('yourpickerid').on('changeDate', function(ev){
     //     $(this).datepicker('hide');
     // });
-    if(_start_date_sl&&_end_date_sl){
-        $("._start_date").val(_start_date_sl);
-        $("._end_date.").val(_end_date_sl);
-    }else{
-      //var str_start = today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
-      var today = new Date();
-      var str_start = today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate()+" 00:00:00";
-      var str_end = today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate()+" 23:59:59";
-        $("._start_date").val(str_start);
-        $("._end_date").val(str_end);
-    }
+
 });
+var _showdate = false;
+function showdate(element){
+ var e_apply = element.parentElement.getElementsByClassName("apply-date")[0];
+ if(!_showdate){
+  e_apply.style.display = "block";
+  _showdate = true;
+ }else{
+     e_apply.style.display = "none";
+    _showdate = false;
+ }
+}
