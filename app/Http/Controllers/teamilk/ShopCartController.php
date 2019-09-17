@@ -92,9 +92,7 @@ class ShopCartController extends Controller
         $qr_sex = DB::select('call SelSexProcedure()');
 
         $rs_sex = json_decode(json_encode($qr_sex), true);
-
         //list product
-
         $_namecattype="product";
         $_idstore = 31;
         $str_qr = "";$rs_lstordsess=array();$bool_str = false;

@@ -70,7 +70,7 @@
 
   <link href="{{ asset('assets-tea/assets/demos/default/css/themes/default.css') }}" rel="stylesheet" id="style_theme" type="text/css">
 
-  <link href="{{ asset('assets-tea/css/main-style.css?v=0.1.2') }}" rel="stylesheet" type="text/css">
+  <link href="{{ asset('assets-tea/css/main-style.css?v=0.1.3') }}" rel="stylesheet" type="text/css">
 
   <!-- END THEME STYLES -->
 
@@ -262,7 +262,7 @@
 
     <!-- END: LAYOUT/BASE/BOTTOM -->
 
-     <script src="{{ asset('assets-tea/js/custom.js?v=0.4.0') }}" type="text/javascript"></script>
+     <script src="{{ asset('assets-tea/js/custom.js?v=0.4.1') }}" type="text/javascript"></script>
 
      <script src="{{ asset('assets-tea/js/menu.js?v=0.0.5') }}" type="text/javascript"></script>
      <!-- Load Facebook SDK for JavaScript -->

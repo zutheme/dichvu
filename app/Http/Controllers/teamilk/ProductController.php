@@ -292,8 +292,8 @@ class ProductController extends Controller
             $parent = 0;
         //return response()->json($str_session);    
         if(empty($str_session)){
+            session()->forget('idorderhistory');
             $_str_query = 'INSERT into tmp_product(idproduct,input_quality) VALUES ('.$_idproduct.','.$_quality.')';
-
             $qr_initsession = DB::select('call LoadOrderInitSessionProcedure(?,?,?)',array($_str_query, $_idstore,$idorder));
             $rs_initsession = json_decode(json_encode($qr_initsession), true);
             foreach ($rs_initsession as $row) {
@@ -304,7 +304,7 @@ class ProductController extends Controller
             $str_item = "[".$str_item."]";
         }else{
             $Object = json_decode($str_session,true);
-            $idorder = count($Object)+1;
+            $idorder = count($Object) + 1;
             $_str_query = 'INSERT into tmp_product(idproduct,input_quality) VALUES ('.$_idproduct.','.$_quality.')';
             $qr_initsession = DB::select('call LoadOrderInitSessionProcedure(?,?,?)',array($_str_query, $_idstore,$idorder));
             $rs_initsession = json_decode(json_encode($qr_initsession), true);
@@ -317,8 +317,8 @@ class ProductController extends Controller
         session()->put('idorderhistory', $str_item);
         session()->save();
         $arr_session = array();
-        $arr_session[] = array('idorderhistory' => $idorderhis );
-        return response()->json($arr_session);
+        $arr_session[] = array('idorderhistory' => $rs_initsession,'str_query'=>$_str_query);
+        return response()->json($rs_initsession);
     }
     //change quality session
     public function changequality(Request $request){
