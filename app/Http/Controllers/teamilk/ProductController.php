@@ -305,9 +305,14 @@ class ProductController extends Controller
             
         // }else{
             $Object = json_decode($str_session,true);
-            $idorder = count($Object) + 1;
+            $idorder = 1;
+            foreach ( $Object as $item) {
+                if(!empty($item)){
+                    $idorder++;
+                }
+            }
             $_str_query = 'INSERT into tmp_product(idproduct,input_quality) VALUES ('.$_idproduct.','.$_quality.')';
-            $qr_initsession = DB::select("CALL ReachInitSessionProcedure(?,?,?)",array($_str_query, $_idstore,$idorder));
+            $qr_initsession = DB::select("CALL ReachInitSessionProcedure(?,?,?)",array($_str_query, $_idstore, $idorder));
             $rs_initsession = json_decode(json_encode($qr_initsession), true);
             //return response()->json($rs_initsession);
             foreach ($rs_initsession as $row) {
