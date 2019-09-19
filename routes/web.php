@@ -28,49 +28,18 @@
 
 | routes are loaded by the RouteServiceProvider within a group which
 
-
-
 | contains the "web" middleware group. Now create something great!
-
-
-
 |
-
-
-
 */
 
+Route::get('/deletesession', function () {
+      session()->forget('orderhistory');
+});
 
-Route::get('/getmacshellexec',function()
-    {
-        //$shellexec = shell_exec('getmac');
-        echo substr(exec('getmac'), 0, 17);  
-        //dd($shellexec);
-        //echo $_SERVER['REMOTE_ADDR'];
-        //$ip = trim(shell_exec("dig +short myip.opendns.com @resolver1.opendns.com"));
-
-		//dd("Public IP: ".$ip);
-		$ip1= Request::getClientIp(); 
-		echo $ip1;
-    }
-);
 Route::get('/showsession', function () {
-      $str_Object = session()->get('idorderhistory');
+      $str_Object = session()->get('orderhistory');
 	  $data = json_decode($str_Object,true);
 	  var_dump($data);
-	 // $getlist = "";
-	 // $l_idimpcross = array(4,5,6,0);
-	 // $l_sel_cross = array(1,2,3,0);
-	 // $l_price_sale = array(7,8,9,0);
-	 // $l_quality_sale = array(11,12,13,0);
-  //   foreach( $l_idimpcross as $key => $_idimpcro ) {
-  //           $_idimpcross = $_idimpcro;
-  //           $_sel_cross = $l_sel_cross[$key];
-  //           $_price_sale = $l_price_sale[$key];
-  //           $_quality_sale =$l_quality_sale[$key];
-  //           $getlist .= "(".$_idimpcross.",".$_sel_cross.",".$_price_sale.",".$_quality_sale.")";
-  //       }
-  //       echo $getlist;
 });
 
 

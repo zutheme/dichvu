@@ -125,7 +125,11 @@
        $url_avatar = (strlen($url_avatar) > 0) ? $url_avatar : $url_avartar_sex; 
 
      } ?>
-
+  <?php $str_session = session()->get('orderhistory');
+        if(!isset($str_session)||empty($str_session)){
+             $str_item = '{"idorder":0,"idcrosstype":0,"parent":0,"id":0,"idparentcross":0,"input_quality":0,"idproduct":0,"inp_session":0,"trash":0}';
+             session()->put('orderhistory', $str_item);
+        }?>
   @include('teamilk.header')
 
   @include('teamilk.modal')

@@ -670,6 +670,6 @@
 
 	<!-- END: PAGE SCRIPTS -->
 
-	<script src="{{ asset('assets-tea/js/custom-product.js?v=1.6.4') }}" type="text/javascript"></script>
+	<script src="{{ asset('assets-tea/js/custom-product.js?v=1.6.6') }}" type="text/javascript"></script>
 
 @stop

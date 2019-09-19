@@ -55,12 +55,12 @@ class ShopCartController extends Controller
     	$_namecattype="product";
         $_idstore = 31;
         $str_qr = "";$rs_lstordsess=array();$bool_str = false;
-        $arr_his = session()->get('idorderhistory');
-       if(!empty($arr_his)){
-            $arr = json_decode($arr_his);
+        $str_session = session()->get('orderhistory');
+        if(isset($str_session)||!empty($str_session)){
+            $arr = json_decode($str_session,true);
             foreach ($arr as  $item) {
-                if($item->trash > 0) {
-                    $str_qr .= '('.$item->idorder.','.$item->idcrosstype.','.$item->parent.','.$item->id.','.$item->input_quality.','.$item->idproduct.','.$item->inp_session.','.$item->trash.'),';
+                if($item['trash'] > 0) {
+                    $str_qr .= '('.$item['idorder'].','.$item['idcrosstype'].','.$item['parent'].','.$item['id'].','.$item['idparentcross'].','.$item['input_quality'].','.$item['idproduct'].','.$item['inp_session'].','.$item['trash'].'),';
                     $bool_str = true;
                 }
              }
@@ -69,7 +69,7 @@ class ShopCartController extends Controller
        }
        if($bool_str) {
             $str_qr = substr_replace($str_qr ,"", -1);
-            $str_qr = "INSERT into tmp_product(idorder,idcrosstype,parent,id,input_quality,idproduct,inp_session,trash) VALUES ".$str_qr;
+            $str_qr = "INSERT into tmp_product(idorder, idcrosstype, parent, id, idparentcross, input_quality, idproduct, inp_session, trash) VALUES ".$str_qr;
            //list order by array
             $qr_lstordsess = DB::select('call LstOrderFromSessionProcedure(?,?)',array($str_qr,$_idstore));
             $rs_lstordsess = json_decode(json_encode($qr_lstordsess), true);       
@@ -96,7 +96,7 @@ class ShopCartController extends Controller
         $_namecattype="product";
         $_idstore = 31;
         $str_qr = "";$rs_lstordsess=array();$bool_str = false;
-        $arr_his = session()->get('idorderhistory');
+        $arr_his = session()->get('orderhistory');
        if(!empty($arr_his)){
             $arr = json_decode($arr_his);
             foreach ($arr as  $item) {
