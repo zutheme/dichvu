@@ -69,7 +69,7 @@ class ShopCartController extends Controller
        }
        if($bool_str) {
             $str_qr = substr_replace($str_qr ,"", -1);
-            $str_qr = '"INSERT into tmp_product(idorder, idcrosstype, parent, id, idparentcross, input_quality, idproduct, inp_session, trash) VALUES '.$str_qr.'"';
+            $str_qr = 'INSERT into tmp_product(idorder, idcrosstype, parent, id, idparentcross, input_quality, idproduct, inp_session, trash) VALUES '.$str_qr;
            //list order by array
             $qr_lstordsess = DB::select('call LstOrderFromSessionProcedure(?,?)',array($str_qr,$_idstore));
             $rs_lstordsess = json_decode(json_encode($qr_lstordsess), true);       
@@ -97,11 +97,11 @@ class ShopCartController extends Controller
         $_idstore = 31;
         $str_qr = "";$rs_lstordsess=array();$bool_str = false;
         $arr_his = session()->get('orderhistory');
-       if(!empty($arr_his)){
-            $arr = json_decode($arr_his);
+       if(isset($arr_his)||!empty($arr_his)){
+            $arr = json_decode($arr_his,true);
             foreach ($arr as  $item) {
-                if($item->trash > 0) {
-                    $str_qr .= '('.$item->idorder.','.$item->idcrosstype.','.$item->parent.','.$item->id.','.$item->input_quality.','.$item->idproduct.','.$item->inp_session.','.$item->trash.'),';
+                if($item['trash'] > 0) {
+                    $str_qr .= '('.$item['idorder'].','.$item['idcrosstype'].','.$item['parent'].','.$item['id'].','.$item['idparentcross'].','.$item['input_quality'].','.$item['idproduct'].','.$item['inp_session'].','.$item['trash'].'),';
                     $bool_str = true;
                 }
              }
@@ -110,16 +110,13 @@ class ShopCartController extends Controller
        }
        if($bool_str) {
             $str_qr = substr_replace($str_qr ,"", -1);
-            $str_qr = "INSERT into tmp_product(idorder,idcrosstype,parent,id,input_quality,idproduct,inp_session,trash) VALUES ".$str_qr;
+            $str_qr = "INSERT into tmp_product(idorder, idcrosstype, parent, id, idparentcross, input_quality, idproduct, inp_session, trash) VALUES ".$str_qr;
            //list order by array
             $qr_lstordsess = DB::select('call LstOrderFromSessionProcedure(?,?)',array($str_qr,$_idstore));
             $rs_lstordsess = json_decode(json_encode($qr_lstordsess), true);       
        }
-
         //end list product
-
-        return view('teamilk.addcart.check-out',compact('rs_district','rs_citytown','rs_sex','iduser','idproduct','rs_lstordsess')); 
-
+        return view('teamilk.addcart.check-out',compact('rs_district','rs_citytown','rs_sex','iduser','idproduct','rs_lstordsess','str_qr')); 
     }
 
     public function submitcheckout(Request $request){
@@ -282,12 +279,12 @@ class ShopCartController extends Controller
 
         $_idstore = 31;
         $str_qr = "";$rs_lstordsess=array();$bool_str = false;
-        $arr_his = session()->get('idorderhistory');
+        $arr_his = session()->get('orderhistory');
        if(!empty($arr_his)){
-            $arr = json_decode($arr_his);
+            $arr = json_decode($arr_his,true);
             foreach ($arr as  $item) {
-                if($item->trash > 0) {
-                    $str_qr .= '('.$item->idorder.','.$item->idcrosstype.','.$item->parent.','.$item->id.','.$item->input_quality.','.$item->idproduct.','.$item->inp_session.','.$item->trash.'),';
+                if($item['trash'] > 0) {
+                    $str_qr .= '('.$item['idorder'].','.$item['idcrosstype'].','.$item['parent'].','.$item['id'].','.$item['idparentcross'].','.$item['input_quality'].','.$item['idproduct'].','.$item['inp_session'].','.$item['trash'].'),';
                     $bool_str = true;
                 }
              }
@@ -297,7 +294,7 @@ class ShopCartController extends Controller
        if($bool_str) {
             $_fromnamestore='import';$_tonamestore='order';$_note='';
             $str_qr = substr_replace($str_qr ,"", -1);
-            $str_qr = "INSERT into tmp_product(idorder,idcrosstype,parent,id,input_quality,idproduct,inp_session,trash) VALUES ".$str_qr;
+            $str_qr = "INSERT into tmp_product(idorder, idcrosstype, parent, id, idparentcross, input_quality, idproduct, inp_session, trash) VALUES ".$str_qr;
             $qr_orderproduct = DB::select('call OrderProductFromSessionProcedure(?,?,?,?,?,?,?)',array( $_idcustomer, $_id_reci_customer, $_iduser_curent,$_note,$_fromnamestore,$_tonamestore,$str_qr));
             $rs_orderproduct = json_decode(json_encode($qr_orderproduct), true);       
        }
@@ -322,9 +319,9 @@ class ShopCartController extends Controller
 
         }
 
-        $request->session()->forget('idorderhistory');
+        $request->session()->forget('orderhistory');
 
-        return view('teamilk.addcart.checkout-complete',compact('rs_orderproduct','rs_customer'));
+        return view('teamilk.addcart.checkout-complete',compact('rs_orderproduct','rs_customer','str_qr'));
 
     }
 

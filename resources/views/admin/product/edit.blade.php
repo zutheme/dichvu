@@ -111,26 +111,28 @@
 		            <div class="col-md-9 col-sm-9 col-xs-12">
 		              <input type="text" name="price_import" class="form-controls" value="{{ $product[0]['price_import'] }}" />
 		            </div>
-		          </div> 
-		          {{-- <div class="form-group">
-		            <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá bán gốc:</label>
-		            <div class="col-md-9 col-sm-9 col-xs-12">
-		              <input type="text" name="price_sale_origin" class="form-controls" value="{{ $product[0]['price_sale_origin'] }}" />
-		            </div>
-		          </div> --}}
-		          <div class="form-group">
-		            <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá bán:</label>
-		            <div class="col-md-9 col-sm-9 col-xs-12">
-		              <input type="text" name="price" class="form-controls" value="{{ $product[0]['price'] }}" />
-		            </div>
 		          </div>
 		          <div class="form-group">
 		            <label class="control-label col-md-3 col-sm-3 col-xs-12">Số lượng:</label>
 		            <div class="col-md-9 col-sm-9 col-xs-12">
 		              <input type="text" name="amount" class="form-controls" value="{{ $product[0]['amount'] }}"/>
 		            </div>
+		          </div> 
+		          
+		          <div class="form-group">
+		            <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá bán:</label>
+		            <div class="col-md-9 col-sm-9 col-xs-12">
+		              <input type="text" name="price" class="form-controls" value="{{ $product[0]['price'] }}" />
+		            </div>
 		          </div>
-		   
+		    		
+		    	  <div class="form-group">
+		            <label class="control-label col-md-3 col-sm-3 col-xs-12">Số lượng sale:</label>
+		            <div class="col-md-9 col-sm-9 col-xs-12">
+		              <input type="text" name="quality_sale" class="form-controls" value="{{ $product[0]['quality_sale'] }}" />
+		            </div>
+		          </div>       
+		   	
 	              </div>
 	              
               </div>
@@ -160,7 +162,7 @@
 			            </div>
 			          </div>
 			          <div class="form-group">
-			            <label class="control-label col-md-3 col-sm-3 col-xs-12">Số lượng:</label>
+			            <label class="control-label col-md-3 col-sm-3 col-xs-12">Số lượng sale:</label>
 			            <div class="col-md-9 col-sm-9 col-xs-12">
 			              <input type="text" name="quality_promo" class="form-controls" value="0" />
 			            </div>

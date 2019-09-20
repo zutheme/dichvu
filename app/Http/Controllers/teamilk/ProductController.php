@@ -288,22 +288,23 @@ class ProductController extends Controller
         $str_session = session()->get('orderhistory');
         $str_item ="";
         $idorder = 1;
-        $parent = 0; 
-        //$Object = json_decode($str_session,true);
-            //$idorder = count($Object);
-        // $_idorder = $Object[0]['idorder'];
-        // if($_idorder==0)){
-        //     $_str_query = 'INSERT into tmp_product(idproduct,input_quality) VALUES ('.$_idproduct.','.$_quality.')';
-        //     $qr_initsession = DB::select("CALL ReachInitSessionProcedure(?,?,?)",array($_str_query, $_idstore,$idorder));
-        //     $rs_initsession = json_decode(json_encode($qr_initsession), true);
-        //     foreach ($rs_initsession as $row) {
-        //         $str_item .= '{"idorder":'.$row['idorder'].',"idcrosstype":'.$row['idcrosstype'].',"parent":'.$row['parent'].',"id":'.$row['id'].',"idparentcross":'.$row['idparentcross'].',"input_quality":'.$row['input_quality'].',"idproduct":'.$row['idproduct'].',"inp_session":'.$row['quality_sale'].',"trash":1},';
-        //         $idorder++;
-        //     }
-        //     $str_item = substr_replace($str_item ,"", -1);
-        //     $str_item = "[".$str_item."]";
+        $parent = 0;
+        if(!isset($str_session)||empty($str_session)){
+            $_str_query = 'INSERT into tmp_product(idproduct,input_quality) VALUES ('.$_idproduct.','.$_quality.')';
+            $qr_initsession = DB::select("CALL ReachInitSessionProcedure(?,?,?)",array($_str_query, $_idstore,$idorder));
+            $rs_initsession = json_decode(json_encode($qr_initsession), true);
+            foreach ($rs_initsession as $row) {
+                $quality_sale = $_quality; 
+                if($row['parent']!=0){
+                    $quality_sale = $row['quality_sale']*$_quality;
+                }
+                $str_item .= '{"idorder":'.$row['idorder'].',"idcrosstype":'.$row['idcrosstype'].',"parent":'.$row['parent'].',"id":'.$row['id'].',"idparentcross":'.$row['idparentcross'].',"input_quality":'.$row['input_quality'].',"idproduct":'.$row['idproduct'].',"inp_session":'.$quality_sale.',"trash":1},';
+                $idorder++;
+            }
+            $str_item = substr_replace($str_item ,"", -1);
+            $str_item = "[".$str_item."]";
             
-        // }else{
+        }else{
             $Object = json_decode($str_session,true);
             $idorder = 1;
             foreach ( $Object as $item) {
@@ -316,11 +317,15 @@ class ProductController extends Controller
             $rs_initsession = json_decode(json_encode($qr_initsession), true);
             //return response()->json($rs_initsession);
             foreach ($rs_initsession as $row) {
-                $Object[] = ['idorder'=>$row['idorder'],'idcrosstype'=>$row['idcrosstype'],'parent'=>$row['parent'],'id'=>$row['id'],'idparentcross'=>$row['idparentcross'],'input_quality'=>$row['input_quality'],'idproduct' => $row['idproduct'],'inp_session'=>$row['quality_sale'],'trash' => 1];
+                $quality_sale = $_quality; 
+                if($row['parent']!=0){
+                    $quality_sale = $row['quality_sale']*$_quality;
+                }
+                $Object[] = ['idorder'=>$row['idorder'],'idcrosstype'=>$row['idcrosstype'],'parent'=>$row['parent'],'id'=>$row['id'],'idparentcross'=>$row['idparentcross'],'input_quality'=>$row['input_quality'],'idproduct' => $row['idproduct'],'inp_session'=>$quality_sale,'trash' => 1];
                 $idorder++;
             }
             $str_item = json_encode($Object);  
-        //}
+        }
         //$request->session()->keep(['username', 'email']);
         session()->put('orderhistory', $str_item);
         session()->save();
@@ -337,7 +342,7 @@ class ProductController extends Controller
         $_listchange = $input['listchange'];
         //$str_json = stripslashes($_listchange);
         $Object = json_decode($_listchange,true);
-        $str_Object = session()->get('idorderhistory');
+        $str_Object = session()->get('orderhistory');
         $data = json_decode($str_Object,true);
         foreach ($Object as $row) {
             $_idorder = $row['idorder'];
@@ -351,16 +356,16 @@ class ProductController extends Controller
             }
         }
          $str_item = json_encode($data); 
-         session()->put('idorderhistory', $str_item);
+         session()->put('orderhistory', $str_item);
          session()->save();
-         $str_Object = session()->get('idorderhistory');
+         $str_Object = session()->get('orderhistory');
          return response()->json($str_Object);
     }
     //change quality session
     public function cartnumber(Request $request){
         $input = json_decode(file_get_contents('php://input'),true);
         $_userid_order = $input['userid_order'];
-        $str_Object = session()->get('idorderhistory');
+        $str_Object = session()->get('orderhistory');
         $data = json_decode($str_Object,true);
         $numbercart = 0;
         if(!empty($data)){
@@ -384,8 +389,8 @@ class ProductController extends Controller
 
         //$qr_orderhis = DB::select('call OrderHistoryProcedure(?,?,?)',array($_userid_order,$_idproduct,$_quality));
 
-        //$idorderhistory = json_decode(json_encode($qr_orderhis), true);
-        //$idorderhis = $idorderhistory[0]['idorderhistory'];
+        //$orderhistory = json_decode(json_encode($qr_orderhis), true);
+        //$idorderhis = $orderhistory[0]['orderhistory'];
 
         $arr_his = session()->get('orderhistory');
         $_trash = 1;
@@ -394,7 +399,7 @@ class ProductController extends Controller
             $Object[] = ['idproduct' => $_idproduct,'quality' => $_quality,'trash' => $_trash];
             $str_Object = json_encode($Object);
         }
-        session()->put('idorderhistory', $str_Object);
+        session()->put('orderhistory', $str_Object);
         //session()->save();
         return response()->json($idorderhistory);
     }

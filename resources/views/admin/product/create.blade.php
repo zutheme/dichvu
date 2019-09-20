@@ -90,19 +90,25 @@
 	            <div class="col-md-9 col-sm-9 col-xs-12">
 	              <input type="text" name="price_import" class="form-controls" />
 	            </div>
-	          </div> 
-	          {{-- <div class="form-group">
-	            <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá bán gốc:</label>
+	          </div>
+	          <div class="form-group">
+	            <label class="control-label col-md-3 col-sm-3 col-xs-12">Số lượng nhập:</label>
 	            <div class="col-md-9 col-sm-9 col-xs-12">
-	              <input type="text" name="price_sale_origin" class="form-controls" />
+	              <input type="text" name="amount" class="form-controls" />
 	            </div>
-	          </div> --}}
+	          </div> 
 	          <div class="form-group">
 	            <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá bán:</label>
 	            <div class="col-md-9 col-sm-9 col-xs-12">
 	              <input type="text" name="price" class="form-controls" />
 	            </div>
 	          </div>
+	          <div class="form-group">
+	            <label class="control-label col-md-3 col-sm-3 col-xs-12">Số lượng sale:</label>
+	            <div class="col-md-9 col-sm-9 col-xs-12">
+	              <input type="text" name="quality_sale" class="form-controls" />
+	            </div>
+	          </div> 
 	          @if($idcrosstype==1 or $idcrosstype==2)
 		          <div class="form-group">
 		          	 <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá theo:</label>

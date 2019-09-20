@@ -6,7 +6,7 @@
 
 		<div class="c-content-title-1">
 
-			<h3 class="c-center c-font-uppercase c-font-bold c-font-white">Trị nám tàn nhang</h3>
+			<h3 class="c-center c-font-uppercase c-font-bold c-font-white">Dịch vụ combo</h3>
 
 			<div class="c-line-center c-theme-bg"></div>
 

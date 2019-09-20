@@ -6,7 +6,7 @@
 
 		<div class="c-content-title-4">
 
-			<h3 class="c-font-uppercase c-center c-font-bold c-line-strike"><span class="c-bg-white">Trẻ hóa</span></h3>
+			<h3 class="c-font-uppercase c-center c-font-bold c-line-strike"><span class="c-bg-white">Khuyến mãi</span></h3>
 
 		</div>
 

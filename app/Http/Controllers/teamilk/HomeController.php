@@ -31,10 +31,10 @@ class HomeController extends Controller
             $_id_post_type="0";
             $_id_status_type="0";
             $_sel_receive = 0;
-            $_limit = 8;
+            $_limit = 4;
             $rs_selected = array('_start_date'=>$_start_date,'_end_date'=>$_end_date,'_idcategory'=>$_idcategory,'_id_post_type'=>$_id_post_type,'_id_status_type'=>$_id_status_type,'_sel_receive'=>$_sel_receive);
             $list_selected = json_encode($rs_selected);
-            $qr_LstProCombo = DB::select('call ListProductComboProcedure()');
+            $qr_LstProCombo = DB::select('call ListProductComboProcedure(?)',array($_limit));
             $rs_LstProCombo = json_decode(json_encode($qr_LstProCombo), true);
             //teamilk
             $qr_teamilk = DB::select('call ListProductByIdcateProcedure(?,?,?,?,?,?)',array($_start_date,$_end_date, $_idcategory, $_id_post_type, $_id_status_type, $_limit));
