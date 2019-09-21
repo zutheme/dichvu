@@ -30,19 +30,19 @@ class HomeController extends Controller
             $qr_LstProCombo = DB::select('call ListProductComboProcedure(?)',array($_limit));
             $rs_LstProCombo = json_decode(json_encode($qr_LstProCombo), true);
             //teamilk
-            $qr_teamilk = DB::select('call ListProductByIdcateProcedure(?,?,?)',array($_idcategory,1,$_limit));
-            $teamilks = json_decode(json_encode($qr_teamilk), true);
+            $qr_promotion = DB::select('call LatestProductByIdcateProcedure(?,?)',array($_idcategory,$_limit));
+            $rs_promotion = json_decode(json_encode($qr_promotion), true);
             $_limit1 = 4;
-            $qr_teamilk1 = DB::select('call ListProductByIdcateProcedure(?,?,?)',array($_idcategory,1,$_limit1));
+            $qr_teamilk1 = DB::select('call LatestProductByIdcateProcedure(?,?)',array($_idcategory,$_limit1));
             $teamilks1 = json_decode(json_encode($qr_teamilk1), true);
 
             $_limit2 = 12;
-            $qr_teamilk2 = DB::select('call ListProductByIdcateProcedure(?,?,?)',array($_idcategory,1,$_limit2));
+            $qr_teamilk2 = DB::select('call LatestProductByIdcateProcedure(?,?)',array($_idcategory,$_limit2));
             $teamilks2 = json_decode(json_encode($qr_teamilk2), true);
 
             $qr_popular = DB::select('call RelateProductProcedure');
             $popular = json_decode(json_encode($qr_popular), true);
-            return view('teamilk.home',compact('popular','rs_LstProCombo','teamilks1','teamilks2','list_selected'));
+            return view('teamilk.home',compact('popular','rs_LstProCombo','rs_promotion','teamilks1','teamilks2'));
         } catch (\Illuminate\Database\QueryException $ex) {
             $errors = new MessageBag(['error' => $ex->getMessage()]);
             //return redirect()->route('teamilk.home')->with('error',$errors);

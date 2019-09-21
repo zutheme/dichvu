@@ -128,6 +128,8 @@ Route::post('teamilk/listproductbyidcate/{_idcategory}', ['uses' =>'teamilk\Prod
 Route::get('teamilk/listproductbyidcategory/{_idcategory}/{_page}/{_limit}', ['uses' =>'teamilk\ProductController@listproductbyidcategory']);
 Route::post('teamilk/listproductbyidcategory/{_idcategory}/{_page}/{_limit}', ['uses' =>'teamilk\ProductController@listproductbyidcategory']);
 
+Route::get('teamilk/latestproductbyidcate/{_idcategory}/{_limit}', ['uses' =>'teamilk\ProductController@LatestProductByIdcate']);
+Route::post('teamilk/latestproductbyidcate/{_idcategory}/{_limit}', ['uses' =>'teamilk\ProductController@LatestProductByIdcate']);
 //add cart
 
 Route::post('teamilk/deletesession', ['uses' =>'teamilk\ProductController@delete_sesstion']);

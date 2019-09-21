@@ -16,9 +16,9 @@
 
 				<div class="owl-carousel owl-theme c-theme owl-small-space c-owl-nav-center" data-rtl="false" data-items="4" data-slide-speed="8000">
 
-					@if(isset($teamilks))
+					@if(isset($rs_promotion))
 
-						@foreach($teamilks as $row)
+						@foreach($rs_promotion as $row)
 
 							<div class="item">
 
@@ -26,7 +26,7 @@
 
 									<div class="c-content-overlay">
 
-										@if($row['price_sale_origin'])<div class="c-label c-bg-red c-font-uppercase c-font-white c-font-13 c-font-bold">Khuyến mãi</div>@endif
+										@if($row['price_sale'])<div class="c-label c-bg-red c-font-uppercase c-font-white c-font-13 c-font-bold">Khuyến mãi</div>@endif
 
 										<div class="c-overlay-wrapper">
 
@@ -48,7 +48,7 @@
 
 										<p class="c-price c-font-16 c-font-slim"><span class="currency">{{ $row['price'] }}</span><span class="vnd"></span> &nbsp;
 
-											<span class="c-font-16 c-font-line-through c-font-red">@if($row['price_sale_origin'])<span class="currency">{{ $row['price_sale_origin'] }}</span><span class="vnd"></span>@endif</span>
+											<span class="c-font-16 c-font-line-through c-font-red">@if($row['price_sale'])<span class="currency">{{ $row['price_sale'] }}</span><span class="vnd"></span>@endif</span>
 
 										</p>
 
