@@ -25,26 +25,19 @@ class HomeController extends Controller
     public function Home()
     {
     	try {
-            $_start_date="";
-            $_end_date="";
-            $_idcategory="0";
-            $_id_post_type="0";
-            $_id_status_type="0";
-            $_sel_receive = 0;
+            $_idcategory = 6;
             $_limit = 4;
-            $rs_selected = array('_start_date'=>$_start_date,'_end_date'=>$_end_date,'_idcategory'=>$_idcategory,'_id_post_type'=>$_id_post_type,'_id_status_type'=>$_id_status_type,'_sel_receive'=>$_sel_receive);
-            $list_selected = json_encode($rs_selected);
             $qr_LstProCombo = DB::select('call ListProductComboProcedure(?)',array($_limit));
             $rs_LstProCombo = json_decode(json_encode($qr_LstProCombo), true);
             //teamilk
-            $qr_teamilk = DB::select('call ListProductByIdcateProcedure(?,?,?,?,?,?)',array($_start_date,$_end_date, $_idcategory, $_id_post_type, $_id_status_type, $_limit));
+            $qr_teamilk = DB::select('call ListProductByIdcateProcedure(?,?,?)',array($_idcategory,1,$_limit));
             $teamilks = json_decode(json_encode($qr_teamilk), true);
             $_limit1 = 4;
-            $qr_teamilk1 = DB::select('call ListProductByIdcateProcedure(?,?,?,?,?,?)',array($_start_date,$_end_date, $_idcategory, $_id_post_type, $_id_status_type, $_limit1));
+            $qr_teamilk1 = DB::select('call ListProductByIdcateProcedure(?,?,?)',array($_idcategory,1,$_limit1));
             $teamilks1 = json_decode(json_encode($qr_teamilk1), true);
 
             $_limit2 = 12;
-            $qr_teamilk2 = DB::select('call ListProductByIdcateProcedure(?,?,?,?,?,?)',array($_start_date,$_end_date, $_idcategory, $_id_post_type, $_id_status_type, $_limit2));
+            $qr_teamilk2 = DB::select('call ListProductByIdcateProcedure(?,?,?)',array($_idcategory,1,$_limit2));
             $teamilks2 = json_decode(json_encode($qr_teamilk2), true);
 
             $qr_popular = DB::select('call RelateProductProcedure');
