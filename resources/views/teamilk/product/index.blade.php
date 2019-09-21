@@ -82,8 +82,8 @@
 	<?php $count = 0; ?>
 	@foreach($rs_lpro as $row)
 		@if($count%4 == 0) <div class="row"> @endif
-			<?php  $_price = $row['price']; $_price_sale_origin = $row['price_sale_origin']; 
-					$_promotion =  $_price_sale_origin > $_price ? true : false; ?>
+			<?php  $_price = $row['price']; $_price_sale = $row['price_sale']; 
+					$_promotion =  $_price_sale > $_price ? true : false; ?>
 			<div class="col-md-3 col-sm-6 c-margin-b-20">
 				<div class="c-content-product-2 c-bg-white c-border">
 					<div class="c-content-overlay">
@@ -94,12 +94,12 @@
 								<a href="{{ action('teamilk\ProductController@show',$row['idproduct']) }}" class="btn btn-md c-btn-grey-1 c-btn-uppercase c-btn-bold c-btn-border-1x c-btn-square">Khám phá</a>
 							</div>
 						</div>
-						<div class="c-bg-img-center c-overlay-object" data-height="height" style="height: 230px; background-image: url({{ asset($row['url']) }})"></div>
+						<div class="c-bg-img-center c-overlay-object" data-height="height" style="height: 230px; background-image: url({{ asset($row['urlfile']) }})"></div>
 					</div>
 					<div class="c-info">
 						<p class="c-title c-font-16 c-font-slim">{{ $row['namepro'] }}</p>
 						<p class="c-price c-font-14 c-font-slim"><span class="currency">{{ $_price }}</span><span class="vnd"></span> &nbsp; @if($_promotion)
-							<span class="c-font-14 c-font-line-through c-font-red"><span class="currency">{{ $_price_sale_origin }}</span><span class="vnd"></span></span> @endif
+							<span class="c-font-14 c-font-line-through c-font-red"><span class="currency">{{ $_price_sale }}</span><span class="vnd"></span></span> @endif
 						</p>
 					</div>
 					<div class="btn-group btn-group-justified" role="group">

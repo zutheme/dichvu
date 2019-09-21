@@ -122,13 +122,11 @@ Route::post('admin/postLogin', ['uses' =>'Admin\LoginController@postLogin', 'as'
 
 
 
-Route::get('teamilk/listproductbyidcate/{_idcategory}/{_page}/{_limit}', ['uses' =>'teamilk\ProductController@listviewproductbyidcate']);
+Route::get('teamilk/listproductbyidcate/{_idcategory}', ['uses' =>'teamilk\ProductController@listviewproductbyidcate']);
+Route::post('teamilk/listproductbyidcate/{_idcategory}', ['uses' =>'teamilk\ProductController@listviewproductbyidcate']);
 
-
-
-Route::post('teamilk/listproductbyidcate/{_idcategory}/{_page}/{_limit}', ['uses' =>'teamilk\ProductController@listviewproductbyidcate']);
-
-
+Route::get('teamilk/listproductbyidcategory/{_idcategory}/{_page}/{_limit}', ['uses' =>'teamilk\ProductController@listproductbyidcategory']);
+Route::post('teamilk/listproductbyidcategory/{_idcategory}/{_page}/{_limit}', ['uses' =>'teamilk\ProductController@listproductbyidcategory']);
 
 //add cart
 

@@ -254,10 +254,25 @@ class ProductController extends Controller
 
     }
 
-    public function listviewproductbyidcate($_idcategory,$_page,$_limit){
-
+    public function listviewproductbyidcate($_idcategory){
+        $_page = 1; $_limit = 10;
         try {
-            $qr_lpro = DB::select('call ListProductByIdcateProcedure(?,?)',array($_idcategory,$_page,$_limit));
+            $qr_lpro = DB::select('call ListProductByIdcateProcedure(?,?,?)',array($_idcategory,$_page,$_limit));
+            //$qr_lpro = DB::select('call ListViewProductByIdCateProcedure(?)',array($_idcategory));
+            $rs_lpro = json_decode(json_encode($qr_lpro), true);     
+            //return redirect()->route('teamilk.product.index')->with('error',$errors);
+             return view('teamilk.product.index')->with(compact('rs_lpro','_idcategory'));
+        } catch (\Illuminate\Database\QueryException $ex) {
+            $errors = new MessageBag(['error' => $ex->getMessage()]);
+            //return redirect()->route('teamilk.product.index')->with('error',$errors);
+            return view('teamilk.product.index')->with('error',$errors);
+        }
+
+    }
+
+    public function listproductbyidcategory($_idcategory,$_page,$_limit){
+        try {
+            $qr_lpro = DB::select('call ListProductByIdcateProcedure(?,?,?)',array($_idcategory,$_page,$_limit));
             //$qr_lpro = DB::select('call ListViewProductByIdCateProcedure(?)',array($_idcategory));
             $rs_lpro = json_decode(json_encode($qr_lpro), true);     
             //return redirect()->route('teamilk.product.index')->with('error',$errors);
