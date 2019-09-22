@@ -120,15 +120,25 @@
 </div><!-- END: CONTENT/SHOPS/SHOP-2-7 -->
 
 <div class="c-margin-t-20"></div>
-
-<!--<ul class="c-content-pagination c-square c-theme pull-right">
-	<li class="c-prev"><a href="#"><i class="fa fa-angle-left"></i></a></li>
-	<li><a href="#">1</a></li>
-	<li class="c-active"><a href="#">2</a></li>
-	<li><a href="#">3</a></li>
-	<li><a href="#">4</a></li>
-	<li class="c-next"><a href="#"><i class="fa fa-angle-right"></i></a></li>
-</ul>-->
+@if(isset($rs_lpro))
+<?php  $maxcount = $rs_lpro[0]['maxcount'];
+	$max = intdiv($maxcount, 9)+1; 
+	$max_mode = $maxcount%9; 
+	if($max_mode > 0) {
+		$max = $max+1;
+	}?>
+	@if($max > 1)
+	<?php $curent_page = Request::segment(4);?>
+	<ul class="c-content-pagination c-square c-theme pull-right">
+		<li class="c-prev"><a href="#"><i class="fa fa-angle-left"></i></a></li>
+		@for($i=1;$i<$max;$i++)
+		<?php  $curent_class = ($curent_page=$i) ? '':'class="c-active"';?>
+		<li {{ $curent_class }}><a href="{{ url('/') }}/teamilk/listproductbypage/{{ $curent_idcategory }}/{{ $i }}">{{ $i }}</a></li>
+		@endfor
+		<li class="c-next"><a href="#"><i class="fa fa-angle-right"></i></a></li>
+	</ul>
+	@endif
+@endif
 <!-- END: PAGE CONTENT -->
 	</div>
 </div>

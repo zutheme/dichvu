@@ -125,11 +125,15 @@ Route::post('admin/postLogin', ['uses' =>'Admin\LoginController@postLogin', 'as'
 Route::get('teamilk/listproductbyidcate/{_idcategory}', ['uses' =>'teamilk\ProductController@listviewproductbyidcate']);
 Route::post('teamilk/listproductbyidcate/{_idcategory}', ['uses' =>'teamilk\ProductController@listviewproductbyidcate']);
 
+Route::get('teamilk/listproductbypage/{_idcategory}/{_page}', ['uses' =>'teamilk\ProductController@listproductbypage']);
+Route::post('teamilk/listproductbypage/{_idcategory}/{_page}', ['uses' =>'teamilk\ProductController@listproductbypage']);
+
 Route::get('teamilk/listproductbyidcategory/{_idcategory}/{_page}/{_limit}', ['uses' =>'teamilk\ProductController@listproductbyidcategory']);
 Route::post('teamilk/listproductbyidcategory/{_idcategory}/{_page}/{_limit}', ['uses' =>'teamilk\ProductController@listproductbyidcategory']);
 
 Route::get('teamilk/latestproductbyidcate/{_idcategory}/{_limit}', ['uses' =>'teamilk\ProductController@LatestProductByIdcate']);
 Route::post('teamilk/latestproductbyidcate/{_idcategory}/{_limit}', ['uses' =>'teamilk\ProductController@LatestProductByIdcate']);
+
 //add cart
 
 Route::post('teamilk/deletesession', ['uses' =>'teamilk\ProductController@delete_sesstion']);

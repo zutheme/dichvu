@@ -255,7 +255,7 @@ class ProductController extends Controller
     }
 
     public function listviewproductbyidcate($_idcategory){
-        $_page = 1; $_limit = 10;
+        $_page = 1; $_limit = 100;
         try {
             $qr_lpro = DB::select('call ListProductByIdcateProcedure(?,?,?)',array($_idcategory,$_page,$_limit));
             $rs_lpro = json_decode(json_encode($qr_lpro), true);     
@@ -281,6 +281,19 @@ class ProductController extends Controller
 
     }
 
+    public function listproductbypage($_idcategory,$_page){
+        try {
+            $_limit = 100;
+            $qr_lpro = DB::select('call ListProductByIdcateProcedure(?,?,?)',array($_idcategory,$_page,$_limit));
+            //$qr_lpro = DB::select('call ListViewProductByIdCateProcedure(?)',array($_idcategory));
+            $rs_lpro = json_decode(json_encode($qr_lpro), true);     
+             return view('teamilk.product.index')->with(compact('rs_lpro','_idcategory'));
+        } catch (\Illuminate\Database\QueryException $ex) {
+            $errors = new MessageBag(['error' => $ex->getMessage()]);
+            return view('teamilk.product.index')->with('error',$errors);
+        }
+
+    }
     public function listproductbyidcategory($_idcategory,$_page,$_limit){
         try {
             $qr_lpro = DB::select('call ListProductByIdcateProcedure(?,?,?)',array($_idcategory,$_page,$_limit));
@@ -293,7 +306,6 @@ class ProductController extends Controller
         }
 
     }
-
     public function orderhistory(Request $request){
         $input = json_decode(file_get_contents('php://input'),true);
         $_idproduct = $input['idproduct'];
