@@ -82,12 +82,21 @@
 	<?php $count = 0; ?>
 	@foreach($rs_lpro as $row)
 		@if($count%4 == 0) <div class="row"> @endif
-			<?php  $_price = $row['price']; $_price_sale = $row['price_sale']; 
-					$_promotion =  $_price_sale > $_price ? true : false; ?>
+			<?php  $_price = $row['price']; $_price_sale = $row['price_sale'];
+					if(!isset($row['price_sale'])){
+						$_price_sale = 0;
+						$_promotion = false;
+					}else if( $_price_sale > 0 && ($_price > $_price_sale)){
+						$_price = $row['price_sale'];
+						$_price_sale = $row['price'];
+						$_promotion = true;
+					} 
+					 ?>
 			<div class="col-md-3 col-sm-6 c-margin-b-20">
 				<div class="c-content-product-2 c-bg-white c-border">
 					<div class="c-content-overlay">
 						@if($_promotion)
+						<?php $_price =  $row['price_sale']; $_price_sale = $row['price']; ?>
 						<div class="c-label c-bg-red c-font-uppercase c-font-white c-font-13 c-font-bold">Khuyến mãi</div> @endif
 						<div class="c-overlay-wrapper">
 							<div class="c-overlay-content">
@@ -122,8 +131,8 @@
 <div class="c-margin-t-20"></div>
 @if(isset($rs_lpro))
 <?php  $maxcount = $rs_lpro[0]['maxcount'];
-	$max = intdiv($maxcount, 9)+1; 
-	$max_mode = $maxcount%9; 
+	$max = intdiv($maxcount, 12)+1; 
+	$max_mode = $maxcount%12; 
 	if($max_mode > 0) {
 		$max = $max+1;
 	}?>

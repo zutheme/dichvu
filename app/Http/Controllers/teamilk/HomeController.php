@@ -36,7 +36,7 @@ class HomeController extends Controller
             $qr_teamilk1 = DB::select('call LatestProductByIdcateProcedure(?,?)',array($_idcategory,$_limit1));
             $teamilks1 = json_decode(json_encode($qr_teamilk1), true);
 
-            $_limit2 = 12;
+            $_limit2 = 8;
             $qr_teamilk2 = DB::select('call LatestProductByIdcateProcedure(?,?)',array($_idcategory,$_limit2));
             $teamilks2 = json_decode(json_encode($qr_teamilk2), true);
 

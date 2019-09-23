@@ -19,7 +19,16 @@
 					<?php $count = 0; ?>
 
 					@foreach($teamilks2 as $row)
-
+						<?php  $_price = $row['price']; $_price_sale = $row['price_sale'];
+							if(!isset($row['price_sale'])){
+								$_price_sale = 0;
+								$_promotion = false;
+							}else if( $_price_sale > 0 && ($_price > $_price_sale)){
+								$_price = $row['price_sale'];
+								$_price_sale = $row['price'];
+								$_promotion = true;
+							} 
+							 ?>
 						@if($count%4 == 0) <div class="row"> @endif				
 
 							<div class="col-md-3 col-sm-6 c-margin-b-20">
@@ -46,9 +55,9 @@
 
 										<p class="c-title c-font-16 c-font-slim">{{ $row['namepro'] }}</p>
 
-										<p class="c-price c-font-14 c-font-slim"><span class="currency">{{ $row['price'] }}</span><span class="vnd"></span> &nbsp;
+										<p class="c-price c-font-14 c-font-slim"><span class="currency">{{ $_price }}</span><span class="vnd"></span> &nbsp;
 
-											<span class="c-font-14 c-font-line-through c-font-red"><span class="currency">{{ $row['price'] }}</span><span class="vnd"></span></span>
+											@if($_promotion)<span class="c-font-14 c-font-line-through c-font-red"><span class="currency">{{ $_price_sale }}</span><span class="vnd"></span></span>@endif
 
 										</p>
 
