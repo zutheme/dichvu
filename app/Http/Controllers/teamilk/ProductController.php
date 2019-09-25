@@ -317,6 +317,7 @@ class ProductController extends Controller
         $idorder = 1;
         $parent = 0;
         if(!isset($str_session)||empty($str_session)){
+            //$_str_query = 'INSERT into tmp_product(idproduct,input_quality) VALUES ('.$_idproduct.','.$_quality.')';
             $qr_initsession = DB::select("CALL InitsessionProcedure(?,?,?,?)",array($_idproduct, $_quality, $_idstore, $idorder));
             $rs_initsession = json_decode(json_encode($qr_initsession), true);         
             foreach ($rs_initsession as $row) {
