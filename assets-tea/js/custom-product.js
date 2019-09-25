@@ -68,8 +68,7 @@ function makeAJAXCall(element,callback){
     _e_loading.style.display = "block";
     http.onreadystatechange = function() {
         if(http.readyState == 4 && http.status == 200) {
-        	//var myArr = JSON.parse(this.responseText);
-        	//console.log(myArr);
+        	var myArr = JSON.parse(this.responseText);
         	callback(this.responseText);     
         }
     }

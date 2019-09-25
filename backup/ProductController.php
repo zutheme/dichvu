@@ -317,18 +317,20 @@ class ProductController extends Controller
         $idorder = 1;
         $parent = 0;
         if(!isset($str_session)||empty($str_session)){
-            $qr_initsession = DB::select("CALL InitsessionProcedure(?,?,?,?)",array($_idproduct, $_quality, $_idstore, $idorder));
-            $rs_initsession = json_decode(json_encode($qr_initsession), true);         
+            $_str_query = 'INSERT into tmp_product(idproduct,input_quality) VALUES ('.$_idproduct.','.$_quality.')';
+            $qr_initsession = DB::select("CALL ReachInitSessionProcedure(?,?,?)",array($_str_query, $_idstore,$idorder));
+            $rs_initsession = json_decode(json_encode($qr_initsession), true);
             foreach ($rs_initsession as $row) {
                 $quality_sale = $_quality; 
                 if($row['parent']!=0){
                     $quality_sale = $row['quality_sale']*$_quality;
                 }
-                $str_item .= '{"idorder":'.$row['idorder'].',"idcrosstype":'.$row['idcrosstype'].',"parent":'.$row['parent'].',"idparentcross":'.$row['idparentcross'].',"input_quality":'.$row['input_quality'].',"idproduct":'.$row['idproduct'].',"inp_session":'.$quality_sale.',"trash":1},';
+                $str_item .= '{"idorder":'.$row['idorder'].',"idcrosstype":'.$row['idcrosstype'].',"parent":'.$row['parent'].',"id":'.$row['id'].',"idparentcross":'.$row['idparentcross'].',"input_quality":'.$row['input_quality'].',"idproduct":'.$row['idproduct'].',"inp_session":'.$quality_sale.',"trash":1},';
                 $idorder++;
             }
             $str_item = substr_replace($str_item ,"", -1);
-            $str_item = "[".$str_item."]";           
+            $str_item = "[".$str_item."]";
+            
         }else{
             $Object = json_decode($str_session,true);
             $idorder = 1;
@@ -337,24 +339,16 @@ class ProductController extends Controller
                     $idorder++;
                 }
             }
-            //$_str_query = 'INSERT into tmp_product(idproduct,input_quality) VALUES ('.$_idproduct.','.$_quality.')';
-            //$qr_initsession = DB::select("CALL ReachInitSessionProcedure(?,?,?)",array($_str_query, $_idstore, $idorder));
-            try{
-                $qr_initsession = DB::select("CALL InitsessionProcedure(?,?,?,?)",array($_idproduct, $_quality, $_idstore, $idorder));
-                $rs_initsession = json_decode(json_encode($qr_initsession), true);
-                //return response()->json($rs_initsession);
-                foreach ($rs_initsession as $row) {
-                    $quality_sale = $_quality; 
-                    if($row['parent']!=0){
-                        $quality_sale = $row['quality_sale']*$_quality;
-                    }
-                    $Object[] = ['idorder'=>$row['idorder'],'idcrosstype'=>$row['idcrosstype'],'parent'=>$row['parent'],'idparentcross'=>$row['idparentcross'],'input_quality'=>$row['input_quality'],'idproduct' => $row['idproduct'],'inp_session'=>$quality_sale,'trash' => 1];
-                    $idorder++;
+            $_str_query = 'INSERT into tmp_product(idproduct,input_quality) VALUES ('.$_idproduct.','.$_quality.')';
+            $qr_initsession = DB::select("CALL ReachInitSessionProcedure(?,?,?)",array($_str_query, $_idstore, $idorder));
+            $rs_initsession = json_decode(json_encode($qr_initsession), true);
+            foreach ($rs_initsession as $row) {
+                $quality_sale = $_quality; 
+                if($row['parent']!=0){
+                    $quality_sale = $row['quality_sale']*$_quality;
                 }
-            }
-            catch (\Illuminate\Database\QueryException $ex) {
-                $errors = new MessageBag(['error' => $ex->getMessage()]);
-                return response()->json($errors);
+                $Object[] = ['idorder'=>$row['idorder'],'idcrosstype'=>$row['idcrosstype'],'parent'=>$row['parent'],'id'=>$row['id'],'idparentcross'=>$row['idparentcross'],'input_quality'=>$row['input_quality'],'idproduct' => $row['idproduct'],'inp_session'=>$quality_sale,'trash' => 1];
+                $idorder++;
             }
             $str_item = json_encode($Object);  
         }
@@ -451,6 +445,8 @@ class ProductController extends Controller
          return view('teamilk.product.index')->with(compact('_session',$_session));
 
      }
+
+     
 
 }
 

@@ -60,7 +60,7 @@ class ShopCartController extends Controller
             $arr = json_decode($str_session,true);
             foreach ($arr as $item) {
                 if($item['trash'] > 0) {
-                    $str_qr .= '('.$item['idorder'].','.$item['idcrosstype'].','.$item['parent'].','.$item['id'].','.$item['idparentcross'].','.$item['input_quality'].','.$item['idproduct'].','.$item['inp_session'].','.$item['trash'].'),';
+                    $str_qr .= '('.$item['idorder'].','.$item['idcrosstype'].','.$item['parent'].','.$item['idparentcross'].','.$item['input_quality'].','.$item['idproduct'].','.$item['inp_session'].','.$item['trash'].'),';
                     $bool_str = true;
                 }
              }
@@ -69,9 +69,10 @@ class ShopCartController extends Controller
        }
        if($bool_str) {
             $str_qr = substr_replace($str_qr ,"", -1);
-            $str_qr = 'INSERT into tmp_product(idorder, idcrosstype, parent, id, idparentcross, input_quality, idproduct, inp_session, trash) VALUES '.$str_qr;
+            $str_qr = 'INSERT into tmp_product1(idorder, idcrosstype, parent, idparentcross, input_quality, idproduct, inp_session, trash) VALUES '.$str_qr;
            //list order by array
-            $qr_lstordsess = DB::select('call LstOrderFromSessionProcedure(?,?)',array($str_qr,$_idstore));
+            //$qr_lstordsess = DB::select('call LstOrderFromSessionProcedure(?,?)',array($str_qr,$_idstore));
+            $qr_lstordsess = DB::select('call LstOrderFrmSessionProcedure(?,?)',array($str_qr,$_idstore));
             $rs_lstordsess = json_decode(json_encode($qr_lstordsess), true);       
        }
         return view('teamilk.addcart.shop-cart',compact('idproduct','str_qr','rs_lstordsess'));
@@ -101,7 +102,7 @@ class ShopCartController extends Controller
             $arr = json_decode($arr_his,true);
             foreach ($arr as  $item) {
                 if($item['trash'] > 0) {
-                    $str_qr .= '('.$item['idorder'].','.$item['idcrosstype'].','.$item['parent'].','.$item['id'].','.$item['idparentcross'].','.$item['input_quality'].','.$item['idproduct'].','.$item['inp_session'].','.$item['trash'].'),';
+                    $str_qr .= '('.$item['idorder'].','.$item['idcrosstype'].','.$item['parent'].','.$item['idparentcross'].','.$item['input_quality'].','.$item['idproduct'].','.$item['inp_session'].','.$item['trash'].'),';
                     $bool_str = true;
                 }
              }
@@ -110,9 +111,9 @@ class ShopCartController extends Controller
        }
        if($bool_str) {
             $str_qr = substr_replace($str_qr ,"", -1);
-            $str_qr = "INSERT into tmp_product(idorder, idcrosstype, parent, id, idparentcross, input_quality, idproduct, inp_session, trash) VALUES ".$str_qr;
+            $str_qr = "INSERT into tmp_product1(idorder, idcrosstype, parent, idparentcross, input_quality, idproduct, inp_session, trash) VALUES ".$str_qr;
            //list order by array
-            $qr_lstordsess = DB::select('call LstOrderFromSessionProcedure(?,?)',array($str_qr,$_idstore));
+            $qr_lstordsess = DB::select('call LstOrderFrmSessionProcedure(?,?)',array($str_qr,$_idstore));
             $rs_lstordsess = json_decode(json_encode($qr_lstordsess), true);       
        }
         //end list product
@@ -294,7 +295,7 @@ class ShopCartController extends Controller
        if($bool_str) {
             $_fromnamestore='import';$_tonamestore='order';$_note='';
             $str_qr = substr_replace($str_qr ,"", -1);
-            $str_qr = "INSERT into tmp_product(idorder, idcrosstype, parent, id, idparentcross, input_quality, idproduct, inp_session, trash) VALUES ".$str_qr;
+            $str_qr = "INSERT into tmp_product1(idorder, idcrosstype, parent, id, idparentcross, input_quality, idproduct, inp_session, trash) VALUES ".$str_qr;
             $qr_orderproduct = DB::select('call OrderProductFromSessionProcedure(?,?,?,?,?,?,?)',array( $_idcustomer, $_id_reci_customer, $_iduser_curent,$_note,$_fromnamestore,$_tonamestore,$str_qr));
             $rs_orderproduct = json_decode(json_encode($qr_orderproduct), true);       
        }
