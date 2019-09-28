@@ -120,39 +120,21 @@ class ProductController extends Controller
 
      */
 
-    public function show($idproduct)
-
-    {
-
+    public function show($idproduct){
         $_namecattype="product";
-
         $_idstore = 31;
-
         $qr_cateselected = DB::select('call SelCateSelectedProcedure(?)',array($idproduct));
-
         $cate_selected = json_decode(json_encode($qr_cateselected), true);
-
         $qr_size = DB::select('call SelAllSizeProcedure');
-
         $size = json_decode(json_encode($qr_size), true);
-
         //$qr_product = DB::select('call DetailByIdProductProcedure(?)',array($idproduct));
-
         //$product = json_decode(json_encode($qr_product), true);
-
         $qr_product = DB::select('call SelProductByIdProcedure(?,?)',array($idproduct,$_idstore));
-
         $product = json_decode(json_encode($qr_product), true);
-
         $_idgallery = 2;
-
         $qr_gallery = DB::select('call SelGalleryProcedure(?,?)',array($idproduct,$_idgallery));
-
         $gallery = json_decode(json_encode($qr_gallery), true);
 
-        // $_idcombo = 1;
-        // $qr_sel_combo_byidproduct = DB::select('call SelCrossProductByIdProcedure(?,?)',array($idproduct,$_idcombo));
-        //$sel_combo_byidproduct = json_decode(json_encode($qr_sel_combo_byidproduct), true);
         $qr_sel_cross_byidproduct = DB::select('call SelProductCrossByIdProcedure(?)',array($idproduct));
         $sel_cross_byidproduct = json_decode(json_encode($qr_sel_cross_byidproduct), true);
 

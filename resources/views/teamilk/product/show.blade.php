@@ -193,7 +193,7 @@
 
 						</div>
 
-						<div class="c-product-price"><span class="currency">{{ $product[0]['price'] }}</span><span class="vnd"></span></div>
+						<div class="c-product-price"><p class="c-price c-font-28"><span class="currency">{{ $product[0]['price'] }}</span><span class="vnd"></span> &nbsp;@if(isset($product[0]['old_price']))<span class="c-font-18 c-font-line-through c-font-red"><span class="currency">{{ $product[0]['old_price'] }}</span><span class="vnd"></span></span>@endif</div>
 
 						<div class="plus-topping"><ul class="plus"></ul></div>
 
