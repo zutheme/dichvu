@@ -78,28 +78,29 @@
 			<div class="form-group"> 
 				<div class="col-lg-12">
 					<script>
-				    var list_gallery = [];
 				    var item ='';
-					</script>             
-					<ul class="multi-file">
-						@foreach($gallery as $row)
-						<li class="item{{ $row['idfile'] }}">
-							<input class="producthasfile" type="hidden" name="edit-gallery[]" value="0">	
-				     		<a href="javascript:void(0);" onclick="performClickByClass(this);">Chỉnh sửa&nbsp;&nbsp;<i class="fa fa-paperclip" aria-hidden="true"></i>&nbsp;&nbsp;</a>
-							<input onchange="editfile(event,this,'{{ $row['idproducthasfile'] }}');" type="file" style="display: none;" name="file_attach[]" class="file file_attach" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf,.zip,.rar" />
-							<label class="namefile"></label>
-		                    <p><canvas class="my_canvas gallery" width="0px" height="0px"></canvas></p>
-		                    <script> 
-		                    	var item = '{{ asset($row['urlfile']) }}';
-		                    	if(item) {
-		                    		list_gallery.push(item); 
-		                    	}
-		                    	</script>
-		                    <p><a href="javascript:void(0);" class="btn bnt-default btn-trash" style="display: block;" onclick="trash_item('item{{ $row['idfile'] }}','{{ $row['idproducthasfile'] }}');"><i class="fa fa-trash" aria-hidden="true"></i></a></p>
-		                    <p><img class="loading-trash" style="display:none;width:30px;" src="{{ asset('dashboard/production/images/loader.gif') }}"></p>
-						</li>
-						 @endforeach
-					</ul>
+					</script>
+					@if(isset($gallery))             
+						<ul class="multi-file">
+							@foreach($gallery as $row)
+							<li class="item{{ $row['idfile'] }}">
+								<input class="producthasfile" type="hidden" name="edit-gallery[]" value="0">	
+					     		<a href="javascript:void(0);" onclick="performClickByClass(this);">Chỉnh sửa&nbsp;&nbsp;<i class="fa fa-paperclip" aria-hidden="true"></i>&nbsp;&nbsp;</a>
+								<input onchange="editfile(event,this,'{{ $row['idproducthasfile'] }}');" type="file" style="display: none;" name="file_attach[]" class="file file_attach" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf,.zip,.rar" />
+								<label class="namefile"></label>
+			                    <p><canvas class="my_canvas gallery" width="0px" height="0px"></canvas></p>
+			                    <script> 
+			                    	var item = '{{ asset($row['urlfile']) }}';
+			                    	if(item) {
+			                    		list_gallery.push(item); 
+			                    	}
+			                    	</script>
+			                    <p><a href="javascript:void(0);" class="btn bnt-default btn-trash" style="display: block;" onclick="trash_item('item{{ $row['idfile'] }}','{{ $row['idproducthasfile'] }}');"><i class="fa fa-trash" aria-hidden="true"></i></a></p>
+			                    <p><img class="loading-trash" style="display:none;width:30px;" src="{{ asset('dashboard/production/images/loader.gif') }}"></p>
+							</li>
+							 @endforeach
+						</ul>
+					@endif
 					<p><input type="button" style="display: block" class="btn btn-default btn-more-file" name="btn-more-file" value="Thêm file" /></p>
 					 <div class="ln_solid"></div>
 				</div>

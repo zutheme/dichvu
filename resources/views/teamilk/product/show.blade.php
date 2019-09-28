@@ -194,13 +194,9 @@
 						</div>
 
 						<div class="c-product-price"><p class="c-price c-font-28"><span class="currency">{{ $product[0]['price'] }}</span><span class="vnd"></span> &nbsp;@if(isset($product[0]['old_price']))<span class="c-font-18 c-font-line-through c-font-red"><span class="currency">{{ $product[0]['old_price'] }}</span><span class="vnd"></span></span>@endif</div>
-
 						<div class="plus-topping"><ul class="plus"></ul></div>
-
 						<div class="c-product-short-desc">
-
 							{{ $product[0]['short_desc'] }}
-
 						</div>
 						<div class="c-product-add-cart c-margin-t-20">
 							<div class="row">

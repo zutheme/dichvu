@@ -28,3 +28,4 @@ for (var i = _e_currency.length - 1; i >= 0; i--) {
   _format_current = _e_currency[i].innerHTML;
   _e_currency[i].innerHTML = show_currency(_format_current);
 }
+var list_gallery = [];

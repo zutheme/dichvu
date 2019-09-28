@@ -247,7 +247,8 @@
 	<script src="{{ asset('dashboard/production/js/process_images/capture_image.js?v=0.3.1') }}"></script>
   	<script src="{{ asset('dashboard/production/editor/editor.js?v=0.0.1') }}"></script>
   	<script src="{{ asset('dashboard/production/js/edit_post.js?v=0.0.9') }}"></script>
-  	<script src="{{ asset('dashboard/production/js/create_mutiselect.js?v=0.6.6') }}"></script>	
+  	<script src="{{ asset('dashboard/production/js/create_mutiselect.js?v=0.6.7') }}"></script>
+  	{{-- <script src="{{ asset('dashboard/production/js/edit_muti_select.js?v=0.1.6') }}"></script> --}}		
   	{{-- <script src="{{ asset('dashboard/production/js/process_images/image_product.js.js?v=0.0.2') }}"></script> --}}
   	<script src="{{ asset('dashboard/production/js/uploadmultifile.js?v=0.6.4') }}"></script>
     <script src="{{ asset('dashboard/production/js/media-galerry.js?v=0.3.1') }}"></script>
