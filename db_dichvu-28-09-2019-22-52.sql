@@ -11,7 +11,7 @@
  Target Server Version : 100136
  File Encoding         : 65001
 
- Date: 15/09/2019 23:46:55
+ Date: 28/09/2019 22:52:31
 */
 
 SET NAMES utf8mb4;
@@ -108,7 +108,7 @@ CREATE TABLE `catehasproduct`  (
   INDEX `fr_cat_product`(`idproduct`) USING BTREE,
   CONSTRAINT `fr_cat_belong_categories` FOREIGN KEY (`idcategory`) REFERENCES `categories` (`idcategory`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fr_cat_product` FOREIGN KEY (`idproduct`) REFERENCES `products` (`idproduct`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 31 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of catehasproduct
@@ -141,6 +141,8 @@ INSERT INTO `catehasproduct` VALUES (25, 25, 6, '2019-09-13 23:08:17', '2019-09-
 INSERT INTO `catehasproduct` VALUES (26, 26, 6, '2019-09-13 23:12:06', '2019-09-13 23:12:06');
 INSERT INTO `catehasproduct` VALUES (27, 27, 6, '2019-09-13 23:14:08', '2019-09-13 23:14:08');
 INSERT INTO `catehasproduct` VALUES (28, 28, 9, '2019-09-15 16:31:04', '2019-09-15 16:31:04');
+INSERT INTO `catehasproduct` VALUES (29, 29, 6, '2019-09-20 15:58:52', '2019-09-20 15:58:52');
+INSERT INTO `catehasproduct` VALUES (30, 30, 9, '2019-09-28 15:30:28', '2019-09-28 15:30:28');
 
 -- ----------------------------
 -- Table structure for city_town
@@ -392,7 +394,7 @@ CREATE TABLE `exp_products`  (
   INDEX `frm_exp_pr_order`(`idnumberorder`) USING BTREE,
   CONSTRAINT `frm_exp_pr_order` FOREIGN KEY (`idnumberorder`) REFERENCES `listorder` (`idnumberorder`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `frm_exp_product` FOREIGN KEY (`idproduct`) REFERENCES `products` (`idproduct`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 245 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 262 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of exp_products
@@ -593,6 +595,20 @@ INSERT INTO `exp_products` VALUES (241, 47, 0, 12, 1, 0, 40, 0, 0, 1, 0, '', 11,
 INSERT INTO `exp_products` VALUES (242, 47, 1, 13, 2, 1, 40, 0, 0, 10, 2400000, '', 11, 0, 0, 0, 1, '2019-09-09 09:05:59', '2019-09-09 09:05:59');
 INSERT INTO `exp_products` VALUES (243, 47, 1, 14, 3, 1, 40, 0, 0, 4, 9000000, '', 11, 0, 0, 0, 1, '2019-09-09 09:05:59', '2019-09-09 09:05:59');
 INSERT INTO `exp_products` VALUES (244, 47, 0, 17, 4, 0, 40, 0, 0, 2, 10000000, '', 11, 0, 0, 0, 1, '2019-09-09 09:05:59', '2019-09-09 09:05:59');
+INSERT INTO `exp_products` VALUES (245, 48, 0, 20, 1, 0, 0, 0, 2, 1, 0, '', 11, 0, 0, 0, 1, '2019-09-20 14:33:31', '2019-09-20 14:33:31');
+INSERT INTO `exp_products` VALUES (246, 48, 1, 21, 2, 1, 0, 0, 2, 5, 10000000, '', 11, 0, 0, 0, 1, '2019-09-20 14:33:31', '2019-09-20 14:33:31');
+INSERT INTO `exp_products` VALUES (247, 48, 2, 22, 3, 1, 0, 0, 2, 10, 9000000, '', 11, 0, 0, 0, 1, '2019-09-20 14:33:31', '2019-09-20 14:33:31');
+INSERT INTO `exp_products` VALUES (248, 48, 2, 2, 4, 1, 0, 0, 2, 9, 1000000, '', 11, 0, 0, 0, 1, '2019-09-20 14:33:31', '2019-09-20 14:33:31');
+INSERT INTO `exp_products` VALUES (252, 49, 0, 8, 1, 0, 0, 0, 2, 1, 0, '', 11, 0, 0, 0, 1, '2019-09-20 14:39:13', '2019-09-20 14:39:13');
+INSERT INTO `exp_products` VALUES (253, 49, 1, 9, 2, 1, 0, 0, 2, 10, 480000, '', 11, 0, 0, 0, 1, '2019-09-20 14:39:13', '2019-09-20 14:39:13');
+INSERT INTO `exp_products` VALUES (254, 49, 1, 10, 3, 1, 0, 0, 2, 10, 2400000, '', 11, 0, 0, 0, 1, '2019-09-20 14:39:13', '2019-09-20 14:39:13');
+INSERT INTO `exp_products` VALUES (255, 49, 1, 11, 4, 1, 0, 0, 2, 5, 6000000, '', 11, 0, 0, 0, 1, '2019-09-20 14:39:13', '2019-09-20 14:39:13');
+INSERT INTO `exp_products` VALUES (256, 49, 0, 1, 5, 0, 0, 0, 2, 1, 0, '', 11, 0, 0, 0, 1, '2019-09-20 14:39:13', '2019-09-20 14:39:13');
+INSERT INTO `exp_products` VALUES (257, 49, 1, 2, 6, 5, 0, 0, 2, 5, 1500000, '', 11, 0, 0, 0, 1, '2019-09-20 14:39:13', '2019-09-20 14:39:13');
+INSERT INTO `exp_products` VALUES (258, 49, 1, 4, 7, 5, 0, 0, 2, 15, 2400000, '', 11, 0, 0, 0, 1, '2019-09-20 14:39:13', '2019-09-20 14:39:13');
+INSERT INTO `exp_products` VALUES (259, 49, 1, 5, 8, 5, 0, 0, 2, 5, 5000000, '', 11, 0, 0, 0, 1, '2019-09-20 14:39:13', '2019-09-20 14:39:13');
+INSERT INTO `exp_products` VALUES (260, 49, 2, 6, 9, 5, 0, 0, 2, 24, 2400000, '', 11, 0, 0, 0, 1, '2019-09-20 14:39:13', '2019-09-20 14:39:13');
+INSERT INTO `exp_products` VALUES (261, 49, 2, 7, 10, 5, 0, 0, 2, 72, 800000, '', 11, 0, 0, 0, 1, '2019-09-20 14:39:13', '2019-09-20 14:39:13');
 
 -- ----------------------------
 -- Table structure for expposts
@@ -625,7 +641,7 @@ CREATE TABLE `files`  (
   `created_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`idfile`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 30 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of files
@@ -657,6 +673,8 @@ INSERT INTO `files` VALUES (24, 'uploads/2019/09/13/20190913_1568390897_5d7bbef1
 INSERT INTO `files` VALUES (25, 'uploads/2019/09/13/20190913_1568391126_5d7bbfd627051.jpg', 'nam-da.jpg', '20190913_1568391126_5d7bbfd627051.jpg', 'jpg', '2019-09-13 23:12:06', '2019-09-13 23:12:06');
 INSERT INTO `files` VALUES (26, 'uploads/2019/09/13/20190913_1568391249_5d7bc0510061a.jpg', 'nam-da.jpg', '20190913_1568391249_5d7bc0510061a.jpg', 'jpg', '2019-09-13 23:14:09', '2019-09-13 23:14:09');
 INSERT INTO `files` VALUES (27, 'uploads/2019/09/15/20190915_1568539864_5d7e04d885ffd.jpg', 'nam-da.jpg', '20190915_1568539864_5d7e04d885ffd.jpg', 'jpg', '2019-09-15 16:31:04', '2019-09-15 16:31:04');
+INSERT INTO `files` VALUES (28, 'uploads/2019/09/20/20190920_1568969932_5d8494cc87ecc.jpg', 'triphasic.jpg', '20190920_1568969932_5d8494cc87ecc.jpg', 'jpg', '2019-09-20 15:58:52', '2019-09-20 15:58:52');
+INSERT INTO `files` VALUES (29, 'uploads/2019/09/28/20190928_1569659428_5d8f1a249eb4c.jpg', 'm-blanc-hinh-web.jpg', '20190928_1569659428_5d8f1a249eb4c.jpg', 'jpg', '2019-09-28 15:30:28', '2019-09-28 15:30:28');
 
 -- ----------------------------
 -- Table structure for grants
@@ -719,7 +737,7 @@ INSERT INTO `imp_perms` VALUES (1, 1, 1, 2, '2019-04-13 08:30:03', '2019-04-13 0
 -- ----------------------------
 DROP TABLE IF EXISTS `imp_products`;
 CREATE TABLE `imp_products`  (
-  `idimp` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `idimp` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `idproduct` bigint(20) UNSIGNED NOT NULL DEFAULT 0,
   `idcustomer` int(11) NULL DEFAULT 0,
   `iduser` int(11) NULL DEFAULT 0,
@@ -728,12 +746,7 @@ CREATE TABLE `imp_products`  (
   `amount` double(20, 0) NULL DEFAULT 0,
   `price_import` double(20, 0) NULL DEFAULT 0,
   `price` double(20, 0) NULL DEFAULT 0,
-  `price_sale_origin` double(20, 0) NULL DEFAULT 0,
-  `quality_sale` int(11) NULL DEFAULT 0,
-  `price_gift` double(20, 0) NULL DEFAULT NULL,
-  `quality_gift` int(11) NULL DEFAULT NULL,
-  `price_combo` double(20, 0) NULL DEFAULT NULL,
-  `quality_combo` int(11) NULL DEFAULT NULL,
+  `quality_sale` int(11) UNSIGNED NULL DEFAULT 0,
   `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
   `idstore` int(11) NULL DEFAULT 0,
   `axis_x` int(11) NULL DEFAULT 0,
@@ -742,61 +755,68 @@ CREATE TABLE `imp_products`  (
   `id_status_type` int(11) NULL DEFAULT 0,
   `fromdate` timestamp(0) NULL DEFAULT NULL,
   `todate` timestamp(0) NULL DEFAULT NULL,
+  `prev_id` bigint(20) UNSIGNED NULL DEFAULT 0,
   `created_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`idimp`) USING BTREE,
   INDEX `fr_imp_product`(`idproduct`) USING BTREE,
   INDEX `fr_imp_crosstype`(`idcrosstype`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 71 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 79 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of imp_products
 -- ----------------------------
-INSERT INTO `imp_products` VALUES (1, 1, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', 31, 0, 0, 0, 4, NULL, NULL, '2019-08-29 15:26:05', '2019-09-13 15:06:55');
-INSERT INTO `imp_products` VALUES (2, 2, 0, 2, 1, 1, 0, 0, 1500000, 3000000, 5, 0, NULL, 1800000, 10, '', 31, 0, 0, 0, 4, '2019-09-15 00:00:00', '2019-09-15 23:59:59', '2019-08-29 15:29:34', '2019-09-15 11:38:49');
-INSERT INTO `imp_products` VALUES (3, 4, 0, 2, 1, 1, NULL, NULL, 2400000, 2400000, 15, NULL, NULL, 2400000, 15, '', 31, 0, 0, 0, 4, '2019-09-10 00:00:00', '2019-09-30 23:59:59', '2019-08-29 21:56:45', '2019-09-15 11:54:48');
-INSERT INTO `imp_products` VALUES (4, 5, 0, 2, 1, 1, 0, 0, 5000000, 15000000, 5, NULL, NULL, 9600000, 5, '', 31, 0, 0, 0, 4, '2019-09-15 00:00:00', '2019-09-15 23:59:59', '2019-08-30 08:53:07', '2019-09-15 11:38:49');
-INSERT INTO `imp_products` VALUES (5, 6, 0, 2, 2, 1, NULL, NULL, 2400000, 2000000, 24, 2000000, 24, NULL, NULL, '', 31, 0, 0, 0, 4, '2019-09-15 00:00:00', '2019-09-15 23:59:59', '2019-08-30 09:22:06', '2019-09-15 15:15:22');
-INSERT INTO `imp_products` VALUES (6, 7, 0, 2, 2, 1, NULL, NULL, 800000, 800000, 72, 800000, 72, NULL, NULL, '', 31, 0, 0, 0, 4, '2019-09-15 00:00:00', '2019-09-15 23:59:59', '2019-08-30 09:27:42', '2019-09-15 11:38:49');
-INSERT INTO `imp_products` VALUES (7, 8, 0, 2, 0, 0, NULL, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, '', 31, 0, 0, 0, 4, NULL, NULL, '2019-08-31 15:18:08', '2019-09-13 10:57:36');
-INSERT INTO `imp_products` VALUES (8, 9, 0, 2, 1, 8, NULL, NULL, 480000, 480000, 10, NULL, NULL, 480000, 10, '', 31, 0, 0, 0, 4, NULL, NULL, '2019-08-31 15:20:25', '2019-09-13 10:57:36');
-INSERT INTO `imp_products` VALUES (9, 10, 0, 2, 1, 8, NULL, NULL, 2400000, 2400000, 10, NULL, NULL, 2400000, 10, '', 31, 0, 0, 0, 4, NULL, NULL, '2019-08-31 15:22:37', '2019-09-13 10:57:36');
-INSERT INTO `imp_products` VALUES (10, 11, 0, 2, 1, 8, NULL, NULL, 6000000, 6000000, 5, NULL, NULL, 6000000, 5, '', 31, 0, 0, 0, 4, NULL, NULL, '2019-08-31 15:24:43', '2019-09-13 10:57:36');
-INSERT INTO `imp_products` VALUES (11, 12, 0, 2, 0, 0, NULL, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, '', 31, 0, 0, 0, 4, NULL, NULL, '2019-08-31 15:26:43', '2019-09-13 10:57:36');
-INSERT INTO `imp_products` VALUES (12, 13, 0, 2, 1, 12, NULL, NULL, 2400000, 2400000, 10, NULL, NULL, 2400000, 10, '', 31, 0, 0, 0, 4, NULL, NULL, '2019-08-31 15:28:22', '2019-09-13 10:57:36');
-INSERT INTO `imp_products` VALUES (13, 14, 0, 2, 1, 12, NULL, NULL, 9000000, 9000000, 5, NULL, NULL, 9000000, 5, '', 31, 0, 0, 0, 4, NULL, NULL, '2019-08-31 15:30:10', '2019-09-13 10:57:36');
-INSERT INTO `imp_products` VALUES (14, 15, 0, 2, 0, 0, NULL, 0, 0, 0, NULL, NULL, NULL, 0, NULL, '', 31, 0, 0, 0, 4, NULL, NULL, '2019-08-31 15:31:24', '2019-09-13 10:57:36');
-INSERT INTO `imp_products` VALUES (15, 16, 0, 2, 1, 15, NULL, NULL, 1800000, 1800000, 10, NULL, NULL, 1800000, 10, '', 31, 0, 0, 0, 4, NULL, NULL, '2019-08-31 15:32:57', '2019-09-13 10:57:36');
-INSERT INTO `imp_products` VALUES (16, 17, 0, 2, 1, 15, NULL, NULL, 6000000, 6000000, 5, NULL, NULL, 6000000, 5, '', 31, 0, 0, 0, 4, NULL, NULL, '2019-08-31 15:34:25', '2019-09-13 10:57:36');
-INSERT INTO `imp_products` VALUES (17, 20, 0, 2, 1, 1, NULL, 0, 2000000, 0, 5, NULL, NULL, NULL, NULL, '', 31, 0, 0, 0, 5, NULL, NULL, '2019-09-09 11:34:08', '2019-09-13 15:25:15');
-INSERT INTO `imp_products` VALUES (18, 21, 0, 2, 1, 20, 0, 0, 10000000, 15000000, 5, 9000000, 5, NULL, NULL, '', 31, 0, 0, 0, 4, NULL, NULL, '2019-09-09 11:47:59', '2019-09-13 10:57:36');
-INSERT INTO `imp_products` VALUES (19, 22, 0, 2, 2, 20, 0, 0, 9000000, 9000000, 10, 9000000, 5, NULL, NULL, '', 31, 0, 0, 0, 4, NULL, NULL, '2019-09-09 11:50:34', '2019-09-13 10:57:36');
-INSERT INTO `imp_products` VALUES (40, 2, 0, 2, 0, 0, 0, 0, 3000000, 3000000, 0, NULL, NULL, NULL, NULL, '', 31, 0, 0, 0, 4, NULL, NULL, '2019-09-09 15:37:49', '2019-09-13 10:57:36');
-INSERT INTO `imp_products` VALUES (41, 4, 0, 2, 0, 0, 0, 0, 4000000, 4000000, 0, NULL, NULL, NULL, NULL, '', 31, 0, 0, 0, 4, NULL, NULL, '2019-09-09 15:37:49', '2019-09-13 10:57:36');
-INSERT INTO `imp_products` VALUES (42, 5, 0, 2, 0, 0, 0, 0, 15000000, 15000000, 0, NULL, NULL, NULL, NULL, '', 31, 0, 0, 0, 4, NULL, NULL, '2019-09-09 15:37:49', '2019-09-13 10:57:36');
-INSERT INTO `imp_products` VALUES (43, 9, 0, 2, 0, 0, 0, 0, 800000, 800000, NULL, NULL, NULL, NULL, NULL, NULL, 31, NULL, NULL, NULL, 4, NULL, NULL, '2019-09-09 15:37:49', '2019-09-13 10:57:36');
-INSERT INTO `imp_products` VALUES (44, 10, 0, 2, 0, 0, 0, 0, 400000, 4000000, NULL, NULL, NULL, NULL, NULL, NULL, 31, NULL, NULL, NULL, 4, NULL, NULL, '2019-09-09 15:37:49', '2019-09-13 10:57:36');
-INSERT INTO `imp_products` VALUES (45, 11, 0, 2, 0, 0, 0, 0, 10000000, 10000000, NULL, NULL, NULL, NULL, NULL, NULL, 31, NULL, NULL, NULL, 4, NULL, NULL, '2019-09-09 15:37:49', '2019-09-13 10:57:36');
-INSERT INTO `imp_products` VALUES (46, 13, 0, 2, 0, 0, 0, 0, 4000000, 4000000, NULL, NULL, NULL, NULL, NULL, NULL, 31, NULL, NULL, NULL, 4, NULL, NULL, '2019-09-09 15:37:49', '2019-09-13 10:57:36');
-INSERT INTO `imp_products` VALUES (47, 14, 0, 2, 0, 0, 0, 0, 15000000, 15000000, NULL, NULL, NULL, NULL, NULL, NULL, 31, NULL, NULL, NULL, 4, NULL, NULL, '2019-09-09 15:37:49', '2019-09-13 10:57:36');
-INSERT INTO `imp_products` VALUES (48, 16, 0, 2, 0, 0, 0, 0, 3000000, 3000000, NULL, NULL, NULL, NULL, NULL, NULL, 31, NULL, NULL, NULL, 4, NULL, NULL, '2019-09-09 15:37:49', '2019-09-13 10:57:36');
-INSERT INTO `imp_products` VALUES (49, 17, 0, 2, 0, 0, 0, 0, 10000000, 10000000, NULL, NULL, NULL, NULL, NULL, NULL, 31, NULL, NULL, NULL, 4, NULL, NULL, '2019-09-09 15:37:49', '2019-09-13 10:57:36');
-INSERT INTO `imp_products` VALUES (55, 6, 0, 2, 0, 0, 0, 0, 2000000, 2000000, 0, NULL, NULL, NULL, NULL, '', 31, 0, 0, 0, 4, NULL, NULL, '2019-09-09 15:38:43', '2019-09-13 15:14:31');
-INSERT INTO `imp_products` VALUES (56, 7, 0, 2, 0, 0, 0, 0, 800000, 800000, 0, NULL, NULL, NULL, NULL, '', 31, 0, 0, 0, 4, NULL, NULL, '2019-09-09 15:38:43', '2019-09-13 15:12:37');
-INSERT INTO `imp_products` VALUES (57, 21, 0, 2, 0, 0, 0, 0, 15000000, 15000000, 0, NULL, NULL, NULL, NULL, '', 31, 0, 0, 0, 4, NULL, NULL, '2019-09-09 15:38:43', '2019-09-13 10:57:36');
-INSERT INTO `imp_products` VALUES (58, 22, 0, 2, 0, 0, 0, 0, 9000000, 9000000, 0, NULL, NULL, NULL, NULL, '', 31, 0, 0, 0, 4, NULL, NULL, '2019-09-09 15:38:43', '2019-09-13 10:57:36');
-INSERT INTO `imp_products` VALUES (59, 20, 0, 2, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, '', 31, 0, 0, 0, 4, NULL, NULL, '2019-09-10 16:56:33', '2019-09-13 10:57:36');
-INSERT INTO `imp_products` VALUES (60, 2, 0, 2, 12, 0, 0, 0, 1000000, 1000000, 9, NULL, NULL, NULL, NULL, NULL, 31, NULL, NULL, NULL, 4, NULL, NULL, '2019-09-11 08:34:09', '2019-09-13 10:57:36');
-INSERT INTO `imp_products` VALUES (61, 20, 0, 1, 1, 1, 0, 0, 0, 0, 10, NULL, NULL, NULL, NULL, NULL, 31, 0, 0, 0, 5, NULL, NULL, '2019-09-13 16:57:33', '2019-09-13 17:25:06');
-INSERT INTO `imp_products` VALUES (62, 21, 0, 2, 2, 1, 0, 0, 100000, 0, 5, NULL, NULL, NULL, NULL, NULL, 11, 0, 0, 0, 4, '2019-09-15 00:00:00', '2019-09-15 23:59:59', '2019-09-13 17:24:42', '2019-09-15 11:38:49');
-INSERT INTO `imp_products` VALUES (63, 20, 0, 1, 1, 1, 0, 0, 1000000, 0, 10, NULL, NULL, NULL, NULL, '0', NULL, 0, 0, 0, 5, NULL, NULL, '2019-09-13 22:18:50', '2019-09-13 22:18:50');
-INSERT INTO `imp_products` VALUES (64, 26, 0, 2, 0, 0, NULL, 0, 4000000, 4000000, 0, NULL, NULL, NULL, NULL, '', 31, 0, 0, 0, 4, NULL, NULL, '2019-09-13 23:12:06', '2019-09-13 23:12:06');
-INSERT INTO `imp_products` VALUES (65, 27, 0, 2, 0, 0, 0, 0, 4000000, 4000000, 0, NULL, NULL, NULL, NULL, '', 31, 0, 0, 0, 4, NULL, NULL, '2019-09-13 23:14:09', '2019-09-14 08:13:11');
-INSERT INTO `imp_products` VALUES (66, 27, 0, 2, 1, 26, NULL, 0, 10000000, 4000000, 9, NULL, NULL, NULL, NULL, '', 31, 0, 0, 0, 4, NULL, NULL, '2019-09-13 23:14:09', '2019-09-13 23:14:09');
-INSERT INTO `imp_products` VALUES (67, 2, 0, 2, 1, 27, 0, 0, 100000, 0, 10, NULL, NULL, NULL, NULL, NULL, 11, 0, 0, 0, 4, NULL, NULL, '2019-09-13 23:32:41', '2019-09-13 23:32:41');
-INSERT INTO `imp_products` VALUES (68, 22, 0, 2, 2, 1, 0, 0, 100000, 0, 10, NULL, NULL, NULL, NULL, NULL, 11, 0, 0, 0, 5, NULL, NULL, '2019-09-14 08:58:37', '2019-09-14 08:58:46');
-INSERT INTO `imp_products` VALUES (69, 1, 0, 2, 4, 1, 0, 0, 110000, 0, 0, NULL, NULL, NULL, NULL, NULL, 31, 0, 0, 0, 5, '2019-09-13 00:00:00', '2019-09-15 23:59:59', '2019-09-14 11:37:18', '2019-09-15 15:05:57');
-INSERT INTO `imp_products` VALUES (70, 28, 0, 2, 0, 0, NULL, 0, 0, 0, 0, NULL, NULL, NULL, NULL, '', 31, 0, 0, 0, 4, NULL, NULL, '2019-09-15 16:31:04', '2019-09-15 16:31:04');
+INSERT INTO `imp_products` VALUES (1, 1, 0, 2, 0, 0, 0, 0, 0, 0, '', 31, 0, 0, 0, 4, NULL, NULL, 0, '2019-08-29 15:26:05', '2019-09-13 15:06:55');
+INSERT INTO `imp_products` VALUES (2, 2, 0, 2, 1, 1, 0, 0, 1500000, 5, '', 31, 0, 0, 0, 4, '2019-09-15 00:00:00', '2019-09-15 23:59:59', 0, '2019-08-29 15:29:34', '2019-09-15 11:38:49');
+INSERT INTO `imp_products` VALUES (3, 4, 0, 2, 1, 1, 0, 0, 2400000, 15, '', 31, 0, 0, 0, 4, '2019-09-10 00:00:00', '2019-09-30 23:59:59', 0, '2019-08-29 21:56:45', '2019-09-20 08:36:24');
+INSERT INTO `imp_products` VALUES (4, 5, 0, 2, 1, 1, 0, 0, 5000000, 5, '', 31, 0, 0, 0, 4, '2019-09-15 00:00:00', '2019-09-15 23:59:59', 0, '2019-08-30 08:53:07', '2019-09-15 11:38:49');
+INSERT INTO `imp_products` VALUES (5, 6, 0, 2, 2, 1, 0, 0, 2400000, 24, '', 31, 0, 0, 0, 4, '2019-09-15 00:00:00', '2019-09-15 23:59:59', 0, '2019-08-30 09:22:06', '2019-09-20 08:36:24');
+INSERT INTO `imp_products` VALUES (6, 7, 0, 2, 2, 1, 0, 0, 800000, 72, '', 31, 0, 0, 0, 4, '2019-09-15 00:00:00', '2019-09-15 23:59:59', 0, '2019-08-30 09:27:42', '2019-09-20 08:36:24');
+INSERT INTO `imp_products` VALUES (7, 8, 0, 2, 0, 0, 0, 0, 0, 0, '', 31, 0, 0, 0, 4, NULL, NULL, 0, '2019-08-31 15:18:08', '2019-09-20 08:35:28');
+INSERT INTO `imp_products` VALUES (8, 9, 0, 2, 1, 8, 0, 0, 480000, 10, '', 31, 0, 0, 0, 4, NULL, NULL, 0, '2019-08-31 15:20:25', '2019-09-20 08:36:24');
+INSERT INTO `imp_products` VALUES (9, 10, 0, 2, 1, 8, 0, 0, 2400000, 10, '', 31, 0, 0, 0, 4, NULL, NULL, 0, '2019-08-31 15:22:37', '2019-09-20 08:36:24');
+INSERT INTO `imp_products` VALUES (10, 11, 0, 2, 1, 8, 0, 0, 6000000, 5, '', 31, 0, 0, 0, 4, NULL, NULL, 0, '2019-08-31 15:24:43', '2019-09-20 08:36:24');
+INSERT INTO `imp_products` VALUES (11, 12, 0, 2, 0, 0, 0, 0, 0, 0, '', 31, 0, 0, 0, 4, NULL, NULL, 0, '2019-08-31 15:26:43', '2019-09-20 08:35:28');
+INSERT INTO `imp_products` VALUES (12, 13, 0, 2, 1, 12, 0, 0, 2400000, 10, '', 31, 0, 0, 0, 4, NULL, NULL, 0, '2019-08-31 15:28:22', '2019-09-20 08:36:24');
+INSERT INTO `imp_products` VALUES (13, 14, 0, 2, 1, 12, 0, 0, 9000000, 5, '', 31, 0, 0, 0, 4, NULL, NULL, 0, '2019-08-31 15:30:10', '2019-09-20 08:36:24');
+INSERT INTO `imp_products` VALUES (14, 15, 0, 2, 0, 0, 0, 0, 0, 0, '', 31, 0, 0, 0, 4, NULL, NULL, 0, '2019-08-31 15:31:24', '2019-09-20 08:35:28');
+INSERT INTO `imp_products` VALUES (15, 16, 0, 2, 1, 15, 0, 0, 1800000, 10, '', 31, 0, 0, 0, 4, NULL, NULL, 0, '2019-08-31 15:32:57', '2019-09-20 08:36:24');
+INSERT INTO `imp_products` VALUES (16, 17, 0, 2, 1, 15, 0, 0, 6000000, 5, '', 31, 0, 0, 0, 4, NULL, NULL, 0, '2019-08-31 15:34:25', '2019-09-20 08:36:24');
+INSERT INTO `imp_products` VALUES (17, 20, 0, 2, 1, 1, 0, 0, 2000000, 5, '', 31, 0, 0, 0, 5, NULL, NULL, 0, '2019-09-09 11:34:08', '2019-09-20 08:35:28');
+INSERT INTO `imp_products` VALUES (18, 21, 0, 2, 1, 20, 0, 0, 10000000, 5, '', 31, 0, 0, 0, 4, NULL, NULL, 0, '2019-09-09 11:47:59', '2019-09-13 10:57:36');
+INSERT INTO `imp_products` VALUES (19, 22, 0, 2, 2, 20, 0, 0, 9000000, 10, '', 31, 0, 0, 0, 4, NULL, NULL, 0, '2019-09-09 11:50:34', '2019-09-13 10:57:36');
+INSERT INTO `imp_products` VALUES (40, 2, 0, 2, 0, 0, 0, 0, 3000000, 0, '', 31, 0, 0, 0, 4, NULL, NULL, 0, '2019-09-09 15:37:49', '2019-09-13 10:57:36');
+INSERT INTO `imp_products` VALUES (41, 4, 0, 2, 0, 0, 0, 0, 4000000, 0, '', 31, 0, 0, 0, 4, NULL, NULL, 0, '2019-09-09 15:37:49', '2019-09-13 10:57:36');
+INSERT INTO `imp_products` VALUES (42, 5, 0, 2, 0, 0, 0, 0, 15000000, 0, '', 31, 0, 0, 0, 4, NULL, NULL, 0, '2019-09-09 15:37:49', '2019-09-13 10:57:36');
+INSERT INTO `imp_products` VALUES (43, 9, 0, 2, 0, 0, 0, 0, 800000, 0, NULL, 31, NULL, NULL, NULL, 4, NULL, NULL, 0, '2019-09-09 15:37:49', '2019-09-20 08:17:31');
+INSERT INTO `imp_products` VALUES (44, 10, 0, 2, 0, 0, 0, 0, 400000, 0, NULL, 31, NULL, NULL, NULL, 4, NULL, NULL, 0, '2019-09-09 15:37:49', '2019-09-20 08:17:31');
+INSERT INTO `imp_products` VALUES (45, 11, 0, 2, 0, 0, 0, 0, 10000000, 0, NULL, 31, NULL, NULL, NULL, 4, NULL, NULL, 0, '2019-09-09 15:37:49', '2019-09-20 08:17:31');
+INSERT INTO `imp_products` VALUES (46, 13, 0, 2, 0, 0, 0, 0, 4000000, 0, NULL, 31, NULL, NULL, NULL, 4, NULL, NULL, 0, '2019-09-09 15:37:49', '2019-09-20 08:17:31');
+INSERT INTO `imp_products` VALUES (47, 14, 0, 2, 0, 0, 0, 0, 15000000, 0, NULL, 31, NULL, NULL, NULL, 4, NULL, NULL, 0, '2019-09-09 15:37:49', '2019-09-20 08:17:31');
+INSERT INTO `imp_products` VALUES (48, 16, 0, 2, 0, 0, 0, 0, 3000000, 0, NULL, 31, NULL, NULL, NULL, 4, NULL, NULL, 0, '2019-09-09 15:37:49', '2019-09-20 08:17:31');
+INSERT INTO `imp_products` VALUES (49, 17, 0, 2, 0, 0, 0, 0, 10000000, 0, NULL, 31, NULL, NULL, NULL, 4, NULL, NULL, 0, '2019-09-09 15:37:49', '2019-09-20 08:17:31');
+INSERT INTO `imp_products` VALUES (55, 6, 0, 2, 0, 0, 0, 0, 2000000, 0, '', 31, 0, 0, 0, 4, NULL, NULL, 0, '2019-09-09 15:38:43', '2019-09-13 15:14:31');
+INSERT INTO `imp_products` VALUES (56, 7, 0, 2, 0, 0, 0, 0, 800000, 0, '', 31, 0, 0, 0, 4, NULL, NULL, 0, '2019-09-09 15:38:43', '2019-09-13 15:12:37');
+INSERT INTO `imp_products` VALUES (57, 21, 0, 2, 0, 0, 0, 0, 15000000, 0, '', 31, 0, 0, 0, 4, NULL, NULL, 0, '2019-09-09 15:38:43', '2019-09-13 10:57:36');
+INSERT INTO `imp_products` VALUES (58, 22, 0, 2, 0, 0, 0, 0, 9000000, 0, '', 31, 0, 0, 0, 4, NULL, NULL, 0, '2019-09-09 15:38:43', '2019-09-13 10:57:36');
+INSERT INTO `imp_products` VALUES (59, 20, 0, 2, 0, 0, 0, 0, 0, 0, '', 31, 0, 0, 0, 4, NULL, NULL, 0, '2019-09-10 16:56:33', '2019-09-13 10:57:36');
+INSERT INTO `imp_products` VALUES (60, 2, 0, 2, 2, 20, 0, 0, 1000000, 9, NULL, 31, NULL, NULL, NULL, 4, NULL, NULL, 0, '2019-09-11 08:34:09', '2019-09-20 09:08:27');
+INSERT INTO `imp_products` VALUES (61, 20, 0, 1, 1, 1, 0, 0, 0, 10, NULL, 31, 0, 0, 0, 5, NULL, NULL, 0, '2019-09-13 16:57:33', '2019-09-13 17:25:06');
+INSERT INTO `imp_products` VALUES (62, 21, 0, 2, 2, 1, 0, 0, 100000, 5, NULL, 11, 0, 0, 0, 4, '2019-09-15 00:00:00', '2019-09-15 23:59:59', 0, '2019-09-13 17:24:42', '2019-09-15 11:38:49');
+INSERT INTO `imp_products` VALUES (63, 20, 0, 1, 1, 1, 0, 0, 1000000, 10, '0', 31, 0, 0, 0, 5, NULL, NULL, 0, '2019-09-13 22:18:50', '2019-09-26 09:34:34');
+INSERT INTO `imp_products` VALUES (64, 26, 0, 2, 0, 0, 0, 0, 4000000, 0, '', 31, 0, 0, 0, 4, NULL, NULL, 0, '2019-09-13 23:12:06', '2019-09-20 08:35:28');
+INSERT INTO `imp_products` VALUES (65, 27, 0, 2, 0, 0, 0, 0, 4000000, 0, '', 31, 0, 0, 0, 4, NULL, NULL, 0, '2019-09-13 23:14:09', '2019-09-14 08:13:11');
+INSERT INTO `imp_products` VALUES (66, 27, 0, 2, 1, 26, 0, 0, 10000000, 9, '', 31, 0, 0, 0, 5, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '2019-09-13 23:14:09', '2019-09-20 15:03:18');
+INSERT INTO `imp_products` VALUES (67, 2, 0, 2, 1, 27, 0, 0, 100000, 10, NULL, 11, 0, 0, 0, 4, NULL, NULL, 0, '2019-09-13 23:32:41', '2019-09-13 23:32:41');
+INSERT INTO `imp_products` VALUES (68, 22, 0, 2, 2, 1, 0, 0, 100000, 10, NULL, 11, 0, 0, 0, 5, NULL, NULL, 0, '2019-09-14 08:58:37', '2019-09-14 08:58:46');
+INSERT INTO `imp_products` VALUES (69, 1, 0, 2, 4, 1, 0, 0, 110000, 0, NULL, 31, 0, 0, 0, 5, '2019-09-13 00:00:00', '2019-09-15 23:59:59', 0, '2019-09-14 11:37:18', '2019-09-15 15:05:57');
+INSERT INTO `imp_products` VALUES (70, 28, 0, 2, 0, 0, 0, 0, 0, 0, '', 31, 0, 0, 0, 4, NULL, NULL, 0, '2019-09-15 16:31:04', '2019-09-20 08:35:28');
+INSERT INTO `imp_products` VALUES (71, 29, 0, 2, 0, 0, 0, 0, 4000000, 15, '', 31, 0, 0, 0, 4, NULL, NULL, 0, '2019-09-20 15:58:52', '2019-09-20 16:44:09');
+INSERT INTO `imp_products` VALUES (74, 29, 0, 2, 4, 29, 0, 0, 3500000, 10, NULL, 31, 0, 0, 0, 4, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 71, '2019-09-20 16:58:25', '2019-09-28 22:36:03');
+INSERT INTO `imp_products` VALUES (75, 29, 0, 2, 4, 29, 0, 0, 2400000, 15, NULL, 31, 0, 0, 0, 4, NULL, NULL, 74, '2019-09-24 15:30:59', '2019-09-28 22:36:09');
+INSERT INTO `imp_products` VALUES (76, 30, 0, 2, 0, 0, 0, 0, 20000000, 0, '', 31, 0, 0, 0, 4, NULL, NULL, 0, '2019-09-28 15:30:28', '2019-09-28 15:30:28');
+INSERT INTO `imp_products` VALUES (77, 30, 0, 2, 4, 30, 0, 0, 14000000, 15, '', 31, 0, 0, 0, 4, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 76, '2019-09-28 20:18:12', '2019-09-28 20:22:41');
+INSERT INTO `imp_products` VALUES (78, 30, 0, 2, 4, 30, 0, 0, 10000000, 10, NULL, 31, 0, 0, 0, 4, NULL, NULL, 77, '2019-09-28 20:22:41', '2019-09-28 20:22:41');
 
 -- ----------------------------
 -- Table structure for impposts
@@ -826,7 +846,7 @@ CREATE TABLE `listorder`  (
   `created_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`idnumberorder`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 48 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 50 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of listorder
@@ -878,6 +898,8 @@ INSERT INTO `listorder` VALUES (44, '', '2019-09-08 19:40:31', '2019-09-08 19:40
 INSERT INTO `listorder` VALUES (45, '', '2019-09-08 19:42:47', '2019-09-08 19:42:47');
 INSERT INTO `listorder` VALUES (46, '', '2019-09-08 19:43:09', '2019-09-08 19:43:09');
 INSERT INTO `listorder` VALUES (47, '', '2019-09-09 09:05:59', '2019-09-09 09:05:59');
+INSERT INTO `listorder` VALUES (48, '', '2019-09-20 14:33:30', '2019-09-20 14:33:30');
+INSERT INTO `listorder` VALUES (49, '', '2019-09-20 14:39:13', '2019-09-20 14:39:13');
 
 -- ----------------------------
 -- Table structure for menu_has_cate
@@ -936,7 +958,7 @@ CREATE TABLE `migrations`  (
   `migration` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 176 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 181 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of migrations
@@ -1113,6 +1135,11 @@ INSERT INTO `migrations` VALUES (172, '2019_09_12_111630_list_product_by_lst_id_
 INSERT INTO `migrations` VALUES (173, '2019_09_13_170201_make_crosstype_procedure', 99);
 INSERT INTO `migrations` VALUES (174, '2019_09_14_105844_insert_import_product_procedure', 100);
 INSERT INTO `migrations` VALUES (175, '2019_09_15_172446_list_product_combo_procedure', 101);
+INSERT INTO `migrations` VALUES (176, '2019_09_19_100656_reach_init_session_procedure', 102);
+INSERT INTO `migrations` VALUES (177, '2019_09_21_230610_latest_product_by_idcate_procedure', 103);
+INSERT INTO `migrations` VALUES (178, '2019_09_25_104738_initsession_procedure', 104);
+INSERT INTO `migrations` VALUES (179, '2019_09_25_162904_lst_order_frm_session_procedure', 105);
+INSERT INTO `migrations` VALUES (180, '2019_09_26_084537_latest_price_procedure', 106);
 
 -- ----------------------------
 -- Table structure for oauth_access_tokens
@@ -1136,6 +1163,7 @@ CREATE TABLE `oauth_access_tokens`  (
 -- Records of oauth_access_tokens
 -- ----------------------------
 INSERT INTO `oauth_access_tokens` VALUES ('003723079dbfc44ccefb659f10ce82088af4a85acfa796120115edd55ed28aeaf3e1be9d8acf2951', 16, 1, 'MyApp', '[]', 0, '2019-05-21 09:45:33', '2019-05-21 09:45:33', '2020-05-21 09:45:33');
+INSERT INTO `oauth_access_tokens` VALUES ('0050e160ec902df3b553a93643b0c6b4d52b03295788d4febe2c8130199a02b39621c4fb008c23ed', 2, 7, 'MyApp', '[]', 0, '2019-09-19 08:53:49', '2019-09-19 08:53:49', '2020-09-19 08:53:49');
 INSERT INTO `oauth_access_tokens` VALUES ('00f813966a46c4c2eab2bb1ad8a9beb34242627ebd07167cc0f8c26d35bfb4f430ebba94f527cfb2', 2, 1, 'MyApp', '[]', 0, '2019-07-14 11:28:07', '2019-07-14 11:28:07', '2020-07-14 11:28:07');
 INSERT INTO `oauth_access_tokens` VALUES ('017151f6e3594e400be8f361d5561be19d1b646c45cb23edc42050f1fcfeaacdad30f26332e7bf3c', 2, 1, 'MyApp', '[]', 0, '2019-07-22 14:05:39', '2019-07-22 14:05:39', '2020-07-22 14:05:39');
 INSERT INTO `oauth_access_tokens` VALUES ('01cfd3163ee5705287574a0cf78d7959a7190bbc214871e84bf528f7a856073916a9d4ba90660e02', 21, 1, 'MyApp', '[]', 0, '2019-06-24 10:43:23', '2019-06-24 10:43:23', '2020-06-24 10:43:23');
@@ -1249,6 +1277,7 @@ INSERT INTO `oauth_access_tokens` VALUES ('64c77bdb8b11ef53adf99644e1b761241347a
 INSERT INTO `oauth_access_tokens` VALUES ('67306fcdc22aa5b8443942722784fc32d985baf4151f4bcada00a8969c0a6c4ea9bc6b9a801f1b45', 2, 1, 'MyApp', '[]', 0, '2019-04-18 15:18:25', '2019-04-18 15:18:25', '2020-04-18 15:18:25');
 INSERT INTO `oauth_access_tokens` VALUES ('676d86f257186c95b4e61ef514c27bf1733b2d350dc1e0c6d404e38278c6373e085dd2a8aeeb2100', 2, 1, 'MyApp', '[]', 0, '2019-04-24 11:58:28', '2019-04-24 11:58:28', '2020-04-24 11:58:28');
 INSERT INTO `oauth_access_tokens` VALUES ('67f937dc145cbf594bd03cf24db669a8420c13a360875c64f16f62aa9f07c71b1ff2d9d14851d30c', 2, 1, 'MyApp', '[]', 0, '2019-06-09 13:55:30', '2019-06-09 13:55:30', '2020-06-09 13:55:30');
+INSERT INTO `oauth_access_tokens` VALUES ('699227a700f0a1ea60875e221a78c1601c50774dea3a8f88e9cb5efe5b4cd7295be842cff2d0a973', 2, 7, 'MyApp', '[]', 0, '2019-09-28 14:44:34', '2019-09-28 14:44:34', '2020-09-28 14:44:34');
 INSERT INTO `oauth_access_tokens` VALUES ('69fb3f0f3d90f7f0c5fc8af0756a85974185ea7b721383b42532f440e3ef2dd9ae3ea7e4b3123c88', 2, 1, 'MyApp', '[]', 0, '2019-05-14 14:37:07', '2019-05-14 14:37:07', '2020-05-14 14:37:07');
 INSERT INTO `oauth_access_tokens` VALUES ('6a5a881e83886e5de150d404f9837b5ecd784e385ae3c9ddfc20b93f0204e227f59ded804375d79c', 2, 1, 'MyApp', '[]', 0, '2019-06-10 11:21:47', '2019-06-10 11:21:47', '2020-06-10 11:21:47');
 INSERT INTO `oauth_access_tokens` VALUES ('6a8cf12646ba3a01aec38b23a3d8e898b3caa2ebc4585da90150eb9642964c77be8dccdc6d1c745f', 2, 1, 'MyApp', '[]', 0, '2019-05-29 14:54:40', '2019-05-29 14:54:40', '2020-05-29 14:54:40');
@@ -1275,8 +1304,10 @@ INSERT INTO `oauth_access_tokens` VALUES ('809d8aa479d04d48e514eb5374d4f74f447eb
 INSERT INTO `oauth_access_tokens` VALUES ('826e068d775d21d4a42be19cfa3b7442952e2dc15c6d9348c1ac5aa2e3167f9ac2939ed404043d5d', 2, 1, 'MyApp', '[]', 0, '2019-05-11 14:49:54', '2019-05-11 14:49:54', '2020-05-11 14:49:54');
 INSERT INTO `oauth_access_tokens` VALUES ('830b9b811bde283b7424f529c43531f008d032684d49c41990ef9d124c9a241184d28781b9590517', 2, 1, 'MyApp', '[]', 0, '2019-06-26 13:51:23', '2019-06-26 13:51:23', '2020-06-26 13:51:23');
 INSERT INTO `oauth_access_tokens` VALUES ('83870b82718ef447c79c7e9db8790703bdf0329fb1e613c304f0f99b2bf4593bad36d2a782eab02e', 2, 1, 'MyApp', '[]', 0, '2019-06-05 08:11:10', '2019-06-05 08:11:10', '2020-06-05 08:11:10');
+INSERT INTO `oauth_access_tokens` VALUES ('850d51d9b6b911e66b15de4658075119a027a98dc0092d26d221716e856ad7d916ecf9bc3227a8e9', 2, 7, 'MyApp', '[]', 0, '2019-09-20 12:41:15', '2019-09-20 12:41:15', '2020-09-20 12:41:15');
 INSERT INTO `oauth_access_tokens` VALUES ('8582a0c2d267710eb00d2d4bd3e8cc64bea8bec6ec487da07d17ab417461f2167c6a06c0e77b7584', 2, 1, 'MyApp', '[]', 0, '2019-06-12 13:58:18', '2019-06-12 13:58:18', '2020-06-12 13:58:18');
 INSERT INTO `oauth_access_tokens` VALUES ('870922a6bf84220acb1de1b4982f8cef476e390083b1c2360427e5c9cec76fb16e94d6d2c180aa99', 26, 1, 'MyApp', '[]', 0, '2019-08-01 16:50:55', '2019-08-01 16:50:55', '2020-08-01 16:50:55');
+INSERT INTO `oauth_access_tokens` VALUES ('876aa6a3081bf953544f0bbca34a6408e233d61da30e361923ba2f517c0ebb0b9c60247edc239174', 2, 7, 'MyApp', '[]', 0, '2019-09-24 15:29:46', '2019-09-24 15:29:46', '2020-09-24 15:29:46');
 INSERT INTO `oauth_access_tokens` VALUES ('876e654cceb60a716206813893c111a0b7672ff9964d11cea3354474b82fc0b602bcf7c6e3952d82', 2, 1, 'MyApp', '[]', 0, '2019-06-25 16:19:17', '2019-06-25 16:19:17', '2020-06-25 16:19:17');
 INSERT INTO `oauth_access_tokens` VALUES ('87ebdd53ca407b004d09e3f2d1ffff6303130d3021ab06fe76604be837445cb72319de1ab339dab9', 2, 1, 'MyApp', '[]', 0, '2019-07-16 11:24:33', '2019-07-16 11:24:33', '2020-07-16 11:24:33');
 INSERT INTO `oauth_access_tokens` VALUES ('884df25b8d2d8f07c6f719da19f57485fb3be7e149fb1389890d0fe6f6daf674085200985f258dbb', 29, 1, 'MyApp', '[]', 0, '2019-08-01 17:50:50', '2019-08-01 17:50:50', '2020-08-01 17:50:50');
@@ -1286,11 +1317,13 @@ INSERT INTO `oauth_access_tokens` VALUES ('8b5f83c4e18dee6cb0f4233f1416c202cda6d
 INSERT INTO `oauth_access_tokens` VALUES ('8bf073bfb40c8f26daf32885f13fb64bad31f87d630b4cba4ad99cdcd242c7a3393946ccbc96961c', 2, 1, 'MyApp', '[]', 0, '2019-07-14 19:14:55', '2019-07-14 19:14:55', '2020-07-14 19:14:55');
 INSERT INTO `oauth_access_tokens` VALUES ('8c55d72f2cac537f3bcef521be4ae2e14f3cb4975f89ae7848ec9e3be343a7fc2822c350fe079d16', 2, 1, 'MyApp', '[]', 0, '2019-08-01 17:49:38', '2019-08-01 17:49:38', '2020-08-01 17:49:38');
 INSERT INTO `oauth_access_tokens` VALUES ('8d34e83c73e0dd3f8fb699b696a90ef7b292d24cba6394d48affc01774b6654b483bf904c6e620b8', 17, 1, 'MyApp', '[]', 0, '2019-05-17 09:42:32', '2019-05-17 09:42:32', '2020-05-17 09:42:32');
+INSERT INTO `oauth_access_tokens` VALUES ('8d48005d2de0b2d01b9b345a1cb009639aad9cf61acfd69c7a761fa6a5798ace3af4e9701167f8ef', 2, 7, 'MyApp', '[]', 0, '2019-09-17 14:10:47', '2019-09-17 14:10:47', '2020-09-17 14:10:47');
 INSERT INTO `oauth_access_tokens` VALUES ('8d50b826dacc986631f6304d16bde3a67224475800f3fe352915ce7c9e1208c90c53d7fb40d85446', 2, 1, 'MyApp', '[]', 0, '2019-06-11 20:27:25', '2019-06-11 20:27:25', '2020-06-11 20:27:25');
 INSERT INTO `oauth_access_tokens` VALUES ('8d8ec8fb690211ecf871b5357e0614a0c8dcd59d7b7b6feb02a67073f002f206a806c994c864cb93', 2, 1, 'MyApp', '[]', 0, '2019-06-08 22:40:03', '2019-06-08 22:40:03', '2020-06-08 22:40:03');
 INSERT INTO `oauth_access_tokens` VALUES ('8d8f42f3196d79e6d7a5f3df2dc3b1fe23965b534fda8f24e34aee9636e2c417658c0efd6eef68da', 2, 1, 'MyApp', '[]', 0, '2019-07-08 16:49:58', '2019-07-08 16:49:58', '2020-07-08 16:49:58');
 INSERT INTO `oauth_access_tokens` VALUES ('9046bc10022bc3fe333c454a67c0ad3f25ea3a6994d4cdb4b8dadcb37063eb027fa9e2493ba8bb55', 2, 1, 'MyApp', '[]', 0, '2019-06-27 13:36:37', '2019-06-27 13:36:37', '2020-06-27 13:36:37');
 INSERT INTO `oauth_access_tokens` VALUES ('93e3e9cc1d1dda63d76de5c82ac892695cfa728b2441d8d8e96cba0557f243bff7a31e28c208d749', 28, 1, 'MyApp', '[]', 0, '2019-08-01 16:56:43', '2019-08-01 16:56:43', '2020-08-01 16:56:43');
+INSERT INTO `oauth_access_tokens` VALUES ('9850dee9625374d277c156c78cd112cfb6e51d41befd5f9a520159145ca146eee4d897de501c7381', 2, 7, 'MyApp', '[]', 0, '2019-09-28 22:43:41', '2019-09-28 22:43:41', '2020-09-28 22:43:41');
 INSERT INTO `oauth_access_tokens` VALUES ('98a6f00376e75989642d08e34f5f224c8fb27bd3b34a32d50291717321265cfc3ddca23406ca87db', 2, 1, 'MyApp', '[]', 0, '2019-08-23 11:10:57', '2019-08-23 11:10:57', '2020-08-23 11:10:57');
 INSERT INTO `oauth_access_tokens` VALUES ('991932e8988494f0559e93420d89944b3eb7ad7ad9046048915b19268abab6bb5cc1c62ee4cefca8', 2, 1, 'MyApp', '[]', 0, '2019-05-04 18:03:10', '2019-05-04 18:03:10', '2020-05-04 18:03:10');
 INSERT INTO `oauth_access_tokens` VALUES ('9a694520f6b84a7b83a6726a349cffa9dff332dec8d46fa0a8eca9395f152f61b622dcd7df980182', 24, 1, 'MyApp', '[]', 0, '2019-08-01 17:46:20', '2019-08-01 17:46:20', '2020-08-01 17:46:20');
@@ -1675,7 +1708,7 @@ CREATE TABLE `producthasfile`  (
   CONSTRAINT `fr_hasfile` FOREIGN KEY (`idfile`) REFERENCES `files` (`idfile`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fr_hastype` FOREIGN KEY (`hastype`) REFERENCES `imagetype` (`idimagetype`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fr_producthasfile` FOREIGN KEY (`idproduct`) REFERENCES `products` (`idproduct`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 31 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of producthasfile
@@ -1707,6 +1740,9 @@ INSERT INTO `producthasfile` VALUES (24, 25, 1, 24, 1, '2019-09-13 23:08:17', '2
 INSERT INTO `producthasfile` VALUES (25, 26, 1, 25, 1, '2019-09-13 23:12:06', '2019-09-13 23:12:06');
 INSERT INTO `producthasfile` VALUES (26, 27, 1, 26, 1, '2019-09-13 23:14:09', '2019-09-13 23:14:09');
 INSERT INTO `producthasfile` VALUES (27, 28, 1, 27, 1, '2019-09-15 16:31:04', '2019-09-15 16:31:04');
+INSERT INTO `producthasfile` VALUES (28, 29, 1, 28, 1, '2019-09-20 15:58:52', '2019-09-20 15:58:52');
+INSERT INTO `producthasfile` VALUES (29, 29, 1, 12, 1, '2019-09-26 16:59:12', '2019-09-26 16:59:12');
+INSERT INTO `producthasfile` VALUES (30, 30, 1, 29, 1, '2019-09-28 15:30:28', '2019-09-28 15:30:28');
 
 -- ----------------------------
 -- Table structure for products
@@ -1729,7 +1765,7 @@ CREATE TABLE `products`  (
   PRIMARY KEY (`idproduct`) USING BTREE,
   INDEX `fr_product_crosstype`(`idcrosstype_p`) USING BTREE,
   CONSTRAINT `fr_product_crosstype` FOREIGN KEY (`idcrosstype_p`) REFERENCES `cross_type` (`idcrosstype`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 31 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of products
@@ -1759,9 +1795,11 @@ INSERT INTO `products` VALUES (22, 'Nguyên Bào Phôi Nám', 'nguyen-bao-phoi-n
 INSERT INTO `products` VALUES (23, 'TRỊ NÁM VỚI CÔNG NGHỆ TRIPHASIC LASER', 'tri-nam-voi-cong-nghe-triphasic-laser', 'Đó là những mảng màu nâu xuất hiện trên da, hình thành do sự gia tăng hắc sắc tố melanin. Melanin là yếu tố', '<p class=\"MsoNormal\"><b>a. Định Nghĩa:</b> <span style=\"mso-bidi-font-size:14.0pt;mso-bidi-font-family:&quot;Times New Roman&quot;;\r\ncolor:black\">Đó là&nbsp;những mảng màu nâu xuất hiện trên da, hình thành do sự\r\ngia tăng hắc sắc tố melanin. Melanin là yếu tố quyết định màu da của con người,\r\ncó vai trò chống nắng, bảo vệ cơ thể khỏi tác hại của tia UV có trong ánh nắng\r\nmặt trời. Thế nhưng, nếu sắc tố này được sản xuất quá nhiều sẽ dẫn đến tình trạng\r\ntích tụ, tập trung tại một vùng nhất định trên da và gây ra nám.<o:p></o:p></span></p>\r\n\r\n<p class=\"MsoNormal\"><b>b. Nguyên Nhân:</b> <o:p></o:p></p>\r\n\r\n<p class=\"MsoNormal\" align=\"left\"><b><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;\r\nmso-bidi-font-family:&quot;Times New Roman&quot;;color:black\">+ </span></b><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;\r\nmso-bidi-font-family:&quot;Times New Roman&quot;;color:black;mso-bidi-font-weight:bold\">Ánh\r\nnắng mặt trời:</span><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:\r\n&quot;Times New Roman&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;;color:black\"> Đây là\r\nmột trong những nguyên nhân quan trọng nhất gây nám. Tác động của ánh nắng mặt\r\ntrời sẽ làm sản sinh một cách bất thường lượng melanin dưới da, khiến những đốm\r\nnám hình thành và lan rộng. Bên cạnh đó, việc để làn da tiếp xúc trực tiếp với\r\nánh nắng mặt trời còn phá hủy tế bào, làm vỡ cấu trúc dưới da dẫn đến việc da\r\nkhô, lão hóa<br>\r\n&nbsp;+ Yếu tố di truyền: Nám da\r\ncòn có thể do yếu tố di truyền gây nên. Theo các nghiên cứu khoa học, tỉ lệ\r\nbệnh nhân có tiền sử gia đình có người bị nám da lên đến khoảng 30%. Đây là một\r\ntrong những nguyên nhân gây “đau đầu” nhất, bởi nám da do yếu tố di truyền rất\r\nkhó chữa trị.<br>\r\n&nbsp;+ Yếu tố nội tiết: Việc\r\nrối loạn nột tiết tố gây ra tình trạng hắc sắc tố melanin tăng nhanh cũng là\r\nnguyên nhân thường thấy gây nám da. Phụ nữ mang thai thường bị nám, tỉ lệ này\r\nrơi vào khoảng từ 50-70%. Việc sử dụng thuốc ngừa thai, hoặc bước vào giai đoạn\r\ntiền mãn kinh, tuổi dậy thì... cũng là những nguyên nhân khiến bạn mắc phải\r\nnám. Thông thường, nếu bạn bị nám do rối loạn nội tiết thì sau khi bạn ổn định\r\nlại nội tiết tố, nám sẽ tự mất đi.&nbsp;<o:p></o:p></span></p>\r\n\r\n<p class=\"MsoNormal\" align=\"left\"><span style=\"mso-bidi-font-size:\r\n14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;;\r\ncolor:black\">&nbsp;+ Ngoài ra có rất nhiều nguyên nhân khác như sử dụng mỹ phẩm\r\nkhông đúng cách, chế độ sinh hoạt không hợp lý<o:p></o:p></span></p>\r\n\r\n<p class=\"MsoNormal\"><b>c. Phương Pháp Khoa Học\r\nCông Nghệ Triphasic Laser <o:p></o:p></b></p>\r\n\r\n<p class=\"MsoNormal\" style=\"line-height:150%\"><span style=\"mso-bidi-font-size:\r\n14.0pt;line-height:150%;color:black\">Công nghệ trị Nám Laser Triphasic Spot\r\nmang tính đột về trị liệu Nám bằng Laser, là công nghệ Thông Minh 4.0 với 2 đặc\r\ntính nổi bật và khách biệt:<o:p></o:p></span></p>\r\n\r\n<p class=\"MsoNormal\" style=\"line-height:150%\"><b>+ Định Vị</b><span style=\"mso-bidi-font-size:14.0pt;line-height:150%\">: Lăng kính của Triphasic\r\nlaser được chia thành 81 điểm lăng kính, chúng sẽ phân tích vùng sáng tối của\r\nda trên mỗi điểm năng kính để phân loại đâu là vùng da bị Nám &amp; vùng da\r\nbình thường, giúp tăng hiệu quả phá vỡ melanin gấp nhiều lần so với công nghệ\r\nlaser thông thường mà không làm tổn thương các vùng da không bị Nám<o:p></o:p></span></p>\r\n\r\n<p class=\"MsoNormal\" style=\"line-height:150%\"><b>+ Tự Điều Chỉnh</b><span style=\"mso-bidi-font-size:14.0pt;line-height:150%\">: Sau khi đã phân vị được\r\nvùng da Nám và da thường, các điểm lăng kính sẽ tự điều chỉnh năng lượng cho\r\nphù hợp. Với vúng da bị Nám, năng lượng sẽ tăng lên gấp 40 lần để phá hủy Hắc Tố\r\nMelanin. Ngược lại vùng da không bị Nám thì các điểm lăng kính sẽ tự động giảm\r\nnăng lượng tới mức trẻ hóa, giúp da căng sáng mà không bị tổn thương.<o:p></o:p></span></p>\r\n\r\n<p class=\"MsoNormal\"><b>e. Kết Quả Nhận Được\r\nSau Liệu Trình<o:p></o:p></b></p>\r\n\r\n<p class=\"MsoNormal\">+ Lớp biểu bì mềm mại, bóng mướt<o:p></o:p></p>\r\n\r\n<p class=\"MsoNormal\">+ Vết Nám mờ đi tối thiểu 70%<o:p></o:p></p>\r\n\r\n<p class=\"MsoNormal\">+ Lỗ chân lông thu nhỏ, nếp nhăn mờ đi đáng kể<o:p></o:p></p>\r\n\r\n<p class=\"MsoNormal\"><b>f. Pháp Đồ Tại Thiên\r\nKhuê<o:p></o:p></b></p>\r\n\r\n<p class=\"MsoNormal\">+ 15 buổi Triphasic Laser<o:p></o:p></p>', 10, NULL, NULL, NULL, NULL, NULL, '2019-09-13 23:04:01', '2019-09-13 23:04:01');
 INSERT INTO `products` VALUES (24, 'TRỊ NÁM VỚI CÔNG NGHỆ TRIPHASIC LASER', 'tri-nam-voi-cong-nghe-triphasic-laser', 'Đó là những mảng màu nâu xuất hiện trên da, hình thành do sự gia tăng hắc sắc tố melanin. Melanin là yếu tố quyết định màu da của con người', '<p class=\"MsoNormal\"><b>a. Định Nghĩa:</b> <span style=\"mso-bidi-font-size:14.0pt;mso-bidi-font-family:&quot;Times New Roman&quot;;\r\ncolor:black\">Đó là&nbsp;những mảng màu nâu xuất hiện trên da, hình thành do sự\r\ngia tăng hắc sắc tố melanin. Melanin là yếu tố quyết định màu da của con người,\r\ncó vai trò chống nắng, bảo vệ cơ thể khỏi tác hại của tia UV có trong ánh nắng\r\nmặt trời. Thế nhưng, nếu sắc tố này được sản xuất quá nhiều sẽ dẫn đến tình trạng\r\ntích tụ, tập trung tại một vùng nhất định trên da và gây ra nám.<o:p></o:p></span></p>\r\n\r\n<p class=\"MsoNormal\"><b>b. Nguyên Nhân:</b> <o:p></o:p></p>\r\n\r\n<p class=\"MsoNormal\" align=\"left\"><b><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;\r\nmso-bidi-font-family:&quot;Times New Roman&quot;;color:black\">+ </span></b><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;\r\nmso-bidi-font-family:&quot;Times New Roman&quot;;color:black;mso-bidi-font-weight:bold\">Ánh\r\nnắng mặt trời:</span><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:\r\n&quot;Times New Roman&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;;color:black\"> Đây là\r\nmột trong những nguyên nhân quan trọng nhất gây nám. Tác động của ánh nắng mặt\r\ntrời sẽ làm sản sinh một cách bất thường lượng melanin dưới da, khiến những đốm\r\nnám hình thành và lan rộng. Bên cạnh đó, việc để làn da tiếp xúc trực tiếp với\r\nánh nắng mặt trời còn phá hủy tế bào, làm vỡ cấu trúc dưới da dẫn đến việc da\r\nkhô, lão hóa<br>\r\n&nbsp;+ Yếu tố di truyền: Nám da\r\ncòn có thể do yếu tố di truyền gây nên. Theo các nghiên cứu khoa học, tỉ lệ\r\nbệnh nhân có tiền sử gia đình có người bị nám da lên đến khoảng 30%. Đây là một\r\ntrong những nguyên nhân gây “đau đầu” nhất, bởi nám da do yếu tố di truyền rất\r\nkhó chữa trị.<br>\r\n&nbsp;+ Yếu tố nội tiết: Việc\r\nrối loạn nột tiết tố gây ra tình trạng hắc sắc tố melanin tăng nhanh cũng là\r\nnguyên nhân thường thấy gây nám da. Phụ nữ mang thai thường bị nám, tỉ lệ này\r\nrơi vào khoảng từ 50-70%. Việc sử dụng thuốc ngừa thai, hoặc bước vào giai đoạn\r\ntiền mãn kinh, tuổi dậy thì... cũng là những nguyên nhân khiến bạn mắc phải\r\nnám. Thông thường, nếu bạn bị nám do rối loạn nội tiết thì sau khi bạn ổn định\r\nlại nội tiết tố, nám sẽ tự mất đi.&nbsp;<o:p></o:p></span></p>\r\n\r\n<p class=\"MsoNormal\" align=\"left\"><span style=\"mso-bidi-font-size:\r\n14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;;\r\ncolor:black\">&nbsp;+ Ngoài ra có rất nhiều nguyên nhân khác như sử dụng mỹ phẩm\r\nkhông đúng cách, chế độ sinh hoạt không hợp lý<o:p></o:p></span></p>\r\n\r\n<p class=\"MsoNormal\"><b>c. Phương Pháp Khoa Học\r\nCông Nghệ Triphasic Laser <o:p></o:p></b></p>\r\n\r\n<p class=\"MsoNormal\" style=\"line-height:150%\"><span style=\"mso-bidi-font-size:\r\n14.0pt;line-height:150%;color:black\">Công nghệ trị Nám Laser Triphasic Spot\r\nmang tính đột về trị liệu Nám bằng Laser, là công nghệ Thông Minh 4.0 với 2 đặc\r\ntính nổi bật và khách biệt:<o:p></o:p></span></p>\r\n\r\n<p class=\"MsoNormal\" style=\"line-height:150%\"><b>+ Định Vị</b><span style=\"mso-bidi-font-size:14.0pt;line-height:150%\">: Lăng kính của Triphasic\r\nlaser được chia thành 81 điểm lăng kính, chúng sẽ phân tích vùng sáng tối của\r\nda trên mỗi điểm năng kính để phân loại đâu là vùng da bị Nám &amp; vùng da\r\nbình thường, giúp tăng hiệu quả phá vỡ melanin gấp nhiều lần so với công nghệ\r\nlaser thông thường mà không làm tổn thương các vùng da không bị Nám<o:p></o:p></span></p>\r\n\r\n<p class=\"MsoNormal\" style=\"line-height:150%\"><b>+ Tự Điều Chỉnh</b><span style=\"mso-bidi-font-size:14.0pt;line-height:150%\">: Sau khi đã phân vị được\r\nvùng da Nám và da thường, các điểm lăng kính sẽ tự điều chỉnh năng lượng cho\r\nphù hợp. Với vúng da bị Nám, năng lượng sẽ tăng lên gấp 40 lần để phá hủy Hắc Tố\r\nMelanin. Ngược lại vùng da không bị Nám thì các điểm lăng kính sẽ tự động giảm\r\nnăng lượng tới mức trẻ hóa, giúp da căng sáng mà không bị tổn thương.<o:p></o:p></span></p>\r\n\r\n<p class=\"MsoNormal\"><b>e. Kết Quả Nhận Được\r\nSau Liệu Trình<o:p></o:p></b></p>\r\n\r\n<p class=\"MsoNormal\">+ Lớp biểu bì mềm mại, bóng mướt<o:p></o:p></p>\r\n\r\n<p class=\"MsoNormal\">+ Vết Nám mờ đi tối thiểu 70%<o:p></o:p></p>\r\n\r\n<p class=\"MsoNormal\">+ Lỗ chân lông thu nhỏ, nếp nhăn mờ đi đáng kể<o:p></o:p></p>\r\n\r\n<p class=\"MsoNormal\"><b>f. Pháp Đồ Tại Thiên\r\nKhuê<o:p></o:p></b></p>\r\n\r\n<p class=\"MsoNormal\">+ 15 buổi Triphasic Laser<o:p></o:p></p>\r\n\r\n<p class=\"MsoNormal\"><b>g. Chương Trình Khuyến\r\nMãi<o:p></o:p></b></p>', 10, NULL, NULL, NULL, NULL, NULL, '2019-09-13 23:06:05', '2019-09-13 23:06:05');
 INSERT INTO `products` VALUES (25, 'TRỊ NÁM VỚI CÔNG NGHỆ TRIPHASIC LASER', 'tri-nam-voi-cong-nghe-triphasic-laser', 'Đó là những mảng màu nâu xuất hiện trên da, hình thành do sự gia tăng hắc sắc tố melanin. Melanin là yếu tố quyết định màu da của con người', '<p class=\"MsoNormal\"><b>a. Định Nghĩa:</b> <span style=\"mso-bidi-font-size:14.0pt;mso-bidi-font-family:&quot;Times New Roman&quot;;\r\ncolor:black\">Đó là&nbsp;những mảng màu nâu xuất hiện trên da, hình thành do sự\r\ngia tăng hắc sắc tố melanin. Melanin là yếu tố quyết định màu da của con người,\r\ncó vai trò chống nắng, bảo vệ cơ thể khỏi tác hại của tia UV có trong ánh nắng\r\nmặt trời. Thế nhưng, nếu sắc tố này được sản xuất quá nhiều sẽ dẫn đến tình trạng\r\ntích tụ, tập trung tại một vùng nhất định trên da và gây ra nám.<o:p></o:p></span></p>\r\n\r\n<p class=\"MsoNormal\"><b>b. Nguyên Nhân:</b> <o:p></o:p></p>\r\n\r\n<p class=\"MsoNormal\" align=\"left\"><b><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;\r\nmso-bidi-font-family:&quot;Times New Roman&quot;;color:black\">+ </span></b><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;\r\nmso-bidi-font-family:&quot;Times New Roman&quot;;color:black;mso-bidi-font-weight:bold\">Ánh\r\nnắng mặt trời:</span><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:\r\n&quot;Times New Roman&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;;color:black\"> Đây là\r\nmột trong những nguyên nhân quan trọng nhất gây nám. Tác động của ánh nắng mặt\r\ntrời sẽ làm sản sinh một cách bất thường lượng melanin dưới da, khiến những đốm\r\nnám hình thành và lan rộng. Bên cạnh đó, việc để làn da tiếp xúc trực tiếp với\r\nánh nắng mặt trời còn phá hủy tế bào, làm vỡ cấu trúc dưới da dẫn đến việc da\r\nkhô, lão hóa<br>\r\n&nbsp;+ Yếu tố di truyền: Nám da\r\ncòn có thể do yếu tố di truyền gây nên. Theo các nghiên cứu khoa học, tỉ lệ\r\nbệnh nhân có tiền sử gia đình có người bị nám da lên đến khoảng 30%. Đây là một\r\ntrong những nguyên nhân gây “đau đầu” nhất, bởi nám da do yếu tố di truyền rất\r\nkhó chữa trị.<br>\r\n&nbsp;+ Yếu tố nội tiết: Việc\r\nrối loạn nột tiết tố gây ra tình trạng hắc sắc tố melanin tăng nhanh cũng là\r\nnguyên nhân thường thấy gây nám da. Phụ nữ mang thai thường bị nám, tỉ lệ này\r\nrơi vào khoảng từ 50-70%. Việc sử dụng thuốc ngừa thai, hoặc bước vào giai đoạn\r\ntiền mãn kinh, tuổi dậy thì... cũng là những nguyên nhân khiến bạn mắc phải\r\nnám. Thông thường, nếu bạn bị nám do rối loạn nội tiết thì sau khi bạn ổn định\r\nlại nội tiết tố, nám sẽ tự mất đi.&nbsp;<o:p></o:p></span></p>\r\n\r\n<p class=\"MsoNormal\" align=\"left\"><span style=\"mso-bidi-font-size:\r\n14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;;\r\ncolor:black\">&nbsp;+ Ngoài ra có rất nhiều nguyên nhân khác như sử dụng mỹ phẩm\r\nkhông đúng cách, chế độ sinh hoạt không hợp lý<o:p></o:p></span></p>\r\n\r\n<p class=\"MsoNormal\"><b>c. Phương Pháp Khoa Học\r\nCông Nghệ Triphasic Laser <o:p></o:p></b></p>\r\n\r\n<p class=\"MsoNormal\" style=\"line-height:150%\"><span style=\"mso-bidi-font-size:\r\n14.0pt;line-height:150%;color:black\">Công nghệ trị Nám Laser Triphasic Spot\r\nmang tính đột về trị liệu Nám bằng Laser, là công nghệ Thông Minh 4.0 với 2 đặc\r\ntính nổi bật và khách biệt:<o:p></o:p></span></p>\r\n\r\n<p class=\"MsoNormal\" style=\"line-height:150%\"><b>+ Định Vị</b><span style=\"mso-bidi-font-size:14.0pt;line-height:150%\">: Lăng kính của Triphasic\r\nlaser được chia thành 81 điểm lăng kính, chúng sẽ phân tích vùng sáng tối của\r\nda trên mỗi điểm năng kính để phân loại đâu là vùng da bị Nám &amp; vùng da\r\nbình thường, giúp tăng hiệu quả phá vỡ melanin gấp nhiều lần so với công nghệ\r\nlaser thông thường mà không làm tổn thương các vùng da không bị Nám<o:p></o:p></span></p>\r\n\r\n<p class=\"MsoNormal\" style=\"line-height:150%\"><b>+ Tự Điều Chỉnh</b><span style=\"mso-bidi-font-size:14.0pt;line-height:150%\">: Sau khi đã phân vị được\r\nvùng da Nám và da thường, các điểm lăng kính sẽ tự điều chỉnh năng lượng cho\r\nphù hợp. Với vúng da bị Nám, năng lượng sẽ tăng lên gấp 40 lần để phá hủy Hắc Tố\r\nMelanin. Ngược lại vùng da không bị Nám thì các điểm lăng kính sẽ tự động giảm\r\nnăng lượng tới mức trẻ hóa, giúp da căng sáng mà không bị tổn thương.<o:p></o:p></span></p>\r\n\r\n<p class=\"MsoNormal\"><b>e. Kết Quả Nhận Được\r\nSau Liệu Trình<o:p></o:p></b></p>\r\n\r\n<p class=\"MsoNormal\">+ Lớp biểu bì mềm mại, bóng mướt<o:p></o:p></p>\r\n\r\n<p class=\"MsoNormal\">+ Vết Nám mờ đi tối thiểu 70%<o:p></o:p></p>\r\n\r\n<p class=\"MsoNormal\">+ Lỗ chân lông thu nhỏ, nếp nhăn mờ đi đáng kể<o:p></o:p></p>\r\n\r\n<p class=\"MsoNormal\"><b>f. Pháp Đồ Tại Thiên\r\nKhuê<o:p></o:p></b></p>\r\n\r\n<p class=\"MsoNormal\">+ 15 buổi Triphasic Laser<o:p></o:p></p>\r\n\r\n<p class=\"MsoNormal\"><b>g. Chương Trình Khuyến\r\nMãi<o:p></o:p></b></p>', 10, NULL, NULL, NULL, NULL, NULL, '2019-09-13 23:08:17', '2019-09-13 23:08:17');
-INSERT INTO `products` VALUES (26, 'TRỊ NÁM VỚI CÔNG NGHỆ TRIPHASIC LASER', 'tri-nam-voi-cong-nghe-triphasic-laser', 'Sau khi đã phân vị được vùng da Nám và da thường, các điểm lăng kính sẽ tự điều chỉnh năng lượng cho phù hợp.', '<p class=\"MsoNormal\"><b>a. Định Nghĩa:</b> <span style=\"mso-bidi-font-size:14.0pt;mso-bidi-font-family:&quot;Times New Roman&quot;;\r\ncolor:black\">Đó là&nbsp;những mảng màu nâu xuất hiện trên da, hình thành do sự\r\ngia tăng hắc sắc tố melanin. Melanin là yếu tố quyết định màu da của con người,\r\ncó vai trò chống nắng, bảo vệ cơ thể khỏi tác hại của tia UV có trong ánh nắng\r\nmặt trời. Thế nhưng, nếu sắc tố này được sản xuất quá nhiều sẽ dẫn đến tình trạng\r\ntích tụ, tập trung tại một vùng nhất định trên da và gây ra nám.<o:p></o:p></span></p>\r\n\r\n<p class=\"MsoNormal\"><b>b. Nguyên Nhân:</b> <o:p></o:p></p>\r\n\r\n<p class=\"MsoNormal\" align=\"left\"><b><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;\r\nmso-bidi-font-family:&quot;Times New Roman&quot;;color:black\">+ </span></b><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;\r\nmso-bidi-font-family:&quot;Times New Roman&quot;;color:black;mso-bidi-font-weight:bold\">Ánh\r\nnắng mặt trời:</span><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:\r\n&quot;Times New Roman&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;;color:black\"> Đây là\r\nmột trong những nguyên nhân quan trọng nhất gây nám. Tác động của ánh nắng mặt\r\ntrời sẽ làm sản sinh một cách bất thường lượng melanin dưới da, khiến những đốm\r\nnám hình thành và lan rộng. Bên cạnh đó, việc để làn da tiếp xúc trực tiếp với\r\nánh nắng mặt trời còn phá hủy tế bào, làm vỡ cấu trúc dưới da dẫn đến việc da\r\nkhô, lão hóa<br>\r\n&nbsp;+ Yếu tố di truyền: Nám da\r\ncòn có thể do yếu tố di truyền gây nên. Theo các nghiên cứu khoa học, tỉ lệ\r\nbệnh nhân có tiền sử gia đình có người bị nám da lên đến khoảng 30%. Đây là một\r\ntrong những nguyên nhân gây “đau đầu” nhất, bởi nám da do yếu tố di truyền rất\r\nkhó chữa trị.<br>\r\n&nbsp;+ Yếu tố nội tiết: Việc\r\nrối loạn nột tiết tố gây ra tình trạng hắc sắc tố melanin tăng nhanh cũng là\r\nnguyên nhân thường thấy gây nám da. Phụ nữ mang thai thường bị nám, tỉ lệ này\r\nrơi vào khoảng từ 50-70%. Việc sử dụng thuốc ngừa thai, hoặc bước vào giai đoạn\r\ntiền mãn kinh, tuổi dậy thì... cũng là những nguyên nhân khiến bạn mắc phải\r\nnám. Thông thường, nếu bạn bị nám do rối loạn nội tiết thì sau khi bạn ổn định\r\nlại nội tiết tố, nám sẽ tự mất đi.&nbsp;<o:p></o:p></span></p>\r\n\r\n<p class=\"MsoNormal\" align=\"left\"><span style=\"mso-bidi-font-size:\r\n14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;;\r\ncolor:black\">&nbsp;+ Ngoài ra có rất nhiều nguyên nhân khác như sử dụng mỹ phẩm\r\nkhông đúng cách, chế độ sinh hoạt không hợp lý<o:p></o:p></span></p>\r\n\r\n<p class=\"MsoNormal\"><b>c. Phương Pháp Khoa Học\r\nCông Nghệ Triphasic Laser <o:p></o:p></b></p>\r\n\r\n<p class=\"MsoNormal\" style=\"line-height:150%\"><span style=\"mso-bidi-font-size:\r\n14.0pt;line-height:150%;color:black\">Công nghệ trị Nám Laser Triphasic Spot\r\nmang tính đột về trị liệu Nám bằng Laser, là công nghệ Thông Minh 4.0 với 2 đặc\r\ntính nổi bật và khách biệt:<o:p></o:p></span></p>\r\n\r\n<p class=\"MsoNormal\" style=\"line-height:150%\"><b>+ Định Vị</b><span style=\"mso-bidi-font-size:14.0pt;line-height:150%\">: Lăng kính của Triphasic\r\nlaser được chia thành 81 điểm lăng kính, chúng sẽ phân tích vùng sáng tối của\r\nda trên mỗi điểm năng kính để phân loại đâu là vùng da bị Nám &amp; vùng da\r\nbình thường, giúp tăng hiệu quả phá vỡ melanin gấp nhiều lần so với công nghệ\r\nlaser thông thường mà không làm tổn thương các vùng da không bị Nám<o:p></o:p></span></p>\r\n\r\n<p class=\"MsoNormal\" style=\"line-height:150%\"><b>+ Tự Điều Chỉnh</b><span style=\"mso-bidi-font-size:14.0pt;line-height:150%\">: Sau khi đã phân vị được\r\nvùng da Nám và da thường, các điểm lăng kính sẽ tự điều chỉnh năng lượng cho\r\nphù hợp. Với vúng da bị Nám, năng lượng sẽ tăng lên gấp 40 lần để phá hủy Hắc Tố\r\nMelanin. Ngược lại vùng da không bị Nám thì các điểm lăng kính sẽ tự động giảm\r\nnăng lượng tới mức trẻ hóa, giúp da căng sáng mà không bị tổn thương.<o:p></o:p></span></p>\r\n\r\n<p class=\"MsoNormal\"><b>e. Kết Quả Nhận Được\r\nSau Liệu Trình<o:p></o:p></b></p>\r\n\r\n<p class=\"MsoNormal\">+ Lớp biểu bì mềm mại, bóng mướt<o:p></o:p></p>\r\n\r\n<p class=\"MsoNormal\">+ Vết Nám mờ đi tối thiểu 70%<o:p></o:p></p>\r\n\r\n<p class=\"MsoNormal\">+ Lỗ chân lông thu nhỏ, nếp nhăn mờ đi đáng kể<o:p></o:p></p>\r\n\r\n<p class=\"MsoNormal\"><b>f. Pháp Đồ Tại Thiên\r\nKhuê<o:p></o:p></b></p>\r\n\r\n<p class=\"MsoNormal\">+ 15 buổi Triphasic Laser<o:p></o:p></p>\r\n\r\n<p class=\"MsoNormal\"><b>g. Chương Trình Khuyến\r\nMãi<o:p></o:p></b></p>', 10, NULL, NULL, NULL, NULL, NULL, '2019-09-13 23:12:06', '2019-09-13 23:12:06');
+INSERT INTO `products` VALUES (26, 'TRỊ NÁM VỚI CÔNG NGHỆ TRIPHASIC LASER', 'tri-nam-voi-cong-nghe-triphasic-laser', 'Sau khi đã phân vị được vùng da Nám và da thường, các điểm lăng kính sẽ tự điều chỉnh năng lượng cho phù hợp.', '<p class=\"MsoNormal\"><b>a. Định Nghĩa:</b> <span style=\"mso-bidi-font-size:14.0pt;mso-bidi-font-family:&quot;Times New Roman&quot;;color:black\">Đó là&nbsp;những mảng màu nâu xuất hiện trên da, hình thành do sựgia tăng hắc sắc tố melanin. Melanin là yếu tố quyết định màu da của con người,có vai trò chống nắng, bảo vệ cơ thể khỏi tác hại của tia UV có trong ánh nắngmặt trời. Thế nhưng, nếu sắc tố này được sản xuất quá nhiều sẽ dẫn đến tình trạngtích tụ, tập trung tại một vùng nhất định trên da và gây ra nám.<o:p></o:p></span></p><p class=\"MsoNormal\"><b>b. Nguyên Nhân:</b> <o:p></o:p></p><p class=\"MsoNormal\" align=\"left\"><b><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;;color:black\">+ </span></b><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;;color:black;mso-bidi-font-weight:bold\">Ánhnắng mặt trời:</span><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;;color:black\"> Đây làmột trong những nguyên nhân quan trọng nhất gây nám. Tác động của ánh nắng mặttrời sẽ làm sản sinh một cách bất thường lượng melanin dưới da, khiến những đốmnám hình thành và lan rộng. Bên cạnh đó, việc để làn da tiếp xúc trực tiếp vớiánh nắng mặt trời còn phá hủy tế bào, làm vỡ cấu trúc dưới da dẫn đến việc dakhô, lão hóa<br>&nbsp;+ Yếu tố di truyền: Nám dacòn có thể do yếu tố di truyền gây nên. Theo các nghiên cứu khoa học, tỉ lệbệnh nhân có tiền sử gia đình có người bị nám da lên đến khoảng 30%. Đây là mộttrong những nguyên nhân gây “đau đầu” nhất, bởi nám da do yếu tố di truyền rấtkhó chữa trị.<br>&nbsp;+ Yếu tố nội tiết: Việcrối loạn nột tiết tố gây ra tình trạng hắc sắc tố melanin tăng nhanh cũng lànguyên nhân thường thấy gây nám da. Phụ nữ mang thai thường bị nám, tỉ lệ nàyrơi vào khoảng từ 50-70%. Việc sử dụng thuốc ngừa thai, hoặc bước vào giai đoạntiền mãn kinh, tuổi dậy thì... cũng là những nguyên nhân khiến bạn mắc phảinám. Thông thường, nếu bạn bị nám do rối loạn nội tiết thì sau khi bạn ổn địnhlại nội tiết tố, nám sẽ tự mất đi.&nbsp;<o:p></o:p></span></p><p class=\"MsoNormal\" align=\"left\"><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;;color:black\">&nbsp;+ Ngoài ra có rất nhiều nguyên nhân khác như sử dụng mỹ phẩmkhông đúng cách, chế độ sinh hoạt không hợp lý<o:p></o:p></span></p><p class=\"MsoNormal\"><b>c. Phương Pháp Khoa HọcCông Nghệ Triphasic Laser <o:p></o:p></b></p><p class=\"MsoNormal\" style=\"line-height:150%\"><span style=\"mso-bidi-font-size:14.0pt;line-height:150%;color:black\">Công nghệ trị Nám Laser Triphasic Spotmang tính đột về trị liệu Nám bằng Laser, là công nghệ Thông Minh 4.0 với 2 đặctính nổi bật và khách biệt:<o:p></o:p></span></p><p class=\"MsoNormal\" style=\"line-height:150%\"><b>+ Định Vị</b><span style=\"mso-bidi-font-size:14.0pt;line-height:150%\">: Lăng kính của Triphasiclaser được chia thành 81 điểm lăng kính, chúng sẽ phân tích vùng sáng tối củada trên mỗi điểm năng kính để phân loại đâu là vùng da bị Nám &amp; vùng dabình thường, giúp tăng hiệu quả phá vỡ melanin gấp nhiều lần so với công nghệlaser thông thường mà không làm tổn thương các vùng da không bị Nám<o:p></o:p></span></p><p class=\"MsoNormal\" style=\"line-height:150%\"><b>+ Tự Điều Chỉnh</b><span style=\"mso-bidi-font-size:14.0pt;line-height:150%\">: Sau khi đã phân vị đượcvùng da Nám và da thường, các điểm lăng kính sẽ tự điều chỉnh năng lượng chophù hợp. Với vúng da bị Nám, năng lượng sẽ tăng lên gấp 40 lần để phá hủy Hắc TốMelanin. Ngược lại vùng da không bị Nám thì các điểm lăng kính sẽ tự động giảmnăng lượng tới mức trẻ hóa, giúp da căng sáng mà không bị tổn thương.<o:p></o:p></span></p><p class=\"MsoNormal\"><b>e. Kết Quả Nhận ĐượcSau Liệu Trình<o:p></o:p></b></p><p class=\"MsoNormal\">+ Lớp biểu bì mềm mại, bóng mướt<o:p></o:p></p><p class=\"MsoNormal\">+ Vết Nám mờ đi tối thiểu 70%<o:p></o:p></p><p class=\"MsoNormal\">+ Lỗ chân lông thu nhỏ, nếp nhăn mờ đi đáng kể<o:p></o:p></p><p class=\"MsoNormal\"><b>f. Pháp Đồ Tại ThiênKhuê<o:p></o:p></b></p><p class=\"MsoNormal\">+ 15 buổi Triphasic Laser<o:p></o:p></p><p class=\"MsoNormal\"><b>g. Chương Trình KhuyếnMãi<o:p></o:p></b></p>', 10, NULL, NULL, NULL, NULL, NULL, '2019-09-13 23:12:06', '2019-09-20 15:03:17');
 INSERT INTO `products` VALUES (27, 'TRỊ NÁM VỚI CÔNG NGHỆ TRIPHASIC LASERs', 'tri-nam-voi-cong-nghe-triphasic-lasers', 'Sau khi đã phân vị được vùng da Nám và da thường, các điểm lăng kính sẽ tự điều chỉnh năng lượng cho phù hợp.', 'Sau khi đã phân vị được vùng da Nám và da thường, các điểm lăng kính sẽ tự điều chỉnh năng lượng cho phù hợp.Sau khi đã phân vị được vùng da Nám và da thường, các điểm lăng kính sẽ tự điều chỉnh năng lượng cho phù hợp.Sau khi đã phân vị được vùng da Nám và da thường, các điểm lăng kính sẽ tự điều chỉnh năng lượng cho phù hợp.Sau khi đã phân vị được vùng da Nám và da thường, các điểm lăng kính sẽ tự điều chỉnh năng lượng cho phù hợp.Sau khi đã phân vị được vùng da Nám và da thường, các điểm lăng kính sẽ tự điều chỉnh năng lượng cho phù hợp.Sau khi đã phân vị được vùng da Nám và da thường, các điểm lăng kính sẽ tự điều chỉnh năng lượng cho phù hợp.', 10, NULL, NULL, NULL, NULL, NULL, '2019-09-13 23:14:08', '2019-09-13 23:14:08');
 INSERT INTO `products` VALUES (28, 'Siêu vi kim PRP', 'sieu-vi-kim-prp', 'Siêu vi kim PRP Siêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRPSiêu vi', 'Siêu vi kim PRP&nbsp;Siêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRP Siêu vi kim PRP&nbsp;Siêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRP Siêu vi kim PRP&nbsp;Siêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRP Siêu vi kim PRP&nbsp;Siêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRP Siêu vi kim PRP&nbsp;Siêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRP Siêu vi kim PRP&nbsp;Siêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRP Siêu vi kim PRP&nbsp;Siêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRP Siêu vi kim PRP&nbsp;Siêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRPSiêu vi kim PRP&nbsp;', 10, NULL, NULL, NULL, NULL, NULL, '2019-09-15 16:31:04', '2019-09-15 16:31:04');
+INSERT INTO `products` VALUES (29, 'Trị nám với công nghệ triphasic ( khuyến mãi )', 'tri-nam-voi-cong-nghe-triphasic-khuyen-mai-', 'Đó là những mảng màu nâu xuất hiện trên da, hình thành do sự gia tăng hắc sắc tố melanin. Melanin là yếu tố quyết định màu da của con người, có vai trò chống nắng', '<p class=\"MsoNormal\"><b>a. Định Nghĩa:</b> <span style=\"mso-bidi-font-size:14.0pt;mso-bidi-font-family:&quot;Times New Roman&quot;;color:black\">Đó là&nbsp;những mảng màu nâu xuất hiện trên da, hình thành do sựgia tăng hắc sắc tố melanin. Melanin là yếu tố quyết định màu da của con người,có vai trò chống nắng, bảo vệ cơ thể khỏi tác hại của tia UV có trong ánh nắngmặt trời. Thế nhưng, nếu sắc tố này được sản xuất quá nhiều sẽ dẫn đến tình trạngtích tụ, tập trung tại một vùng nhất định trên da và gây ra nám.<o:p></o:p></span></p><p class=\"MsoNormal\"><b>b. Nguyên Nhân:</b> <o:p></o:p></p><p class=\"MsoNormal\" align=\"left\"><b><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;;color:black\">+ </span></b><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;;color:black;mso-bidi-font-weight:bold\">Ánhnắng mặt trời:</span><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;;color:black\"> Đây làmột trong những nguyên nhân quan trọng nhất gây nám. Tác động của ánh nắng mặttrời sẽ làm sản sinh một cách bất thường lượng melanin dưới da, khiến những đốmnám hình thành và lan rộng. Bên cạnh đó, việc để làn da tiếp xúc trực tiếp vớiánh nắng mặt trời còn phá hủy tế bào, làm vỡ cấu trúc dưới da dẫn đến việc dakhô, lão hóa<br>&nbsp;+ Yếu tố di truyền: Nám dacòn có thể do yếu tố di truyền gây nên. Theo các nghiên cứu khoa học, tỉ lệbệnh nhân có tiền sử gia đình có người bị nám da lên đến khoảng 30%. Đây là mộttrong những nguyên nhân gây “đau đầu” nhất, bởi nám da do yếu tố di truyền rấtkhó chữa trị.<br>&nbsp;+ Yếu tố nội tiết: Việcrối loạn nột tiết tố gây ra tình trạng hắc sắc tố melanin tăng nhanh cũng lànguyên nhân thường thấy gây nám da. Phụ nữ mang thai thường bị nám, tỉ lệ nàyrơi vào khoảng từ 50-70%. Việc sử dụng thuốc ngừa thai, hoặc bước vào giai đoạntiền mãn kinh, tuổi dậy thì... cũng là những nguyên nhân khiến bạn mắc phảinám. Thông thường, nếu bạn bị nám do rối loạn nội tiết thì sau khi bạn ổn địnhlại nội tiết tố, nám sẽ tự mất đi.&nbsp;<o:p></o:p></span></p><p class=\"MsoNormal\" align=\"left\"><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;;color:black\">&nbsp;+ Ngoài ra có rất nhiều nguyên nhân khác như sử dụng mỹ phẩmkhông đúng cách, chế độ sinh hoạt không hợp lý<o:p></o:p></span></p><p class=\"MsoNormal\"><b>c. Phương Pháp Khoa HọcCông Nghệ Triphasic Laser <o:p></o:p></b></p><p class=\"MsoNormal\" style=\"line-height:150%\"><span style=\"mso-bidi-font-size:14.0pt;line-height:150%;color:black\">Công nghệ trị Nám Laser Triphasic Spotmang tính đột về trị liệu Nám bằng Laser, là công nghệ Thông Minh 4.0 với 2 đặctính nổi bật và khách biệt:<o:p></o:p></span></p><p class=\"MsoNormal\" style=\"line-height:150%\"><b>+ Định Vị</b><span style=\"mso-bidi-font-size:14.0pt;line-height:150%\">: Lăng kính của Triphasiclaser được chia thành 81 điểm lăng kính, chúng sẽ phân tích vùng sáng tối củada trên mỗi điểm năng kính để phân loại đâu là vùng da bị Nám &amp; vùng dabình thường, giúp tăng hiệu quả phá vỡ melanin gấp nhiều lần so với công nghệlaser thông thường mà không làm tổn thương các vùng da không bị Nám<o:p></o:p></span></p><p class=\"MsoNormal\" style=\"line-height:150%\"><b>+ Tự Điều Chỉnh</b><span style=\"mso-bidi-font-size:14.0pt;line-height:150%\">: Sau khi đã phân vị đượcvùng da Nám và da thường, các điểm lăng kính sẽ tự điều chỉnh năng lượng chophù hợp. Với vúng da bị Nám, năng lượng sẽ tăng lên gấp 40 lần để phá hủy Hắc TốMelanin. Ngược lại vùng da không bị Nám thì các điểm lăng kính sẽ tự động giảmnăng lượng tới mức trẻ hóa, giúp da căng sáng mà không bị tổn thương.<o:p></o:p></span></p>', 10, NULL, NULL, NULL, NULL, NULL, '2019-09-20 15:58:52', '2019-09-20 16:37:30');
+INSERT INTO `products` VALUES (30, 'Trị nám với công nghệ triphasic ( test prev_id )', 'tri-nam-voi-cong-nghe-triphasic-test-prev_id-', 'Đó là những mảng màu nâu xuất hiện trên da, hình thành do sựgia tăng hắc sắc tố melanin. Melanin là yếu tố quyết định màu da của con người,', '<p class=\"MsoNormal\" style=\"color: rgb(92, 104, 115); font-family: &quot;Roboto Condensed&quot;, sans-serif; font-size: 17px;\"><span style=\"font-weight: 700;\">a. Định Nghĩa:</span>&nbsp;<span style=\"color: black;\">Đó là&nbsp;những mảng màu nâu xuất hiện trên da, hình thành do sựgia tăng hắc sắc tố melanin. Melanin là yếu tố quyết định màu da của con người,có vai trò chống nắng, bảo vệ cơ thể khỏi tác hại của tia UV có trong ánh nắngmặt trời. Thế nhưng, nếu sắc tố này được sản xuất quá nhiều sẽ dẫn đến tình trạngtích tụ, tập trung tại một vùng nhất định trên da và gây ra nám.<o:p></o:p></span></p><p class=\"MsoNormal\" style=\"color: rgb(92, 104, 115); font-family: &quot;Roboto Condensed&quot;, sans-serif; font-size: 17px;\"><span style=\"font-weight: 700;\">b. Nguyên Nhân:</span><o:p></o:p></p><p class=\"MsoNormal\" align=\"left\" style=\"color: rgb(92, 104, 115); font-family: &quot;Roboto Condensed&quot;, sans-serif; font-size: 17px;\"><span style=\"font-weight: 700;\"><span style=\"color: black;\">+&nbsp;</span></span><span style=\"color: black;\">Ánhnắng mặt trời:</span><span style=\"color: black;\">&nbsp;Đây làmột trong những nguyên nhân quan trọng nhất gây nám. Tác động của ánh nắng mặttrời sẽ làm sản sinh một cách bất thường lượng melanin dưới da, khiến những đốmnám hình thành và lan rộng. Bên cạnh đó, việc để làn da tiếp xúc trực tiếp vớiánh nắng mặt trời còn phá hủy tế bào, làm vỡ cấu trúc dưới da dẫn đến việc dakhô, lão hóa<br>&nbsp;+ Yếu tố di truyền: Nám dacòn có thể do yếu tố di truyền gây nên. Theo các nghiên cứu khoa học, tỉ lệbệnh nhân có tiền sử gia đình có người bị nám da lên đến khoảng 30%. Đây là mộttrong những nguyên nhân gây “đau đầu” nhất, bởi nám da do yếu tố di truyền rấtkhó chữa trị.<br>&nbsp;+ Yếu tố nội tiết: Việcrối loạn nột tiết tố gây ra tình trạng hắc sắc tố melanin tăng nhanh cũng lànguyên nhân thường thấy gây nám da. Phụ nữ mang thai thường bị nám, tỉ lệ nàyrơi vào khoảng từ 50-70%. Việc sử dụng thuốc ngừa thai, hoặc bước vào giai đoạntiền mãn kinh, tuổi dậy thì... cũng là những nguyên nhân khiến bạn mắc phảinám. Thông thường, nếu bạn bị nám do rối loạn nội tiết thì sau khi bạn ổn địnhlại nội tiết tố, nám sẽ tự mất đi.&nbsp;<o:p></o:p></span></p><p class=\"MsoNormal\" align=\"left\" style=\"color: rgb(92, 104, 115); font-family: &quot;Roboto Condensed&quot;, sans-serif; font-size: 17px;\"><span style=\"color: black;\">&nbsp;+ Ngoài ra có rất nhiều nguyên nhân khác như sử dụng mỹ phẩmkhông đúng cách, chế độ sinh hoạt không hợp lý<o:p></o:p></span></p><p class=\"MsoNormal\" style=\"color: rgb(92, 104, 115); font-family: &quot;Roboto Condensed&quot;, sans-serif; font-size: 17px;\"><span style=\"font-weight: 700;\">c. Phương Pháp Khoa HọcCông Nghệ Triphasic Laser<o:p></o:p></span></p><p class=\"MsoNormal\" style=\"color: rgb(92, 104, 115); font-family: &quot;Roboto Condensed&quot;, sans-serif; font-size: 17px; line-height: 25.5px;\"><span style=\"line-height: 25.5px; color: black;\">Công nghệ trị Nám Laser Triphasic Spotmang tính đột về trị liệu Nám bằng Laser, là công nghệ Thông Minh 4.0 với 2 đặctính nổi bật và khách biệt:<o:p></o:p></span></p><p class=\"MsoNormal\" style=\"color: rgb(92, 104, 115); font-family: &quot;Roboto Condensed&quot;, sans-serif; font-size: 17px; line-height: 25.5px;\"><span style=\"font-weight: 700;\">+ Định Vị</span><span style=\"line-height: 25.5px;\">: Lăng kính của Triphasiclaser được chia thành 81 điểm lăng kính, chúng sẽ phân tích vùng sáng tối củada trên mỗi điểm năng kính để phân loại đâu là vùng da bị Nám &amp; vùng dabình thường, giúp tăng hiệu quả phá vỡ melanin gấp nhiều lần so với công nghệlaser thông thường mà không làm tổn thương các vùng da không bị Nám<o:p></o:p></span></p><p class=\"MsoNormal\" style=\"color: rgb(92, 104, 115); font-family: &quot;Roboto Condensed&quot;, sans-serif; font-size: 17px; line-height: 25.5px;\"><span style=\"font-weight: 700;\">+ Tự Điều Chỉnh</span><span style=\"line-height: 25.5px;\">: Sau khi đã phân vị đượcvùng da Nám và da thường, các điểm lăng kính sẽ tự điều chỉnh năng lượng chophù hợp. Với vúng da bị Nám, năng lượng sẽ tăng lên gấp 40 lần để phá hủy Hắc TốMelanin. Ngược lại vùng da không bị Nám thì các điểm lăng kính sẽ tự động giảmnăng lượng tới mức trẻ hóa, giúp da căng sáng mà không bị tổn thương.</span></p>', 10, NULL, NULL, NULL, NULL, NULL, '2019-09-28 15:30:28', '2019-09-28 15:30:28');
 
 -- ----------------------------
 -- Table structure for profile
@@ -2370,6 +2408,52 @@ BEGIN
 delimiter ;
 
 -- ----------------------------
+-- Function structure for Fnc_latestprice
+-- ----------------------------
+DROP FUNCTION IF EXISTS `Fnc_latestprice`;
+delimiter ;;
+CREATE FUNCTION `Fnc_latestprice`(`_idproduct` bigint, `_idparentcross` INT ,`_idstore` INT)
+ RETURNS int(11)
+BEGIN
+	 RETURN (SELECT info.price from (SELECT inf_price.* from (select * from (select idimp, idproduct, idcrosstype, idparentcross, amount,price_import, price, quality_sale from imp_products WHERE idproduct = _idproduct and idcrosstype = 0 and idstore = _idstore and id_status_type = 4 and idparentcross = _idparentcross UNION select idimp, idproduct, idcrosstype, idparentcross, amount, price_import, price, quality_sale from imp_products WHERE idparentcross = _idproduct and idcrosstype = 4 and idstore = _idstore and id_status_type = 4) as info UNION select idimp, idproduct, idcrosstype, idparentcross, amount, price_import, price, quality_sale from imp_products WHERE idstore = _idstore and id_status_type = 4 and idcrosstype <> 4 and idparentcross = _idparentcross and idproduct = _idproduct) as inf_price ORDER BY inf_price.idimp DESC limit 1) as info);
+END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Function structure for Fnc_newprice
+-- ----------------------------
+DROP FUNCTION IF EXISTS `Fnc_newprice`;
+delimiter ;;
+CREATE FUNCTION `Fnc_newprice`(`_idproduct` bigint,`_idstore` int)
+ RETURNS bigint(20)
+BEGIN
+	 set @rs = 0;
+   set @rs = (select price from (select idimp, price, quality_sale from imp_products WHERE idproduct = _idproduct and idcrosstype = 0 and idstore = _idstore and id_status_type = 4 and idparentcross = 0 UNION select idimp, price, quality_sale from imp_products WHERE idparentcross = _idproduct and idcrosstype = 4 and idstore = _idstore and id_status_type = 4) as info ORDER BY info.idimp DESC LIMIT 1);
+	RETURN @rs;
+END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Function structure for Fnc_oldprice
+-- ----------------------------
+DROP FUNCTION IF EXISTS `Fnc_oldprice`;
+delimiter ;;
+CREATE FUNCTION `Fnc_oldprice`(`_idproduct` bigint,`_idstore` int)
+ RETURNS bigint(20)
+BEGIN
+	set @_oldprice = 0;
+	DROP TEMPORARY TABLE IF EXISTS tmp_product1;
+   create TEMPORARY TABLE tmp_product1 (id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY , idimp INTEGER NULL, idproduct INTEGER null, idcrosstype INTEGER null, idparentcross INTEGER null, amount INTEGER NULL, price_import INTEGER null, price INTEGER NULL, quality_sale INTEGER NULL) as (select * from (select idimp, idproduct, idcrosstype, idparentcross, amount,price_import, price, quality_sale from imp_products WHERE idproduct = @_idproduct and idcrosstype = 0 and idstore = @_idstore and id_status_type = 4 and idparentcross = 0 UNION select idimp, idproduct, idcrosstype, idparentcross, amount, price_import, price, quality_sale from imp_products WHERE idparentcross = @_idproduct and idcrosstype = 4 and idstore = @_idstore and id_status_type = 4) as info ORDER BY info.idimp DESC LIMIT 2);
+	 set @_oldprice = (SELECT price FROM tmp_product1 ORDER BY id DESC limit 1);
+	 DROP TEMPORARY TABLE IF EXISTS tmp_product1;
+	return @_oldprice;
+END
+;;
+delimiter ;
+
+-- ----------------------------
 -- Procedure structure for Getparentidprocedure
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `Getparentidprocedure`;
@@ -2394,14 +2478,14 @@ delimiter ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `ImportProductProcedure`;
 delimiter ;;
-CREATE PROCEDURE `ImportProductProcedure`(IN `_idproduct` INT(11), IN `_idcustomer` INT(11), IN `_iduser` INT(11), IN `_idcrosstype` INT(11), IN `_idparentcross` INT(11), IN `_amount` DOUBLE(20,0), IN `_price_import` DOUBLE(20,0), IN `_price` DOUBLE(20,0),  IN `_quality_sale` INT(11), IN `_note` TEXT, IN `_axis_x` INT(11), IN `_axis_y` INT(11), IN `_axis_z` INT(11), IN `_id_status_type` INT(11), IN `_catnametype` VARCHAR(250), IN `_shortname` VARCHAR(250))
+CREATE PROCEDURE `ImportProductProcedure`(IN `_idproduct` INT(11), IN `_idcustomer` INT(11), IN `_iduser` INT(11), IN `_idcrosstype` INT(11), IN `_idparentcross` INT(11), IN `_amount` DOUBLE(20,0), IN `_price_import` DOUBLE(20,0), IN `_price` DOUBLE(20,0),  IN `_quality_sale` INT(11), IN `_note` TEXT, IN `_axis_x` INT(11), IN `_axis_y` INT(11), IN `_axis_z` INT(11), IN `_id_status_type` INT(11), IN `_catnametype` VARCHAR(250), IN `_shortname` VARCHAR(250), IN `_prev_id` INT(11))
 BEGIN
                 DECLARE _idcattype int;
 								declare _idstore int;
 								set _idcattype = 0; set _idstore = 0;
 								set _idcattype = (select idcattype from category_types where catnametype=_catnametype order by idcattype DESC limit 1);
 								set _idstore = (select cat.idcategory from (select * from categories WHERE idcattype = _idcattype) as cat WHERE cat.shortname = _shortname);
-								INSERT INTO imp_products(idproduct, idcustomer, iduser, idcrosstype, idparentcross, amount, price_import, price, quality_sale, note, idstore, axis_x, axis_y, axis_z,id_status_type) VALUES ( _idproduct, _idcustomer, _iduser, _idcrosstype, _idparentcross, _amount, _price_import, _price, _quality_sale, _note, _idstore, _axis_x, _axis_y, _axis_z,_id_status_type);             
+								INSERT INTO imp_products(idproduct, idcustomer, iduser, idcrosstype, idparentcross, amount, price_import, price, quality_sale, note, idstore, axis_x, axis_y, axis_z,id_status_type, prev_id) VALUES ( _idproduct, _idcustomer, _iduser, _idcrosstype, _idparentcross, _amount, _price_import, _price, _quality_sale, _note, _idstore, _axis_x, _axis_y, _axis_z,_id_status_type, _prev_id);             
             END
 ;;
 delimiter ;
@@ -2426,6 +2510,19 @@ delimiter ;;
 CREATE PROCEDURE `InfoOrderProductProcedure`(IN `_ordernumber` INT(11))
 BEGIN
                 select inf.*, (inf.price_top+inf.price_parent) as unit_price, ((inf.price_top+inf.price_parent)*inf.amount_panent) as mountxprice from (select GROUP_CONCAT(info_order.l_topping SEPARATOR " ") as ltopping, sum(info_order.price) as price_top, info_order.parentidproduct, info_order.namepro, info_order.amount_panent,info_order.price_parent, info_order.urlparent, info_order.created_at from (select CONCAT("<li><lable>",info.topping,"</label> <span class=\"currency\">",info.price,"</span><span class=\"vnd\"></span></li>") as l_topping,info.idproduct, info.parentidproduct, info.price, info.namepro, price_parent, info.amount_panent,info.urlparent, info.created_at from (select cte1.namepro as topping, cte1.idproduct,cte1.parentidproduct, cte1.amount, cte1.price, cte1.urlfile ,cte2.namepro,cte2.price as price_parent,cte2.amount as amount_panent,cte2.urlfile as urlparent, cte2.created_at from (select  ordpro.namepro,ordpro.idproduct,parentidproduct,ordpro.amount,ordpro.price,(select urlfile from files where idfile = ordpro.idfile) as urlfile from (select p.namepro,(select idfile from producthasfile where idproduct = p.idproduct and hastype="thumbnail" ORDER BY idproducthasfile desc limit 1) as idfile, ex.* from (select * from exp_products where ordernumber =  _ordernumber) as ex join products as p on ex.idproduct = p.idproduct) as ordpro) as cte1 LEFT JOIN (select  ordpro.namepro,ordpro.idproduct,parentidproduct,ordpro.amount,ordpro.price,(select urlfile from files where idfile = ordpro.idfile) as urlfile, ordpro.created_at from (select p.namepro,(select idfile from producthasfile where idproduct = p.idproduct and hastype="thumbnail" ORDER BY idproducthasfile desc limit 1) as idfile, ex.* from (select * from exp_products where ordernumber =  _ordernumber and parentidproduct = 0) as ex join products as p on ex.idproduct = p.idproduct) as ordpro) as cte2 on cte1.parentidproduct = cte2.idproduct) as info) as info_order GROUP BY info_order.parentidproduct) as inf;    
+            END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Procedure structure for InitsessionProcedure
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `InitsessionProcedure`;
+delimiter ;;
+CREATE PROCEDURE `InitsessionProcedure`(IN _idproduct bigint(11), IN input_quality int(11), IN _idstore int(11),IN _int_count int(11))
+BEGIN             
+               set @idorder:=(_int_count-1);
+               SELECT (@idorder:= @idorder + 1) as idorder, info.* FROM ( SELECT info.* from (select inf1.* from (select idimp, 0 as parent, _idproduct as parent_in, input_quality , idproduct, idcrosstype, idparentcross, amount,price_import, price, quality_sale from imp_products WHERE idproduct = _idproduct and idcrosstype = 0 and idstore = _idstore and id_status_type = 4 and idparentcross = 0 UNION all select idimp, 0 as parent, _idproduct as parent_in, input_quality, idproduct, idcrosstype, idparentcross, amount, price_import, price, quality_sale from imp_products WHERE idparentcross = _idproduct and idcrosstype = 4 and idstore = _idstore and id_status_type = 4) as inf1 ORDER BY inf1.idimp DESC LIMIT 1) as info UNION select idimp, _int_count as parent, _idproduct as parent_in, input_quality, idproduct, idcrosstype, idparentcross, amount, price_import, price, quality_sale from imp_products WHERE idstore = _idstore and id_status_type = 4 and idcrosstype <> 4 and idparentcross = _idproduct) as info;
             END
 ;;
 delimiter ;
@@ -2478,8 +2575,10 @@ delimiter ;
 DROP PROCEDURE IF EXISTS `InsertImportProductProcedure`;
 delimiter ;;
 CREATE PROCEDURE `InsertImportProductProcedure`(IN _idproduct INT(11) ,IN _iduser INT(11), IN _idcrosstype INT(11), IN _idparentcross INT(11), IN _price INT(11), IN _quality_sale INT(11), IN _idstore int(11), IN _id_status_type int(11), IN _fromdate datetime, IN _todate datetime)
-BEGIN             
-                insert into imp_products(idproduct,iduser,idcrosstype,idparentcross,price,quality_sale,idstore,id_status_type,fromdate,todate) VALUES (_idproduct, _iduser, _idcrosstype, _idparentcross, _price, _quality_sale, _idstore, _id_status_type,_fromdate,_todate);
+BEGIN           
+set @prev_id = 0;
+set @prev_id = ( SELECT MAX(idimp) as max_idimp FROM imp_products WHERE idstore = _idstore and id_status_type = 4 and idproduct = _idproduct and idcrosstype in (0,_idcrosstype) GROUP BY idproduct );
+                insert into imp_products(idproduct, iduser, idcrosstype, idparentcross, price, quality_sale, idstore,   id_status_type, fromdate, todate, prev_id) VALUES (_idproduct, _iduser, _idcrosstype, _idparentcross, _price,  _quality_sale, _idstore, _id_status_type, _fromdate, _todate, @prev_id);
                 select LAST_INSERT_ID() as idimp;
             END
 ;;
@@ -2519,6 +2618,43 @@ BEGIN
 							  call CategoryHasProduct(_list_idcat, _idproduct);
 								#call ProducthasFile(_thumbnail, ";","thumbnail", _idproduct);
 								call ProducthasFile(_list_file, ";","gallery", _idproduct);				
+            END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Function structure for latestidfile
+-- ----------------------------
+DROP FUNCTION IF EXISTS `latestidfile`;
+delimiter ;;
+CREATE FUNCTION `latestidfile`(`_idproduct` bigint,`_idimagetype` int)
+ RETURNS bigint(20)
+BEGIN
+	RETURN (SELECT idfile from producthasfile WHERE idproduct = _idproduct and hastype = _idimagetype and status_file = 1 ORDER BY idproducthasfile desc limit 1);
+END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Procedure structure for LatestPriceProcedure
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `LatestPriceProcedure`;
+delimiter ;;
+CREATE PROCEDURE `LatestPriceProcedure`(IN `_idproduct` bigint(11), IN `_idparentcross` INT(11) ,IN `_idstore` INT(11))
+BEGIN             
+               SELECT info.price from (SELECT inf_price.* from (select * from (select idimp, idproduct, idcrosstype, idparentcross, amount,price_import, price, quality_sale from imp_products WHERE idproduct = _idproduct and idcrosstype = 0 and idstore = _idstore and id_status_type = 4 and idparentcross = _idparentcross UNION select idimp, idproduct, idcrosstype, idparentcross, amount, price_import, price, quality_sale from imp_products WHERE idparentcross = _idproduct and idcrosstype = 4 and idstore = _idstore and id_status_type = 4) as info UNION select idimp, idproduct, idcrosstype, idparentcross, amount, price_import, price, quality_sale from imp_products WHERE idstore = _idstore and id_status_type = 4 and idcrosstype <> 4 and idparentcross = _idparentcross and idproduct = _idproduct) as inf_price ORDER BY inf_price.idimp DESC limit 1) as info;
+            END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Procedure structure for LatestProductByIdcateProcedure
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `LatestProductByIdcateProcedure`;
+delimiter ;;
+CREATE PROCEDURE `LatestProductByIdcateProcedure`(IN `_idcategory` INT(11), IN `_limit` INT(11))
+BEGIN             
+               SELECT info.*,p.namepro, p.slug, p.short_desc, p.description,phf.idfile,f.urlfile from (select info1.*,info2.price as price_sale from (SELECT imp.* FROM (SELECT idproduct from catehasproduct WHERE idcategory = _idcategory) as prcat LEFT JOIN (SELECT * from imp_products WHERE idstore = 31 AND id_status_type = 4 and idcrosstype = 0) as imp on prcat.idproduct = imp.idproduct WHERE imp.idproduct is not NULL) as info1 LEFT JOIN (SELECT imp.* FROM (SELECT idproduct from catehasproduct WHERE idcategory = _idcategory) as prcat LEFT JOIN (SELECT * from imp_products WHERE idstore = 31 AND id_status_type = 4 and idcrosstype = 4) as imp on prcat.idproduct = imp.idproduct WHERE imp.idproduct is not NULL) as info2 on info1.idproduct = info2.idproduct) as info LEFT JOIN products as p on info.idproduct = p.idproduct LEFT JOIN producthasfile as phf on p.idproduct = phf.idproduct LEFT JOIN files as f on phf.idfile = f.idfile ORDER BY info.idimp DESC LIMIT _limit;
             END
 ;;
 delimiter ;
@@ -2866,22 +3002,42 @@ delimiter ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `ListProductByIdcateProcedure`;
 delimiter ;;
-CREATE PROCEDURE `ListProductByIdcateProcedure`(IN `_start_date` VARCHAR(255), IN `_end_date` VARCHAR(255), IN `_idcategory` INT(11), IN `_id_post_type` INT(11), IN `_id_status_type` INT(11), IN `_limit` INT(11))
+CREATE PROCEDURE `ListProductByIdcateProcedure`(IN `_idcategory` INT(11), IN `_page` INT(11), IN `_limit` INT(11))
 BEGIN
-        DECLARE _now VARCHAR(255);
-        DECLARE _str_start VARCHAR(255);
-        DECLARE _now_time VARCHAR(255);
-        SET _now_time = NOW();
-        IF ( _start_date IS NULL OR _start_date ="") THEN
-        BEGIN
-            SET _now = DATE(_now_time);
-            SET _str_start = CONCAT(_now," 00:00:00");
-            SET _start_date = STR_TO_DATE(_str_start,"%Y-%m-%d %H:%i:%s");          
-        END;
-        END IF;
-        IF ( _end_date IS NULL OR _end_date = "") THEN SET _end_date = _now_time;       
-        END IF;  
-            select info.created_at,info.idproduct,info.namepro,info.short_desc, info.price_import, info.price, info.price_sale_origin,info.amount,(select urlfile from files where idfile = info.idfile) as urlfile from (select dtail.created_at,dtail.idproduct,dtail.namepro,dtail.short_desc, dtail.price_import, dtail.price, dtail.price_sale_origin, dtail.amount, dtail.idfile,dtail.author, (select namecat from categories WHERE idcategory = prohas.idcategory) as namecat from ( select detail.created_at,detail.idproduct,detail.namepro,detail.short_desc, detail.price_import, detail.price, detail.price_sale_origin,detail.amount,detail.idfile,(select `name` from users WHERE id = detail.iduser) as author from (select p.created_at,p.idproduct,p.namepro,p.short_desc, imp.price_import, imp.price, imp.price_sale_origin, imp.amount,imp.iduser,(select idfile from producthasfile WHERE idproduct = p.idproduct ORDER BY idproducthasfile DESC LIMIT 1) as idfile  FROM (select pr.* from products as pr left join cross_product as c on pr.idproduct = c.idproduct_cross where c.idcrossproduct is NULL) as p JOIN imp_products as imp on p.idproduct = imp.idproduct) as detail) as dtail JOIN (select cate.* from (select * from catehasproduct where idcategory > 0) as cate left join exclude_category as excat on cate.idcategory = excat.idcategory where excat.idcategory is null ) as prohas on prohas.idproduct = dtail.idproduct) as info GROUP BY info.idproduct DESC LIMIT _limit;
+            DECLARE _start int(11);
+						DECLARE _max_order int(11);
+						set @idorder:= 0;
+						set _start = 0;
+						DROP TABLE IF EXISTS tmp_product1;
+						DROP TABLE IF EXISTS tmp_product2;
+            create TEMPORARY TABLE tmp_product1(id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY , idorder INTEGER not NULL);
+						set _max_order = (SELECT COUNT(info.idproduct) as max_order from (SELECT imp.* FROM (SELECT idproduct from catehasproduct WHERE idcategory = _idcategory) as prcat LEFT JOIN (SELECT * from imp_products WHERE idstore = 31 AND id_status_type = 4 and idcrosstype = 0) as imp on prcat.idproduct = imp.idproduct WHERE imp.idproduct is not NULL) as info);
+						set @_end = (_max_order+1)-((_page-1)*12);
+						set _start = (_max_order+1) - (_page*12);
+						if _start < 1 THEN
+							BEGIN
+								set _start = 1;
+								set @_end = (_max_order+1)%12;
+							END;
+						END if;
+						set @str :='';
+						set @comma =',';
+						WHILE _start < @_end DO
+							IF _start = (@_end-1) THEN
+								 set @comma ='';
+							END IF;
+							set @str = CONCAT(@str,'(',_start,')',@comma);
+							SET _start := _start + 1;
+						END WHILE;
+						set @str = CONCAT('INSERT into tmp_product1(idorder) VALUES ',@str);
+						SET @queryString = @str;
+                PREPARE stmt FROM @queryString;
+                EXECUTE stmt;
+                DEALLOCATE PREPARE stmt;
+						create TEMPORARY TABLE tmp_product2(id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY , idorder INTEGER not NULL) as SELECT * FROM tmp_product1;
+						SELECT _max_order as maxcount,tmp2.*, inf.* from tmp_product2 as tmp2 LEFT JOIN (SELECT (@idorder:= @idorder + 1) as idorder, info.*,p.namepro, p.slug, p.short_desc, p.description,phf.idfile,f.urlfile from (select info1.*,info2.price as price_sale from (SELECT imp.* FROM (SELECT idproduct from catehasproduct WHERE idcategory = _idcategory) as prcat LEFT JOIN (SELECT * from imp_products WHERE idstore = 31 AND id_status_type = 4 and idcrosstype = 0) as imp on prcat.idproduct = imp.idproduct WHERE imp.idproduct is not NULL) as info1 LEFT JOIN (SELECT imp.* FROM (SELECT idproduct from catehasproduct WHERE idcategory = _idcategory) as prcat LEFT JOIN (SELECT * from imp_products WHERE idstore = 31 AND id_status_type = 4 and idcrosstype = 4) as imp on prcat.idproduct = imp.idproduct WHERE imp.idproduct is not NULL) as info2 on info1.idproduct = info2.idproduct) as info LEFT JOIN products as p on info.idproduct = p.idproduct LEFT JOIN producthasfile as phf on p.idproduct = phf.idproduct LEFT JOIN files as f on phf.idfile = f.idfile) as inf on tmp2.idorder = inf.idorder ORDER BY tmp2.idorder DESC;
+						DROP TABLE tmp_product1;
+						DROP TABLE tmp_product2;
             END
 ;;
 delimiter ;
@@ -2910,9 +3066,9 @@ delimiter ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `ListProductComboProcedure`;
 delimiter ;;
-CREATE PROCEDURE `ListProductComboProcedure`()
+CREATE PROCEDURE `ListProductComboProcedure`(in _limit INT(11))
 BEGIN             
-               select inf.*,phf.idfile,f.urlfile from (select info.*,p.slug,p.namepro,p.short_desc,p.description from (select imp.*,imp_p.* from (SELECT idparentcross from imp_products WHERE idcrosstype = 1 and idstore = 31 and id_status_type = 4 GROUP BY idparentcross ORDER BY idparentcross DESC limit 10) as imp LEFT JOIN (SELECT idproduct,price from imp_products WHERE idcrosstype = 0 and idstore = 31 and id_status_type = 4) as imp_p on imp.idparentcross = imp_p.idproduct) as info LEFT JOIN products as p on info.idproduct = p.idproduct) as inf LEFT JOIN producthasfile as phf on inf.idproduct = phf.idproduct LEFT JOIN files as f on phf.idfile = f.idfile;
+               select inf.*,phf.idfile,f.urlfile from (select info.*,p.slug,p.namepro,p.short_desc,p.description from (select imp.*,imp_p.* from (SELECT idparentcross from imp_products WHERE idcrosstype = 1 and idstore = 31 and id_status_type = 4 GROUP BY idparentcross ORDER BY idparentcross DESC limit _limit) as imp LEFT JOIN (SELECT idproduct,price from imp_products WHERE idcrosstype = 0 and idstore = 31 and id_status_type = 4) as imp_p on imp.idparentcross = imp_p.idproduct) as info LEFT JOIN products as p on info.idproduct = p.idproduct) as inf LEFT JOIN producthasfile as phf on inf.idproduct = phf.idproduct LEFT JOIN files as f on phf.idfile = f.idfile;
             END
 ;;
 delimiter ;
@@ -3026,9 +3182,28 @@ BEGIN
                 EXECUTE stmt;
                 DEALLOCATE PREPARE stmt;
                 create TEMPORARY TABLE temp_products(id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY , idproduct INTEGER not NULL, input_quality INTEGER not null) as (select idproduct,input_quality from tmp_product);
-                select (@idorder:= @idorder + 1) as idorder,info.*,p.namepro,p.slug,p.short_desc,p.description,phf.idfile,f.urlfile from (select 0 as parent, tmp1.id, tmp1.idproduct as parent_in, tmp1.input_quality, imp1.idproduct,imp1.idcrosstype,imp1.idparentcross,imp1.amount,imp1.price_import,imp1.price,imp1.quality_sale,imp1.fromdate, imp1.todate from (SELECT * from tmp_product) as tmp1 JOIN (select * from imp_products WHERE idcrosstype = 0 and idstore = @_idstore and id_status_type = 4 and idparentcross = 0) as imp1 on tmp1.idproduct = imp1.idproduct UNION select _int_count as parent, tmp2.id, tmp2.idproduct as parent_in, tmp2.input_quality,imp2.idproduct,imp2.idcrosstype,imp2.idparentcross,imp2.amount,imp2.price_import,imp2.price,imp2.quality_sale,imp2.fromdate, imp2.todate from (SELECT * from temp_products) as tmp2 JOIN (select * from imp_products WHERE idstore = _idstore and id_status_type = 4) as imp2 on tmp2.idproduct = imp2.idparentcross) as info LEFT JOIN products as p on info.idproduct = p.idproduct LEFT JOIN producthasfile as phf on p.idproduct = phf.idproduct LEFT JOIN files f on phf.idfile = f.idfile;
+                select (@idorder:= @idorder + 1) as idorder,info.* from (select 0 as parent, tmp1.id, tmp1.idproduct as parent_in, tmp1.input_quality, imp1.idproduct,imp1.idcrosstype,imp1.idparentcross,imp1.amount,imp1.price_import,imp1.price,imp1.quality_sale from (SELECT * from tmp_product) as tmp1 JOIN (select * from imp_products WHERE idcrosstype = 0 and idstore = @_idstore and id_status_type = 4 and idparentcross = 0) as imp1 on tmp1.idproduct = imp1.idproduct UNION all select @_int_count as parent, tmp2.id, tmp2.idproduct as parent_in, tmp2.input_quality,imp2.idproduct,imp2.idcrosstype,imp2.idparentcross,imp2.amount,imp2.price_import,imp2.price,imp2.quality_sale from (SELECT * from temp_products) as tmp2 JOIN (select * from imp_products WHERE idstore = @_idstore and id_status_type = 4) as imp2 on tmp2.idproduct = imp2.idparentcross) as info;
                 DROP TABLE tmp_product;
                 DROP TABLE temp_products;
+            END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Procedure structure for LstOrderFrmSessionProcedure
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `LstOrderFrmSessionProcedure`;
+delimiter ;;
+CREATE PROCEDURE `LstOrderFrmSessionProcedure`(IN `_str_query` TEXT, IN `_idstore` INT(11))
+BEGIN             
+                DROP TABLE IF EXISTS tmp_product1;
+                create TEMPORARY TABLE tmp_product1(idtmp INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY , idorder INTEGER not NULL, idcrosstype INTEGER  NULL,parent  INTEGER not NULL, idparentcross INTEGER NULL,input_quality  INTEGER  NULL,idproduct  INTEGER NULL,inp_session  INTEGER  NULL,trash INTEGER  NULL);
+                SET @queryString = _str_query;
+                PREPARE stmt FROM @queryString;
+                EXECUTE stmt;
+                DEALLOCATE PREPARE stmt;					
+								select info.*, f.urlfile from (SELECT tmp1.*, p.namepro, p.slug, p.description, p.short_desc, latestidfile(p.idproduct,1) as idfile from (SELECT *, Fnc_latestprice(idproduct,idparentcross,_idstore) as price from tmp_product1) as tmp1 LEFT JOIN products as p on tmp1.idproduct = p.idproduct) as info LEFT JOIN files as f on info.idfile = f.idfile;
+                DROP TABLE tmp_product1;
             END
 ;;
 delimiter ;
@@ -3043,13 +3218,13 @@ BEGIN
                 DROP TABLE IF EXISTS tmp_product;
                 DROP TABLE IF EXISTS temp_products;
                 set @idorder:=0;
-                create TEMPORARY TABLE tmp_product(idtmp INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY , idorder INTEGER not NULL, idcrosstype INTEGER not NULL,parent  INTEGER not NULL,id  INTEGER not NULL,input_quality  INTEGER not NULL,idproduct  INTEGER not NULL,inp_session  INTEGER not NULL,trash  INTEGER not NULL);
+                create TEMPORARY TABLE tmp_product(idtmp INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY , idorder INTEGER not NULL, idcrosstype INTEGER  NULL,parent  INTEGER not NULL, idparentcross INTEGER NULL,input_quality  INTEGER  NULL,idproduct  INTEGER NULL,inp_session  INTEGER  NULL,trash INTEGER  NULL);
                 SET @queryString = _str_query;
                 PREPARE stmt FROM @queryString;
                 EXECUTE stmt;
                 DEALLOCATE PREPARE stmt;
-                create TEMPORARY TABLE temp_products(idtmp INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY , idorder INTEGER not NULL, idcrosstype INTEGER not NULL,parent  INTEGER not NULL,id  INTEGER not NULL,input_quality  INTEGER not NULL,idproduct  INTEGER not NULL,inp_session  INTEGER not NULL,trash  INTEGER not NULL) as (SELECT * from tmp_product);
-                select info_u.*,f.urlfile from (select info_f.*,phf.idfile from (SELECT info_p.*,imp.price, imp.price_sale_origin, imp.price_combo, imp.quality_combo, imp.price_gift,imp.quality_gift FROM (select tmp_p.*,p.namepro,p.slug,p.short_desc,p.description from temp_products tmp_p JOIN products as p on tmp_p.idproduct = p.idproduct) as info_p JOIN (select idproduct,price, price_sale_origin, price_combo, quality_combo, price_gift,quality_gift from imp_products WHERE idstore = _idstore) as imp on info_p.idproduct = imp.idproduct) as info_f LEFT JOIN (SELECT * from producthasfile WHERE hastype=1) as phf on info_f.idproduct = phf.idproduct) as info_u LEFT JOIN files as f on info_u.idfile = f.idfile;
+                create TEMPORARY TABLE temp_products(idtmp INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY , idorder INTEGER not NULL, idcrosstype INTEGER not NULL,parent  INTEGER not NULL, idparentcross INTEGER NULL,input_quality  INTEGER not NULL,idproduct  INTEGER not NULL,inp_session  INTEGER not NULL,trash  INTEGER not NULL) as (SELECT * from tmp_product);
+								SELECT inf.* from (select info.*,p.namepro, p.short_desc, p.slug, p.description,phf.idfile,f.urlfile from (select tmp1.*, imp1.idcustomer, imp1.iduser, imp1.price, imp1.quality_sale, imp1.fromdate, imp1.todate from tmp_product as tmp1 left JOIN (select * from imp_products WHERE idstore = _idstore and id_status_type = 4 AND idparentcross = 0) as imp1 on tmp1.idproduct = imp1.idproduct and tmp1.idparentcross = imp1.idparentcross WHERE imp1.idproduct is not NULL UNION ALL select tmp2.*, imp2.idcustomer, imp2.iduser, imp2.price, imp2.quality_sale, imp2.fromdate, imp2.todate from temp_products as tmp2 left JOIN (select * from imp_products WHERE idstore = _idstore and id_status_type = 4 AND idparentcross > 0) as imp2 on tmp2.idproduct = imp2.idproduct and tmp2.idparentcross = imp2.idparentcross WHERE imp2.idproduct is not NULL) as info LEFT JOIN products as p on info.idproduct = p.idproduct LEFT JOIN producthasfile as phf on p.idproduct = phf.idproduct LEFT JOIN files as f on phf.idfile = f.idfile) as inf ORDER BY inf.idorder ASC;
                 DROP TABLE tmp_product;
                 DROP TABLE temp_products;
             END
@@ -3071,7 +3246,7 @@ BEGIN
                 EXECUTE stmt;
                 DEALLOCATE PREPARE stmt;
                 create TEMPORARY TABLE temp_products(id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY , idproduct INTEGER not NULL, input_quality INTEGER not null) as (select idproduct,input_quality from tmp_product);
-                select rs_info.* from (select inf.*,f.urlfile from (select al_info.*,phf.idfile FROM (select info_pro.namepro,info_pro.slug,info_pro.short_desc,info_pro.description,info_pro.idcrosstype,info_pro.parent,info_pro.id,info_pro.input_quality,imp.* from (select al_pros.*,0 as parent,0 as idcrosstype from (select p.idproduct,p.namepro,p.slug,p.short_desc,p.description,tmp_prs.id,tmp_prs.input_quality from temp_products as tmp_prs JOIN products as p on tmp_prs.idproduct = p.idproduct) as al_pros UNION all select al_pro.* from (select p.idproduct,p.namepro,p.slug,p.short_desc,p.description,pr.id, pr.input_quality,pr.parent,pr.idcrosstype from (select cp.idproduct,cp.idcrosstype,cp.idproduct_cross,tmp_p.id as parent,tmp_p.id, tmp_p.input_quality from tmp_product as tmp_p join cross_product as cp on tmp_p.idproduct = cp.idproduct) as pr join products as p on pr.idproduct_cross = p.idproduct) as al_pro) as info_pro join (select * from imp_products WHERE idstore = _idstore) as imp on info_pro.idproduct = imp.idproduct) as al_info LEFT JOIN producthasfile as phf on al_info.idproduct = phf.idproduct) as inf LEFT JOIN files as f on inf.idfile = f.idfile) as rs_info;
+                select rs_info.* from (select inf.*,f.urlfile from (select al_info.*,phf.idfile FROM (select info_pro.namepro,info_pro.slug,info_pro.short_desc,info_pro.description,info_pro.parent,info_pro.id,info_pro.input_quality,imp.* from (select al_pros.*,0 as parent,0 as idcrosstype from (select p.idproduct,p.namepro,p.slug,p.short_desc,p.description,tmp_prs.id,tmp_prs.input_quality from temp_products as tmp_prs JOIN products as p on tmp_prs.idproduct = p.idproduct) as al_pros UNION all select al_pro.* from (select p.idproduct,p.namepro,p.slug,p.short_desc,p.description,pr.id, pr.input_quality,pr.parent,pr.idcrosstype from (select cp.idproduct,cp.idcrosstype,cp.idproduct_cross,tmp_p.id as parent,tmp_p.id, tmp_p.input_quality from tmp_product as tmp_p join cross_product as cp on tmp_p.idproduct = cp.idproduct) as pr join products as p on pr.idproduct_cross = p.idproduct) as al_pro) as info_pro join (select * from imp_products WHERE idstore = _idstore) as imp on info_pro.idproduct = imp.idproduct) as al_info LEFT JOIN producthasfile as phf on al_info.idproduct = phf.idproduct) as inf LEFT JOIN files as f on inf.idfile = f.idfile) as rs_info;
                 DROP TABLE tmp_product;
                 DROP TABLE temp_products;
             END
@@ -3116,6 +3291,26 @@ BEGIN
 delimiter ;
 
 -- ----------------------------
+-- Procedure structure for new_old_price
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `new_old_price`;
+delimiter ;;
+CREATE PROCEDURE `new_old_price`(IN `_idproduct` bigint,IN `_idstore` int,OUT `_newprice` int,OUT `_oldprice` int)
+BEGIN
+	set _newprice = 0;
+	set _oldprice = 0;
+	DROP TABLE IF EXISTS tmp_product1;
+	DROP TABLE IF EXISTS tmp_product2;
+   create TEMPORARY TABLE tmp_product1 (id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY , idimp INTEGER NULL, idproduct INTEGER null, idcrosstype INTEGER null, idparentcross INTEGER null, amount INTEGER NULL, price_import INTEGER null, price INTEGER NULL, quality_sale INTEGER NULL) as (select * from (select idimp, idproduct, idcrosstype, idparentcross, amount,price_import, price, quality_sale from imp_products WHERE idproduct = @_idproduct and idcrosstype = 0 and idstore = @_idstore and id_status_type = 4 and idparentcross = 0 UNION select idimp, idproduct, idcrosstype, idparentcross, amount, price_import, price, quality_sale from imp_products WHERE idparentcross = @_idproduct and idcrosstype = 4 and idstore = @_idstore and id_status_type = 4) as info ORDER BY info.idimp DESC LIMIT 2);
+	 create TEMPORARY TABLE tmp_product2 (id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY , idimp INTEGER NULL, idproduct INTEGER null, idcrosstype INTEGER null, idparentcross INTEGER null, amount INTEGER NULL, price_import INTEGER null, price INTEGER NULL, quality_sale INTEGER NULL) as (SELECT * from tmp_product1);
+	 SELECT info.*, p.namepro, p.short_desc, p.description, f.urlfile FROM (select tmp1.*,latestidfile(tmp1.idproduct,1) as idfile, tmp2.price as old_price from (SELECT * FROM tmp_product1 limit 1) as tmp1 LEFT JOIN tmp_product2 as tmp2 on tmp2.id = 2) as info LEFT JOIN products as p on info.idproduct = p.idproduct LEFT JOIN files as f on info.idfile = f.idfile;
+	 DROP TABLE tmp_product1;
+	 DROP TABLE tmp_product2;
+END
+;;
+delimiter ;
+
+-- ----------------------------
 -- Procedure structure for OrderHistoryProcedure
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `OrderHistoryProcedure`;
@@ -3133,7 +3328,7 @@ delimiter ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `OrderProductFromSessionProcedure`;
 delimiter ;;
-CREATE PROCEDURE `OrderProductFromSessionProcedure`(IN `_idcustomer` INT(11), IN `_idrecipent` INT(11), IN `_iduser` INT(11), IN `_note` TEXT CHARSET utf8mb4, IN `_fromnamestore` VARCHAR(255), IN `_tonamestore` VARCHAR(255), IN `_queryString` VARCHAR(255))
+CREATE PROCEDURE `OrderProductFromSessionProcedure`(IN `_idcustomer` INT(11), IN `_idrecipent` INT(11), IN `_iduser` INT(11), IN `_note` TEXT CHARSET utf8mb4, IN `_fromnamestore` VARCHAR(255), IN `_tonamestore` VARCHAR(255), IN `_queryStr` text)
 BEGIN
                 Declare _idcattype int;
                 DECLARE _fromidstore int;
@@ -3149,17 +3344,18 @@ BEGIN
                 set _idcattype = (select idcattype from category_types where catnametype='store');
                 set _fromidstore = (select cat.idcategory from (select idcategory,shortname from categories WHERE idcattype = _idcattype) as cat WHERE cat.shortname=_fromnamestore);
 								set _toidstore = (select cat.idcategory from (select idcategory,shortname from categories WHERE idcattype = _idcattype) as cat WHERE cat.shortname=_tonamestore);
+								
 								DROP TABLE IF EXISTS tmp_product;
                 DROP TABLE IF EXISTS temp_products;
-                create TEMPORARY TABLE tmp_product(idtmp INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY , idorder INTEGER not NULL, idcrosstype INTEGER not NULL,parent  INTEGER not NULL,id  INTEGER not NULL,input_quality  INTEGER not NULL,idproduct  INTEGER not NULL,inp_session  INTEGER not NULL,trash  INTEGER not NULL);
-                SET @queryString = _queryString;
-                    PREPARE stmt FROM @queryString;
-                    EXECUTE stmt;
-                    DEALLOCATE PREPARE stmt;
-                    create TEMPORARY TABLE temp_products(idtmp INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY , idorder INTEGER not NULL, idcrosstype INTEGER not NULL,parent  INTEGER not NULL,id  INTEGER not NULL,input_quality  INTEGER not NULL,idproduct  INTEGER not NULL,inp_session  INTEGER not NULL,trash  INTEGER not NULL) as (SELECT * from tmp_product);
-                    INSERT into listorder(note) VALUES (_note);
+                create TEMPORARY TABLE tmp_product(idtmp INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY , idorder INTEGER not NULL, idcrosstype INTEGER  NULL,parent  INTEGER not NULL,id  INTEGER not NULL, idparentcross INTEGER NULL,input_quality  INTEGER  NULL,idproduct  INTEGER NULL,inp_session  INTEGER  NULL,trash INTEGER  NULL);
+                SET @queryString = _queryStr;
+                PREPARE stmt FROM @queryString;
+                EXECUTE stmt;
+                DEALLOCATE PREPARE stmt;
+                create TEMPORARY TABLE temp_products(idtmp INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY , idorder INTEGER not NULL, idcrosstype INTEGER not NULL,parent  INTEGER not NULL,id  INTEGER not NULL, idparentcross INTEGER NULL,input_quality  INTEGER not NULL,idproduct  INTEGER not NULL,inp_session  INTEGER not NULL,trash  INTEGER not NULL) as (SELECT * from tmp_product);
+									INSERT into listorder(note) VALUES (_note);
                     set _idnumberorder = (select LAST_INSERT_ID());
-                    INSERT into exp_products(idnumberorder, idcrosstype, idproduct,idorder, parentidorder, idcustomer, idrecipent, iduser, amount, price, note, idstore, axis_x, axis_y, axis_z, id_status_type) select _idnumberorder, info.idcrosstype, info.idproduct, info.idorder, info.parent, _idcustomer, _idrecipent, _iduser, info.inp_session, (CASE WHEN info.idcrosstype = 1 THEN info.price_combo WHEN info.idcrosstype = 2 THEN info.price_gift ELSE info.price END) as price_checkout,'' as note, _toidstore, _axis_x, _axis_y, _axis_z, info.trash from (SELECT info_p.*,imp.price, imp.price_sale_origin, imp.price_combo, imp.quality_combo, imp.price_gift,imp.quality_gift FROM temp_products as info_p JOIN (select idproduct,price, price_sale_origin, price_combo, quality_combo, price_gift,quality_gift from imp_products WHERE idstore = _fromidstore) as imp on info_p.idproduct = imp.idproduct) as info;
+                    INSERT into exp_products(idnumberorder, idcrosstype, idproduct,idorder, parentidorder, idcustomer, idrecipent, iduser, amount, price, note, idstore, axis_x, axis_y, axis_z, id_status_type) select _idnumberorder, info.idcrosstype, info.idproduct, info.idorder, info.parent, _idcustomer, _idrecipent, _iduser, info.inp_session, info.price,'' as note, _toidstore, _axis_x, _axis_y, _axis_z, info.trash from (select tmp1.*, imp1.idcustomer, imp1.iduser, imp1.price, imp1.quality_sale, imp1.fromdate, imp1.todate from tmp_product as tmp1 left JOIN (select * from imp_products WHERE idstore = _fromidstore and id_status_type = 4 AND idparentcross = 0) as imp1 on tmp1.idproduct = imp1.idproduct and tmp1.idparentcross = imp1.idparentcross WHERE imp1.idproduct is not NULL UNION ALL select tmp2.*, imp2.idcustomer, imp2.iduser, imp2.price, imp2.quality_sale, imp2.fromdate, imp2.todate from temp_products as tmp2 left JOIN (select * from imp_products WHERE idstore = _fromidstore and id_status_type = 4 AND idparentcross > 0) as imp2 on tmp2.idproduct = imp2.idproduct and tmp2.idparentcross = imp2.idparentcross WHERE imp2.idproduct is not NULL) as info order by info.idorder ASC;
 										set ordertotal = (SELECT inf.ordertotal from (select idnumberorder,SUM(amount*price) as ordertotal from exp_products WHERE idnumberorder = _idnumberorder GROUP BY idnumberorder) as inf);
 										select inp_f.*,f.urlfile,ordertotal from (select inf_p.*,phf.idfile from (select inf.*,p.namepro,p.slug,p.short_desc,p.description from (select * from exp_products WHERE idnumberorder = _idnumberorder) as inf LEFT JOIN products as p on inf.idproduct = p.idproduct) as inf_p LEFT JOIN producthasfile as phf on inf_p.idproduct = phf.idproduct) as inp_f LEFT JOIN files f on inp_f.idfile = f.idfile;
                     DROP TABLE tmp_product;
@@ -3273,13 +3469,36 @@ BEGIN
 delimiter ;
 
 -- ----------------------------
+-- Procedure structure for ReachInitSessionProcedure
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `ReachInitSessionProcedure`;
+delimiter ;;
+CREATE PROCEDURE `ReachInitSessionProcedure`(IN _str_query text, IN _idstore int(11),IN _int_count int(11))
+BEGIN             
+                DROP TABLE IF EXISTS tmp_product;
+                DROP TABLE IF EXISTS temp_products;
+                set @idorder:=(_int_count-1);
+                create TEMPORARY TABLE tmp_product(id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY , idproduct INTEGER not NULL, input_quality INTEGER not null);
+                SET @queryString = _str_query;
+                PREPARE stmt FROM @queryString;
+                EXECUTE stmt;
+                DEALLOCATE PREPARE stmt;
+                create TEMPORARY TABLE temp_products(id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY , idproduct INTEGER not NULL, input_quality INTEGER not null) as (select idproduct,input_quality from tmp_product);
+								select (@idorder:= @idorder + 1) as idorder, info.* from (select 0 as parent, tmp1.id, tmp1.idproduct as parent_in, tmp1.input_quality, imp1.idproduct,imp1.idcrosstype,imp1.idparentcross,imp1.amount,imp1.price_import,imp1.price,imp1.quality_sale from (SELECT * from tmp_product) as tmp1 JOIN (select * from imp_products WHERE idcrosstype = 0 and idstore = _idstore and id_status_type = 4 and idparentcross = 0) as imp1 on tmp1.idproduct = imp1.idproduct UNION all select _int_count as parent, tmp2.id, tmp2.idproduct as parent_in, tmp2.input_quality,imp2.idproduct,imp2.idcrosstype,imp2.idparentcross,imp2.amount,imp2.price_import,imp2.price,imp2.quality_sale from (SELECT * from temp_products) as tmp2 JOIN (select * from imp_products WHERE idstore = _idstore and id_status_type = 4) as imp2 on tmp2.idproduct = imp2.idparentcross) as info;
+								DROP TABLE tmp_product;
+                DROP TABLE temp_products;	
+            END
+;;
+delimiter ;
+
+-- ----------------------------
 -- Procedure structure for RelateProductProcedure
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `RelateProductProcedure`;
 delimiter ;;
 CREATE PROCEDURE `RelateProductProcedure`()
 BEGIN
-                select info.created_at,info.idproduct,info.namepro,info.short_desc, info.price_import, info.price, info.price_sale_origin, info.amount,info.urlfile from (select dtail.created_at,dtail.idproduct,dtail.namepro,dtail.short_desc, dtail.price_import, dtail.price, dtail.price_sale_origin, dtail.amount,dtail.urlfile,dtail.author, (select namecat from categories WHERE idcategory = prohas.idcategory) as namecat from ( select detail.created_at,detail.idproduct,detail.namepro,detail.short_desc, detail.price_import, detail.price, detail.price_sale_origin, detail.amount,f.urlfile,(select `name` from users WHERE id = detail.iduser) as author from (select p.created_at,p.idproduct,p.namepro,p.short_desc, imp.price_import, imp.price, imp.price_sale_origin, imp.amount,imp.iduser,(select idfile from producthasfile WHERE idproduct = p.idproduct and hastype=1 ORDER BY idproducthasfile DESC LIMIT 1) as idfile  FROM (select pr.* from products as pr left join cross_product as c on pr.idproduct = c.idproduct_cross where c.idcrossproduct is NULL) as p JOIN imp_products as imp on p.idproduct = imp.idproduct) as detail join files as f on detail.idfile = f.idfile) as dtail JOIN (select * from catehasproduct where idcategory > 0) as prohas on prohas.idproduct = dtail.idproduct) as info limit 8; 
+                select info.created_at,info.idproduct,info.namepro,info.short_desc, info.price_import, info.price, info.amount,info.urlfile from (select dtail.created_at,dtail.idproduct,dtail.namepro,dtail.short_desc, dtail.price_import, dtail.price, dtail.amount,dtail.urlfile,dtail.author, (select namecat from categories WHERE idcategory = prohas.idcategory) as namecat from ( select detail.created_at,detail.idproduct,detail.namepro,detail.short_desc, detail.price_import, detail.price, detail.amount,f.urlfile,(select `name` from users WHERE id = detail.iduser) as author from (select p.created_at,p.idproduct,p.namepro,p.short_desc, imp.price_import, imp.price, imp.amount,imp.iduser,(select idfile from producthasfile WHERE idproduct = p.idproduct and hastype=1 ORDER BY idproducthasfile DESC LIMIT 1) as idfile  FROM (select pr.* from products as pr left join cross_product as c on pr.idproduct = c.idproduct_cross where c.idcrossproduct is NULL) as p JOIN imp_products as imp on p.idproduct = imp.idproduct) as detail join files as f on detail.idfile = f.idfile) as dtail JOIN (select * from catehasproduct where idcategory > 0) as prohas on prohas.idproduct = dtail.idproduct) as info limit 8; 
             END
 ;;
 delimiter ;
@@ -3542,11 +3761,7 @@ DROP PROCEDURE IF EXISTS `SelProductByIdProcedure`;
 delimiter ;;
 CREATE PROCEDURE `SelProductByIdProcedure`(IN `_idproduct` INT(11), IN `_idstore` INT(11))
 BEGIN
-                DECLARE id_thumbnail int;
-                                declare url_thumbnail varchar(255);
-                                set id_thumbnail =  (SELECT idfile from producthasfile WHERE idproduct=_idproduct and hastype= 1 ORDER BY idproducthasfile DESC LIMIT 1);
-                                set url_thumbnail = (SELECT urlfile FROM files where idfile = id_thumbnail);
-                                select p.idproduct,p.namepro,p.slug,p.short_desc,p.description,p.idsize,(select `value` from size where idsize=p.idsize) as _size, p.idcolor,p.id_post_type,p.created_at as created_pro,p.updated_at as updated_pro,imp.*,id_thumbnail, url_thumbnail from (select * FROM products WHERE idproduct=_idproduct) as p join (SELECT * from imp_products where idstore=_idstore and idcrosstype = 0 AND idparentcross = 0) as imp on p.idproduct = imp.idproduct;
+    SELECT p.namepro,p.short_desc, p.slug, p.description, info3.*, imp1.*, imp2.price as old_price, phf.idfile as idfile, f.urlfile as url_thumbnail from (SELECT info1.idproduct, info1.max_idimp_price, info2.max_idproducthasfile from (SELECT MAX(idimp) as max_idimp_price, info.idproduct FROM (SELECT * FROM imp_products WHERE idstore = _idstore and id_status_type = 4 and  idproduct = _idproduct and idcrosstype in (0,4)) as info GROUP BY info.idproduct) as info1 INNER JOIN (SELECT MAX(idproducthasfile) as max_idproducthasfile,idproduct from producthasfile WHERE idproduct = _idproduct and hastype = 1 GROUP BY idproduct) as info2 on info1.idproduct = info2.idproduct) as info3 LEFT JOIN products as p on info3.idproduct = p.idproduct LEFT JOIN imp_products as imp1 on info3.max_idimp_price = imp1.idimp LEFT JOIN imp_products as imp2 on imp1.prev_id = imp2.idimp LEFT JOIN producthasfile as phf on info3.max_idproducthasfile = phf.idproducthasfile LEFT JOIN files as f on phf.idfile = f.idfile;
             END
 ;;
 delimiter ;
@@ -3558,7 +3773,7 @@ DROP PROCEDURE IF EXISTS `SelProductCrossByIdProcedure`;
 delimiter ;;
 CREATE PROCEDURE `SelProductCrossByIdProcedure`(IN _idproduct int(11))
 BEGIN
-               select inf_p.*,f.urlfile from (select inf.*,phf.idfile from (SELECT imp.idimp,imp.idproduct, imp.idcrosstype,(SELECT namecross FROM cross_type WHERE idcrosstype = imp.idcrosstype) as namecross,imp.idparentcross , imp.amount, imp.price_import, imp.price, imp.price_sale_origin,imp.quality_sale,imp.id_status_type,imp.fromdate,imp.todate,p.namepro,p.slug,p.short_desc,p.description from (select * from imp_products where idparentcross = _idproduct and id_status_type = 4 and idproduct <> _idproduct) as imp LEFT JOIN products as p on imp.idproduct = p.idproduct) as inf LEFT JOIN producthasfile as phf on inf.idproduct = phf.idproduct) as inf_p LEFT JOIN files as f on inf_p.idfile = f.idfile;
+               select inf_p.*,f.urlfile from (select inf.*,phf.idfile from (SELECT imp.idimp,imp.idproduct, imp.idcrosstype,(SELECT namecross FROM cross_type WHERE idcrosstype = imp.idcrosstype) as namecross,imp.idparentcross , imp.amount, imp.price_import, imp.price, imp.quality_sale,imp.id_status_type,imp.fromdate,imp.todate,p.namepro,p.slug,p.short_desc,p.description from (select * from imp_products where idparentcross = _idproduct and id_status_type = 4 and idproduct <> _idproduct) as imp LEFT JOIN products as p on imp.idproduct = p.idproduct) as inf LEFT JOIN producthasfile as phf on inf.idproduct = phf.idproduct) as inf_p LEFT JOIN files as f on inf_p.idfile = f.idfile;
             END
 ;;
 delimiter ;

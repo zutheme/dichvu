@@ -206,6 +206,9 @@ class ProductsController extends Controller
         $posttypes = PostType::all()->toArray();
         $result = DB::select('call ListParentCatByTypeProcedure(?)',array($_namecattype));
         $categories = json_decode(json_encode($result), true);
+
+        //$qr_product = DB::select('call DetailByIdProductProcedure(?)',array($idproduct));
+        //$product = json_decode(json_encode($qr_product), true);
         $qr_product = DB::select('call SelProductByIdProcedure(?,?)',array($idproduct,$_idstore));
         $product = json_decode(json_encode($qr_product), true);
         $_idgalery = 2;
@@ -391,7 +394,6 @@ class ProductsController extends Controller
             $_idstore = 31;
             $_id_status_type = 4;
             if($price_promo > 0 ){
-                //$_idproduct, $_iduser, $_idcrosstype, $_idparentcross, $_price, $_quality_sale, $_idstore, $_id_status_type, $_fromdate, $_todate
                 $qr_insert_new_imp = DB::select('call InsertImportProductProcedure(?,?,?,?,?,?,?,?,?,?)',array($idproduct,$_iduser,$sel_type_promo,$idproduct,$price_promo,$quality_promo,$_idstore,$_id_status_type,$_start_date_promo,$_end_date_promo));
                 $rs_insert_new_imp = json_decode(json_encode($qr_insert_new_imp), true);
                 $idimp = $rs_insert_new_imp[0]['idimp'];
