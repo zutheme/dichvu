@@ -207,10 +207,10 @@ class ProductsController extends Controller
         $result = DB::select('call ListParentCatByTypeProcedure(?)',array($_namecattype));
         $categories = json_decode(json_encode($result), true);
 
-        //$qr_product = DB::select('call DetailByIdProductProcedure(?)',array($idproduct));
-        //$product = json_decode(json_encode($qr_product), true);
-        $qr_product = DB::select('call SelProductByIdProcedure(?,?)',array($idproduct,$_idstore));
+        $qr_product = DB::select('call EditDetailByIdProcedure(?,?)',array($idproduct, $_idstore));
         $product = json_decode(json_encode($qr_product), true);
+        //$qr_product = DB::select('call SelProductByIdProcedure(?,?)',array($idproduct,$_idstore));
+        //$product = json_decode(json_encode($qr_product), true);
         $_idgalery = 2;
         $qr_gallery = DB::select('call SelGalleryProcedure(?,?)',array($idproduct,$_idgalery));
         $gallery = json_decode(json_encode($qr_gallery), true);
@@ -223,7 +223,7 @@ class ProductsController extends Controller
         $qr_sel_cross_byidproduct = DB::select('call SelProductCrossByIdProcedure(?)',array($idproduct));
         $sel_cross_byidproduct = json_decode(json_encode($qr_sel_cross_byidproduct), true);
         
-        $qr_sel_impbyidpro = DB::select('call SelImportByIDProductProcedure(?)',array($idproduct));
+        $qr_sel_impbyidpro = DB::select('call SelImportByIDProductProcedure(?,?)',array($idproduct,$_idstore));
         $rs_sel_impbyidpro = json_decode(json_encode($qr_sel_impbyidpro), true);
         
         $qr_parent_cross_product = DB::select('call SelParentProductCrossProcedure(?)',array($idproduct));

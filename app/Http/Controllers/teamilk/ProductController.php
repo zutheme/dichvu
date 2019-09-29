@@ -237,9 +237,10 @@ class ProductController extends Controller
     }
 
     public function listviewproductbyidcate($_idcategory){
-        $_page = 1; $_limit = 100;
+        $_page = 1; $_limit = 100; $_idstore = 31;
         try {
-            $qr_lpro = DB::select('call ListProductByIdcateProcedure(?,?,?)',array($_idcategory,$_page,$_limit));
+            $qr_lpro = DB::select('call LatestProductByIdcateProcedure(?,?,?)',array($_idcategory, $_idstore, $_limit));
+            //$qr_lpro = DB::select('call ListProductByIdcateProcedure(?,?,?)',array($_idcategory,$_page,$_limit));
             $rs_lpro = json_decode(json_encode($qr_lpro), true);     
              return view('teamilk.product.index')->with(compact('rs_lpro','_idcategory'));
         } catch (\Illuminate\Database\QueryException $ex) {

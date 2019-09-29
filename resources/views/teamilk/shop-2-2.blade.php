@@ -19,23 +19,14 @@
 					@if(isset($rs_promotion))
 
 						@foreach($rs_promotion as $row)
-							<?php  $_price = $row['price']; $_price_sale = $row['price_sale'];
-							if(!isset($row['price_sale'])){
-								$_price_sale = 0;
-								$_promotion = false;
-							}else if( $_price_sale > 0 && ($_price > $_price_sale)){
-								$_price = $row['price_sale'];
-								$_price_sale = $row['price'];
-								$_promotion = true;
-							} 
-							 ?>
+		
 							<div class="item">
 
 								<div class="c-content-product-2 c-bg-white c-border">
 
 									<div class="c-content-overlay">
 
-										@if($_promotion)<div class="c-label c-bg-red c-font-uppercase c-font-white c-font-13 c-font-bold">Khuyến mãi</div>@endif
+										@if($row['old_price'] > 0)<div class="c-label c-bg-red c-font-uppercase c-font-white c-font-13 c-font-bold">Khuyến mãi</div>@endif
 
 										<div class="c-overlay-wrapper">
 
@@ -55,9 +46,9 @@
 
 										<p class="c-title c-font-18 c-font-slim">{{ $row['namepro'] }}</p>
 
-										<p class="c-price c-font-16 c-font-slim"><span class="currency">{{ $_price }}</span><span class="vnd"></span> &nbsp;
+										<p class="c-price c-font-16 c-font-slim"><span class="currency">{{ $row['price'] }}</span><span class="vnd"></span> &nbsp;
 
-											<span class="c-font-16 c-font-line-through c-font-red">@if($_promotion)<span class="currency">{{ $_price_sale }}</span><span class="vnd"></span>@endif</span>
+											<span class="c-font-16 c-font-line-through c-font-red">@if($row['old_price'] > 0)<span class="currency">{{ $row['old_price'] }}</span><span class="vnd"></span>@endif</span>
 
 										</p>
 
