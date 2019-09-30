@@ -239,8 +239,8 @@ class ProductController extends Controller
     public function listviewproductbyidcate($_idcategory){
         $_page = 1; $_limit = 100; $_idstore = 31;
         try {
-            $qr_lpro = DB::select('call LatestProductByIdcateProcedure(?,?,?)',array($_idcategory, $_idstore, $_limit));
-            //$qr_lpro = DB::select('call ListProductByIdcateProcedure(?,?,?)',array($_idcategory,$_page,$_limit));
+            //$qr_lpro = DB::select('call LatestProductByIdcateProcedure(?,?,?)',array($_idcategory, $_idstore, $_limit));
+            $qr_lpro = DB::select('call ListProductByIdcateProcedure(?,?,?,?)',array($_idcategory,$_page,$_idstore,$_limit));
             $rs_lpro = json_decode(json_encode($qr_lpro), true);     
              return view('teamilk.product.index')->with(compact('rs_lpro','_idcategory'));
         } catch (\Illuminate\Database\QueryException $ex) {
@@ -265,8 +265,8 @@ class ProductController extends Controller
 
     public function listproductbypage($_idcategory,$_page){
         try {
-            $_limit = 100;
-            $qr_lpro = DB::select('call ListProductByIdcateProcedure(?,?,?)',array($_idcategory,$_page,$_limit));
+             $_limit = 100; $_idstore = 31;
+             $qr_lpro = DB::select('call ListProductByIdcateProcedure(?,?,?,?)',array($_idcategory,$_page,$_idstore,$_limit));
             //$qr_lpro = DB::select('call ListViewProductByIdCateProcedure(?)',array($_idcategory));
             $rs_lpro = json_decode(json_encode($qr_lpro), true);     
              return view('teamilk.product.index')->with(compact('rs_lpro','_idcategory'));
@@ -278,7 +278,8 @@ class ProductController extends Controller
     }
     public function listproductbyidcategory($_idcategory,$_page,$_limit){
         try {
-            $qr_lpro = DB::select('call ListProductByIdcateProcedure(?,?,?)',array($_idcategory,$_page,$_limit));
+            $_limit =100;
+             $qr_lpro = DB::select('call ListProductByIdcateProcedure(?,?,?,?)',array($_idcategory,$_page,$_idstore,$_limit));
             //$qr_lpro = DB::select('call ListViewProductByIdCateProcedure(?)',array($_idcategory));
             $rs_lpro = json_decode(json_encode($qr_lpro), true);     
              return view('teamilk.product.index')->with(compact('rs_lpro','_idcategory'));

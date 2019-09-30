@@ -4,16 +4,16 @@
 		<!-- Nav tabs -->
 		<ul class="nav nav-pills c-nav-tab c-arrow" role="tablist">
 			<li role="presentation" class="active">
-				<a class="c-font-uppercase" href="#watches5" aria-controls="watches" role="tab" data-toggle="tab">Yêu thích</a>
+				<a class="c-font-uppercase" href="#watches5" aria-controls="watches" role="tab" data-toggle="tab">Giảm béo</a>
 			</li>
 			<li role="presentation">
-				<a class="c-font-uppercase" href="#phone5" aria-controls="phone" role="tab" data-toggle="tab">Thịnh hành</a>
+				<a class="c-font-uppercase" href="#phone5" aria-controls="phone" role="tab" data-toggle="tab">Trẻ hóa</a>
 			</li>
 			<li role="presentation">
-				<a class="c-font-uppercase" href="#imac5" aria-controls="imac" role="tab" data-toggle="tab">Xu hướng</a>
+				<a class="c-font-uppercase" href="#imac5" aria-controls="imac" role="tab" data-toggle="tab">Thẩm mỹ nội khoa</a>
 			</li>
 			<li role="presentation">
-				<a class="c-font-uppercase" href="#accessories5" aria-controls="accessories" role="tab" data-toggle="tab">Bán nhanh</a>
+				<a class="c-font-uppercase" href="#accessories5" aria-controls="accessories" role="tab" data-toggle="tab">Chăm sóc SPA</a>
 			</li>
 		</ul>
 		<!-- Tab panes -->

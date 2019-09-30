@@ -52,15 +52,11 @@ Route::get('/showsession', function () {
        //}
        //$str_qr = substr_replace($str_qr ,"", -1);
        //$str_qr = 'INSERT into tmp_product1(idorder, idcrosstype, parent, idparentcross, input_quality, idproduct, inp_session, trash) VALUES '.$str_qr;
-       $_idstore = 31;
-       $idproduct = 29;
-       //echo $str_qr;
-       //$qr_lstordsess = DB::select('call LstOrderFrmSessionProcedure(?,?)',array($str_qr,$_idstore));
-       //$rs_lstordsess = json_decode(json_encode($qr_lstordsess), true);
-       //var_dump($rs_lstordsess);
-       $qr_product = DB::select('call EditDetailByIdProcedure(?,?)',array($idproduct, $_idstore));
-       $product = json_decode(json_encode($qr_product), true);
-       var_dump($product);
+       $_page = 1; $_limit = 100; $_idstore = 31;
+       $_idcategory = 6;
+       $qr_lpro = DB::select('call ListProductByIdcateProcedure(?,?,?,?)',array($_idcategory,$_page,$_idstore,$_limit));
+       $rs_lpro = json_decode(json_encode($qr_lpro), true);
+       var_dump($rs_lpro);
 });
 
 
