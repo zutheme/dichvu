@@ -4,7 +4,7 @@
 
 		<div class="c-content-title-1">
 
-			<h3 class="c-center c-font-uppercase c-font-bold">Trị nám tàn nhan</h3>
+			<h3 class="c-center c-font-uppercase c-font-bold">Trị liệu nám tàn nhang</h3>
 
 			<div class="c-line-center"></div>
 

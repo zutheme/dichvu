@@ -645,7 +645,7 @@ class ProductsController extends Controller
         $_price = $request->get('new_cross_price');
         $_quality_sale = $request->get('new_cross_quality_sale');
         $_iduser = Auth::id();
-        $_idcustomer=0; $_amount = 0; $_note = ""; $_idstore = 11;
+        $_idcustomer=0; $_amount = 0; $_note = ""; $_idstore = 31;
         try {//$_idproduct,$_iduser,$_idcrosstype,$_idparentcross,$_price,$_quality_sale,$_idstore,$_id_status_type
             $qr_insert_new_cross = DB::select('call MakeCrosstypeProcedure(?,?,?,?,?,?,?,?)',array($_idproduct,$_iduser,$_idcrosstype,$_idparentcross,$_price,$_quality_sale,$_idstore,$_id_status_type));
             $rs_insert_new_cross = json_decode(json_encode($qr_insert_new_cross), true);
