@@ -62,17 +62,8 @@ Route::get('/showsession', function () {
 
 
 Route::get('/clear-cache', function() {
-
-
-
     Artisan::call('cache:clear');
-
-
-
     return "Cache is cleared";
-
-
-
 });
 
 
@@ -137,8 +128,6 @@ Route::post('admin/postLogin', ['uses' =>'Admin\LoginController@postLogin', 'as'
 
 //list product by idcategory
 
-
-
 Route::get('teamilk/listproductbyidcate/{_idcategory}', ['uses' =>'teamilk\ProductController@listviewproductbyidcate']);
 Route::post('teamilk/listproductbyidcate/{_idcategory}', ['uses' =>'teamilk\ProductController@listviewproductbyidcate']);
 
@@ -171,56 +160,25 @@ Route::get('teamilk/cartnumber', ['uses' =>'teamilk\ProductController@cartnumber
 Route::post('teamilk/cartnumber', ['uses' =>'teamilk\ProductController@cartnumber']);
 
 Route::get('teamilk/shopcart', ['uses' =>'teamilk\ShopCartController@index']);
-
-
-
 Route::post('teamilk/shopcart', ['uses' =>'teamilk\ShopCartController@index']);
 
-
-
 //add cart
-
-
-
 Route::get('teamilk/checkout', ['uses' =>'teamilk\ShopCartController@checkout']);
-
-
-
 Route::post('teamilk/checkout', ['uses' =>'teamilk\ShopCartController@checkout']);
-
-
 
 //submit checkout
 
-
-
 Route::get('teamilk/submitcheckout', ['uses' =>'teamilk\ShopCartController@submitcheckout']);
-
-
-
 Route::post('teamilk/submitcheckout', ['uses' =>'teamilk\ShopCartController@submitcheckout']);
-
-
 
 //add cart
 
-
-
 Route::get('teamilk/complete/{ordernumber}', ['uses' =>'teamilk\ShopCartController@complete']);
-
-
-
 Route::post('teamilk/complete/{ordernumber}', ['uses' =>'teamilk\ShopCartController@complete']);
-
-
 
 //product
 
-
-
 Route::resource('teamilk/product','teamilk\ProductController', array('as'=>'teamilk'));
-
-
 
 //user
 

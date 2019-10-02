@@ -137,9 +137,7 @@ class ProductController extends Controller
 
         $qr_sel_cross_byidproduct = DB::select('call SelProductCrossByIdProcedure(?)',array($idproduct));
         $sel_cross_byidproduct = json_decode(json_encode($qr_sel_cross_byidproduct), true);
-
         return view('teamilk.product.show',compact('sel_relative_byidproduct','gallery','product','categories','idproduct','sel_cross_byidproduct','cate_selected'));
-
     }
 
 
