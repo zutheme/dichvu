@@ -120,21 +120,17 @@
 
 <div class="c-margin-t-20"></div>
 @if(isset($rs_lpro))
-<?php  $maxcount = $rs_lpro[0]['maxcount'];
-	$max = intdiv($maxcount, 12)+1; 
-	$max_mode = $maxcount%12; 
-	if($max_mode > 0) {
-		$max = $max+1;
-	}?>
-	@if($max > 1)
-	<?php $curent_page = Request::segment(4);?>
+<?php  
+	$countpage = $rs_lpro[0]['count_page'];?>
+	@if($countpage > 1)
+	<?php $curent_page = Request::segment(4); ?>
 	<ul class="c-content-pagination c-square c-theme pull-right">
-		<li class="c-prev"><a href="#"><i class="fa fa-angle-left"></i></a></li>
-		@for($i=1;$i<$max;$i++)
-		<?php  $curent_class = ($curent_page=$i) ? '':'class="c-active"';?>
-		<li {{ $curent_class }}><a href="{{ url('/') }}/teamilk/listproductbypage/{{ $curent_idcategory }}/{{ $i }}">{{ $i }}</a></li>
+		{{-- <li class="c-prev"><a href="#"><i class="fa fa-angle-left"></i></a></li> --}}
+		@for($i=1; $i < ($countpage+1); $i++)
+		<?php  $curent_class = ($curent_page == $i) ? 'class="c-active"':'';?>
+		<li <?php echo $curent_class ?>><a href="{{ url('/') }}/teamilk/listproductbypage/{{ $curent_idcategory }}/{{ $i }}">{{ $i }}</a></li>
 		@endfor
-		<li class="c-next"><a href="#"><i class="fa fa-angle-right"></i></a></li>
+		{{-- <li class="c-next"><a href="#"><i class="fa fa-angle-right"></i></a></li> --}}
 	</ul>
 	@endif
 @endif
