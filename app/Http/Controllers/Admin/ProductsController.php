@@ -163,14 +163,14 @@ class ProductsController extends Controller
                 }
              }       
             $_catnametype = 'store'; $_shortname = 'import';$_id_status_type=4; $_prev_id = 0;
-            $qr_insertproduct = DB::select('call ImportProductProcedure(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',array($idproduct,$_idcustomer,$_iduser,0,0,$_amount,$_price_import,$_price,$_quality_sale,$_note,$_axis_x,$_axis_y,$_axis_z,$_id_status_type,$_catnametype,$_shortname, $_prev_id));
+            $qr_insertproduct = DB::select('call InitImportProductProcedure(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',array($idproduct,$_idcustomer,$_iduser,0,0,$_amount,$_price_import,$_price,$_quality_sale,$_note,$_axis_x,$_axis_y,$_axis_z,$_id_status_type,$_catnametype,$_shortname, $_prev_id));
             $rs_insertproduct = json_decode(json_encode($qr_insertproduct), true);
             $_idcrosstype = $request->get('idcrosstype'); 
             $_idparent = $request->get('idparent');
             if( $_idcrosstype > 0 && $_idparent > 0){
                 $_price_sale = $request->get('price_sale');
                 $_quality_sale = $request->get('quality_sale');
-                $insertproduct = DB::select('call ImportProductProcedure(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',array($idproduct, $_idcustomer, $_iduser, $_idcrosstype, $_idparent, $_amount, $_price_import, $_price_sale, $_quality_sale, $_note, $_axis_x, $_axis_y, $_axis_z, $_id_status_type, $_catnametype, $_shortname, $_prev_id ));
+                $insertproduct = DB::select('call ImportByCrossParentProcedure(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',array($idproduct, $_idcustomer, $_iduser, $_idcrosstype, $_idparent, $_amount, $_price_import, $_price_sale, $_quality_sale, $_note, $_axis_x, $_axis_y, $_axis_z, $_id_status_type, $_catnametype, $_shortname ));
             }          
         } catch (\Illuminate\Database\QueryException $ex) {
             $errors = new MessageBag(['error' => $ex->getMessage()]);

@@ -285,7 +285,8 @@ class ShopCartController extends Controller
             $arr = json_decode($arr_his,true);
             foreach ($arr as  $item) {
                 if($item['trash'] > 0) {
-                    $str_qr .= '('.$item['idorder'].','.$item['idcrosstype'].','.$item['parent'].','.$item['id'].','.$item['idparentcross'].','.$item['input_quality'].','.$item['idproduct'].','.$item['inp_session'].','.$item['trash'].'),';
+                    //$str_qr .= '('.$item['idorder'].','.$item['idcrosstype'].','.$item['parent'].','.$item['id'].','.$item['idparentcross'].','.$item['input_quality'].','.$item['idproduct'].','.$item['inp_session'].','.$item['trash'].'),';
+                    $str_qr .= '('.$item['idorder'].','.$item['idcrosstype'].','.$item['parent'].','.$item['idparentcross'].','.$item['input_quality'].','.$item['idproduct'].','.$item['inp_session'].','.$item['trash'].'),';
                     $bool_str = true;
                 }
              }
@@ -295,9 +296,9 @@ class ShopCartController extends Controller
        if($bool_str) {
             $_fromnamestore='import';$_tonamestore='order';$_note='';
             $str_qr = substr_replace($str_qr ,"", -1);
-            $str_qr = "INSERT into tmp_product1(idorder, idcrosstype, parent, id, idparentcross, input_quality, idproduct, inp_session, trash) VALUES ".$str_qr;
-            $qr_orderproduct = DB::select('call OrderProductFromSessionProcedure(?,?,?,?,?,?,?)',array( $_idcustomer, $_id_reci_customer, $_iduser_curent,$_note,$_fromnamestore,$_tonamestore,$str_qr));
-            $rs_orderproduct = json_decode(json_encode($qr_orderproduct), true);       
+            $str_qr = "INSERT into tmp_product(idorder, idcrosstype, parent, idparentcross, input_quality, idproduct, inp_session, trash) VALUES ".$str_qr;
+            //$qr_orderproduct = DB::select('call OrderProductFromSessionProcedure(?,?,?,?,?,?,?)',array( $_idcustomer, $_id_reci_customer, $_iduser_curent,$_note,$_fromnamestore,$_tonamestore,$str_qr));
+            //$rs_orderproduct = json_decode(json_encode($qr_orderproduct), true);       
        }
 
         if($_id_reci_customer > 0) {
@@ -320,7 +321,7 @@ class ShopCartController extends Controller
 
         }
 
-        $request->session()->forget('orderhistory');
+        //$request->session()->forget('orderhistory');
 
         return view('teamilk.addcart.checkout-complete',compact('rs_orderproduct','rs_customer','str_qr'));
 

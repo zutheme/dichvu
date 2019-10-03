@@ -11,6 +11,9 @@
 		<div class="c-page-title c-pull-left">
 			<h3 class="c-font-uppercase c-font-sbold">Thông tin đặt hàng</h3>
 			<h4 class="">Vui lòng xem lại chi tiết đơn hàng</h4>
+			@if(isset($str_qr))
+				{{ $str_qr }}
+			@endif
 		</div>
 		<ul class="c-page-breadcrumbs c-theme-nav c-pull-right c-fonts-regular">
 			{{-- <li><a href="shop-checkout-complete.htm">Checkout Complete</a></li>
@@ -20,8 +23,9 @@
 		</ul>
 	</div>
 </div><!-- END: LAYOUT/BREADCRUMBS/BREADCRUMBS-2 -->
-	<!-- BEGIN: PAGE CONTENT -->
-	<div class="c-content-box c-size-lg c-overflow-hide c-bg-white">
+@if(isset($rs_orderproduct))
+<!-- BEGIN: PAGE CONTENT -->
+<div class="c-content-box c-size-lg c-overflow-hide c-bg-white">
 	<div class="container">
 		<div class="c-shop-order-complete-1 c-content-bar-1 c-align-left c-bordered c-theme-border c-shadow">
 			<div class="c-content-title-1">
@@ -217,7 +221,8 @@
 		</div>
 	</div>
 </div>  
-		<!-- END: PAGE CONTENT -->
+<!-- END: PAGE CONTENT -->
+@endif
 @stop
 @section('other_scripts')
 	{{-- <script src="{{ asset('assets-tea/assets/plugins/zoom-master/jquery.zoom.min.js') }}" type="text/javascript"></script> --}}
