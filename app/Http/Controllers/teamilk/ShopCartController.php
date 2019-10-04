@@ -296,7 +296,7 @@ class ShopCartController extends Controller
        if($bool_str) {
             $_fromnamestore='import';$_tonamestore='order';$_note='';
             $str_qr = substr_replace($str_qr ,"", -1);
-            $str_qr = "INSERT into tmp_product(idorder, idcrosstype, parent, idparentcross, input_quality, idproduct, inp_session, trash) VALUES ".$str_qr;
+            $str_qr = "INSERT into tmp_product1(idorder, idcrosstype, parent, idparentcross, input_quality, idproduct, inp_session, trash) VALUES ".$str_qr;
             //$qr_orderproduct = DB::select('call OrderProductFromSessionProcedure(?,?,?,?,?,?,?)',array( $_idcustomer, $_id_reci_customer, $_iduser_curent,$_note,$_fromnamestore,$_tonamestore,$str_qr));
             //$rs_orderproduct = json_decode(json_encode($qr_orderproduct), true);       
        }
