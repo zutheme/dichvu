@@ -38,25 +38,17 @@
 
 @section('content')
 
-<?php $lists = json_decode($list_selected, true); 
-
-      $_start_date_sl = $lists['_start_date'];
-
-      $_end_date_sl = $lists['_end_date'];
-
-      $_idcategory_sl = $lists['_idcategory'];
-
-      $_id_post_type_sl = $lists['_id_post_type'];
-
-      $_id_status_type_sl = $lists['_id_status_type'];
-
+<?php //$lists = json_decode($list_selected, true); 
+      $_start_date_sl = session()->get('start_date');
+      $_end_date_sl = session()->get('end_date');
+      $_idcategory_sl = session()->get('idcategory');
+      $_id_post_type_sl = session()->get('id_post_type');
+      $_id_status_type_sl = session()->get('id_status_type');
+      $_id_store = session()->get('idstore');
       $_idcategory = isset($_idcategory_sl) ? $_idcategory_sl : Request::segment(4);
-
       $_id_post_type = isset($_id_post_type_sl) ? $_id_post_type_sl : Request::segment(5);
-
       $_id_status_type = isset($_id_status_type_sl) ? $_id_status_type_sl : Request::segment(6);
-
-      $_sel_receive = $lists['_sel_receive'];
+      //$_sel_receive = $lists['_sel_receive'];
 ?>
 <script type="text/javascript">
 

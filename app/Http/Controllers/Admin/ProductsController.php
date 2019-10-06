@@ -28,18 +28,45 @@ class ProductsController extends Controller
      * @return \Illuminate\Http\Response
      */
     private $main_menu="";
-    public function index()
+    public function index(Request $request)
     {
          try {
-            $_start_date= date('Y-m-d H:i:s',strtotime("-60 days"));
-            $_end_date = date('Y-m-d H:i:s');
-            $_idstore = 31;
-            $_idcategory=0;$_id_post_type=0;$_id_status_type=0;$_sel_receive = 0;
-            $rs_selected = array('_start_date'=>$_start_date,'_end_date'=>$_end_date,'_idcategory'=>$_idcategory,'_id_post_type'=>$_id_post_type,'_id_status_type'=>$_id_status_type,'_sel_receive'=>$_sel_receive);
-            $list_selected = json_encode($rs_selected);
+            $request->session()->forget('id_post_type');   
+            $_start_date = $request->session()->get('start_date');
+            $_end_date = $request->session()->get('end_date');
+            $_idstore = $request->session()->get('idstore');
+            $_idcategory = $request->session()->get('idcategory');
+            $_id_post_type = $request->session()->get('id_post_type');
+            $_id_status_type = $request->session()->get('id_status_type');
+            if(!isset($_start_date) && !isset($_end_date)){
+                $_start_date= date('Y-m-d H:i:s',strtotime("-120 days"));
+                $_end_date = date('Y-m-d H:i:s');
+                session()->put('start_date', $_start_date);
+                session()->put('end_date', $_end_date);
+            }
+            if(!isset($_idstore)){
+                $_idstore = 31;
+                session()->put('idstore',  $_idstore);
+            } 
+            if(!isset($_idcategory)){
+                $_idcategory=0;
+                session()->put('idcategory',  $_idcategory);
+            }
+            if(!isset($_id_post_type)){
+                $_id_post_type=10;
+                session()->put('id_post_type',  $_id_post_type);
+            }
+            if(!isset($_id_status_type)){
+                $_id_status_type=5;
+                session()->put('id_status_type',  $_id_status_type);
+            }
+            
+            //$rs_selected = array('_start_date'=>$_start_date,'_end_date'=>$_end_date,'_idcategory'=>$_idcategory,'_id_post_type'=>$_id_post_type,'_id_status_type'=>$_id_status_type,'_sel_receive'=>$_sel_receive);
+            //$list_selected = json_encode($rs_selected);
+            $errors = $_start_date.',end_date'.$_end_date.',idcategory:'.$_idcategory.',id_post_type:'.$_id_post_type.',id_status_type'.$_id_status_type;
             $result = DB::select('call ListAllProductProcedure(?,?,?,?,?,?)',array($_start_date,$_end_date, $_idcategory, $_id_post_type, $_id_status_type,$_idstore));
             $products = json_decode(json_encode($result), true);     
-            return view('admin.product.index',compact('products','list_selected'));
+            return view('admin.product.index',compact('products','errors'))->with('error',$errors);
 
         } catch (\Illuminate\Database\QueryException $ex) {
             $errors = new MessageBag(['error' => $ex->getMessage()]);
