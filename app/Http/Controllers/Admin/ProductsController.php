@@ -31,7 +31,7 @@ class ProductsController extends Controller
     public function index(Request $request)
     {
          try {
-            $request->session()->forget('id_post_type');   
+              
             $_start_date = $request->session()->get('start_date');
             $_end_date = $request->session()->get('end_date');
             $_idstore = $request->session()->get('idstore');
