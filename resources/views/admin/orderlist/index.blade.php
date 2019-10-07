@@ -37,24 +37,17 @@
   <?php 
       //$list_selected = json_decode($list_selected, true); 
 
-      $_start_date_sl = $list_selected['_start_date'];
-
-      $_end_date_sl = $list_selected['_end_date'];
-
-      $_idcategory_sl = $list_selected['_idcategory'];
-
-      $_id_post_type_sl = $list_selected['_id_post_type'];
-
-      $_id_status_type_sl = $list_selected['_id_status_type'];
+      $_start_date_sl = session()->get('start_date');
+      $_end_date_sl = session()->get('end_date');
+     // $_idcategory_sl = session()->get('idcategory');
+      //$_id_post_type_sl = session()->get('id_post_type');
+      $_id_status_type_sl = session()->get('id_status_type');
+      $_id_store = session()->get('idstore');
 
       $_idcategory = isset($_idcategory_sl) ? $_idcategory_sl : Request::segment(4);
-
       $_id_post_type = isset($_id_post_type_sl) ? $_id_post_type_sl : Request::segment(5);
-
       $_id_status_type = isset($_id_status_type_sl) ? $_id_status_type_sl : Request::segment(6);
-
-      $_sel_receive = $list_selected['_sel_receive'];
-
+      //$_sel_receive = $list_selected['_sel_receive'];
 ?>
 
 <script type="text/javascript">
@@ -217,7 +210,7 @@
                               <th>Ngày đặt</th>
                               <th>Tổng đơn hàng</th>
                               <th>Khách hàng</th>
-                              <th>Người nhận</th>
+                              <th>Trạng thái</th>
                               <th>-</th>    
                            </tr>
                        </thead>
@@ -227,19 +220,19 @@
                               <th>Ngày đặt</th>
                               <th>Tổng đơn hàng</th>
                               <th>Khách hàng</th>
-                              <th>Người nhận</th>
+                              <th>Trạng thái</th>
                               <th>-</th>
                            </tr>
                       </tfoot>
                           <tbody>
                             @foreach($rs_orderlist as $row)
                             <tr>                     
-                              <td><a href="{{ url('/admin/orderlist/show/') }}/{{ $row['ordernumber'] }}">{{ $row['ordernumber'] }}</a></td>
+                              <td><a href="{{ url('/admin/orderlist/show/') }}/{{ $row['idnumberorder'] }}">{{ $row['idnumberorder'] }}</a></td>
                               <td>{{ $row['created_at'] }}</td>
                               <td><span class="currency">{{ $row['itemtotal'] }}</span><span class="vnd"></span></td>
                               <td>{!! $row['customer'] !!}</td>                  
-                              <td>{!! $row['recipent'] !!}</td>
-                              <td><a href="{{ url('/admin/orderlist/show/') }}/{{ $row['ordernumber'] }}"><span class="fa fa-search-plus"></span></a></td>     
+                              <td>{!! $row['id_status_type'] !!}</td>
+                              <td><a href="{{ url('/admin/orderlist/show/') }}/{{ $row['idnumberorder'] }}"><span class="fa fa-search-plus"></span></a></td>     
                             </tr>
                             @endforeach                
                       </tbody>

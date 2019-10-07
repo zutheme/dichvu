@@ -154,7 +154,7 @@
     <script src="{{ asset('dashboard/vendors/nprogress/nprogress.js') }}"></script>
     <!-- iCheck -->
     <script src="{{ asset('dashboard/vendors/iCheck/icheck.min.js') }}"></script>
-    <script src="{{ asset('dashboard/production/js/currency.js?v=0.0.3') }}"></script>
+    <script src="{{ asset('dashboard/production/js/currency.js?v=0.0.4') }}"></script>
         @yield('other_scripts')
     </body>
 </html>

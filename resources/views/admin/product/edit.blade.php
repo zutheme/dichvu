@@ -77,10 +77,12 @@
 	           <div class="ln_solid"></div>
 			<div class="form-group"> 
 				<div class="col-lg-12">
-					<script>
-				    var item ='';
-					</script>
-					@if(isset($gallery))             
+					@if(isset($gallery)) 
+						<script>
+					    var item ='';
+					    var list_gallery = [];
+					    console.log(list_gallery);
+						</script> 
 						<ul class="multi-file">
 							@foreach($gallery as $row)
 							<li class="item{{ $row['idfile'] }}">
@@ -94,7 +96,7 @@
 			                    	if(item) {
 			                    		list_gallery.push(item); 
 			                    	}
-			                    	</script>
+			                    </script>
 			                    <p><a href="javascript:void(0);" class="btn bnt-default btn-trash" style="display: block;" onclick="trash_item('item{{ $row['idfile'] }}','{{ $row['idproducthasfile'] }}');"><i class="fa fa-trash" aria-hidden="true"></i></a></p>
 			                    <p><img class="loading-trash" style="display:none;width:30px;" src="{{ asset('dashboard/production/images/loader.gif') }}"></p>
 							</li>
@@ -590,7 +592,7 @@
   	<script src="{{ asset('dashboard/production/js/edit_muti_select.js?v=0.1.5') }}"></script>	
   	{{-- <script src="{{ asset('dashboard/production/js/process_images/image_product.js.js?v=0.0.2') }}"></script> --}}
   	<script src="{{ asset('dashboard/production/js/uploadmultifile.js?v=0.8.7') }}"></script>
-    <script src="{{ asset('dashboard/production/js/media-galerry.js?v=0.5.8') }}"></script>
+    <script src="{{ asset('dashboard/production/js/media-galerry.js?v=0.5.9') }}"></script>
      <!-- Custom Theme Scripts -->
     {{--  <script src="{{ asset('dashboard/production/js/cross_product.js?v=0.0.5') }}"></script> --}}
     {{-- <script src="{{ asset('dashboard/build/js/custom.min.js') }}"></script> --}}

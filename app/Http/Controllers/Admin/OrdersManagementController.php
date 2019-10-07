@@ -26,27 +26,32 @@ class OrdersManagementController extends Controller
 { 
     public function listorder(Request $request,$_idcategory=0)
     {
-         //try {
-            $_start_date = $request->get('_start_date');
-            $_end_date = $request->get('_end_date');
-            if(!isset($_start_date)){
-                $_start_date=date("Y-m-d 00:00:00");
+         //try { 
+            $_start_date = $request->session()->get('start_date');
+            $_end_date = $request->session()->get('end_date');
+            $_idstore = $request->session()->get('idstore');
+            //$_idcategory = $request->session()->get('idcategory');
+            //$_id_post_type = $request->session()->get('id_post_type');
+            $_id_status_type = $request->session()->get('id_status_type');
+            
+            if(!isset($_start_date) && !isset($_end_date)){
+                $_start_date= date('Y-m-d H:i:s',strtotime("-120 days"));
+                $_end_date = date('Y-m-d H:i:s');
+                session()->put('start_date', $_start_date);
+                session()->put('end_date', $_end_date);
+            }       
+            if(!isset($_idstore)){
+                $_idstore = 11;
+                session()->put('idstore',  $_idstore);
+            } 
+            if(!isset($_id_status_type)){
+                $_id_status_type=1;
+                session()->put('id_status_type',  $_id_status_type);
             }
-            if(!isset($_end_date)){
-                $_end_date = date("Y-m-d H:i:s");
-            }
-            $_id_post_type=0;$_id_status_type=0;$_sel_receive = 0;
-            $lists = array('_start_date'=>$_start_date,'_end_date'=>$_end_date,'_idcategory'=>$_idcategory,'_id_post_type'=>$_id_post_type,'_id_status_type'=>$_id_status_type,'_sel_receive'=>$_sel_receive);
-            $list_selected = array();
-            $list_selected['_start_date'] = $_start_date;
-            $list_selected['_end_date'] = $_end_date;
-            $list_selected['_idcategory'] = $_idcategory;
-            $list_selected['_id_post_type'] = $_id_post_type;
-            $list_selected['_id_status_type'] = $_id_status_type;
-            $list_selected['_sel_receive'] = $_sel_receive;           
-            $qr_orderlist = DB::select('call ListOrderProductProcedure(?,?,?,?,?,?)',array($_start_date,$_end_date, $_idcategory, $_id_post_type, $_id_status_type,$_sel_receive));
+            $errors = $_start_date.",end:".$_end_date.','.$_idstore.','.$_id_status_type;         
+            $qr_orderlist = DB::select('call ListOrderProductProcedure(?,?,?,?)',array($_start_date,$_end_date, $_idstore, $_id_status_type));
             $rs_orderlist = json_decode(json_encode($qr_orderlist), true);
-            return View('admin.orderlist.index')->with(compact('rs_orderlist'))->with(compact('list_selected'));
+            return View('admin.orderlist.index')->with(compact('rs_orderlist'))->with(compact('errors'));
         //} catch (\Illuminate\Database\QueryException $ex) {
             //$errors = new MessageBag(['error' => $ex->getMessage()]);
             //return View('admin.orderlist.index')->with(compact('errors'));
