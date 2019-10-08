@@ -24,21 +24,27 @@ use App\func_global;
 
 class OrdersManagementController extends Controller
 { 
-    public function listorder(Request $request,$_idcategory=0)
+    public function listorder(Request $request,$_idstore)
     {
          //try { 
+            //$request->session()->forget('order_end_date');
             $_start_date = $request->session()->get('order_start_date');
-            $_end_date = $request->session()->get('order_end_date');
+            //$_end_date = $request->session()->get('order_end_date');
             $_idstore = $request->session()->get('order_idstore');
-            //$_idcategory = $request->session()->get('idcategory');
-            //$_id_post_type = $request->session()->get('id_post_type');
-            $_id_status_type = $request->session()->get('order_id_status_type');
-            
-            if(!isset($_start_date) && !isset($_end_date)){
-                $_start_date= date('Y-m-d H:i:s',strtotime("-120 days"));
+            $_filter = $request->session()->get('filter');
+            if(!isset($_filter)){
                 $_end_date = date('Y-m-d H:i:s');
-                session()->put('order_start_date', $_start_date);
-                session()->put('order_end_date', $_end_date);
+                $request->session()->put('order_end_date', $_end_date);
+            }else{
+                $_end_date = $request->session()->get('order_end_date');
+                $request->session()->put('order_end_date', $_end_date);
+                $request->session()->forget('order_end_date');
+            }
+            //$_id_post_type = $request->session()->get('id_post_type');
+            $_id_status_type = $request->session()->get('order_id_status_type'); 
+            if(!isset($_start_date) && !isset($_end_date)){
+                $_start_date= date('Y-m-d H:i:s',strtotime("-120 days"));   
+                session()->put('order_start_date', $_start_date);               
             }       
             if(!isset($_idstore)){
                 $_idstore = 11;
@@ -59,10 +65,8 @@ class OrdersManagementController extends Controller
     }
     public function show($ordernumber)
     {
-        $qr_shorttotal = DB::select('call ShortTotalProcedure(?)',array($ordernumber));
-        $rs_shortotal = json_decode(json_encode($qr_shorttotal), true);
-        $qr_orderproduct = DB::select('call CompleteListOrderProcedure(?)',array($ordernumber));
+        $qr_orderproduct = DB::select('call DetailOrderByIdorderProcedure(?)',array($ordernumber));
         $rs_orderproduct = json_decode(json_encode($qr_orderproduct), true);
-        return View('admin.orderlist.show')->with(compact('rs_orderproduct','rs_shortotal','ordernumber'));
+        return View('admin.orderlist.show')->with(compact('rs_orderproduct'));
     }
 }

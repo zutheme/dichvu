@@ -18,7 +18,7 @@
 
       <link href="{{ asset('dashboard/build/css/custom.min.css') }}" rel="stylesheet">
 
-      <link href="{{ asset('dashboard/production/css/custom.css?v=0.3.8') }}" rel="stylesheet">
+      <link href="{{ asset('dashboard/production/css/custom.css?v=0.4.0') }}" rel="stylesheet">
 
       <!-- bootstrap-daterangepicker -->
 
@@ -66,7 +66,8 @@
                   
                   <div class="x_content">
                     <p class="text-muted font-13 m-b-30"></p>
-                    <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                    {{-- <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%"> --}}
+                    <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive" cellspacing="0" width="100%">
                       <thead>
                           <tr>
                               <th>Hình ảnh</th>
@@ -74,41 +75,25 @@
                               <th>Đơn giá</th>
                               <th>Số Lượng</th>
                               <th>Thành giá</th>
-                              <th>Ghi chú</th>    
+                              <th>-</th>  
                            </tr>
-                       </thead>
-                       
+                       </thead>                    
                           <tbody>
                             @if(isset($rs_orderproduct))
                               @foreach($rs_orderproduct as $row)
-                                @if( $row['parentidproduct'] == 0 )
-                                    <?php $idproductparent = $row['idproduct']; 
-                                        $unit_price = $row['price']*$row['amount'];
-                                    ?>
+                                    <?php $parentidorder = $row['idorder']; ?>
                                     <tr>                     
-                                      <td><a href="{{ action('teamilk\ProductController@show',$row['idproduct']) }}"><img width="100%" class="thumb" src="{{ asset($row['urlfile']) }}"></a></td>
-                                      <td><ul class="c-list list-unstyled">
-                                            <li class="c-margin-b-25"><h2><a href="{{ action('teamilk\ProductController@show',$row['idproduct']) }}" class="c-font-bold c-font-22 c-theme-link">{{ $row['namepro'] }}</a></h2></li>
-                                            <ul class="cart-list-topping">
-                                              @foreach($rs_orderproduct as $item)
-                                                @if($item['parentidproduct'] == $idproductparent )
-                                                  <li>&nbsp;&nbsp;<label>{{ $item['namepro'] }}</label>&nbsp;&nbsp;<span class="currency">{{ $item['price'] }}</span><span class="vnd"></span>x{{ $item['amount'] }} (buổi)</li>
-                                                  <?php $unit_price = $unit_price + $item['price']*$item['amount']; ?>
-                                                @endif
-                                              @endforeach 
-                                            </ul>
-                                             <li><p>{{ $row['short_desc'] }}</p></li>
-                                          </ul>
-                                       
+                                      <td style="text-align: center;"><a href="{{ action('teamilk\ProductController@show',$row['idproduct']) }}"><img width="100%" class="thumb" src="{{ asset($row['urlfile']) }}"></a></td>
+                                      <td style="max-width:300px;">
+                                        <p>{!! $row['short_desc'] !!}</p>
                                       </td>
-                                      <td><span class="currency">{{ $unit_price }}</span><span class="vnd"></span></td>
-                                      <td>{{ $row['amount'] }}</td>
-                                      <?php $unitprice_quality = $unit_price ; ?>
-                                      <td><span class="currency">{{ $unitprice_quality }}</span><span class="vnd"></span></td>
-                                      <td>{{ $row['note'] }}</td>     
+                                      <td style="text-align: right;"><span class="currency">{{ $row['price'] }}</span><span class="vnd"></span></td>
+                                      <td style="text-align: right;">{{ $row['amount'] }}</td>
+                                      <?php $unitprice_quality = $row['price']*$row['amount'] ; ?>
+                                      <td style="text-align: right;"><span class="currency">{{ $unitprice_quality }}</span><span class="vnd"></span></td>
+                                      <td>-</td>    
                                     </tr>
                                   <?php $subtotal = $subtotal + $unitprice_quality; ?>
-                                @endif
                               @endforeach
                             @endif                 
                       </tbody>
@@ -116,24 +101,24 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td>Tổng</td>
-                        <td><span class="currency">{{ $subtotal }}</span><span class="vnd"></span></td>
+                        <td style="text-align: left;">Tổng</td>
+                        <td style="text-align: right;"><span class="currency">{{ $subtotal }}</span><span class="vnd"></span></td>
                         <td>-</td>    
                      </tr>
                       <tr>
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td>Phí vận chuyển</td>
-                        <td><span class="currency">0000</span><span class="vnd"></span></td>
+                        <td style="text-align: left;">Phí vận chuyển</td>
+                        <td style="text-align: right;"><span class="currency">0000</span><span class="vnd"></span></td>
                         <td>-</td>    
                      </tr>
                       <tr>
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td>Tổng cộng</td>
-                        <td><span class="currency">{{ $subtotal }}</span><span class="vnd"></span></td>
+                        <td style="text-align: left;">Tổng cộng</td>
+                        <td style="text-align: right;"><span class="currency">{{ $subtotal }}</span><span class="vnd"></span></td>
                         <td></td>
                       </tr> 
                   </table>

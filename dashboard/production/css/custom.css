@@ -792,3 +792,6 @@ table tbody .thumb {
     float: left;
     padding: 3px;
 }
+table.dataTable.nowrap th, table.dataTable.nowrap td {
+    white-space: nowrap;
+}

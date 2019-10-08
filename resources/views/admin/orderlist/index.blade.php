@@ -63,11 +63,11 @@
 
                   <div class="x_title">
                     
-                    @if(isset($errors))
+                    {{-- @if(isset($errors))
 
                       {{ $errors }}
 
-                    @endif
+                    @endif --}}
 
                      @if($message = Session::get('error'))
 
@@ -111,13 +111,13 @@
 
                   <div class="x_title">
 
-                   <form method="post" action="{{ url('admin/orderlist/') }}/{{ $_idcategory }}">
+                   <form method="post" action="{{ url('admin/orderlist/') }}/{{ $_id_store }}">
 
                    {{--  <form method="post" action="{{ action('Admin\CustomerRegController@ListCustomerByDate', Request::segment(3),Request::segment(4),Request::segment(5) )}}"> --}}
 
                       {{ csrf_field() }}
 
-                      <input type="hidden" name="sel_idcategory" value="{{ $_idcategory }}">
+                      <input type="hidden" name="filter" value="1">
 
                       <input type="hidden" name="sel_id_status_type" value="{{ $_id_status_type }}">
 
