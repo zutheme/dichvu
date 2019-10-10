@@ -126,7 +126,34 @@
           </div>
 
         </div>
-
+        @if(isset($rs_customerorder))
+        <?php $cus = 0; ?>
+        <table class="table table-striped table-bordered dt-responsive" cellspacing="0" width="100%">                            
+            <tbody>
+              @foreach($rs_customerorder as $customer)
+                @if($customer['cus'] = 1)
+                <tr><td>Thông tin khách hàng</td></tr>
+                <?php $cus = 1; ?>
+                @elseif($customer['idrecipent'] > 0)
+                <tr><td>Thông tin người nhận</td></tr>
+                <?php $cus = 1; ?>
+                @endif
+                @if($cus > 0)
+                  <tr>
+                    <td>Họ tên:</td><td>{{ $customer['lastname'] }} {{ $customer['middlename'] }} {{$customer['firstname']}}</td>
+                  </tr>
+                  <tr>                
+                    <td>Điện thoại:</td><td>{{ $customer['mobile'] }}</td>
+                  </tr>
+                  <tr>
+                    <td>Địa chỉ:</td><td>{{ $customer['address'].','.$customer['nameward'].','.$customer['namedist'].','.$customer['namecitytown'].','.$customer['nameprovince'].','.$customer['namecountry'] }}</td>
+                  </tr>
+                  <?php $cus = 0; ?>
+                @endif  
+              @endforeach              
+        </tbody>           
+        </table>
+        @endif
       </div>
 
 </div>

@@ -209,7 +209,13 @@
                               <th>Mã đơn hàng</th>
                               <th>Ngày đặt</th>
                               <th>Tổng đơn hàng</th>
-                              <th>Khách hàng</th>
+                              <th>Họ</th>
+                              <th>Tên</th>
+                              <th>Điện thoại</th>
+                              <th>Địa chỉ</th>
+                              <th>Q-Huyện</th>
+                              <th>TP-TT</th>
+                              <th>Tỉnh</th>
                               <th>Trạng thái</th>
                               <th>-</th>    
                            </tr>
@@ -219,9 +225,16 @@
                               <th>Mã đơn hàng</th>
                               <th>Ngày đặt</th>
                               <th>Tổng đơn hàng</th>
-                              <th>Khách hàng</th>
+                              <th>Họ</th>
+                              <th>Tên</th>
+                              <th>Điện thoại</th>
+                              <th>Địa chỉ</th>
+                              <th>Q-Huyện</th>
+                              <th>TP-TT</th>
+                              <th>Tỉnh</th>
                               <th>Trạng thái</th>
-                              <th>-</th>
+                              <th>-</th>    
+                           </tr>
                            </tr>
                       </tfoot>
                           <tbody>
@@ -230,7 +243,13 @@
                               <td><a href="{{ url('/admin/orderlist/show/') }}/{{ $row['idnumberorder'] }}">{{ $row['idnumberorder'] }}</a></td>
                               <td>{{ $row['created_at'] }}</td>
                               <td><span class="currency">{{ $row['itemtotal'] }}</span><span class="vnd"></span></td>
-                              <td>{!! $row['customer'] !!}</td>                  
+                              <td>{!! $row['lastname'] !!}</td>
+                              <td>{!! $row['firstname'] !!}</td>
+                              <td>{!! $row['mobile'] !!}</td>
+                              <td>{!! $row['address'] !!}</td>
+                              <td>{!! $row['namedist'] !!}</td> 
+                              <td>{!! $row['namecitytown'] !!}</td>
+                              <td>{!! $row['nameprovince'] !!}</td>                
                               <td>{!! $row['id_status_type'] !!}</td>
                               <td><a href="{{ url('/admin/orderlist/show/') }}/{{ $row['idnumberorder'] }}"><span class="fa fa-search-plus"></span></a></td>     
                             </tr>

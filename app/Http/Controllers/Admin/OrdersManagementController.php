@@ -30,7 +30,7 @@ class OrdersManagementController extends Controller
             //$request->session()->forget('order_end_date');
             $_start_date = $request->session()->get('order_start_date');
             //$_end_date = $request->session()->get('order_end_date');
-            $_idstore = $request->session()->get('order_idstore');
+            //$_idstore = $request->session()->get('order_idstore');
             $_filter = $request->session()->get('filter');
             if(!isset($_filter)){
                 $_end_date = date('Y-m-d H:i:s');
@@ -42,14 +42,14 @@ class OrdersManagementController extends Controller
             }
             //$_id_post_type = $request->session()->get('id_post_type');
             $_id_status_type = $request->session()->get('order_id_status_type'); 
-            if(!isset($_start_date) && !isset($_end_date)){
+            if(!isset($_start_date)){
                 $_start_date= date('Y-m-d H:i:s',strtotime("-120 days"));   
                 session()->put('order_start_date', $_start_date);               
             }       
-            if(!isset($_idstore)){
-                $_idstore = 11;
-                session()->put('order_idstore',  $_idstore);
-            } 
+            //if(!isset($_idstore)){
+                //$_idstore = 11;
+                //session()->put('order_idstore',  $_idstore);
+            //} 
             if(!isset($_id_status_type)){
                 $_id_status_type=1;
                 session()->put('order_id_status_type',  $_id_status_type);
@@ -65,8 +65,10 @@ class OrdersManagementController extends Controller
     }
     public function show($ordernumber)
     {
+        $qr_customerorder = DB::select('call InfoCustomerOrderProcedure(?)',array($ordernumber));
+        $rs_customerorder = json_decode(json_encode($qr_customerorder), true);
         $qr_orderproduct = DB::select('call DetailOrderByIdorderProcedure(?)',array($ordernumber));
         $rs_orderproduct = json_decode(json_encode($qr_orderproduct), true);
-        return View('admin.orderlist.show')->with(compact('rs_orderproduct'));
+        return View('admin.orderlist.show')->with(compact('rs_orderproduct','rs_customerorder'));
     }
 }

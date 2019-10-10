@@ -792,10 +792,6 @@ Route::group(['middleware' => 'auth'], function() {
 
 
 
-
-
-
-
 	Route::resource('admin/profile','ProfileController');
 
 
@@ -809,10 +805,6 @@ Route::group(['middleware' => 'auth'], function() {
 
 
 	Route::get('admin/orderlist/show/{_ordernumber}',['uses' =>'Admin\OrdersManagementController@show']);
-
-
-
-
 
 
 
