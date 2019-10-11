@@ -641,7 +641,7 @@
 			  		<a href="{{ url('/') }}" class="btn btn-default btn-cart-continue">Tiếp tục mua hàng</a>
 			  	</div>
 			  	<div class="col-sm-6 text-center">
-			  		<a href="{{ url('/teamilk/shopcart') }}" class="btn btn-default btn-view-cart">Xem giỏ hàng</a>
+			  		<a href="{{ url('/shopcart') }}" class="btn btn-default btn-view-cart">Xem giỏ hàng</a>
 			  	</div>
 			 </div>
 		</form>	  	
@@ -666,6 +666,6 @@
 
 	<!-- END: PAGE SCRIPTS -->
 
-	<script src="{{ asset('assets-tea/js/custom-product.js?v=1.6.8') }}" type="text/javascript"></script>
+	<script src="{{ asset('assets-tea/js/custom-product.js?v=1.6.9') }}" type="text/javascript"></script>
 
 @stop

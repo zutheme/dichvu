@@ -94,7 +94,7 @@
 
                 }
 
-                echo '<li'.$span3.'><a href="'.url('/').'/teamilk/listproductbyidcate/'.$item['idcategory'].'"'.$span1.'>'.$item['namemenu'].$span2.'</a>';
+                echo '<li'.$span3.'><a href="'.url('/').'/listproductbyidcate/'.$item['idcategory'].'"'.$span1.'>'.$item['namemenu'].$span2.'</a>';
 
                 $char++;
 
@@ -118,7 +118,7 @@
 
 <li class="c-cart-toggler-wrapper">
 
-    <a href="{{ url('teamilk/shopcart') }}" class="c-btn-icon c-cart-toggler"><i class="icon-handbag c-cart-icon"></i> <span class="c-cart-number c-theme-bg">0</span></a></li>
+    <a href="{{ url('shopcart') }}" class="c-btn-icon c-cart-toggler"><i class="icon-handbag c-cart-icon"></i> <span class="c-cart-number c-theme-bg">0</span></a></li>
 
 {{-- <li class="user-profile"> 
 

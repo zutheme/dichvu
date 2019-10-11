@@ -9,7 +9,7 @@
 {{-- {{ app('request')->input('name') }} --}}
 <?php
 	$curent_idcategory = 0 ;
-	$curent_idcategory = Request::segment(3);
+	$curent_idcategory = Request::segment(2);
     function breadcrumb($categories, $curent_idcategory = 0, $char = 0, $depth = 0) {
         $cate_child = array();
         $cate_last =  array();
@@ -123,12 +123,12 @@
 <?php  
 	$countpage = $rs_lpro[0]['count_page'];?>
 	@if($countpage > 1)
-	<?php $curent_page = Request::segment(4); ?>
+	<?php $curent_page = Request::segment(3); ?>
 	<ul class="c-content-pagination c-square c-theme pull-right">
 		{{-- <li class="c-prev"><a href="#"><i class="fa fa-angle-left"></i></a></li> --}}
 		@for($i=1; $i < ($countpage+1); $i++)
 		<?php  $curent_class = ($curent_page == $i) ? 'class="c-active"':'';?>
-		<li <?php echo $curent_class ?>><a href="{{ url('/') }}/teamilk/listproductbypage/{{ $curent_idcategory }}/{{ $i }}">{{ $i }}</a></li>
+		<li <?php echo $curent_class ?>><a href="{{ url('/') }}/listproductbypage/{{ $curent_idcategory }}/{{ $i }}">{{ $i }}</a></li>
 		@endfor
 		{{-- <li class="c-next"><a href="#"><i class="fa fa-angle-right"></i></a></li> --}}
 	</ul>

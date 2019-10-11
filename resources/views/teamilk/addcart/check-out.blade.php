@@ -36,7 +36,7 @@
 			<h3 class="c-font-uppercase c-font-sbold">Thanh toán</h3>
 			<h4 class="">Vui lòng cung cấp thông tin chi tiết để được phục vụ tốt hơn</h4>
 			@if(isset($str_qr))
-				{{ $str_qr }}
+				{{-- {{ $str_qr }} --}}
 			@endif
 		</div>
 		{{-- <ul class="c-page-breadcrumbs c-theme-nav c-pull-right c-fonts-regular">
@@ -49,7 +49,7 @@
 		<!-- BEGIN: PAGE CONTENT -->
 		<div class="c-content-box c-size-lg">
 			<div class="container">
-				<form class="c-shop-form-1" method="post" action="{{ url('teamilk/submitcheckout') }}" enctype='application/json'>
+				<form class="c-shop-form-1" method="post" action="{{ url('submitcheckout') }}" enctype='application/json'>
 					{{ csrf_field() }}
 					<div class="row">
 						<!-- BEGIN: ADDRESS FORM -->
@@ -59,7 +59,7 @@
 							<div class="row">
 								<div class="col-md-12">
 									@if(isset($error_reg))
-										{{ $error_reg }}
+										{{-- {{ $error_reg }} --}}
 									@endif
 								</div>
 							</div>

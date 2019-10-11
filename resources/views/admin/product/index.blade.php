@@ -112,16 +112,11 @@
 
                   <div class="x_title">
 
-                   <form method="post" action="{{ url('/admin/products/listproductsbydate/'.$_idcategory.'/'.$_id_post_type.'/'.$_id_status_type) }}">
-
-                   {{--  <form method="post" action="{{ action('Admin\CustomerRegController@ListCustomerByDate', Request::segment(3),Request::segment(4),Request::segment(5) )}}"> --}}
-
+                   {{-- <form method="post" action="{{ url('/admin/products/listproductsbydate/'.$_idcategory.'/'.$_id_post_type.'/'.$_id_status_type) }}"> --}}
+                   
+                   <form method="post" action="{{  url('/admin/product') }}">
                       {{ csrf_field() }}
-
-                      <input type="hidden" name="sel_idcategory" value="{{ $_idcategory }}">
-
-                      <input type="hidden" name="sel_id_status_type" value="{{ $_id_status_type }}">
-
+                      <input type="hidden" name="filter" value="1">
                       <div class="col-sm-2">
 
                         <div class="form-group">
@@ -192,13 +187,12 @@
                               <label>Tất cả:</label> 
                         </div>
                       </div>   
-
                       <div class="col-sm-2 text-center">
                         <input type="submit" class="btn btn-default btn-filter-date" name="filter-date" value="Áp dụng" />
                       </div>
                        <div class="col-sm-2 text-right">
-                      <a class="btn btn-default btn-primary" href="{{ URL::route('admin.product.create') }}">Tạo mới</a>
-                    </div>
+                        <a class="btn btn-default btn-primary" href="{{ URL::route('admin.product.create') }}">Tạo mới</a>
+                      </div>
                     </form>
                     <div class="clearfix"></div>
                   </div>

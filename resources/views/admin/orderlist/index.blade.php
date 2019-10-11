@@ -36,13 +36,14 @@
 
   <?php 
       //$list_selected = json_decode($list_selected, true); 
-
+       //session()->forget('order_start_date');
+        //session()->forget('order_end_date');
       $_start_date_sl = session()->get('order_start_date');
       $_end_date_sl = session()->get('order_end_date');
      // $_idcategory_sl = session()->get('idcategory');
       //$_id_post_type_sl = session()->get('id_post_type');
       $_id_status_type_sl = session()->get('order_id_status_type');
-      $_id_store = session()->get('order_idstore');
+      $_id_store = Request::segment(3);
 
       $_idcategory = isset($_idcategory_sl) ? $_idcategory_sl : Request::segment(4);
       $_id_post_type = isset($_id_post_type_sl) ? $_id_post_type_sl : Request::segment(5);

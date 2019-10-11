@@ -12,7 +12,7 @@
 			<h3 class="c-font-uppercase c-font-sbold">Thông tin đặt hàng</h3>
 			<h4 class="">Vui lòng xem lại chi tiết đơn hàng</h4>
 			@if(isset($str_qr))
-				{{ $str_qr }}
+				{{-- {{ $str_qr }} --}}
 			@endif
 		</div>
 		<ul class="c-page-breadcrumbs c-theme-nav c-pull-right c-fonts-regular">

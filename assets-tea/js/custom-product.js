@@ -58,7 +58,7 @@ function makeAJAXCall(element,callback){
 	var _userid_order = 0;
 	var _csrf_token = document.getElementsByName("csrf-token")[0].getAttribute("content");
     var http = new XMLHttpRequest();
-    var url = url_home+"/teamilk/orderhistory";
+    var url = url_home+"/orderhistory";
     var params = JSON.stringify({"userid_order":_userid_order,"idproduct":_idproduct,"quality":_quality});
     http.open("POST", url, true);
     http.setRequestHeader("X-CSRF-TOKEN", _csrf_token);

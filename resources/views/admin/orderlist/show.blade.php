@@ -97,49 +97,44 @@
                               @endforeach
                             @endif                 
                       </tbody>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td style="text-align: left;">Tổng</td>
-                        <td style="text-align: right;"><span class="currency">{{ $subtotal }}</span><span class="vnd"></span></td>
-                        <td>-</td>    
-                     </tr>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td style="text-align: left;">Phí vận chuyển</td>
-                        <td style="text-align: right;"><span class="currency">0000</span><span class="vnd"></span></td>
-                        <td>-</td>    
-                     </tr>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td style="text-align: left;">Tổng cộng</td>
-                        <td style="text-align: right;"><span class="currency">{{ $subtotal }}</span><span class="vnd"></span></td>
-                        <td></td>
-                      </tr> 
+                      <tfoot>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td style="text-align: left;">Tổng</td>
+                          <td style="text-align: right;"><span class="currency">{{ $subtotal }}</span><span class="vnd"></span></td>
+                          <td>-</td>    
+                       </tr>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td style="text-align: left;">Phí vận chuyển</td>
+                          <td style="text-align: right;"><span class="currency">0000</span><span class="vnd"></span></td>
+                          <td>-</td>    
+                       </tr>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td style="text-align: left;">Tổng cộng</td>
+                          <td style="text-align: right;"><span class="currency">{{ $subtotal }}</span><span class="vnd"></span></td>
+                          <td></td>
+                        </tr>
+                      </tfoot> 
                   </table>
                   
           </div>
 
         </div>
         @if(isset($rs_customerorder))
-        <?php $cus = 0; ?>
         <table class="table table-striped table-bordered dt-responsive" cellspacing="0" width="100%">                            
             <tbody>
               @foreach($rs_customerorder as $customer)
-                @if($customer['cus'] = 1)
-                <tr><td>Thông tin khách hàng</td></tr>
-                <?php $cus = 1; ?>
-                @elseif($customer['idrecipent'] > 0)
-                <tr><td>Thông tin người nhận</td></tr>
-                <?php $cus = 1; ?>
-                @endif
-                @if($cus > 0)
-                  <tr>
+                @if($customer['cus'] == 1)
+                <tr><td>Thông tin khách hàng</td><td></td></tr>
+                 <tr>
                     <td>Họ tên:</td><td>{{ $customer['lastname'] }} {{ $customer['middlename'] }} {{$customer['firstname']}}</td>
                   </tr>
                   <tr>                
@@ -148,8 +143,19 @@
                   <tr>
                     <td>Địa chỉ:</td><td>{{ $customer['address'].','.$customer['nameward'].','.$customer['namedist'].','.$customer['namecitytown'].','.$customer['nameprovince'].','.$customer['namecountry'] }}</td>
                   </tr>
-                  <?php $cus = 0; ?>
-                @endif  
+                @endif
+                @if($customer['cus'] > 1 and $customer['idrecipent'] > 0)
+                <tr><td>Thông tin người nhận</td></tr>
+                 <tr>
+                    <td>Họ tên:</td><td>{{ $customer['lastname'] }} {{ $customer['middlename'] }} {{$customer['firstname']}}</td>
+                  </tr>
+                  <tr>                
+                    <td>Điện thoại:</td><td>{{ $customer['mobile'] }}</td>
+                  </tr>
+                  <tr>
+                    <td>Địa chỉ:</td><td>{{ $customer['address'].','.$customer['nameward'].','.$customer['namedist'].','.$customer['namecitytown'].','.$customer['nameprovince'].','.$customer['namecountry'] }}</td>
+                  </tr>
+                @endif
               @endforeach              
         </tbody>           
         </table>

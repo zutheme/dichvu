@@ -128,17 +128,17 @@ Route::post('admin/postLogin', ['uses' =>'Admin\LoginController@postLogin', 'as'
 
 //list product by idcategory
 
-Route::get('teamilk/listproductbyidcate/{_idcategory}', ['uses' =>'teamilk\ProductController@listviewproductbyidcate']);
-Route::post('teamilk/listproductbyidcate/{_idcategory}', ['uses' =>'teamilk\ProductController@listviewproductbyidcate']);
+Route::get('listproductbyidcate/{_idcategory}', ['uses' =>'teamilk\ProductController@listviewproductbyidcate']);
+Route::post('listproductbyidcate/{_idcategory}', ['uses' =>'teamilk\ProductController@listviewproductbyidcate']);
 
-Route::get('teamilk/listproductbypage/{_idcategory}/{_page}', ['uses' =>'teamilk\ProductController@listproductbypage']);
-Route::post('teamilk/listproductbypage/{_idcategory}/{_page}', ['uses' =>'teamilk\ProductController@listproductbypage']);
+Route::get('listproductbypage/{_idcategory}/{_page}', ['uses' =>'teamilk\ProductController@listproductbypage']);
+Route::post('listproductbypage/{_idcategory}/{_page}', ['uses' =>'teamilk\ProductController@listproductbypage']);
 
-Route::get('teamilk/listproductbyidcategory/{_idcategory}/{_page}/{_limit}', ['uses' =>'teamilk\ProductController@listproductbyidcategory']);
-Route::post('teamilk/listproductbyidcategory/{_idcategory}/{_page}/{_limit}', ['uses' =>'teamilk\ProductController@listproductbyidcategory']);
+Route::get('listproductbyidcategory/{_idcategory}/{_page}/{_limit}', ['uses' =>'teamilk\ProductController@listproductbyidcategory']);
+Route::post('listproductbyidcategory/{_idcategory}/{_page}/{_limit}', ['uses' =>'teamilk\ProductController@listproductbyidcategory']);
 
-Route::get('teamilk/latestproductbyidcate/{_idcategory}/{_limit}', ['uses' =>'teamilk\ProductController@LatestProductByIdcate']);
-Route::post('teamilk/latestproductbyidcate/{_idcategory}/{_limit}', ['uses' =>'teamilk\ProductController@LatestProductByIdcate']);
+Route::get('latestproductbyidcate/{_idcategory}/{_limit}', ['uses' =>'teamilk\ProductController@LatestProductByIdcate']);
+Route::post('latestproductbyidcate/{_idcategory}/{_limit}', ['uses' =>'teamilk\ProductController@LatestProductByIdcate']);
 
 //add cart
 
@@ -150,26 +150,26 @@ Route::post('teamilk/getsesstion', ['uses' =>'teamilk\ProductController@get_sess
 
 Route::get('teamilk/getsesstion', ['uses' =>'teamilk\ProductController@get_sesstion']);
 
-Route::get('teamilk/orderhistory', ['uses' =>'teamilk\ProductController@orderhistory']);
+Route::get('orderhistory', ['uses' =>'teamilk\ProductController@orderhistory']);
 
-Route::post('teamilk/orderhistory', ['uses' =>'teamilk\ProductController@orderhistory']);
+Route::post('orderhistory', ['uses' =>'teamilk\ProductController@orderhistory']);
 //change session quality
 Route::get('teamilk/changequality', ['uses' =>'teamilk\ProductController@changequality']);
 Route::post('teamilk/changequality', ['uses' =>'teamilk\ProductController@changequality']);
 Route::get('teamilk/cartnumber', ['uses' =>'teamilk\ProductController@cartnumber']);
 Route::post('teamilk/cartnumber', ['uses' =>'teamilk\ProductController@cartnumber']);
 
-Route::get('teamilk/shopcart', ['uses' =>'teamilk\ShopCartController@index']);
-Route::post('teamilk/shopcart', ['uses' =>'teamilk\ShopCartController@index']);
+Route::get('shopcart', ['uses' =>'teamilk\ShopCartController@index']);
+Route::post('shopcart', ['uses' =>'teamilk\ShopCartController@index']);
 
 //add cart
-Route::get('teamilk/checkout', ['uses' =>'teamilk\ShopCartController@checkout']);
-Route::post('teamilk/checkout', ['uses' =>'teamilk\ShopCartController@checkout']);
+Route::get('checkout', ['uses' =>'teamilk\ShopCartController@checkout']);
+Route::post('checkout', ['uses' =>'teamilk\ShopCartController@checkout']);
 
 //submit checkout
 
-Route::get('teamilk/submitcheckout', ['uses' =>'teamilk\ShopCartController@submitcheckout']);
-Route::post('teamilk/submitcheckout', ['uses' =>'teamilk\ShopCartController@submitcheckout']);
+Route::get('submitcheckout', ['uses' =>'teamilk\ShopCartController@submitcheckout']);
+Route::post('submitcheckout', ['uses' =>'teamilk\ShopCartController@submitcheckout']);
 
 //add cart
 
@@ -178,7 +178,7 @@ Route::post('teamilk/complete/{ordernumber}', ['uses' =>'teamilk\ShopCartControl
 
 //product
 
-Route::resource('teamilk/product','teamilk\ProductController', array('as'=>'teamilk'));
+Route::resource('product','teamilk\ProductController', array('as'=>'teamilk'));
 
 //user
 
