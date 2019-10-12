@@ -698,6 +698,10 @@ Route::group(['middleware' => 'auth'], function() {
 
 	Route::post('admin/product/makenewcrosstype/{_idproduct}',['uses' =>'Admin\ProductsController@makenewcrosstype', 'as'=>'admin']);
 	Route::get('admin/product/makenewcrosstype/{_idproduct}',['uses' =>'Admin\ProductsController@makenewcrosstype', 'as'=>'admin']);
+	Route::post('admin/listproduct',['uses' =>'Admin\ProductsController@listproduct', 'as'=>'admin']);
+	Route::get('admin/listproduct',['uses' =>'Admin\ProductsController@listproduct', 'as'=>'admin']);
+	Route::post('admin/ListCateByTypeId/{_cattype}/{_idcat}',['uses' =>'Admin\ProductsController@ListCateByTypeId', 'as'=>'admin']);
+	Route::get('admin/ListCateByTypeId/{_cattype}/{_idcat}',['uses' =>'Admin\ProductsController@ListCateByTypeId', 'as'=>'admin']);
 	Route::resource('admin/product','Admin\ProductsController', array('as'=>'admin'));
 	//grant permistio
 	Route::resource('admin/roles','Admin\RoleController', array('as'=>'admin'));

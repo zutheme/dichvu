@@ -22,7 +22,7 @@
 
       <link href="{{ asset('dashboard/build/css/custom.min.css') }}" rel="stylesheet">
 
-      <link href="{{ asset('dashboard/production/css/custom.css?v=0.3.7') }}" rel="stylesheet">
+      <link href="{{ asset('dashboard/production/css/custom.css?v=0.3.8') }}" rel="stylesheet">
 
       <!-- bootstrap-daterangepicker -->
 
@@ -38,7 +38,7 @@
 
 @section('content')
 
-<?php //$lists = json_decode($list_selected, true); 
+<?php //$lists = json_decode($list_selected, true);
       $_start_date_sl = session()->get('start_date');
       $_end_date_sl = session()->get('end_date');
       $_idcategory_sl = session()->get('idcategory');
@@ -114,7 +114,7 @@
 
                    {{-- <form method="post" action="{{ url('/admin/products/listproductsbydate/'.$_idcategory.'/'.$_id_post_type.'/'.$_id_status_type) }}"> --}}
                    
-                   <form method="post" action="{{  url('/admin/product') }}">
+                   <form method="post" action="{{  url('/admin/listproduct') }}">
                       {{ csrf_field() }}
                       <input type="hidden" name="filter" value="1">
                       <div class="col-sm-2">
@@ -156,13 +156,33 @@
                         </div>
 
                       </div>
-
-                      <div class="col-sm-2">
-
+                      <div class="col-sm-2 text-center">
                         <div class="form-group">
-
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Chuyên mục</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <div class="form-group row">
+                            
+                              <select class="form-control cus-drop" name="sel_idcat_main" required>
+                                <option value="0">--Tất cả--</option>
+                                @foreach($categories as $row)
+                                   <option value="{{ $row['idcategory'] }}">{{ $row['namecat'] }}</option>
+                                @endforeach        
+                              </select>
+                           
+                            <div class="select_dynamic">
+                              @if(isset($str))
+                                {!! $str !!}
+                              @endif
+                            </div>
+                        </div>
+                        </div>
+                      </div>
+                      </div>
+                      <div class="col-sm-2">
+                        <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Kiểu post</label>
+                          <div class="col-md-9 col-sm-9 col-xs-12">
                             @if(isset($post_types))
-
                               <select class="form-control sel-control" name="sel_id_post_type" required="true">
 
                                 <option value="0" {{ $_id_post_type_sl == 0 ? 'selected="selected"' : '' }}>Tất cả</option>
@@ -176,21 +196,14 @@
                               </select> 
 
                             @endif
-
+                          </div>
                         </div>
-
                       </div> 
-
                       <div class="col-sm-2 text-center">
-                        <div class="form-group">
-                          <p></p>
-                              <label>Tất cả:</label> 
-                        </div>
-                      </div>   
-                      <div class="col-sm-2 text-center">
-                        <input type="submit" class="btn btn-default btn-filter-date" name="filter-date" value="Áp dụng" />
+                       
                       </div>
                        <div class="col-sm-2 text-right">
+                         <input type="submit" class="btn btn-default btn-filter-date" name="filter-date" value="Áp dụng" />&nbsp;&nbsp;
                         <a class="btn btn-default btn-primary" href="{{ URL::route('admin.product.create') }}">Tạo mới</a>
                       </div>
                     </form>
@@ -243,7 +256,7 @@
                       <td>{{ $row['idproduct'] }}</td>
                       <td>{{ $row['created_at'] }}</td>
                       <td class="title">{{ $row['namepro'] }}</td>
-                      <td>{{ $row['price'] }}</td>
+                      <td><span class="currency">{{ $row['price'] }}</span></td>
                       <td>{{ $row['amount'] }}</td>
                       <td>{{ $row['author'] }}</td>
                       <td>{{ $row['listcat'] }}</td>
@@ -329,5 +342,5 @@
     <script src="{{ asset('dashboard/production/js/custom.js?v=0.0.2') }}"></script>
 
     <script src="{{ asset('dashboard/production/js/customer.js?v=0.6.4') }}"></script>
-
+    <script src="{{ asset('dashboard/production/js/filter_select_category.js?v=0.0.4') }}"></script>  
 @stop

@@ -589,10 +589,10 @@
 	<script src="{{ asset('dashboard/production/js/process_images/capture_image.js?v=0.3.1') }}"></script>
   	<script src="{{ asset('dashboard/production/editor/editor.js?v=0.0.1') }}"></script>
   	<script src="{{ asset('dashboard/production/js/edit_post.js?v=0.1.0') }}"></script>
-  	<script src="{{ asset('dashboard/production/js/edit_muti_select.js?v=0.1.5') }}"></script>	
+  	<script src="{{ asset('dashboard/production/js/edit_muti_select.js?v=0.1.9') }}"></script>	
   	{{-- <script src="{{ asset('dashboard/production/js/process_images/image_product.js.js?v=0.0.2') }}"></script> --}}
-  	<script src="{{ asset('dashboard/production/js/uploadmultifile.js?v=0.8.7') }}"></script>
-    <script src="{{ asset('dashboard/production/js/media-galerry.js?v=0.5.9') }}"></script>
+  	<script src="{{ asset('dashboard/production/js/uploadmultifile.js?v=0.8.8') }}"></script>
+    <script src="{{ asset('dashboard/production/js/media-galerry.js?v=0.6.2') }}"></script>
      <!-- Custom Theme Scripts -->
     {{--  <script src="{{ asset('dashboard/production/js/cross_product.js?v=0.0.5') }}"></script> --}}
     {{-- <script src="{{ asset('dashboard/build/js/custom.min.js') }}"></script> --}}

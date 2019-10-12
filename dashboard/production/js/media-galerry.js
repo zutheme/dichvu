@@ -49,14 +49,14 @@ _e_bnt_insert_media.addEventListener("click", upload_images);
 function upload_images(){
 	  var _img = "";
 	  var _url_host = document.URL;
-	  _url_host = "http://"+extractHostname(_url_host)+"/teamilk/";
+	  _url_host = "http://"+extractHostname(_url_host)+"/";
 	  var canvas = document.getElementById('my_canvas_media');
 	  var width = canvas.width;
 	  var height = canvas.height;
 	  var ImageURL = canvas.toDataURL('image/jpg', 1.0);
 	  var _csrf_token = document.getElementsByName("csrf-token")[0].getAttribute("content");
 	  var http = new XMLHttpRequest();
-	  var url = "/teamilk/admin/files/uploaddataurl";
+	  var url = url_home+"/admin/files/uploaddataurl";
 	  //var params = "file="+ImageURL;
 	  var params = JSON.stringify({"file":ImageURL});
 	  http.open("POST", url, true);
@@ -69,7 +69,7 @@ function upload_images(){
 	      if(http.readyState == 4 && http.status == 200) {
 	          var myArr = JSON.parse(this.responseText);
 	          _url = myArr.pathfile;
-	          _img = "<img width='"+width+"' height='"+height+"' src='"+ _url_host + _url+ "' />";
+	          _img = "<img width='"+width+"' height='"+height+"' src='"+ url_home+"/"+ _url+ "' />";
 	          pasteHtmlAtCaret(_img);
 	          load.style.display = "none";
 	          _e_modal_media.style.display = "none";
@@ -84,7 +84,7 @@ function upload_images(){
 function upload_files(){
 	  var _csrf_token = document.getElementsByName("csrf-token")[0].getAttribute("content");
 	  var http = new XMLHttpRequest();
-	  var url = "/teamilk/admin/files/uploadfile";
+	  var url = url_home+"/admin/files/uploadfile";
 	  var params = JSON.stringify({"file":ImageURL});
 	  http.open("POST", url, true);
 	  http.setRequestHeader("X-CSRF-TOKEN", _csrf_token);

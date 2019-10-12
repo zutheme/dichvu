@@ -81,7 +81,7 @@ function select_category(select_idcat){
                   e_sel_dynamic.removeChild(e_sel_dynamic.firstChild);
               }
             }
-          //console.log(myArr);
+           console.log(myArr);
            e_sel_dynamic.innerHTML = myArr;
           //load.style.display = "none";      
       }
@@ -133,7 +133,6 @@ function select_category_search(select_idcat){
                   e_sel_dynamic.removeChild(e_sel_dynamic.firstChild);
               }
             }
-          //console.log(myArr);
            e_sel_dynamic.innerHTML = myArr;
           //load.style.display = "none";      
       }
@@ -147,6 +146,7 @@ _e_btn_search.addEventListener("click",function(){
     var e_lst_check = listcheck.getElementsByClassName("checklist");
     var lst_value = ""; var _search = false;
     if(e_lst_check){
+
       for (var i = 0; i < e_lst_check.length; i++) {
         if(e_lst_check[i].checked){
             lst_value = lst_value + '{"idcate":'+e_lst_check[i].value + '},';

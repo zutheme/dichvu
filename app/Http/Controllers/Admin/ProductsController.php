@@ -31,28 +31,16 @@ class ProductsController extends Controller
     public function index(Request $request)
     {
          try {
-              
-            $_start_date = $request->session()->get('start_date');
-            $_end_date = $request->session()->get('end_date');
-            $_idstore = $request->session()->get('idstore');
-            $_idcategory = $request->session()->get('idcategory');
-            $_id_post_type = $request->session()->get('id_post_type');
-            $_id_status_type = $request->session()->get('id_status_type');
-            $request->session()->forget('_start_date');
-            $request->session()->forget('_end_date');
-            $_filter = $request->get('filter');
-            if(!isset($_filter)){
-                $_start_date = date('Y-m-d H:i:s',strtotime("-120 days"));   
-                $request->session()->put('order_start_date', $_start_date); 
-                $_end_date = date('Y-m-d H:i:s');
-                $request->session()->put('order_end_date', $_end_date);
-            }else{
-                $_start_date = $request->get('_start_date');
-                $_end_date = $request->get('_end_date');
-                $request->session()->put('order_start_date', $_start_date);
-                $request->session()->put('order_end_date', $_end_date);
-                //$request->session()->forget('order_end_date');
-            }
+            $request->session()->forget('idcategory');
+            $request->session()->forget('id_post_type');
+            $request->session()->forget('id_status_type');
+            $request->session()->forget('start_date');
+            $request->session()->forget('end_date');
+            $_start_date = date('Y-m-d H:i:s',strtotime("-120 days"));   
+            $request->session()->put('start_date', $_start_date); 
+            $_end_date = date('Y-m-d H:i:s');
+            $request->session()->put('end_date', $_end_date);
+            
             if(!isset($_idstore)){
                 $_idstore = 31;
                 session()->put('idstore',  $_idstore);
@@ -71,12 +59,63 @@ class ProductsController extends Controller
             }
             $statustypes = status_type::all()->toArray();
             $post_types = PostType::all()->toArray();
-            //$rs_selected = array('_start_date'=>$_start_date,'_end_date'=>$_end_date,'_idcategory'=>$_idcategory,'_id_post_type'=>$_id_post_type,'_id_status_type'=>$_id_status_type,'_sel_receive'=>$_sel_receive);
-            //$list_selected = json_encode($rs_selected);
+            $_namecattype = 'product';
+            $qr_category = DB::select('call ListParentCatByTypeProcedure(?)',array($_namecattype));
+            $categories = json_decode(json_encode($qr_category), true);
             $errors = $_start_date.',end_date'.$_end_date.',idcategory:'.$_idcategory.',id_post_type:'.$_id_post_type.',id_status_type'.$_id_status_type;
             $result = DB::select('call ListAllProductProcedure(?,?,?,?,?,?)',array($_start_date,$_end_date, $_idcategory, $_id_post_type, $_id_status_type,$_idstore));
             $products = json_decode(json_encode($result), true);     
-            return view('admin.product.index',compact('products','errors','posttypes'))->with('error',$errors);
+            return view('admin.product.index',compact('products','errors','post_types','categories'))->with('error',$errors);
+
+        } catch (\Illuminate\Database\QueryException $ex) {
+            $errors = new MessageBag(['error' => $ex->getMessage()]);
+            return redirect()->route('admin.product.index')->with('error',$errors);
+        }
+    }
+    public function listproduct(Request $request)
+    {
+         try {
+            $request->session()->forget('idcategory');
+            $request->session()->forget('id_post_type');
+            $request->session()->forget('id_status_type');
+            $request->session()->forget('_start_date');
+            $request->session()->forget('_end_date');
+            //$_filter = $request->get('filter');
+            $_start_date = $request->get('_start_date');
+            $_end_date = $request->get('_end_date');
+            $request->session()->put('start_date', $_start_date);
+            $request->session()->put('end_date', $_end_date);
+            $_idstore = $request->get('idstore');
+            $_idcategory = $request->get('idcategory');
+            $_id_post_type = $request->get('id_post_type');
+            $_id_status_type = $request->get('id_status_type');
+            $request->session()->put('idcategory', $_idcategory);
+            $request->session()->put('idstore', $_idstore);
+            $request->session()->put('id_post_type', $_id_post_type);
+            //$request->session()->forget('filter');
+            if(!isset($_idstore)){
+                $_idstore = 31;
+                session()->put('idstore',  $_idstore);
+            } 
+            if(!isset($_idcategory)){
+                $_idcategory=0;
+                session()->put('idcategory',  $_idcategory);
+            }
+            if(!isset($_id_post_type)){
+                $_id_post_type=10;
+                session()->put('id_post_type',  $_id_post_type);
+            }
+            if(!isset($_id_status_type)){
+                $_id_status_type=5;
+                session()->put('id_status_type',  $_id_status_type);
+            }
+            $statustypes = status_type::all()->toArray();
+            $post_types = PostType::all()->toArray();
+            
+            $errors = $_start_date.',end_date'.$_end_date.',idcategory:'.$_idcategory.',id_post_type:'.$_id_post_type.',id_status_type'.$_id_status_type;
+            $result = DB::select('call ListAllProductProcedure(?,?,?,?,?,?)',array($_start_date,$_end_date, $_idcategory, $_id_post_type, $_id_status_type,$_idstore));
+            $products = json_decode(json_encode($result), true);     
+            return view('admin.product.index',compact('products','errors','post_types'))->with('error',$errors);
 
         } catch (\Illuminate\Database\QueryException $ex) {
             $errors = new MessageBag(['error' => $ex->getMessage()]);
@@ -488,7 +527,28 @@ class ProductsController extends Controller
         $result = json_decode(json_encode($str_html), true);     
         return response()->json($result); 
     }
-    public function listcategorybyid($_cattype='product', $_idcat=0 , $_idproduct = 0) {
+    public function ListCateByTypeId(Request $request, $_cattype='product', $_idcat=0) {
+        $_cate_selected = array();
+        $_cate_selected[0]['idcategory'] = 0;
+        $result = DB::select('call ListAllCatByTypeProcedure(?)',array($_cattype));
+        $categories = json_decode(json_encode($result), true);
+        $str_ul="";$str_li="";
+        if($_idcat > 0){
+           $this->showCategories($categories, $_idcat,'',$_cate_selected);
+           $s_catename = DB::select('call SelRowCategoryByIdProcedure(?)',array($_idcat));
+           $r_catename = json_decode(json_encode($s_catename), true);
+           foreach ($r_catename as $item) {
+               //$selected = ($this->compare_in_list($_cate_selected,$item['idcategory']) >0) ? 'checked' : '';
+               $str_li = '<li><input class="checklist" type="checkbox" name="list_check[]" value="'.$item['idcategory'].'">'.$item['namecat'];
+            }
+       }else{
+           $this->showCategories($categories, 0,'',$_cate_selected);
+       }      
+        $str_html = '<ul class="list-check">'.$str_li.$this->main_menu."</li></ul>";
+        $result = json_decode(json_encode($str_html), true);     
+        return response()->json($result); 
+    }
+    public function listcategorybyid(Request $request, $_cattype='product', $_idcat=0 , $_idproduct = 0) {
         $qr_cateselected = DB::select('call SelCateSelectedProcedure(?)',array($_idproduct));
         $_cate_selected = json_decode(json_encode($qr_cateselected), true);
         //if($_idproduct > 0){
@@ -506,7 +566,7 @@ class ProductsController extends Controller
            $r_catename = json_decode(json_encode($s_catename), true);
            foreach ($r_catename as $item) {
                $selected = ($this->compare_in_list($_cate_selected,$item['idcategory']) >0) ? 'checked' : '';
-               $str_li = '<li><input class="listcheck" type="checkbox" name="list_check[]" value="'.$item['idcategory'].'"'.$selected.'>'.$item['namecat'];
+               $str_li = '<li><input class="checklist" type="checkbox" name="list_check[]" value="'.$item['idcategory'].'"'.$selected.'>'.$item['namecat'];
             }
        }else{
            $this->showCategories($categories, 0,'',$_cate_selected);

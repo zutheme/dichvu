@@ -113,7 +113,7 @@ function trash_item(element,_idproducthasfile){
 function DeleteItem(e_element,_idproducthasfile){
     var _csrf_token = document.getElementsByName("csrf-token")[0].getAttribute("content");
     var http = new XMLHttpRequest();
-    var url = "/teamilk/admin/producthasfile/delete";
+    var url = url_home+"/admin/producthasfile/delete";
     var params = JSON.stringify({"idproducthasfile":_idproducthasfile});
     http.open("POST", url, true);
     http.setRequestHeader("X-CSRF-TOKEN", _csrf_token);

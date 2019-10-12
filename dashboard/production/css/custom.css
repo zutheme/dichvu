@@ -241,7 +241,6 @@ textarea.form-control-text {
 }
 .btn-filter-date {
     position: relative;
-    width: 100%;
     padding: 6px 12px;
     font-size: 14px;
     font-weight: 400;
