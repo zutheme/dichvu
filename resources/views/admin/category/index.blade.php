@@ -10,13 +10,17 @@
     
      <!-- Custom Theme Style -->
     <link href="{{ asset('dashboard/build/css/custom.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('dashboard/production/css/custom.css?v=0.1.2') }}" rel="stylesheet">
+    <link href="{{ asset('dashboard/production/css/custom.css?v=0.1.4') }}" rel="stylesheet">
+   <link href="{{ asset('dashboard/production/css/editor.css?v=0.1.1') }}" rel="stylesheet">
 @stop
 <?php $_namecattype = Request::segment(3);
 $_namecattype = isset($_namecattype) ? Request::segment(3) : 'product'; ?>
+<script type="text/javascript">
+	var namecat = '{{ $_namecattype }}';
+</script>
 @section('content')
    <div class="row">
-	<div class="col-12">
+	<div class="col-sm-6">
 	<div class="card">
 	    <div class="card-body">
 	        <h4 class="card-title">Chuyên mục</h4>
@@ -68,6 +72,34 @@ $_namecattype = isset($_namecattype) ? Request::segment(3) : 'product'; ?>
 	    </div>
 	</div>
 	</div>
+	<div class="col-sm-6">
+		<div class="card">
+		    <div class="card-body">
+		    	<div class="list-cate">
+	               	<div class="form-group row">
+		                <label class="col-lg-12 col-form-label" for="sel_idcategory">Chuyên mục chính<span class="text-danger">*</span></label>
+		                <div class="col-lg-12">
+		                    <select class="form-control cus-drop" name="sel_idcat_main" required>
+		                    	<option value="0">--Tất cả--</option>
+		                    	@foreach($parent_cate as $row)
+		                    		 <option value="{{ $row['idcategory'] }}">{{ $row['namecat'] }}</option>
+								@endforeach        
+		                    </select>
+		                </div>
+		            </div>
+		            <div class="form-group row">
+		            	<div class="col-lg-12">
+		            		<div class="select_dynamic">
+				            	@if(isset($str))
+				            		{!! $str !!}
+				            	@endif
+			            	</div>
+			            </div>
+		            </div>
+            	</div> 
+		    </div>
+		</div>
+	</div>
 </div>
 @stop
 
@@ -91,5 +123,6 @@ $_namecattype = isset($_namecattype) ? Request::segment(3) : 'product'; ?>
       <!-- Custom Theme Scripts -->
     {{-- <script src="{{ asset('dashboard/build/js/custom.min.js') }}"></script> --}}
     <script src="{{ asset('dashboard/build/js/custom.js') }}"></script>
-    <script src="{{ asset('dashboard/production/js/custom.js?v=0.0.2') }}"></script>
+    {{-- <script src="{{ asset('dashboard/production/js/custom.js?v=0.0.2') }}"></script> --}}
+    <script src="{{ asset('dashboard/production/js/muti_select_category.js?v=0.0.6') }}"></script>
 @stop

@@ -130,8 +130,8 @@
 
 
 
-                       <li><a href="{{ route('admin.department.index') }}">Bộ phận</a></li>
-
+                       {{-- <li><a href="{{ route('admin.department.index') }}">Bộ phận</a></li> --}}
+                       <li><a href="{{ url('/admin/categoryby/department')}}">Bộ phận</a></li>
 
 
                        <li><a href="{{ route('admin.aduser.index') }}">Nhân viên</a></li>

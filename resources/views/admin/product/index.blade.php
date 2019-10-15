@@ -339,7 +339,7 @@
 
     <script src="{{ asset('dashboard/build/js/custom.js?v=0.0.3') }}"></script>
 
-    <script src="{{ asset('dashboard/production/js/custom.js?v=0.0.2') }}"></script>
+    {{-- <script src="{{ asset('dashboard/production/js/custom.js?v=0.0.2') }}"></script> --}}
 
     <script src="{{ asset('dashboard/production/js/customer.js?v=0.6.4') }}"></script>
     <script src="{{ asset('dashboard/production/js/filter_select_category.js?v=0.0.4') }}"></script>  

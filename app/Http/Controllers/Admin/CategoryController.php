@@ -150,7 +150,16 @@ class CategoryController extends Controller
         return view('admin.category.edit',compact('categorybyid','categories','idcategory','categorytypes','selected'));
     }
 
-
+    public function editbynametype($idcategory,$nametypecat)
+    {
+        $categorybyid = category::find($idcategory);
+        $categories = category::all()->toArray();
+        $categorytypes = CategoryType::all()->toArray();
+        $result = DB::select('call SelCategorybyIdProcedure(?)',array($idcategory));
+        $selected = json_decode(json_encode($result), true);
+        //return view('admin.category.edit',compact('categorybyid','categories','idcategory','categorytypes','selected'));
+        return redirect()->route('admin.category.edit')->with(compact('categorybyid','categories','idcategory','categorytypes','selected'));
+    }
 
     /**
 
@@ -235,21 +244,16 @@ class CategoryController extends Controller
     }
 
     public function CategoryBynametype($_namecattype)
-
     {
-
         $statustypes = status_type::all()->toArray();
-
         $posttypes = PostType::all()->toArray();
-
         $result = DB::select('call ListAllCatByTypeProcedure(?)',array($_namecattype));
-
         $categories = json_decode(json_encode($result), true);
-
-        return view('admin.category.index',compact('posttypes','categories','statustypes'));
-
+        $qr_parent_cate = DB::select('call ListParentCatByTypeProcedure(?)',array($_namecattype));
+        $parent_cate = json_decode(json_encode($qr_parent_cate), true);
+        $str = $this->ListAllCateByTypeId($_namecattype,0);     
+        return view('admin.category.index',compact('parent_cate','posttypes','categories','statustypes','str'));
         //return redirect()->route('admin.category.index')->with(compact('posttypes','categories','statustypes'));
-
     }
 
     public function createby($_namecattype)
@@ -290,14 +294,14 @@ class CategoryController extends Controller
 
     
 
-    public function initCategories()
+    public function initCategories($_namecattype)
     {
 
         $data = array();
 
         $index = array();
 
-        $_namecattype = "product";
+        //$_namecattype = "product";
 
         $result = DB::select('call ListAllCatByTypeProcedure(?)',array($_namecattype));
 
@@ -348,6 +352,83 @@ class CategoryController extends Controller
         $qr_catetype = DB::select('call CategoryByIdcatetype(?)',array($_idcattype));
         $rs_catetype = json_decode(json_encode($qr_catetype), true);
         return response()->json($rs_catetype);
+    }
+    public function ListCateByTypeId(Request $request, $_cattype='product', $_idcat=0) {
+        $_cate_selected = array();
+        $_cate_selected[0]['idcategory'] = 0;
+        $result = DB::select('call ListAllCatByTypeProcedure(?)',array($_cattype));
+        $categories = json_decode(json_encode($result), true);
+        $str_ul="";$str_li="";
+        if($_idcat > 0){
+           $this->showCategories($categories, $_idcat,'',$_cate_selected);
+           $s_catename = DB::select('call SelRowCategoryByIdProcedure(?)',array($_idcat));
+           $r_catename = json_decode(json_encode($s_catename), true);
+           foreach ($r_catename as $item) {
+               //$selected = ($this->compare_in_list($_cate_selected,$item['idcategory']) >0) ? 'checked' : '';
+               $str_li = '<li><input class="checklist" type="checkbox" name="list_check[]" value="'.$item['idcategory'].'">'.$item['namecat'];
+            }
+       }else{
+           $this->showCategories($categories, 0,'',$_cate_selected);
+       }      
+        $str_html = '<ul class="list-check">'.$str_li.$this->main_menu."</li></ul>";
+        $result = json_decode(json_encode($str_html), true);     
+        return response()->json($result); 
+    }
+    public function ListAllCateByTypeId($_cattype='product', $_idcat=0) {
+        $_cate_selected = array();
+        $_cate_selected[0]['idcategory'] = 0;
+        $result = DB::select('call ListAllCatByTypeProcedure(?)',array($_cattype));
+        $categories = json_decode(json_encode($result), true);
+        $str_ul="";$str_li="";
+        if($_idcat > 0){
+           $this->showCategories($categories, $_idcat,'',$_cate_selected);
+           $s_catename = DB::select('call SelRowCategoryByIdProcedure(?)',array($_idcat));
+           $r_catename = json_decode(json_encode($s_catename), true);
+           foreach ($r_catename as $item) {
+               //$selected = ($this->compare_in_list($_cate_selected,$item['idcategory']) >0) ? 'checked' : '';
+               $str_li = '<li><input class="checklist" type="checkbox" name="list_check[]" value="'.$item['idcategory'].'">'.$item['namecat'];
+            }
+       }else{
+           $this->showCategories($categories, 0,'',$_cate_selected);
+       }      
+        $str_html = '<ul class="list-check">'.$str_li.$this->main_menu."</li></ul>";
+        return $str_html; 
+    }
+    public function showCategories($categories, $idparent = 0, $char = '', $_cate_selected)
+    {
+        $cate_child = array();
+        foreach ($categories as $key => $item)
+        {
+            if ($item['idparent'] == $idparent)
+            {
+                $cate_child[] = $item;
+                unset($categories[$key]);
+            }
+        }
+        $list_cat="";       
+        if ($cate_child)
+        {
+            $this->main_menu .= '<ul class="list-check">';
+            foreach ($cate_child as $key => $item)
+            {
+                // Hiển thị tiêu đề chuyên mục
+                $selected = ($this->compare_in_list($_cate_selected,$item['idcategory']) > 0) ? ' checked' : '';
+                //$idcateproduct = $this->compare_in_list($_cate_selected,$item['idcategory']);
+                //$this->main_menu .= '<li><input type="checkbox" name="list_check[]" value="'.$item['idcategory'].'-'.$idcateproduct.'"'.$selected.'>'.$item['namecat'].":".$list_cat;
+                $this->main_menu .= '<li><input class="checklist" type="checkbox" name="list_check[]" value="'.$item['idcategory'].'"'.$selected.'>'.$item['namecat'].":".$list_cat;
+                // Tiếp tục đệ quy để tìm chuyên mục con của chuyên mục đang lặp
+                $this->showCategories($categories, $item['idcategory'], $char.'|---', $_cate_selected);
+                $this->main_menu .= '</li>';
+            }
+            $this->main_menu .= '</ul>';
+        }
+    }
+    public function compare_in_list($_cate_selected, $x = 0){
+        foreach ($_cate_selected as $item)
+        {
+           if($x == $item['idcategory']) return $item['idcateproduct'];
+        }
+        return 0;
     }
     
 }

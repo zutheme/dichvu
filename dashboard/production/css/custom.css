@@ -794,3 +794,8 @@ table tbody .thumb {
 table.dataTable.nowrap th, table.dataTable.nowrap td {
     white-space: nowrap;
 }
+.card .card-body .list-cate {
+    position: relative;
+    margin-top: 100px;
+    padding: 15px 15px;
+}
