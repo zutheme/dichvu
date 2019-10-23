@@ -56,7 +56,7 @@ $_namecattype = isset($_namecattype) ? Request::segment(3) : 'product'; ?>
 								<td>{{ $row['namecat'] }}</td>
 								<td>{{ $row['parent'] }}</td>
 								<td>{{ $row['catnametype'] }}</td>					
-								<td class="btn-control"><a class="btn btn-primary btn-edit" href="{{ action('Admin\CategoryController@edit',$row['idcategory']) }}"><i class="fa fa-edit"></i></a></td>
+								<td class="btn-control"><a class="btn btn-primary btn-edit" href="{{ action('Admin\CategoryController@edit',['idcategory' => $row['idcategory'],'idcattype' => $row['idcattype']]) }}"><i class="fa fa-edit"></i></a></td>
 								<td class="btn-control">
 								     <form method="post" class="delete_form" action="{{action('Admin\CategoryController@destroy', $row['idcategory'])}}">
 								      {{csrf_field()}}

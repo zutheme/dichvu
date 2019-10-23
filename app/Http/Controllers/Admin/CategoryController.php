@@ -140,13 +140,15 @@ class CategoryController extends Controller
 
      */
 
-    public function edit($idcategory)
+    public function edit($idcategory,$_namecattype)
     {
         $categorybyid = category::find($idcategory);
         $categories = category::all()->toArray();
         $categorytypes = CategoryType::all()->toArray();
         $result = DB::select('call SelCategorybyIdProcedure(?)',array($idcategory));
         $selected = json_decode(json_encode($result), true);
+        $qr_parent_cate = DB::select('call ListParentCatByTypeProcedure(?)',array($_namecattype));
+        $parent_cate = json_decode(json_encode($qr_parent_cate), true);
         return view('admin.category.edit',compact('categorybyid','categories','idcategory','categorytypes','selected'));
     }
 

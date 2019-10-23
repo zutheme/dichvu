@@ -16,7 +16,9 @@
 			$selected_idcattype =  $row['idcattype'];
 			$catnametype = $row['catnametype'];
        }
-} ?>
+} 
+$idcattype = app('request')->input('idcattype');
+?>
 <div class="row">
 	<div class="col-sm-6">
 		<h2>Chỉnh sửa</h2>
@@ -46,7 +48,7 @@
                 <div class="col-lg-8">
                     <select class="form-control catebyidcatetype" name="sel_idparent">
                     	<option value="">Thuộc chuyên mục</option>
-                    	@foreach($categories as $row)
+                    	@foreach($parent_cate as $row)
                     		 <option value="{{ $row['idcategory'] }}">{{ $row['namecat'] }}</option>
 						@endforeach        
                     </select>
@@ -58,7 +60,7 @@
                     <select class="form-control type-category" name="sel_idcattype">
                     	<option value="">Kiểu chuyên mục</option>
                     	@foreach($categorytypes as $row)
-                    		<option value="{{ $row['idcattype'] }}">{{ $row['catnametype'] }}</option>
+                    		<option value="{{ $row['idcattype'] }}" {{ $row['idcattype'] == $idcattype ? 'selected="selected"' : '' }}>{{ $row['catnametype'] }}</option>
 						@endforeach        
                     </select>
                 </div>
