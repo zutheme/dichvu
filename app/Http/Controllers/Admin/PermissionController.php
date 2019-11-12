@@ -12,6 +12,7 @@ use Illuminate\Support\MessageBag;
 use App\Permission;
 use App\Role;
 use App\ImpPerm;
+use App\perm_command;
 use Illuminate\Support\Facades\Input;
 class PermissionController extends Controller
 {
@@ -33,8 +34,8 @@ class PermissionController extends Controller
      */
     public function create()
     {   
-        $roles = role::all()->toArray();
-        return view('admin.permission.create',compact('roles'));
+        $perm_commands = perm_command::all()->toArray();
+        return view('admin.permission.create',compact('perm_commands'));
     }
 
     /**

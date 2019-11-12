@@ -30,22 +30,13 @@
 			<div class="form-group">
 				<textarea name="description" rows="4" cols="100" class="form-control" placeholder="Mô tả..."></textarea>
 			</div>
-			<div class="form-group">
-                        <label class="col-md-3 col-sm-3 col-xs-12 control-label">Vai trò
-                          <br>
-                          <small class="text-navy">Cấp quyền vai trò</small>
-                        </label>
-
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                        	@foreach($roles as $row)
-							<div class="checkbox">
-		                            <label>
-		                              <input name="role_list[]" value="{{ $row['idrole'] }}" type="checkbox" class="flat"> {{ $row['name'] }}
-		                            </label>
-		                     </div>
-							@endforeach
-                                               
-                      </div>
+			<div class="form-group"> 
+            	<select class="select2_single form-control" name="perm_command">
+            		<option value="0">Chọn lệnh thực thi ...</option>
+                	@foreach($perm_commands as $row)
+                      <option value="{{ $row['idpercommand'] }}">{{ $row['command'] }}</option>
+					@endforeach 
+				 </select>                                         
             </div>		 
 			<div class="form-group">
 				<input type="submit" class="btn btn-default btn-submit" name="btn-submit" value="Xác nhận" />

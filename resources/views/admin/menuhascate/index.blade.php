@@ -15,7 +15,19 @@
 <?php $_namecattype = Request::segment(3);
 $_namecattype = isset($_namecattype) ? Request::segment(3) : 'product'; ?>
 @section('content')
-
+<script type="text/javascript">
+		var temp_categories =[]; var tmpi = 0;
+</script>
+@foreach($rs_list_cate as $row)
+	<script type="text/javascript">	
+      	temp_categories[tmpi] = { idmenuhascate: '{{ $row['idmenuhascate'] }}', idmenu:'{{ $row['idmenu'] }}', idcategory:'{{ $row['idcategory'] }}', namemenu:'{{ $row['namemenu'] }}' ,idparent:'{{ $row['idparent'] }}', reorder:'{{ $row['reorder'] }}', depth:'{{ $row['depth'] }}', trash:'{{ $row['trash'] }}' };
+      	tmpi = tmpi + 1; 
+	</script>
+@endforeach
+<script type="text/javascript">
+	localStorage.removeItem("lmn_items");
+    localStorage.setItem('lmn_items', JSON.stringify(temp_categories));
+</script>
    <div class="row">
 		<div class="col-sm-12 menuhascate">
 			<div class="card">
@@ -111,5 +123,5 @@ $_namecattype = isset($_namecattype) ? Request::segment(3) : 'product'; ?>
     {{-- <script src="{{ asset('dashboard/build/js/custom.min.js') }}"></script> --}}
     <script src="{{ asset('dashboard/build/js/custom.js') }}"></script>
     {{-- <script src="{{ asset('dashboard/production/js/custom.js?v=0.0.2') }}"></script> --}}
-    <script src="{{ asset('dashboard/production/js/menuhascate2.js?v=0.4.0.9') }}"></script>
+    <script src="{{ asset('dashboard/production/js/menuhascate2.js?v=0.4.1.0') }}"></script>
 @stop

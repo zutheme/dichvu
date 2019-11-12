@@ -176,7 +176,7 @@
 
                       <li><a href="{{ route('admin.roles.index') }}">Vai trò</a></li>
 
-
+                      <li><a href="{{ route('admin.perm_command.index') }}">Lện thực thi</a></li>
 
                       <li><a href="{{ route('admin.permission.index') }}">Tạo quyền</a></li>
 

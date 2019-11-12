@@ -56,7 +56,7 @@ Route::get('/showsession', function () {
        $_idcategory = 6;
        $qr_lpro = DB::select('call ListProductByIdcateProcedure(?,?,?,?)',array($_idcategory,$_page,$_idstore,$_limit));
        $rs_lpro = json_decode(json_encode($qr_lpro), true);
-       var_dump($rs_lpro);
+       //var_dump($rs_lpro);
 });
 
 
@@ -421,19 +421,11 @@ Route::group(['middleware' => 'auth'], function() {
 
 	Route::get('admin/menu/hasidcate/{_idmenu}', 'Admin\MenuController@menuhasidcate');
 
-
-
 	Route::post('admin/menu/hasidcate/{_idmenu}', 'Admin\MenuController@menuhasidcate');
-
-
 
 	Route::resource('admin/menu' , 'Admin\MenuController', array('as'=>'admin') );
 
-
-
-	
-
-
+	Route::resource('admin/perm_command' , 'Admin\perm_commandContronler', array('as'=>'admin') );
 
 	Route::get('admin/menu/additem/{_idmenu}', 'Admin\MenuHasCateController@AddMenuItem');
 
@@ -689,42 +681,13 @@ Route::group(['middleware' => 'auth'], function() {
 	//grant permistio
 	Route::resource('admin/roles','Admin\RoleController', array('as'=>'admin'));
 
-
-
-
-
-
-
 	Route::resource('admin/permission','Admin\PermissionController', array('as'=>'admin'));
-
-
-
-
-
-
 
     Route::resource('admin/impperm','Admin\ImpPermController', array('as'=>'admin'));
 
-
-
-
-
-
-
     Route::resource('admin/grantperm','Admin\GrantController', array('as'=>'admin'));
 
-
-
-
-
-
-
     //profile
-
-
-
-
-
 
 
     Route::post('admin/profile/uploadavatar/{iduser}/{idprofile}',['uses' =>'ProfileController@uploadavatar']);
