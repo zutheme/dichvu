@@ -181,7 +181,7 @@ class MenuHasCateController extends Controller {
             $this->main_menu .= '<ul class="list-check">';
             foreach ($cate_child as $key => $item){
                 $this->main_menu .= '<li><input class="array-parent" type="hidden" value="'.$idparent.'">';
-                $this->main_menu .= '<input class="array-check" type="checkbox" value="'.$item['idcategory'].'"><label>'.$item['namecat'].'</label>';
+                $this->main_menu .= '<input name="list_check[]" class="array-check" type="checkbox" value="'.$item['idcategory'].'"><label>'.$item['namecat'].'</label>';
                 $this->showCategories($categories, $item['idcategory']);
                 $this->main_menu .= '</li>';
             }

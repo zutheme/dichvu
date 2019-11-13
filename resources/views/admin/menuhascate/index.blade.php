@@ -87,8 +87,7 @@ $_namecattype = isset($_namecattype) ? Request::segment(3) : 'product'; ?>
 				        	<h6 class="card-subtitle">{{ $message }}</h6>
 				        @elseif($message = Session::get('error'))
 				        	<h6 class="card-subtitle">{{ $message }}</h6>
-						@endif
-						
+						@endif					
 			            <p id="demo"></p>
 			            <p id="enter"></p>
 			            <p id="dragstart"></p>

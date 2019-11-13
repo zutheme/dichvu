@@ -14,6 +14,10 @@ use App\Role;
 use App\ImpPerm;
 use App\perm_command;
 use Illuminate\Support\Facades\Input;
+use App\menu;
+use App\category;
+use App\CategoryType;
+use App\PostType;
 class PermissionController extends Controller
 {
     /**
@@ -34,8 +38,10 @@ class PermissionController extends Controller
      */
     public function create()
     {   
+        $categorytypes = CategoryType::all()->toArray();
         $perm_commands = perm_command::all()->toArray();
-        return view('admin.permission.create',compact('perm_commands'));
+        //$posttypes = PostType::all()->toArray();
+        return view('admin.permission.create',compact('perm_commands','categorytypes','posttypes'));
     }
 
     /**
@@ -46,24 +52,22 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [ 
-            'name' => 'required'
-        ]);
+        $validator = Validator::make($request->all(), ['name' => 'required','idpermcommand' => 'required']);
         if ($validator->fails()) { 
             $errors = $validator->errors();
             return redirect()->route('admin.permission.create')->with(compact('errors'));           
         }
         $input = $request->all();          
-        $message = "";  
+        $message = "";
+        $_idcategory = 0;  
         try {
             $permission = permission::create($input);
             $iduserimp = Auth::id();
             $idperm = $permission->idperm;
-            $listroles = $request->input('role_list');
-            if($listroles){
-                foreach ($listroles as $idrole) {
-                    $impPerm = ImpPerm::create(['idperm' => $idperm,'idrole'=>$idrole,'iduserimp'=>$iduserimp]);
-                    //$message .=",".$impPerm->idimp_perm;
+            $l_idcategory = $request->input('list_check');
+            if($l_idcategory){
+                foreach ($l_idcategory as $idcategory) {
+                   //$_idcategory = 
                 } 
             }
         } catch (\Illuminate\Database\QueryException $ex) {

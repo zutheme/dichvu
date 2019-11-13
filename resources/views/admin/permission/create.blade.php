@@ -31,17 +31,44 @@
 				<textarea name="description" rows="4" cols="100" class="form-control" placeholder="Mô tả..."></textarea>
 			</div>
 			<div class="form-group"> 
-            	<select class="select2_single form-control" name="perm_command">
+            	<select class="select2_single form-control" name="idpermcommand">
             		<option value="0">Chọn lệnh thực thi ...</option>
                 	@foreach($perm_commands as $row)
                       <option value="{{ $row['idpercommand'] }}">{{ $row['command'] }}</option>
 					@endforeach 
 				 </select>                                         
-            </div>		 
+            </div>
+            <div class="form-group">
+            	<select class="form-control type-category" name="selidcategory" required="true">
+            		<option value="">Chuyên mục</option>
+            		@foreach($categorytypes as $row)
+            			<option value="{{ $row['idcattype'] }}">{{ $row['catnametype'] }}</option>
+					@endforeach        
+	         	</select>
+	        </div>
+			<div class="form-group">
+	            <div class="catebyidcatetype">     
+	            </div>
+	        </div>
+	       {{--  <div class="form-group"> 
+            	<select class="select2_single form-control" name="selidcatetype">
+            		<option value="0">Chọn kiểu chuyên mục ...</option>
+                	@foreach($categorytypes as $row)
+                      <option value="{{ $row['idcattype'] }}">{{ $row['catnametype'] }}</option>
+					@endforeach 
+				 </select>                                         
+            </div> --}}
+            {{-- <div class="form-group"> 
+            	<select class="select2_single form-control" name="selposttype">
+            		<option value="0">Chọn kiểu post ...</option>
+                	@foreach($posttypes as $row)
+                      <option value="{{ $row['idposttype'] }}">{{ $row['nametype'] }}</option>
+					@endforeach 
+				 </select>                                         
+            </div>	 --}} 
 			<div class="form-group">
 				<input type="submit" class="btn btn-default btn-submit" name="btn-submit" value="Xác nhận" />
 			</div>
-
 		</form>
 	</div>
 </div>
@@ -50,4 +77,5 @@
 {{-- <script src="{{ asset('dashboard/build/js/custom.min.js') }}"></script> --}}
     <script src="{{ asset('dashboard/build/js/custom.js') }}"></script>
     <script src="{{ asset('dashboard/production/js/custom.js?v=0.0.2') }}"></script>
+    <script src="{{ asset('dashboard/production/js/select-menu.js?v=0.0.0.1') }}"></script>
 @stop
