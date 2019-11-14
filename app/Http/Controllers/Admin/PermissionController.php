@@ -57,24 +57,27 @@ class PermissionController extends Controller
             $errors = $validator->errors();
             return redirect()->route('admin.permission.create')->with(compact('errors'));           
         }
-        $input = $request->all();          
+        $input = $request->all();
+        $command = $request->get('name');
+        $idpermcommand = $request->get('idpermcommand');          
         $message = "";
         $_idcategory = 0;  
         try {
-            $permission = permission::create($input);
             $iduserimp = Auth::id();
-            $idperm = $permission->idperm;
             $l_idcategory = $request->input('list_check');
             if($l_idcategory){
                 foreach ($l_idcategory as $idcategory) {
-                   //$_idcategory = 
+                   $_idcategory = $idcategory;
                 } 
             }
+            //$result = DB::select('call ListcatparentProcedure()');
+            //$categories = json_decode(json_encode($result), true);
+            $result = $command.','.$idpermcommand.','.$_idcategory.','.$iduserimp;
         } catch (\Illuminate\Database\QueryException $ex) {
             $errors = new MessageBag(['errorlogin' => $ex->getMessage()]);
             return redirect()->back()->withInput()->withErrors($errors);
         } 
-        return redirect()->route('admin.permission.index')->with('success',"Đã tạo quyền thành công");
+        return redirect()->route('admin.permission.index')->with('success',$result);
     }
 
     /**
