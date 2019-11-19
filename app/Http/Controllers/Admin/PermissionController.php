@@ -27,6 +27,8 @@ class PermissionController extends Controller
      */
     public function index()
     {
+        //$qr_customerorder = DB::select('call InfoCustomerOrderProcedure(?)',array($ordernumber));
+        //$rs_customerorder = json_decode(json_encode($qr_customerorder), true);
         $permissions = Permission::all()->toArray();
         return view('admin.permission.index',compact('permissions'));
     }
@@ -70,8 +72,8 @@ class PermissionController extends Controller
                    $_idcategory = $idcategory;
                 } 
             }
-            //$result = DB::select('call ListcatparentProcedure()');
-            //$categories = json_decode(json_encode($result), true);
+            $qr_customerorder = DB::select('call InfoCustomerOrderProcedure(?)',array($ordernumber));
+            $rs_customerorder = json_decode(json_encode($qr_customerorder), true);
             $result = $command.','.$idpermcommand.','.$_idcategory.','.$iduserimp;
         } catch (\Illuminate\Database\QueryException $ex) {
             $errors = new MessageBag(['errorlogin' => $ex->getMessage()]);

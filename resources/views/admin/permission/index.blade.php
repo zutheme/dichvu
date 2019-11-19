@@ -29,7 +29,7 @@
 	            <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
 	                <thead>
 	                    <tr>
-	                        <th>Tên vai trò</th>
+	                        <th>Tên quyền</th>
 							<th>Mô tả</th>
 							<th>-</th>
 							<th>-</th>
@@ -37,7 +37,7 @@
 	                </thead>
 	                <tfoot>
 	                    <tr>
-	                        <th>Tên vai trò</th>
+	                        <th>Tên quyền</th>
 							<th>Mô tả</th>
 							<th>-</th>
 							<th>-</th>
