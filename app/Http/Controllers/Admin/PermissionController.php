@@ -27,10 +27,11 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        //$qr_customerorder = DB::select('call InfoCustomerOrderProcedure(?)',array($ordernumber));
-        //$rs_customerorder = json_decode(json_encode($qr_customerorder), true);
-        $permissions = Permission::all()->toArray();
-        return view('admin.permission.index',compact('permissions'));
+        $qr_permission = DB::select('call ListPermissionProcedure()',array());
+        $permissions = json_decode(json_encode($qr_permission), true);
+        $qr_role = DB::select('call ListRole()',array());
+        $roles = json_decode(json_encode($qr_role), true);
+        return view('admin.permission.index',compact('permissions','roles'));
     }
 
     /**
@@ -42,7 +43,6 @@ class PermissionController extends Controller
     {   
         $categorytypes = CategoryType::all()->toArray();
         $perm_commands = perm_command::all()->toArray();
-        //$posttypes = PostType::all()->toArray();
         return view('admin.permission.create',compact('perm_commands','categorytypes','posttypes'));
     }
 
@@ -60,21 +60,22 @@ class PermissionController extends Controller
             return redirect()->route('admin.permission.create')->with(compact('errors'));           
         }
         $input = $request->all();
-        $command = $request->get('name');
+        $name = $request->get('name');
+        $description = $request->get('description');
         $idpermcommand = $request->get('idpermcommand');          
         $message = "";
-        $_idcategory = 0;  
+        $idcategory = 0;  
         try {
             $iduserimp = Auth::id();
             $l_idcategory = $request->input('list_check');
             if($l_idcategory){
-                foreach ($l_idcategory as $idcategory) {
-                   $_idcategory = $idcategory;
+                foreach ($l_idcategory as $_idcategory) {
+                   $idcategory = $_idcategory;
                 } 
             }
-            $qr_customerorder = DB::select('call InfoCustomerOrderProcedure(?)',array($ordernumber));
-            $rs_customerorder = json_decode(json_encode($qr_customerorder), true);
-            $result = $command.','.$idpermcommand.','.$_idcategory.','.$iduserimp;
+            $qr_permission = DB::select('call AddPermissionProcedure(?,?,?,?)',array($name, $description, $idpermcommand, $idcategory));
+            $rs_permission = json_decode(json_encode($qr_permission), true);
+            $result = $name.','.$idpermcommand.','.$idcategory.','.$iduserimp;
         } catch (\Illuminate\Database\QueryException $ex) {
             $errors = new MessageBag(['errorlogin' => $ex->getMessage()]);
             return redirect()->back()->withInput()->withErrors($errors);
