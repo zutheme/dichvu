@@ -33,7 +33,6 @@
 							<th>Mô tả</th>
 							<th>Thực thi</th>
 							<th>Chuyên mục</th>
-							<th>Cấp quyền</th>
 							<th>-</th>
 							<th>-</th>
 	                    </tr>
@@ -44,7 +43,6 @@
 							<th>Mô tả</th>
 							<th>Thực thi</th>
 							<th>Chuyên mục</th>
-							<th>Cấp quyền</th>
 							<th>-</th>
 							<th>-</th>
 	                    </tr>
@@ -55,8 +53,7 @@
 								<td>{{ $row['name'] }}</td>
 								<td>{{ $row['description'] }}</td>
 								<td>{{ $row['command'] }}</td>
-								<td>{{ $row['namecat'] }}</td>
-								<th></th>					
+								<td>{{ $row['namecat'] }}</td>			
 								<td class="btn-control"><a class="btn btn-primary btn-edit" href="{{ action('Admin\PermissionController@edit',$row['idperm']) }}"><i class="fa fa-edit"></i></a></td>
 								<td class="btn-control">
 								     <form method="post" class="delete_form" action="{{action('Admin\PermissionController@destroy', $row['idperm'])}}">

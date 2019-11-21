@@ -29,7 +29,7 @@ class PermissionController extends Controller
     {
         $qr_permission = DB::select('call ListPermissionProcedure()',array());
         $permissions = json_decode(json_encode($qr_permission), true);
-        $qr_role = DB::select('call ListRole()',array());
+        $qr_role = DB::select('call ListRolesProcedure()',array());
         $roles = json_decode(json_encode($qr_role), true);
         return view('admin.permission.index',compact('permissions','roles'));
     }
@@ -103,13 +103,21 @@ class PermissionController extends Controller
     public function edit($idperm)
     {
         DB::enableQueryLog();
-        $permissions = permission::find($idperm);
-        //$result = DB::select( DB::raw("select r.idrole, r.name, p.idimp_perm, p.idrole as id_role from roles as r LEFT join (select * from imp_perms where idperm='$idperm') as p on r.idrole=p.idrole ") );
+        //$permissions = permission::find($idperm);
+        //$result = DB::select($sql)->get();
+        //$result = $result->toArray();
+        $qr_permission = DB::select('call PermissionByidProcedure(?)',array($idperm));
+        //$permissions = json_encode($qr_permission);
+        $permissions = array_map($this->map($qr_permission), $permissions);
+        $categorytypes = CategoryType::all()->toArray();
+        $perm_commands = perm_command::all()->toArray();
         $result = DB::select('call ListRoleIdpermProcedure(?)',array($idperm));
         $roles = json_decode(json_encode($result), true);
-        return view('admin.permission.edit',compact('permissions','idperm','roles'));
+        return view('admin.permission.edit',compact('permissions','idperm','roles','perm_commands','categorytypes'));
     }
-
+    public function map($value){
+        return (array)$value;
+    }
     /**
      * Update the specified resource in storage.
      *
