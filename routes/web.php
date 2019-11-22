@@ -36,6 +36,19 @@ Route::get('/deletesession', function () {
       session()->forget('orderhistory');
 });
 
+Route::get('/testdata', function () {
+      $qr_permissions = DB::select('call PermissionByidProcedure(?)',array(2));
+      //$array = objectToArray($qr_permissions);
+       $rs_permissions = json_decode(json_encode($qr_permissions), true);
+		$permissions = new stdClass();
+		foreach ($rs_permissions as $key_array => $item) {
+			foreach ($item as $key_item => $value) {
+				$permissions->$key_item = $value;
+			}
+		}
+		echo $permissions->name.",".$permissions->description;
+});
+
 Route::get('/showsession', function () {
 	  $str_qr = "";	
       //$str_session = session()->get('orderhistory');

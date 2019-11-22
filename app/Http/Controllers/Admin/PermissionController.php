@@ -104,11 +104,13 @@ class PermissionController extends Controller
     {
         DB::enableQueryLog();
         //$permissions = permission::find($idperm);
-        //$result = DB::select($sql)->get();
-        //$result = $result->toArray();
-        $qr_permission = DB::select('call PermissionByidProcedure(?)',array($idperm));
-        //$permissions = json_encode($qr_permission);
-        $permissions = array_map($this->map($qr_permission), $permissions);
+        $qr_permissions = DB::select('call PermissionByidProcedure(?)',array($idperm));
+        $permissions = new stdClass();
+        foreach ($rs_permissions as $key_array => $item) {
+            foreach ($item as $key_item => $value) {
+                $permissions->$key_item = $value;
+            }
+        }
         $categorytypes = CategoryType::all()->toArray();
         $perm_commands = perm_command::all()->toArray();
         $result = DB::select('call ListRoleIdpermProcedure(?)',array($idperm));
@@ -158,4 +160,5 @@ class PermissionController extends Controller
         $permission->delete();
         return redirect()->route('admin.permission.index')->with('success','record have deleted');
     }
+    
 }
