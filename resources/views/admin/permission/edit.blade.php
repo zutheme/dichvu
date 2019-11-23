@@ -23,7 +23,6 @@
 				<p>{{ \Session::get('success') }}</p>
 			</div>
 		@endif
-		<?php var_dump($permissions); ?>
 		<form class="frm_create_permission" method="post" action="{{action('Admin\PermissionController@update',$idperm)}}">
 			{{ csrf_field() }}
 			<input type="hidden" name="_method" value="PATCH">
@@ -45,7 +44,7 @@
             	<select class="form-control type-category" name="selidcategory" required="true">
             		<option value="">Chuyên mục</option>
             		@foreach($categorytypes as $row)
-            			<option value="{{ $row['idcattype'] }}">{{ $row['catnametype'] }}</option>
+            			<option value="{{ $row['idcattype'] }}" {{ $row['idcattype'] == $permissions->idcattype ? 'selected="selected"' : '' }}>{{ $row['catnametype'] }}</option>
 					@endforeach        
 	         	</select>
 	        </div>

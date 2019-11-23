@@ -105,10 +105,10 @@ class PermissionController extends Controller
         DB::enableQueryLog();
         //$permissions = permission::find($idperm);
         $qr_permissions = DB::select('call PermissionByidProcedure(?)',array($idperm));
-        $permissions = new stdClass();
-        foreach ($rs_permissions as $key_array => $item) {
-            foreach ($item as $key_item => $value) {
-                $permissions->$key_item = $value;
+        $permissions = new \stdClass();
+        foreach ($qr_permissions as $item) {
+            foreach ($item as $key => $value) {
+                $permissions->$key = $value;
             }
         }
         $categorytypes = CategoryType::all()->toArray();
