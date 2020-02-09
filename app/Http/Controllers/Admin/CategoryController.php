@@ -96,7 +96,7 @@ class CategoryController extends Controller
 
          $this->validate($request,['namecat'=>'required']);
 
-        $categories = new category(['namecat'=> $request->get('namecat'),'idcattype'=>$request->get('sel_idcattype'),'idparent'=> $request->get('sel_idparent')]);
+        $categories = new category(['namecat'=> $request->get('namecat'),'idcattype'=>$request->get('sel_idcattype'),'idparent'=> $request->get('sel_idparent'), 'pathroute' => $request->get('pathroute')]);
 
         $categories->save();
 
@@ -139,19 +139,19 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
 
      */
-    public function editbycatetype(Request $request, $idcategory,$_namecattype)
+    public function editbycatetype(Request $request, $_idcategory, $_idcattype)
     {
-        $categorybyid = category::find($idcategory);
+        $categorybyid = category::find($_idcategory);
         $categories = category::all()->toArray();
         $categorytypes = CategoryType::all()->toArray();
-        $result = DB::select('call SelCategorybyIdProcedure(?)',array($idcategory));
+        $result = DB::select('call SelCategorybyIdProcedure(?)',array($_idcategory));
         $selected = json_decode(json_encode($result), true);
-        $qr_parent_cate = DB::select('call ListParentCatByTypeProcedure(?)',array($_namecattype));
+        $qr_parent_cate = DB::select('call ListParentCatbyIdcattypeProcedure(?)',array($_idcattype));
         $parent_cate = json_decode(json_encode($qr_parent_cate), true);
-        return view('admin.category.edit',compact('categorybyid','categories','idcategory','categorytypes','selected'));
+        return view('admin.category.edit',compact('categorybyid','categories','_idcategory','categorytypes','selected','parent_cate'));
     }
     // public function edit(Request $request, $idcategory,$_namecattype)
-    public function edit(Request $request, $idcategory,$_namecattype)
+    public function edit($idcategory,$_namecattype)
     {
         $categorybyid = category::find($idcategory);
         $categories = category::all()->toArray();
@@ -200,7 +200,7 @@ class CategoryController extends Controller
         $category->idparent = $request->get('sel_idparent');
         $idcattype = $request->get('sel_idcattype');
         $category->idcattype = $idcattype;
-
+        $category->pathroute = $request->get('pathroute');
         $category->save();
         $cat_name_type = CategoryType::find($idcattype);
         $catnametype = $cat_name_type->catnametype;
@@ -288,8 +288,7 @@ class CategoryController extends Controller
 
         $this->validate($request,['namecat'=>'required']);
 
-        $category = new category(['namecat'=> $request->get('namecat'),'idcattype'=>$request->get('sel_idcattype'),'idparent'=> $request->get('sel_idparent')]);
-
+        $category = new category(['namecat'=> $request->get('namecat'),'idcattype'=>$request->get('sel_idcattype'),'idparent'=> $request->get('sel_idparent'), 'pathroute' => $request->get('pathroute')]);
         $category->save();
 
         $result = DB::select('call ListAllCatByTypeProcedure(?)',array($_namecattype));

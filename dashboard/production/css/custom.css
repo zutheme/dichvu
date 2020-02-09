@@ -799,3 +799,20 @@ table.dataTable.nowrap th, table.dataTable.nowrap td {
     margin-top: 100px;
     padding: 15px 15px;
 }
+.select_dynamic {
+    position: relative;
+    padding-left: 0px !important;
+}
+.select_dynamic .list-check {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.select_dynamic ul.list-check > li {
+    position: relative;
+    padding-left:0;
+}
+.select_dynamic ul.list-check > li > ul > li {
+    position: relative;
+    padding-left:15px;
+}

@@ -13,8 +13,10 @@
     <link href="{{ asset('dashboard/production/css/custom.css?v=0.1.4') }}" rel="stylesheet">
    <link href="{{ asset('dashboard/production/css/editor.css?v=0.1.1') }}" rel="stylesheet">
 @stop
-<?php $_namecattype = Request::segment(3);
-$_namecattype = isset($_namecattype) ? Request::segment(3) : 'product'; ?>
+<?php 
+$_namecattype = Request::segment(3);
+$_namecattype = isset($_namecattype) ? Request::segment(3) : 'product'; 
+echo $_namecattype; ?>
 <script type="text/javascript">
 	var namecat = '{{ $_namecattype }}';
 </script>
@@ -56,8 +58,7 @@ $_namecattype = isset($_namecattype) ? Request::segment(3) : 'product'; ?>
 								<td>{{ $row['namecat'] }}</td>
 								<td>{{ $row['parent'] }}</td>
 								<td>{{ $row['catnametype'] }}</td>					
-								{{-- <td class="btn-control"><a class="btn btn-primary btn-edit" href="{{ action('Admin\CategoryController@edit',['idcategory' => $row['idcategory'],'idcattype' => $row['idcattype'] ] ) }}"><i class="fa fa-edit"></i></a></td> --}}
-								<td><a href="{{ action('Admin\CategoryController@edit',['idcategory' => $row['idcategory'],'idcattype' => $row['idcattype']] ) }}" class="btn btn-default btn-create-new">edit</a></td>
+								<td><a href="{{ action('Admin\CategoryController@editbycatetype',[$row['idcategory'],$row['idcattype'] ] ) }}" class="btn btn-default btn-create-new"><i class="fa fa-edit"></i></a></td>
 								<td class="btn-control">
 								     <form method="post" class="delete_form" action="{{action('Admin\CategoryController@destroy', $row['idcategory'])}}">
 								      {{csrf_field()}}

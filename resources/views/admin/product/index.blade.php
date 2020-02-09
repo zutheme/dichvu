@@ -22,7 +22,7 @@
 
       <link href="{{ asset('dashboard/build/css/custom.min.css') }}" rel="stylesheet">
 
-      <link href="{{ asset('dashboard/production/css/custom.css?v=0.3.8') }}" rel="stylesheet">
+      <link href="{{ asset('dashboard/production/css/custom.css?v=0.3.9.5') }}" rel="stylesheet">
 
       <!-- bootstrap-daterangepicker -->
 

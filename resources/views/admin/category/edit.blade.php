@@ -16,8 +16,10 @@
 			$selected_idcattype =  $row['idcattype'];
 			$catnametype = $row['catnametype'];
        }
-} 
-$idcattype = app('request')->input('idcattype');
+}
+$idcattype = Request::segment(5); 
+//$idcattype = app('request')->input('idcattype');
+
 ?>
 <div class="row">
 	<div class="col-sm-6">
@@ -36,25 +38,16 @@ $idcattype = app('request')->input('idcattype');
 				<p>{{ \Session::get('success') }}</p>
 			</div>
 		@endif
-		<form class="frm_create_category" method="post" action="{{action('Admin\CategoryController@update',$idcategory)}}">
+		<form class="frm_create_category" method="post" action="{{ action('Admin\CategoryController@update',$_idcategory) }}">
 			{{ csrf_field() }}
 			<input type="hidden" name="_method" value="PATCH">
-			<div class="form-group">
-				<input type="text" name="namecat" class="form-control" value="{{$categorybyid->namecat}}">
-			</div>
-		
 			<div class="form-group row">
-                <label class="col-lg-4 col-form-label" for="sel_idparent">Chuyên mục <span class="text-danger">*</span></label>
+				<label class="col-lg-4 col-form-label" for="sel_idcattype">Tên chuyên mục <span class="text-danger">*</span></label>
                 <div class="col-lg-8">
-                    <select class="form-control catebyidcatetype" name="sel_idparent">
-                    	<option value="">Thuộc chuyên mục</option>
-                    	@foreach($parent_cate as $row)
-                    		 <option value="{{ $row['idcategory'] }}">{{ $row['namecat'] }}</option>
-						@endforeach        
-                    </select>
-                </div>
-            </div>
-            <div class="form-group row">
+					<input type="text" name="namecat" class="form-control" value="{{$categorybyid->namecat}}">
+				</div>
+			</div>
+			<div class="form-group row">
                 <label class="col-lg-4 col-form-label" for="sel_idcattype">Kiểu chuyên mục <span class="text-danger">*</span></label>
                 <div class="col-lg-8">
                     <select class="form-control type-category" name="sel_idcattype">
@@ -65,6 +58,25 @@ $idcattype = app('request')->input('idcattype');
                     </select>
                 </div>
             </div>
+			<div class="form-group row">
+                <label class="col-lg-4 col-form-label" for="sel_idparent">Chuyên mục <span class="text-danger">*</span></label>
+                <div class="col-lg-8">
+                    <select class="form-control catebyidcatetype" name="sel_idparent">
+                    	<option value="">Thuộc chuyên mục</option>
+                    	@if(isset($parent_cate))
+	                    	@foreach($parent_cate as $row)
+	                    		 <option value="{{ $row['idcategory'] }}" {{ $row['idcategory'] == $selected_idparent ? 'selected="selected"' : '' }}>{{ $row['namecat'] }}</option>
+							@endforeach
+						@endif        
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+            	<label class="col-lg-4 col-form-label" for="sel_idcattype">Route <span class="text-danger">*</span></label>
+                <div class="col-lg-8">
+					<input type="text" name="pathroute" class="form-control" value="{{$categorybyid->pathroute}}">
+				</div>
+			</div>
 			<div class="form-group">
 				<input type="submit" class="btn btn-default btn-submit" name="btn-submit" value="Cập nhật" />
 			</div>

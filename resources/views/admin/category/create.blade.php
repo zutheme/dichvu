@@ -4,8 +4,8 @@
     <link href="{{ asset('dashboard/build/css/custom.min.css') }}" rel="stylesheet">
     <link href="{{ asset('dashboard/production/css/custom.css?v=0.1.2') }}" rel="stylesheet">
 @stop
-<?php $_namecattype = Request::segment(4);
-$_namecattype = isset($_namecattype) ? Request::segment(4) : 'product'; ?>
+<?php $_namecattype = Request::segment(3);
+$_namecattype = isset($_namecattype) ? Request::segment(3) : 'product'; ?>
 @section('content')
 <div class="row">
 	<div class="col-sm-6">
@@ -21,8 +21,11 @@ $_namecattype = isset($_namecattype) ? Request::segment(4) : 'product'; ?>
 		@endif
 		<form class="frm_create_category" method="post" action="{{ url('admin/category/storeby/'.$_namecattype) }}">
 			{{ csrf_field() }}
-			<div class="form-group">
-				<input type="text" name="namecat" class="form-control" placeholder="Tên chuyên mục">
+			<div class="form-group row">
+				<label class="col-lg-4 col-form-label" for="parent">Tên chuyên mục <span class="text-danger">*</span></label>
+                <div class="col-lg-8">
+					<input type="text" name="namecat" class="form-control" placeholder="Tên chuyên mục">
+				</div>
 			</div>
 			
 			<div class="form-group row">
@@ -47,6 +50,12 @@ $_namecattype = isset($_namecattype) ? Request::segment(4) : 'product'; ?>
                     </select>
                 </div>
             </div>
+            <div class="form-group row">
+				<label class="col-lg-4 col-form-label" for="parent">Tên chuyên mục <span class="text-danger">*</span></label>
+                <div class="col-lg-8">
+					<input type="text" name="pathroute" class="form-control" placeholder="Route">
+				</div>
+			</div>
 			<div class="form-group">
 				<input type="submit" class="btn btn-default btn-submit" name="btn-submit" value="Xác nhận" />
 			</div>

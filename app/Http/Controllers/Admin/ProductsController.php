@@ -107,8 +107,7 @@ class ProductsController extends Controller
                   $_list_idcat .= "(".$idcategory."),";
                 }
                 $_list_idcat = rtrim($_list_idcat,", ");
-            }
-            
+            }   
             // if(!isset($_idcategory)){
             //     $_idcategory=0;
             //     session()->put('idcategory',  $_idcategory);
