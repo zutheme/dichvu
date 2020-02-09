@@ -3,15 +3,15 @@
 
  Source Server         : localhost_3306
  Source Server Type    : MySQL
- Source Server Version : 100133
+ Source Server Version : 100136
  Source Host           : localhost:3306
- Source Schema         : db_dichvu
+ Source Schema         : dbdichvu
 
  Target Server Type    : MySQL
- Target Server Version : 100133
+ Target Server Version : 100136
  File Encoding         : 65001
 
- Date: 15/10/2019 17:32:02
+ Date: 09/02/2020 07:10:55
 */
 
 SET NAMES utf8mb4;
@@ -45,7 +45,7 @@ CREATE TABLE `categories`  (
   PRIMARY KEY (`idcategory`) USING BTREE,
   INDEX `fr_cattype`(`idcattype`) USING BTREE,
   CONSTRAINT `fr_cattype` FOREIGN KEY (`idcattype`) REFERENCES `category_types` (`idcattype`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 34 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 43 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of categories
@@ -71,6 +71,15 @@ INSERT INTO `categories` VALUES (30, NULL, 'mgk.edu.vn', 2, 0, NULL, NULL, '2019
 INSERT INTO `categories` VALUES (31, 'import', 'Nhập hàng', 5, 0, NULL, '', '2019-08-02 10:08:41', '2019-08-24 13:49:17');
 INSERT INTO `categories` VALUES (32, NULL, '', NULL, NULL, NULL, NULL, '2019-08-24 13:49:20', '2019-08-24 13:49:20');
 INSERT INTO `categories` VALUES (33, NULL, 'weekcare', 4, 29, NULL, NULL, '2019-10-12 11:33:55', '2019-10-12 11:33:55');
+INSERT INTO `categories` VALUES (34, NULL, 'Cơ sở TP Hồ Chí Minh', 7, 0, NULL, NULL, '2019-10-23 16:56:06', '2019-10-23 16:56:06');
+INSERT INTO `categories` VALUES (35, NULL, 'dailycare', 4, 29, NULL, NULL, '2020-02-04 11:19:38', '2020-02-04 11:19:38');
+INSERT INTO `categories` VALUES (36, NULL, 'Quản lý khách hàng', 9, 0, NULL, NULL, '2020-02-07 09:23:20', '2020-02-07 09:23:20');
+INSERT INTO `categories` VALUES (37, NULL, 'Quản lý sản phẩm', 9, 0, NULL, NULL, '2020-02-07 09:23:45', '2020-02-07 09:23:45');
+INSERT INTO `categories` VALUES (38, NULL, 'Quản lý nội dung', 9, 0, NULL, NULL, '2020-02-07 09:24:05', '2020-02-07 09:24:05');
+INSERT INTO `categories` VALUES (39, NULL, 'Nhân sự', 9, 0, NULL, NULL, '2020-02-07 09:24:24', '2020-02-07 09:24:24');
+INSERT INTO `categories` VALUES (40, NULL, 'Sản phẩm', 9, 37, NULL, NULL, '2020-02-07 09:26:41', '2020-02-07 09:26:41');
+INSERT INTO `categories` VALUES (41, NULL, 'Chuyên mục', 9, 40, NULL, NULL, '2020-02-07 09:27:35', '2020-02-07 09:27:35');
+INSERT INTO `categories` VALUES (42, NULL, 'Liệt kê', 9, 40, NULL, NULL, '2020-02-07 09:28:51', '2020-02-07 09:28:51');
 
 -- ----------------------------
 -- Table structure for category_types
@@ -82,7 +91,7 @@ CREATE TABLE `category_types`  (
   `created_at` timestamp(0) NULL DEFAULT NULL,
   `updated_at` timestamp(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`idcattype`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of category_types
@@ -95,6 +104,7 @@ INSERT INTO `category_types` VALUES (5, 'store', '2019-06-11 10:15:05', '2019-06
 INSERT INTO `category_types` VALUES (6, 'Link', '2019-07-09 15:48:25', '2019-07-09 15:48:25');
 INSERT INTO `category_types` VALUES (7, 'department', '2019-10-14 16:09:26', '2019-10-14 16:09:26');
 INSERT INTO `category_types` VALUES (8, 'role', '2019-10-15 13:50:08', '2019-10-15 13:50:08');
+INSERT INTO `category_types` VALUES (9, 'dashboard', '2020-02-07 09:13:33', '2020-02-07 09:13:33');
 
 -- ----------------------------
 -- Table structure for catehasproduct
@@ -104,6 +114,7 @@ CREATE TABLE `catehasproduct`  (
   `idcateproduct` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `idproduct` bigint(20) UNSIGNED NULL DEFAULT NULL,
   `idcategory` int(11) UNSIGNED NULL DEFAULT NULL,
+  `checked` bit(1) NULL DEFAULT b'1',
   `created_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`idcateproduct`) USING BTREE,
@@ -111,45 +122,54 @@ CREATE TABLE `catehasproduct`  (
   INDEX `fr_cat_product`(`idproduct`) USING BTREE,
   CONSTRAINT `fr_cat_belong_categories` FOREIGN KEY (`idcategory`) REFERENCES `categories` (`idcategory`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fr_cat_product` FOREIGN KEY (`idproduct`) REFERENCES `products` (`idproduct`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 35 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 49 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of catehasproduct
 -- ----------------------------
-INSERT INTO `catehasproduct` VALUES (1, 1, 6, '2019-08-29 15:26:05', '2019-08-29 15:26:05');
-INSERT INTO `catehasproduct` VALUES (2, 2, 6, '2019-08-29 15:29:34', '2019-08-29 15:29:34');
-INSERT INTO `catehasproduct` VALUES (3, 3, 6, '2019-08-29 21:48:23', '2019-08-29 21:48:23');
-INSERT INTO `catehasproduct` VALUES (4, 4, 6, '2019-08-29 21:56:45', '2019-08-29 21:56:45');
-INSERT INTO `catehasproduct` VALUES (5, 5, 6, '2019-08-30 08:53:07', '2019-08-30 08:53:07');
-INSERT INTO `catehasproduct` VALUES (6, 6, 6, '2019-08-30 09:22:06', '2019-08-30 09:22:06');
-INSERT INTO `catehasproduct` VALUES (7, 7, 6, '2019-08-30 09:27:41', '2019-08-30 09:27:41');
-INSERT INTO `catehasproduct` VALUES (8, 8, 6, '2019-08-31 15:18:08', '2019-08-31 15:18:08');
-INSERT INTO `catehasproduct` VALUES (9, 9, 6, '2019-08-31 15:20:25', '2019-08-31 15:20:25');
-INSERT INTO `catehasproduct` VALUES (10, 10, 6, '2019-08-31 15:22:37', '2019-08-31 15:22:37');
-INSERT INTO `catehasproduct` VALUES (11, 11, 6, '2019-08-31 15:24:43', '2019-08-31 15:24:43');
-INSERT INTO `catehasproduct` VALUES (12, 12, 6, '2019-08-31 15:26:43', '2019-08-31 15:26:43');
-INSERT INTO `catehasproduct` VALUES (13, 13, 6, '2019-08-31 15:28:22', '2019-08-31 15:28:22');
-INSERT INTO `catehasproduct` VALUES (14, 14, 6, '2019-08-31 15:30:10', '2019-08-31 15:30:10');
-INSERT INTO `catehasproduct` VALUES (15, 15, 6, '2019-08-31 15:31:24', '2019-08-31 15:31:24');
-INSERT INTO `catehasproduct` VALUES (16, 16, 6, '2019-08-31 15:32:57', '2019-08-31 15:32:57');
-INSERT INTO `catehasproduct` VALUES (17, 17, 6, '2019-08-31 15:34:25', '2019-08-31 15:34:25');
-INSERT INTO `catehasproduct` VALUES (18, 18, 6, '2019-09-09 11:21:24', '2019-09-09 11:21:24');
-INSERT INTO `catehasproduct` VALUES (19, 19, 6, '2019-09-09 11:27:47', '2019-09-09 11:27:47');
-INSERT INTO `catehasproduct` VALUES (20, 20, 6, '2019-09-09 11:34:08', '2019-09-09 11:34:08');
-INSERT INTO `catehasproduct` VALUES (21, 21, 6, '2019-09-09 11:47:58', '2019-09-09 11:47:58');
-INSERT INTO `catehasproduct` VALUES (22, 22, 6, '2019-09-09 11:50:34', '2019-09-09 11:50:34');
-INSERT INTO `catehasproduct` VALUES (23, 23, 6, '2019-09-13 23:04:01', '2019-09-13 23:04:01');
-INSERT INTO `catehasproduct` VALUES (24, 24, 6, '2019-09-13 23:06:05', '2019-09-13 23:06:05');
-INSERT INTO `catehasproduct` VALUES (25, 25, 6, '2019-09-13 23:08:17', '2019-09-13 23:08:17');
-INSERT INTO `catehasproduct` VALUES (26, 26, 6, '2019-09-13 23:12:06', '2019-09-13 23:12:06');
-INSERT INTO `catehasproduct` VALUES (27, 27, 6, '2019-09-13 23:14:08', '2019-09-13 23:14:08');
-INSERT INTO `catehasproduct` VALUES (28, 28, 9, '2019-09-15 16:31:04', '2019-09-15 16:31:04');
-INSERT INTO `catehasproduct` VALUES (29, 29, 6, '2019-09-20 15:58:52', '2019-09-20 15:58:52');
-INSERT INTO `catehasproduct` VALUES (30, 30, 9, '2019-09-28 15:30:28', '2019-09-28 15:30:28');
-INSERT INTO `catehasproduct` VALUES (31, 31, 6, '2019-10-01 12:36:46', '2019-10-01 12:36:46');
-INSERT INTO `catehasproduct` VALUES (32, 32, 9, '2019-10-01 13:53:51', '2019-10-01 13:53:51');
-INSERT INTO `catehasproduct` VALUES (33, 33, 9, '2019-10-01 15:56:56', '2019-10-01 15:56:56');
-INSERT INTO `catehasproduct` VALUES (34, 34, 9, '2019-10-01 15:59:09', '2019-10-01 15:59:09');
+INSERT INTO `catehasproduct` VALUES (1, 1, 6, b'1', '2019-08-29 15:26:05', '2020-02-03 23:08:43');
+INSERT INTO `catehasproduct` VALUES (2, 2, 6, b'1', '2019-08-29 15:29:34', '2020-02-03 23:08:43');
+INSERT INTO `catehasproduct` VALUES (3, 3, 6, b'1', '2019-08-29 21:48:23', '2020-02-03 23:08:43');
+INSERT INTO `catehasproduct` VALUES (4, 4, 6, b'1', '2019-08-29 21:56:45', '2020-02-03 23:08:43');
+INSERT INTO `catehasproduct` VALUES (5, 5, 6, b'1', '2019-08-30 08:53:07', '2020-02-03 23:08:43');
+INSERT INTO `catehasproduct` VALUES (6, 6, 6, b'1', '2019-08-30 09:22:06', '2020-02-03 23:08:43');
+INSERT INTO `catehasproduct` VALUES (7, 7, 6, b'1', '2019-08-30 09:27:41', '2020-02-03 23:08:43');
+INSERT INTO `catehasproduct` VALUES (8, 8, 6, b'1', '2019-08-31 15:18:08', '2020-02-03 23:08:43');
+INSERT INTO `catehasproduct` VALUES (9, 9, 6, b'1', '2019-08-31 15:20:25', '2020-02-03 23:08:43');
+INSERT INTO `catehasproduct` VALUES (10, 10, 6, b'1', '2019-08-31 15:22:37', '2020-02-03 23:08:43');
+INSERT INTO `catehasproduct` VALUES (11, 11, 6, b'1', '2019-08-31 15:24:43', '2020-02-03 23:08:43');
+INSERT INTO `catehasproduct` VALUES (12, 12, 6, b'1', '2019-08-31 15:26:43', '2020-02-03 23:08:43');
+INSERT INTO `catehasproduct` VALUES (13, 13, 6, b'1', '2019-08-31 15:28:22', '2020-02-03 23:08:43');
+INSERT INTO `catehasproduct` VALUES (14, 14, 6, b'1', '2019-08-31 15:30:10', '2020-02-03 23:08:43');
+INSERT INTO `catehasproduct` VALUES (15, 15, 6, b'1', '2019-08-31 15:31:24', '2020-02-03 23:08:43');
+INSERT INTO `catehasproduct` VALUES (16, 16, 6, b'1', '2019-08-31 15:32:57', '2020-02-03 23:08:43');
+INSERT INTO `catehasproduct` VALUES (17, 17, 6, b'1', '2019-08-31 15:34:25', '2020-02-03 23:08:43');
+INSERT INTO `catehasproduct` VALUES (18, 18, 6, b'1', '2019-09-09 11:21:24', '2020-02-03 23:08:43');
+INSERT INTO `catehasproduct` VALUES (19, 19, 6, b'1', '2019-09-09 11:27:47', '2020-02-03 23:08:43');
+INSERT INTO `catehasproduct` VALUES (20, 20, 6, b'1', '2019-09-09 11:34:08', '2020-02-03 23:08:43');
+INSERT INTO `catehasproduct` VALUES (21, 21, 6, b'1', '2019-09-09 11:47:58', '2020-02-03 23:08:43');
+INSERT INTO `catehasproduct` VALUES (22, 22, 6, b'1', '2019-09-09 11:50:34', '2020-02-03 23:08:43');
+INSERT INTO `catehasproduct` VALUES (23, 23, 6, b'1', '2019-09-13 23:04:01', '2020-02-03 23:08:43');
+INSERT INTO `catehasproduct` VALUES (24, 24, 6, b'1', '2019-09-13 23:06:05', '2020-02-03 23:08:43');
+INSERT INTO `catehasproduct` VALUES (25, 25, 6, b'1', '2019-09-13 23:08:17', '2020-02-03 23:08:43');
+INSERT INTO `catehasproduct` VALUES (26, 26, 6, b'1', '2019-09-13 23:12:06', '2020-02-03 23:08:43');
+INSERT INTO `catehasproduct` VALUES (27, 27, 6, b'0', '2019-09-13 23:14:08', '2020-02-04 16:21:45');
+INSERT INTO `catehasproduct` VALUES (28, 28, 9, b'1', '2019-09-15 16:31:04', '2020-02-03 23:08:43');
+INSERT INTO `catehasproduct` VALUES (29, 29, 6, b'1', '2019-09-20 15:58:52', '2020-02-03 23:08:43');
+INSERT INTO `catehasproduct` VALUES (30, 30, 9, b'1', '2019-09-28 15:30:28', '2020-02-03 23:08:43');
+INSERT INTO `catehasproduct` VALUES (31, 31, 6, b'1', '2019-10-01 12:36:46', '2020-02-03 23:08:43');
+INSERT INTO `catehasproduct` VALUES (32, 32, 9, b'1', '2019-10-01 13:53:51', '2020-02-03 23:08:43');
+INSERT INTO `catehasproduct` VALUES (33, 33, 9, b'1', '2019-10-01 15:56:56', '2020-02-03 23:08:43');
+INSERT INTO `catehasproduct` VALUES (34, 34, 9, b'0', '2019-10-01 15:59:09', '2020-02-04 16:03:55');
+INSERT INTO `catehasproduct` VALUES (35, 32, 6, b'0', '2020-01-31 10:36:05', '2020-02-05 09:41:34');
+INSERT INTO `catehasproduct` VALUES (41, 34, 6, b'0', '2020-02-03 23:59:57', '2020-02-04 11:27:30');
+INSERT INTO `catehasproduct` VALUES (42, 34, 28, b'0', '2020-02-04 09:43:55', '2020-02-04 11:27:35');
+INSERT INTO `catehasproduct` VALUES (43, 34, 33, b'0', '2020-02-04 10:16:45', '2020-02-04 16:03:52');
+INSERT INTO `catehasproduct` VALUES (44, 34, 35, b'0', '2020-02-04 11:21:43', '2020-02-04 16:03:50');
+INSERT INTO `catehasproduct` VALUES (45, 34, 10, b'1', '2020-02-04 11:22:31', '2020-02-04 11:22:31');
+INSERT INTO `catehasproduct` VALUES (46, 34, 29, b'0', '2020-02-04 11:24:15', '2020-02-04 16:03:57');
+INSERT INTO `catehasproduct` VALUES (47, 34, 17, b'0', '2020-02-04 11:26:14', '2020-02-04 11:27:32');
+INSERT INTO `catehasproduct` VALUES (48, 27, 9, b'1', '2020-02-04 16:21:46', '2020-02-04 16:21:46');
 
 -- ----------------------------
 -- Table structure for city_town
@@ -407,7 +427,7 @@ CREATE TABLE `exp_products`  (
   INDEX `frm_exp_pr_order`(`idnumberorder`) USING BTREE,
   CONSTRAINT `frm_exp_pr_order` FOREIGN KEY (`idnumberorder`) REFERENCES `listorder` (`idnumberorder`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `frm_exp_product` FOREIGN KEY (`idproduct`) REFERENCES `products` (`idproduct`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 50 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 56 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of exp_products
@@ -450,6 +470,12 @@ INSERT INTO `exp_products` VALUES (46, 10, 0, 15, 1, 0, 49, 0, 0, 1, 0, '', 11, 
 INSERT INTO `exp_products` VALUES (47, 10, 1, 16, 2, 1, 49, 0, 0, 10, 1800000, '', 11, 0, 0, 0, 1, 15, 15, '2019-10-11 16:18:24', '2019-10-11 16:18:24');
 INSERT INTO `exp_products` VALUES (48, 10, 1, 17, 3, 1, 49, 0, 0, 5, 6000000, '', 11, 0, 0, 0, 1, 16, 16, '2019-10-11 16:18:24', '2019-10-11 16:18:24');
 INSERT INTO `exp_products` VALUES (49, 10, 4, 29, 4, 0, 49, 0, 0, 1, 2400000, '', 11, 0, 0, 0, 1, 75, 29, '2019-10-11 16:18:24', '2019-10-11 16:18:24');
+INSERT INTO `exp_products` VALUES (50, 11, 4, 32, 1, 0, 50, 0, 0, 1, 2400000, '', 11, 0, 0, 0, 1, 84, 33, '2019-11-12 08:31:18', '2019-11-12 08:31:18');
+INSERT INTO `exp_products` VALUES (51, 11, 0, 27, 2, 0, 50, 0, 0, 1, 4000000, '', 11, 0, 0, 0, 1, 65, 26, '2019-11-12 08:31:18', '2019-11-12 08:31:18');
+INSERT INTO `exp_products` VALUES (52, 11, 1, 2, 3, 2, 50, 0, 0, 10, 100000, '', 11, 0, 0, 0, 1, 67, 2, '2019-11-12 08:31:18', '2019-11-12 08:31:18');
+INSERT INTO `exp_products` VALUES (53, 12, 4, 32, 1, 0, 51, 0, 0, 1, 2400000, '', 11, 0, 0, 0, 1, 84, 33, '2019-12-02 16:00:12', '2019-12-02 16:00:12');
+INSERT INTO `exp_products` VALUES (54, 12, 0, 27, 2, 0, 51, 0, 0, 1, 4000000, '', 11, 0, 0, 0, 1, 65, 26, '2019-12-02 16:00:12', '2019-12-02 16:00:12');
+INSERT INTO `exp_products` VALUES (55, 12, 1, 2, 3, 2, 51, 0, 0, 10, 100000, '', 11, 0, 0, 0, 1, 67, 2, '2019-12-02 16:00:12', '2019-12-02 16:00:12');
 
 -- ----------------------------
 -- Table structure for expposts
@@ -482,7 +508,7 @@ CREATE TABLE `files`  (
   `created_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`idfile`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 47 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 51 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of files
@@ -533,6 +559,10 @@ INSERT INTO `files` VALUES (43, 'uploads/2019/10/12/20191012_1570852717_5da14f6d
 INSERT INTO `files` VALUES (44, 'uploads/2019/10/12/20191012_1570852779_5da14fabacbd4.png', '', '20191012_1570852779_5da14fabacbd4.png', 'png', '2019-10-12 10:59:39', '2019-10-12 10:59:39');
 INSERT INTO `files` VALUES (45, 'uploads/2019/10/12/20191012_1570852788_5da14fb429eeb.png', '', '20191012_1570852788_5da14fb429eeb.png', 'png', '2019-10-12 10:59:48', '2019-10-12 10:59:48');
 INSERT INTO `files` VALUES (46, 'uploads/2019/10/15/20191015_1571121559_5da56997578ca.png', '', '20191015_1571121559_5da56997578ca.png', 'png', '2019-10-15 13:39:19', '2019-10-15 13:39:19');
+INSERT INTO `files` VALUES (47, 'uploads/2020/01/29/20200129_1580299504_5e3174f057903.png', '', '20200129_1580299504_5e3174f057903.png', 'png', '2020-01-29 19:05:04', '2020-01-29 19:05:04');
+INSERT INTO `files` VALUES (48, 'uploads/2020/02/01/20200201_1580537197_5e35156d1674d.png', '', '20200201_1580537197_5e35156d1674d.png', 'png', '2020-02-01 13:06:37', '2020-02-01 13:06:37');
+INSERT INTO `files` VALUES (49, 'uploads/2020/02/01/20200201_1580537801_5e3517c920a4d.jpg', 'bs1s.jpg', '20200201_1580537801_5e3517c920a4d.jpg', 'jpg', '2020-02-01 13:16:41', '2020-02-01 13:16:41');
+INSERT INTO `files` VALUES (50, 'uploads/2020/02/01/20200201_1580537801_5e3517c9369a7.jpg', 'bs2.jpg', '20200201_1580537801_5e3517c9369a7.jpg', 'jpg', '2020-02-01 13:16:41', '2020-02-01 13:16:41');
 
 -- ----------------------------
 -- Table structure for grants
@@ -549,15 +579,18 @@ CREATE TABLE `grants`  (
   INDEX `fr_grant_role`(`idrole`) USING BTREE,
   INDEX `fr_grant_user`(`to_iduser`) USING BTREE,
   INDEX `fr_grant_byuser`(`by_iduser`) USING BTREE,
+  CONSTRAINT `fr_grant_byuser` FOREIGN KEY (`by_iduser`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fr_grant_role` FOREIGN KEY (`idrole`) REFERENCES `roles` (`idrole`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `fr_grant_user` FOREIGN KEY (`to_iduser`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `fr_grant_byuser` FOREIGN KEY (`by_iduser`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+  CONSTRAINT `fr_grant_user` FOREIGN KEY (`to_iduser`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of grants
 -- ----------------------------
 INSERT INTO `grants` VALUES (1, 1, 2, 2, '2019-04-13 08:30:20', '2019-04-13 08:30:20');
+INSERT INTO `grants` VALUES (2, 3, 24, 2, '2020-01-27 14:08:22', '2020-02-05 22:29:49');
+INSERT INTO `grants` VALUES (3, 3, 23, 2, '2020-01-27 14:38:17', '2020-01-27 14:38:17');
+INSERT INTO `grants` VALUES (4, 3, 15, 2, '2020-01-28 15:14:58', '2020-01-28 15:14:58');
 
 -- ----------------------------
 -- Table structure for imagetype
@@ -595,12 +628,18 @@ CREATE TABLE `imp_perms`  (
   CONSTRAINT `fr_impperm` FOREIGN KEY (`idperm`) REFERENCES `permissions` (`idperm`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fr_impperm_role` FOREIGN KEY (`idrole`) REFERENCES `roles` (`idrole`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fr_impperm_user` FOREIGN KEY (`iduserimp`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of imp_perms
 -- ----------------------------
-INSERT INTO `imp_perms` VALUES (1, 1, 1, 2, '2019-04-13 08:30:03', '2019-04-13 08:30:03');
+INSERT INTO `imp_perms` VALUES (1, 2, 1, 2, '2019-04-13 08:30:03', '2020-02-05 22:21:49');
+INSERT INTO `imp_perms` VALUES (2, 2, 2, 2, '2020-01-23 10:21:14', '2020-01-23 10:21:14');
+INSERT INTO `imp_perms` VALUES (3, 2, 3, 2, '2020-01-27 14:04:13', '2020-01-27 14:04:13');
+INSERT INTO `imp_perms` VALUES (4, 3, 3, 2, '2020-01-28 14:53:19', '2020-01-28 14:53:19');
+INSERT INTO `imp_perms` VALUES (5, 1, 3, 2, '2020-01-28 15:07:14', '2020-01-28 15:07:14');
+INSERT INTO `imp_perms` VALUES (6, 3, 1, 2, '2020-01-29 14:29:05', '2020-01-29 14:29:05');
+INSERT INTO `imp_perms` VALUES (7, 1, 1, 2, '2020-02-05 22:47:52', '2020-02-05 22:47:52');
 
 -- ----------------------------
 -- Table structure for imp_products
@@ -716,6 +755,7 @@ CREATE TABLE `impposts`  (
   `idemployee` int(11) NULL DEFAULT NULL,
   `address_reg` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `parent_idpost_imp` int(11) NULL DEFAULT NULL,
+  `url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `created_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`idimppost`) USING BTREE
@@ -731,7 +771,7 @@ CREATE TABLE `listorder`  (
   `created_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`idnumberorder`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of listorder
@@ -746,6 +786,8 @@ INSERT INTO `listorder` VALUES (7, '', '2019-10-11 13:51:38', '2019-10-11 13:51:
 INSERT INTO `listorder` VALUES (8, '', '2019-10-11 13:55:29', '2019-10-11 13:55:29');
 INSERT INTO `listorder` VALUES (9, '', '2019-10-11 16:12:20', '2019-10-11 16:12:20');
 INSERT INTO `listorder` VALUES (10, '', '2019-10-11 16:18:24', '2019-10-11 16:18:24');
+INSERT INTO `listorder` VALUES (11, '', '2019-11-12 08:31:18', '2019-11-12 08:31:18');
+INSERT INTO `listorder` VALUES (12, '', '2019-12-02 16:00:12', '2019-12-02 16:00:12');
 
 -- ----------------------------
 -- Table structure for menu_has_cate
@@ -766,16 +808,21 @@ CREATE TABLE `menu_has_cate`  (
   INDEX `fr_menu_has_cat`(`idcategory`) USING BTREE,
   CONSTRAINT `fr_cate_belong_menu` FOREIGN KEY (`idmenu`) REFERENCES `menus` (`idmenu`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fr_menu_has_cat` FOREIGN KEY (`idcategory`) REFERENCES `categories` (`idcategory`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 148 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 152 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of menu_has_cate
 -- ----------------------------
-INSERT INTO `menu_has_cate` VALUES (129, 1, 9, 0, 0, 2, 0, '2019-07-29 08:55:25', '2019-08-23 12:11:27');
-INSERT INTO `menu_has_cate` VALUES (133, 1, 28, 0, 0, 1, 0, '2019-07-29 08:55:44', '2019-08-23 12:11:27');
-INSERT INTO `menu_has_cate` VALUES (142, 1, 24, 0, 0, 11, 0, '2019-08-02 17:07:01', '2019-08-03 10:01:20');
-INSERT INTO `menu_has_cate` VALUES (145, 1, 29, 0, 0, 12, 0, '2019-08-02 17:08:56', '2019-08-02 17:33:51');
+INSERT INTO `menu_has_cate` VALUES (129, 1, 9, 0, 0, 1, 0, '2019-07-29 08:55:25', '2020-02-04 17:30:57');
+INSERT INTO `menu_has_cate` VALUES (133, 1, 28, 0, 0, 3, 0, '2019-07-29 08:55:44', '2020-02-04 17:30:57');
+INSERT INTO `menu_has_cate` VALUES (142, 1, 24, 0, 0, 2, 0, '2019-08-02 17:07:01', '2020-02-04 17:30:57');
+INSERT INTO `menu_has_cate` VALUES (145, 1, 29, 0, 0, 4, 1, '2019-08-02 17:08:56', '2020-02-05 10:01:10');
 INSERT INTO `menu_has_cate` VALUES (146, 1, 6, 0, 0, 0, 0, '2019-08-02 17:08:56', '2019-08-03 10:01:20');
+INSERT INTO `menu_has_cate` VALUES (147, 1, 33, 145, 1, 5, 1, '2019-11-12 15:39:25', '2020-02-05 10:00:24');
+INSERT INTO `menu_has_cate` VALUES (148, 1, 35, 145, 1, 6, 1, '2020-02-04 16:26:31', '2020-02-05 09:50:23');
+INSERT INTO `menu_has_cate` VALUES (149, 1, 29, 0, 0, 4, 0, '2020-02-05 10:01:43', '2020-02-05 10:01:54');
+INSERT INTO `menu_has_cate` VALUES (150, 1, 33, 149, 1, 5, 0, '2020-02-05 10:01:43', '2020-02-05 10:01:54');
+INSERT INTO `menu_has_cate` VALUES (151, 1, 35, 149, 1, 6, 0, '2020-02-05 10:01:43', '2020-02-05 10:01:54');
 
 -- ----------------------------
 -- Table structure for menus
@@ -804,7 +851,7 @@ CREATE TABLE `migrations`  (
   `migration` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 189 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 195 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of migrations
@@ -994,6 +1041,12 @@ INSERT INTO `migrations` VALUES (185, '2019_10_08_103328_detail_order_by_idorder
 INSERT INTO `migrations` VALUES (186, '2019_10_10_154622_detail_customer_order_procedure', 112);
 INSERT INTO `migrations` VALUES (187, '2019_10_10_161135_detail_order_by_idnumber_order_procedure', 113);
 INSERT INTO `migrations` VALUES (188, '2019_10_14_172958_create_perm_command_table', 114);
+INSERT INTO `migrations` VALUES (189, '2019_10_23_173245_lst_parent_by_idcattype_procedure', 115);
+INSERT INTO `migrations` VALUES (190, '2019_11_19_161722_add_permission_procedure', 115);
+INSERT INTO `migrations` VALUES (191, '2019_11_20_144512_list_permission_procedure', 116);
+INSERT INTO `migrations` VALUES (192, '2019_11_20_160030_list_roles_procedure', 117);
+INSERT INTO `migrations` VALUES (193, '2019_11_21_142534_permission_byid_procedure', 118);
+INSERT INTO `migrations` VALUES (194, '2020_01_24_092635_update_permission_procedure', 119);
 
 -- ----------------------------
 -- Table structure for oauth_access_tokens
@@ -1023,6 +1076,7 @@ INSERT INTO `oauth_access_tokens` VALUES ('017151f6e3594e400be8f361d5561be19d1b6
 INSERT INTO `oauth_access_tokens` VALUES ('01cfd3163ee5705287574a0cf78d7959a7190bbc214871e84bf528f7a856073916a9d4ba90660e02', 21, 1, 'MyApp', '[]', 0, '2019-06-24 10:43:23', '2019-06-24 10:43:23', '2020-06-24 10:43:23');
 INSERT INTO `oauth_access_tokens` VALUES ('0255d773a919658141315d3d111e177b15a17d57a8d5b04ecbaf09be6789c7a22c64e6e2a9c99a6b', 2, 1, 'MyApp', '[]', 0, '2019-06-28 08:23:12', '2019-06-28 08:23:12', '2020-06-28 08:23:12');
 INSERT INTO `oauth_access_tokens` VALUES ('02c5eb6246239dc8c502a00f04cd968d914088f56382271351eaa125d81d96bc05cef22fa727ac2e', 2, 1, 'MyApp', '[]', 0, '2019-02-27 15:50:47', '2019-02-27 15:50:47', '2020-02-27 15:50:47');
+INSERT INTO `oauth_access_tokens` VALUES ('0385844a3cb619e34a057680ed8132cc573c6fdbcd9abf9b187b20ce1f32ce8775db5fe6a17411fd', 15, 9, 'MyApp', '[]', 0, '2020-01-29 18:38:08', '2020-01-29 18:38:08', '2021-01-29 18:38:08');
 INSERT INTO `oauth_access_tokens` VALUES ('04efc9ed5af1655c64c2590bc9f572b32eb7eca07e429129cb9efd1baca6c0ec2e5ff66746fee23f', 2, 1, 'MyApp', '[]', 0, '2019-05-10 10:38:18', '2019-05-10 10:38:18', '2020-05-10 10:38:18');
 INSERT INTO `oauth_access_tokens` VALUES ('04f344456a751f13528e8617784360e9bb2ce58dc9268a91707aa468aba479b212f12573574c3d1b', 2, 1, 'MyApp', '[]', 0, '2019-07-15 11:02:02', '2019-07-15 11:02:02', '2020-07-15 11:02:02');
 INSERT INTO `oauth_access_tokens` VALUES ('058b761ebb5c44442216c31bde2d03760794215a28345c0944207b7a001d52aefaed7d7b36ab7d78', 2, 1, 'MyApp', '[]', 0, '2019-05-16 14:40:12', '2019-05-16 14:40:12', '2020-05-16 14:40:12');
@@ -1031,9 +1085,12 @@ INSERT INTO `oauth_access_tokens` VALUES ('0932576f7ac4ca702fd83f9c0d1181b2bb4ca
 INSERT INTO `oauth_access_tokens` VALUES ('096218f4c8508b93d23381d4d757b6a898a5f7f57d775802d3c7781cb095559f9c710fcbaa7f88f2', 2, 1, 'MyApp', '[]', 0, '2019-04-26 09:06:09', '2019-04-26 09:06:09', '2020-04-26 09:06:09');
 INSERT INTO `oauth_access_tokens` VALUES ('0a38cac016fe0b4a9addb193b5f3d823ba868c4bcbb702fe8ee8f5875654325bda145ba9f6b210be', 2, 1, 'MyApp', '[]', 0, '2019-08-03 10:43:57', '2019-08-03 10:43:57', '2020-08-03 10:43:57');
 INSERT INTO `oauth_access_tokens` VALUES ('0a4c7a79b0a3f46cd45270bb3473c86f1c8f55fdf1ca06a038722871509ec00d9a6c5ddd7db3c097', 2, 1, 'MyApp', '[]', 0, '2019-06-24 16:23:04', '2019-06-24 16:23:04', '2020-06-24 16:23:04');
+INSERT INTO `oauth_access_tokens` VALUES ('0a737436e49be3ebdf2edc35f2624eb697af9a7b336040c1e6071553bbc58617a9117ec719ab89f6', 2, 9, 'MyApp', '[]', 0, '2020-01-29 14:24:55', '2020-01-29 14:24:55', '2021-01-29 14:24:55');
 INSERT INTO `oauth_access_tokens` VALUES ('0b60a19cd4c3ba274cb06a8ae770000add99ba97d47448883fd4c44f84e7f588ea40eb7fa3ec1795', 2, 1, 'MyApp', '[]', 0, '2019-05-16 21:38:22', '2019-05-16 21:38:22', '2020-05-16 21:38:22');
 INSERT INTO `oauth_access_tokens` VALUES ('0c4180dee3e171b7f1cbec9e01101d1e92d26832430d1e1641434ae24fd31c45569db9ff726ffb75', 18, 1, 'MyApp', '[]', 0, '2019-08-01 08:30:02', '2019-08-01 08:30:02', '2020-08-01 08:30:02');
+INSERT INTO `oauth_access_tokens` VALUES ('0efdc5a556eede90f27f44bb0558447a74f4b71201bf3a6fee7dba2cc231aa586c6eb8a662cb4e9b', 2, 9, 'MyApp', '[]', 0, '2020-01-27 13:57:35', '2020-01-27 13:57:35', '2021-01-27 13:57:35');
 INSERT INTO `oauth_access_tokens` VALUES ('0f756d73a4677ca66d5ac5ccf63c56c39f2a0fc36a40b78bebe93604cf4bf291f7afbfcfdf9cda0f', 18, 1, 'MyApp', '[]', 0, '2019-05-17 09:39:23', '2019-05-17 09:39:23', '2020-05-17 09:39:23');
+INSERT INTO `oauth_access_tokens` VALUES ('10d71c1d53ffb38f16120f45b7f4ea50fba48e03ff3fb46db24d739a90d65a182bdc3afb8ff34bef', 2, 9, 'MyApp', '[]', 0, '2020-01-28 14:51:17', '2020-01-28 14:51:17', '2021-01-28 14:51:17');
 INSERT INTO `oauth_access_tokens` VALUES ('10efb86325f09f6027e678077a974b501933c092c6a33c6c22e1f00865f85ac350f9228e25a6a1ff', 17, 1, 'MyApp', '[]', 0, '2019-05-20 08:56:22', '2019-05-20 08:56:22', '2020-05-20 08:56:22');
 INSERT INTO `oauth_access_tokens` VALUES ('114792509f5c33ac5ae710663876d91eeea6885676508e9e22b0c6b41f1d287451383592a789d6e7', 2, 1, 'MyApp', '[]', 0, '2019-05-13 15:16:00', '2019-05-13 15:16:00', '2020-05-13 15:16:00');
 INSERT INTO `oauth_access_tokens` VALUES ('117a3ac930a04e89fbcd898cadbc6520751ce821af16fd5e3db6002f0cc5f475d6d68ed9037fc17b', 2, 1, 'MyApp', '[]', 0, '2019-06-24 17:01:40', '2019-06-24 17:01:40', '2020-06-24 17:01:40');
@@ -1044,6 +1101,8 @@ INSERT INTO `oauth_access_tokens` VALUES ('129d09689dc82206833403e3855a89b985d6f
 INSERT INTO `oauth_access_tokens` VALUES ('12c7eb54fd88206c647ec1a9018e4f870c367356d040270d7c68ebd7f6f236543747b3a591b0954f', 2, 1, 'MyApp', '[]', 0, '2019-07-19 08:24:33', '2019-07-19 08:24:33', '2020-07-19 08:24:33');
 INSERT INTO `oauth_access_tokens` VALUES ('132273c7c1c6c977a2f62bf0ee7d1d9dd8cac7bf07808d3efbe0000e01e3a2f1c1739f6ce7e2ab90', 2, 1, 'MyApp', '[]', 0, '2019-07-04 12:00:01', '2019-07-04 12:00:01', '2020-07-04 12:00:01');
 INSERT INTO `oauth_access_tokens` VALUES ('14fadc8eb48e6f841b30759cd1619ff57deb7ffb0367940679e96a3c6b0a204ed138576e294b04d1', 2, 1, 'MyApp', '[]', 0, '2019-04-25 11:28:06', '2019-04-25 11:28:06', '2020-04-25 11:28:06');
+INSERT INTO `oauth_access_tokens` VALUES ('14ff2708081aabe8a8b7a96a99e2e9a0cd999a633dd6c07ea8d30ce2e96bb1f56defc25ff6cd958c', 2, 7, 'MyApp', '[]', 0, '2019-11-14 08:20:36', '2019-11-14 08:20:36', '2020-11-14 08:20:36');
+INSERT INTO `oauth_access_tokens` VALUES ('150c79a0f92c3be1b7c557997cee4642677ca29e2dee5512285747ef14e84497e090daf328e4bc30', 15, 9, 'MyApp', '[]', 0, '2020-01-29 16:01:30', '2020-01-29 16:01:30', '2021-01-29 16:01:30');
 INSERT INTO `oauth_access_tokens` VALUES ('15bdcc909e0762864865a6b43e54606a85174db18475ad51a94f3ad6a51131dba8bbd7a2726f11ec', 17, 1, 'MyApp', '[]', 0, '2019-05-18 10:00:03', '2019-05-18 10:00:03', '2020-05-18 10:00:03');
 INSERT INTO `oauth_access_tokens` VALUES ('16fe0af2ab1657be8e59aca0b4008d8eb9abbc6afdcc722dd0132c98888149e5e9dec2a4e726cda9', 2, 1, 'MyApp', '[]', 0, '2019-08-01 08:29:57', '2019-08-01 08:29:57', '2020-08-01 08:29:57');
 INSERT INTO `oauth_access_tokens` VALUES ('1794dcd211c487d12089c4edde48cb58c0aec2fcfb794f1efefdd6005c1867c6bd964d8872b8d635', 2, 1, 'MyApp', '[]', 0, '2019-06-22 13:36:52', '2019-06-22 13:36:52', '2020-06-22 13:36:52');
@@ -1058,21 +1117,26 @@ INSERT INTO `oauth_access_tokens` VALUES ('1ec13bac250e8c2dde5c65ff9f6cd2a50e845
 INSERT INTO `oauth_access_tokens` VALUES ('1f736237bd5b2795b3fe4d67c70c259a800187d1262f7a682e12dc709b1255b8876529cce09fc6c4', 2, 1, 'MyApp', '[]', 0, '2019-04-25 15:15:20', '2019-04-25 15:15:20', '2020-04-25 15:15:20');
 INSERT INTO `oauth_access_tokens` VALUES ('209cb88bfa7ffebf236395e2a39de20ffe42c65d0524b7df9e45ddf9002ffe9a1c1c3c31a0312fbb', 2, 1, 'MyApp', '[]', 0, '2019-06-22 08:20:30', '2019-06-22 08:20:30', '2020-06-22 08:20:30');
 INSERT INTO `oauth_access_tokens` VALUES ('21705ddc701941ec0030e51556d727d2aba54641c93fdb9dae38e1426884f313801ebfde1bb73d76', 24, 1, 'MyApp', '[]', 0, '2019-08-01 16:49:22', '2019-08-01 16:49:22', '2020-08-01 16:49:22');
+INSERT INTO `oauth_access_tokens` VALUES ('229286ee58146d5b363b7b3b15a47ae9ae8ee0b0627bf167dd75b0fcf2664b78c9ed5e400fae7dec', 15, 9, 'MyApp', '[]', 0, '2020-01-29 19:00:09', '2020-01-29 19:00:09', '2021-01-29 19:00:09');
 INSERT INTO `oauth_access_tokens` VALUES ('22d1e2cd25ef2208663edb0a12559a28b1900dce2354dfbe3e7326cf66b65213fc95f0a962e1f831', 2, 3, 'MyApp', '[]', 0, '2019-08-31 12:52:22', '2019-08-31 12:52:22', '2020-08-31 12:52:22');
 INSERT INTO `oauth_access_tokens` VALUES ('232b3cb564badeb91709bedac2c338dad144890e9d51a39055ac0d497a4f47fb11eed976da0f7907', 2, 1, 'MyApp', '[]', 0, '2019-07-26 08:13:34', '2019-07-26 08:13:34', '2020-07-26 08:13:34');
 INSERT INTO `oauth_access_tokens` VALUES ('241b17895075f84cc18f380d036d7e5840e61f826db14c36d1397a096fc7b4782655a4b5d9f8da90', 2, 1, 'MyApp', '[]', 0, '2019-03-26 13:54:32', '2019-03-26 13:54:32', '2020-03-26 13:54:32');
 INSERT INTO `oauth_access_tokens` VALUES ('256d309a276e1b2156417da67697796a42945156e38384fbb6ae0acf7215dd7d0a22fc8d7027f913', 2, 1, 'MyApp', '[]', 0, '2019-07-05 08:30:46', '2019-07-05 08:30:46', '2020-07-05 08:30:46');
+INSERT INTO `oauth_access_tokens` VALUES ('258bb0e1d030b2986a7073203e589e7f940950fc9250eea631544844dd2cfc25a7e1256356a91428', 2, 9, 'MyApp', '[]', 0, '2020-01-23 17:05:27', '2020-01-23 17:05:27', '2021-01-23 17:05:27');
+INSERT INTO `oauth_access_tokens` VALUES ('25a054f9ff6ea7b195963e4b79cb5e8e69b66e593e79e0b07376ee4d7918b8af212b9a79756ade17', 2, 9, 'MyApp', '[]', 0, '2020-02-08 08:50:38', '2020-02-08 08:50:38', '2021-02-08 08:50:38');
 INSERT INTO `oauth_access_tokens` VALUES ('25e20610a63c42679ee3d08e368b7ce5c6740ca4d24ced15330cacf90e7ab1f51690d40c2918f15e', 2, 1, 'MyApp', '[]', 0, '2019-07-14 16:14:19', '2019-07-14 16:14:19', '2020-07-14 16:14:19');
 INSERT INTO `oauth_access_tokens` VALUES ('2644caea4b35f16e4a1e3c46f09c5e29707e3ebc5cf5f35bd535239141654afc0fd8b8baf72c5c3d', 2, 5, 'MyApp', '[]', 0, '2019-09-13 08:15:19', '2019-09-13 08:15:19', '2020-09-13 08:15:19');
 INSERT INTO `oauth_access_tokens` VALUES ('26ed3ac4b3c790e8c70379739dbd813588957183db51b669218c54becacb9748109aae56c71e3e7e', 2, 7, 'MyApp', '[]', 0, '2019-10-07 13:34:43', '2019-10-07 13:34:43', '2020-10-07 13:34:43');
 INSERT INTO `oauth_access_tokens` VALUES ('27b40fc5bcc1599b94511fc5e70b29b0e2198b4691137288a9ca25850179a07e00cfb882cceb819a', 2, 3, 'MyApp', '[]', 0, '2019-08-29 18:54:43', '2019-08-29 18:54:43', '2020-08-29 18:54:43');
 INSERT INTO `oauth_access_tokens` VALUES ('28a0fcfa1ade07d20ac6da7747bbf31d7435d18a48a2110bd201ac5d337dd9b83e4d47f2b2f21a91', 2, 1, 'MyApp', '[]', 0, '2019-05-05 20:59:14', '2019-05-05 20:59:14', '2020-05-05 20:59:14');
+INSERT INTO `oauth_access_tokens` VALUES ('295bc9007134ae31d525ab3209a83d13cbf1c68fcc68cb4f12836e2001f2659a3539c988a05c56e1', 2, 9, 'MyApp', '[]', 0, '2020-01-29 08:44:36', '2020-01-29 08:44:36', '2021-01-29 08:44:36');
 INSERT INTO `oauth_access_tokens` VALUES ('29f32cd7e62afccec2f43fb5df42b2a7f48a38a4e0c8ea56a728d2fdaba864deea206834784167fe', 2, 1, 'MyApp', '[]', 0, '2019-02-27 10:15:01', '2019-02-27 10:15:01', '2020-02-27 10:15:01');
 INSERT INTO `oauth_access_tokens` VALUES ('2a1c77e9b2f2ab04ab04abbb8e33587a187d9b8a2bd2364b86791e8e7bc0346463ab29770a6bdcaa', 2, 1, 'MyApp', '[]', 0, '2019-07-03 08:50:54', '2019-07-03 08:50:54', '2020-07-03 08:50:54');
 INSERT INTO `oauth_access_tokens` VALUES ('2d437e02c4ffd98fd86eae21d0e9f0ea1f6556db5dd7290001f02575ccc773766d855857bb2182a8', 2, 1, 'MyApp', '[]', 0, '2019-07-25 22:22:26', '2019-07-25 22:22:26', '2020-07-25 22:22:26');
 INSERT INTO `oauth_access_tokens` VALUES ('2d48e6079962345f9fb322fbafd7e55a933c0384b2c281786f8f92e8e98af187d60e2f9c229d61c8', 2, 1, 'MyApp', '[]', 0, '2019-07-27 08:17:11', '2019-07-27 08:17:11', '2020-07-27 08:17:11');
 INSERT INTO `oauth_access_tokens` VALUES ('2d4e4f6c487aeb65d97a4c1ca61110c68d53de18a7b459c9c7b9f3ccbfa13ed883a35eb07ca4cbc9', 2, 1, 'MyApp', '[]', 0, '2019-05-14 08:05:49', '2019-05-14 08:05:49', '2020-05-14 08:05:49');
 INSERT INTO `oauth_access_tokens` VALUES ('2de3bc5849bd7d366c6998ea24c4a3e1fbd9cbdb0252d7c07f5e1e1cabd6dda51a3fe8af55745dbf', 2, 1, 'MyApp', '[]', 0, '2019-05-21 13:35:38', '2019-05-21 13:35:38', '2020-05-21 13:35:38');
+INSERT INTO `oauth_access_tokens` VALUES ('2e2c129b53a31bd1bbe1bff0c665dff8d88a82d50fb76db8646f1893713743b423f62e62bbf3a044', 2, 7, 'MyApp', '[]', 0, '2019-11-23 08:18:42', '2019-11-23 08:18:42', '2020-11-23 08:18:42');
 INSERT INTO `oauth_access_tokens` VALUES ('2e8a8d2f07b4942ef9c795e50d2bef662fda0e7d4e096dc0d8e2290dbc1eefa310374a0e8456ac52', 2, 1, 'MyApp', '[]', 0, '2019-06-08 16:33:16', '2019-06-08 16:33:16', '2020-06-08 16:33:16');
 INSERT INTO `oauth_access_tokens` VALUES ('2f24223be4a7d955cb08e54e436b429234dcbd4a0882953b5a2899b325dab48f803c3ad1d8b2ded6', 2, 7, 'MyApp', '[]', 0, '2019-10-08 09:48:43', '2019-10-08 09:48:43', '2020-10-08 09:48:43');
 INSERT INTO `oauth_access_tokens` VALUES ('3089e07e48e983d117508033bdb4638a080f6ffa9a5ff51efb5933a2973ee32ff4196fa1c6673a73', 2, 1, 'MyApp', '[]', 0, '2019-05-10 10:02:47', '2019-05-10 10:02:47', '2020-05-10 10:02:47');
@@ -1086,12 +1150,17 @@ INSERT INTO `oauth_access_tokens` VALUES ('36e48d91998df9621f6e9833f5ba424dcbdfe
 INSERT INTO `oauth_access_tokens` VALUES ('37965a97bbe4f241967daa66debd655fb103ac02bfe732eaeefeed9145ec7169436300ab938ce461', 2, 5, 'MyApp', '[]', 0, '2019-09-03 11:51:09', '2019-09-03 11:51:09', '2020-09-03 11:51:09');
 INSERT INTO `oauth_access_tokens` VALUES ('3853eedd8cdad69da0d2604dd6ac6704067111d15cf4460beccd98ac39d98c40f3b24d8f8ba1fd2b', 10, 1, 'MyApp', '[]', 0, '2019-05-07 20:27:10', '2019-05-07 20:27:10', '2020-05-07 20:27:10');
 INSERT INTO `oauth_access_tokens` VALUES ('38ec2a406a32277bb6e0076a6676027854606083ee8f7c341144664bf5d4ca455eb95480c8e09e72', 17, 1, 'MyApp', '[]', 0, '2019-05-17 09:48:00', '2019-05-17 09:48:00', '2020-05-17 09:48:00');
+INSERT INTO `oauth_access_tokens` VALUES ('3993bdf4d11879b4043c4c09c13feaabf6bb77e5f4a36931e79953e03b6ae33115c54bdf4fd14c6e', 2, 7, 'MyApp', '[]', 0, '2019-11-22 16:09:52', '2019-11-22 16:09:52', '2020-11-22 16:09:52');
 INSERT INTO `oauth_access_tokens` VALUES ('39b7d38fe8cd344efeb16af4bf982cbc61ddc276e7867ecb4dbb88600ae07b7f08b6918d974ccb99', 2, 3, 'MyApp', '[]', 0, '2019-08-31 14:31:41', '2019-08-31 14:31:41', '2020-08-31 14:31:41');
+INSERT INTO `oauth_access_tokens` VALUES ('3a03058acd7d70fd9d02299599e0a33304bdad2b0c64d9746411cc65892e7257e15a40309723456b', 2, 9, 'MyApp', '[]', 0, '2020-02-03 22:46:18', '2020-02-03 22:46:18', '2021-02-03 22:46:18');
 INSERT INTO `oauth_access_tokens` VALUES ('3a5d77230fa8c5eb6f8d26a7541488af5b6a0a7cdfc1450355fa14098eda90d0b5c8c64eca863cd3', 2, 3, 'MyApp', '[]', 0, '2019-08-31 22:28:13', '2019-08-31 22:28:13', '2020-08-31 22:28:13');
 INSERT INTO `oauth_access_tokens` VALUES ('3cdb41f9872fdb5710cf0868782fce853b4407eefb29b07fc556dab6ee401b6801f23aeff8aacf02', 2, 1, 'MyApp', '[]', 0, '2019-05-23 08:14:00', '2019-05-23 08:14:00', '2020-05-23 08:14:00');
 INSERT INTO `oauth_access_tokens` VALUES ('3d191b70ea87fa97ceeb18df926d48ce8f5b0c1e9b6b7310d76b5112f5a50b40062e1d8066a1ab7c', 2, 1, 'MyApp', '[]', 0, '2019-05-18 15:14:36', '2019-05-18 15:14:36', '2020-05-18 15:14:36');
+INSERT INTO `oauth_access_tokens` VALUES ('3dca02eab9f69a6f59d7138b6bf7948e8d1ce5165a00020e51429c54ccc1ce7f6e80b2a32b2ddb05', 2, 9, 'MyApp', '[]', 0, '2020-01-31 10:33:49', '2020-01-31 10:33:49', '2021-01-31 10:33:49');
 INSERT INTO `oauth_access_tokens` VALUES ('3f16c297a4305998873ead59276f56653df2ad9ecf17e0c238d3fc7f726d0cfd4a5a0897fc652557', 2, 1, 'MyApp', '[]', 0, '2019-02-28 13:33:42', '2019-02-28 13:33:42', '2020-02-28 13:33:42');
+INSERT INTO `oauth_access_tokens` VALUES ('3fbb71718018480dbd344ab00ce53b2a4c1afc0b431659506ce43bc51bcf53b2183e572a9974496d', 2, 9, 'MyApp', '[]', 0, '2020-01-24 12:58:47', '2020-01-24 12:58:47', '2021-01-24 12:58:47');
 INSERT INTO `oauth_access_tokens` VALUES ('40b67f3d0f979692b672b5c94557e81f8a9995e7bad153b842f273f7be7fd637f61558da2f9e1071', 2, 1, 'MyApp', '[]', 0, '2019-05-15 11:35:50', '2019-05-15 11:35:50', '2020-05-15 11:35:50');
+INSERT INTO `oauth_access_tokens` VALUES ('40d24b69789279f0fb880c3cdaa3c687ba893a9df524606025e0c68fa0738c57b030d5157bc8a638', 2, 7, 'MyApp', '[]', 0, '2019-11-20 09:28:04', '2019-11-20 09:28:04', '2020-11-20 09:28:04');
 INSERT INTO `oauth_access_tokens` VALUES ('40f1c0c6f10bad82cffed7d95de01c3fab09d34cdd57e4583c649c3cc449f11bc27d19978c649595', 2, 1, 'MyApp', '[]', 0, '2019-07-14 20:21:59', '2019-07-14 20:21:59', '2020-07-14 20:21:59');
 INSERT INTO `oauth_access_tokens` VALUES ('41db00424c7394500406d3e66a780faeff697ee15b2edee5fee1c513c5cdcd171b94689efbd789b3', 2, 1, 'MyApp', '[]', 0, '2019-07-20 08:10:36', '2019-07-20 08:10:36', '2020-07-20 08:10:36');
 INSERT INTO `oauth_access_tokens` VALUES ('428ef3c092b33d50ab5bafe4869899c8505fd21b26a0a8dcd80b588db3562d5fd1a1283cf6c1858f', 2, 7, 'MyApp', '[]', 0, '2019-10-10 10:09:11', '2019-10-10 10:09:11', '2020-10-10 10:09:11');
@@ -1102,7 +1171,10 @@ INSERT INTO `oauth_access_tokens` VALUES ('43d805f5102cbb4fceed27e90da0391cc3c71
 INSERT INTO `oauth_access_tokens` VALUES ('44ec7b99efd12d73fa64e6fff946edc47a34262246fcbe95baa9eee84e924cfc71e90e1f954516dc', 2, 1, 'MyApp', '[]', 0, '2019-07-05 17:32:54', '2019-07-05 17:32:54', '2020-07-05 17:32:54');
 INSERT INTO `oauth_access_tokens` VALUES ('45a885012978aaf183fd066168f2c6f23a197bbe222bbfe6f83ad34b033f614c1a357f7fb5c0d04e', 2, 1, 'MyApp', '[]', 0, '2019-05-04 22:54:03', '2019-05-04 22:54:03', '2020-05-04 22:54:03');
 INSERT INTO `oauth_access_tokens` VALUES ('473786458558c1d7c54f830b15808d3d8b56aecfbf81bb0beacad8ce730bfbdc05ce5c409a8d5e39', 2, 1, 'MyApp', '[]', 0, '2019-07-09 11:41:08', '2019-07-09 11:41:08', '2020-07-09 11:41:08');
+INSERT INTO `oauth_access_tokens` VALUES ('48b00fbfc24daa157d6c1ae5153888cc44e096518fe2608bb53ae200731559ed8702a21bc72bb060', 15, 9, 'MyApp', '[]', 0, '2020-01-29 18:58:35', '2020-01-29 18:58:35', '2021-01-29 18:58:35');
 INSERT INTO `oauth_access_tokens` VALUES ('49d6ad9b80eaaf693979d23bf4273779225ce6f6fa9bee6af07a3119f8b9a94a283f666cf6fa421b', 2, 1, 'MyApp', '[]', 0, '2019-05-27 08:32:34', '2019-05-27 08:32:34', '2020-05-27 08:32:34');
+INSERT INTO `oauth_access_tokens` VALUES ('49fe6f4f37cf990aa3b94802027e71c168e323a911673da1ed53d3553777452514e3da071369b7f7', 2, 7, 'MyApp', '[]', 0, '2019-12-02 16:28:23', '2019-12-02 16:28:23', '2020-12-02 16:28:23');
+INSERT INTO `oauth_access_tokens` VALUES ('4a19eeb56832f5dbbf4b723922558bfc4fcde5c83ea64b0ff59b41824f81fdead0fbce36430187a1', 2, 9, 'MyApp', '[]', 0, '2020-02-02 14:52:06', '2020-02-02 14:52:06', '2021-02-02 14:52:06');
 INSERT INTO `oauth_access_tokens` VALUES ('4c346e85698cc25b416a9a411021931f694050355f63da324dc3afd18bf9bfe995d73ab801ddf2ec', 2, 1, 'MyApp', '[]', 0, '2019-08-07 10:06:57', '2019-08-07 10:06:57', '2020-08-07 10:06:57');
 INSERT INTO `oauth_access_tokens` VALUES ('4d2751acf180655de73b09f0350704f25a85967e58fd9a98a39d1822ecd8bd78b6ba8cc2ccf78e67', 2, 1, 'MyApp', '[]', 0, '2019-06-24 10:05:09', '2019-06-24 10:05:09', '2020-06-24 10:05:09');
 INSERT INTO `oauth_access_tokens` VALUES ('4d4caf5f40e26b4a72f0297d52614c3e7eaccad48968f92f2b70213cafe88292f27c7a7c45d6e0ed', 2, 1, 'MyApp', '[]', 0, '2019-04-19 15:14:57', '2019-04-19 15:14:57', '2020-04-19 15:14:57');
@@ -1123,6 +1195,7 @@ INSERT INTO `oauth_access_tokens` VALUES ('5639c1e5da120bafe52a049a60419412e477a
 INSERT INTO `oauth_access_tokens` VALUES ('583779a215b8d1595d880c603b0d8e461d06f8ff55cb92b32c04d5f6645a9d584c498e14d7af61c1', 2, 1, 'MyApp', '[]', 0, '2019-08-02 15:15:45', '2019-08-02 15:15:45', '2020-08-02 15:15:45');
 INSERT INTO `oauth_access_tokens` VALUES ('583a27a7b3b79ad1ead6e24564de574903441a703a1208587bfa4fa968b8be20a738082377b78add', 2, 1, 'MyApp', '[]', 0, '2019-05-29 17:13:17', '2019-05-29 17:13:17', '2020-05-29 17:13:17');
 INSERT INTO `oauth_access_tokens` VALUES ('587fb93867dfa81b135fe374883068761a46d74293461a0f7fbe30e5077753a3e87c48dfa6be90db', 2, 1, 'MyApp', '[]', 0, '2019-04-12 11:12:38', '2019-04-12 11:12:38', '2020-04-12 11:12:38');
+INSERT INTO `oauth_access_tokens` VALUES ('5b72a39001ae13cc956aee9bd0f8918a66a43100e4bcd46e0d036e2abc52fcffae067d9446dd33f5', 2, 9, 'MyApp', '[]', 0, '2019-12-22 21:28:46', '2019-12-22 21:28:46', '2020-12-22 21:28:46');
 INSERT INTO `oauth_access_tokens` VALUES ('5c92bb000dbb0b751d46ae8fc333352b6e9f822756df93629f616876c4392708f5a182af1463f6af', 2, 7, 'MyApp', '[]', 0, '2019-10-06 10:07:57', '2019-10-06 10:07:57', '2020-10-06 10:07:57');
 INSERT INTO `oauth_access_tokens` VALUES ('5db6b13492643a9a462c0dce4ce04a3d96df00ed18edbf0d26a1dac7d74271f69a084235734392ed', 2, 1, 'MyApp', '[]', 0, '2019-04-26 13:34:58', '2019-04-26 13:34:58', '2020-04-26 13:34:58');
 INSERT INTO `oauth_access_tokens` VALUES ('603880efe258e0f330f18c1c3c7191736e04202a77e7639a02ab078889ff25becb9a30f0c77f4990', 15, 1, 'MyApp', '[]', 0, '2019-05-10 13:57:54', '2019-05-10 13:57:54', '2020-05-10 13:57:54');
@@ -1134,6 +1207,7 @@ INSERT INTO `oauth_access_tokens` VALUES ('637979837d6b444ddb73d3167055561ba2e8d
 INSERT INTO `oauth_access_tokens` VALUES ('63dfa383a47cfa371afc20909d422671e19543c81e9d40854f0c51d889e76040a670f38f773f2ebe', 2, 1, 'MyApp', '[]', 0, '2019-04-09 08:08:54', '2019-04-09 08:08:54', '2020-04-09 08:08:54');
 INSERT INTO `oauth_access_tokens` VALUES ('64388e16751f491255693a2c8dc3138269820ee1b1e764abd125ca1fb2d808a738f92153c76931b5', 2, 1, 'MyApp', '[]', 0, '2019-03-22 14:11:53', '2019-03-22 14:11:53', '2020-03-22 14:11:53');
 INSERT INTO `oauth_access_tokens` VALUES ('64c77bdb8b11ef53adf99644e1b761241347a9932d944a27f0d981d0b1d0988d92b02c54e218db3c', 17, 1, 'MyApp', '[]', 0, '2019-08-02 08:47:12', '2019-08-02 08:47:12', '2020-08-02 08:47:12');
+INSERT INTO `oauth_access_tokens` VALUES ('66c5e53c2082668b01d50b880b5f0f885da1ba6ced84f8e1da2a90061017ba70e37a7e9bf0c4b1bb', 2, 7, 'MyApp', '[]', 0, '2019-12-19 10:46:43', '2019-12-19 10:46:43', '2020-12-19 10:46:43');
 INSERT INTO `oauth_access_tokens` VALUES ('67306fcdc22aa5b8443942722784fc32d985baf4151f4bcada00a8969c0a6c4ea9bc6b9a801f1b45', 2, 1, 'MyApp', '[]', 0, '2019-04-18 15:18:25', '2019-04-18 15:18:25', '2020-04-18 15:18:25');
 INSERT INTO `oauth_access_tokens` VALUES ('676d86f257186c95b4e61ef514c27bf1733b2d350dc1e0c6d404e38278c6373e085dd2a8aeeb2100', 2, 1, 'MyApp', '[]', 0, '2019-04-24 11:58:28', '2019-04-24 11:58:28', '2020-04-24 11:58:28');
 INSERT INTO `oauth_access_tokens` VALUES ('67f937dc145cbf594bd03cf24db669a8420c13a360875c64f16f62aa9f07c71b1ff2d9d14851d30c', 2, 1, 'MyApp', '[]', 0, '2019-06-09 13:55:30', '2019-06-09 13:55:30', '2020-06-09 13:55:30');
@@ -1143,10 +1217,12 @@ INSERT INTO `oauth_access_tokens` VALUES ('6a5a881e83886e5de150d404f9837b5ecd784
 INSERT INTO `oauth_access_tokens` VALUES ('6a8cf12646ba3a01aec38b23a3d8e898b3caa2ebc4585da90150eb9642964c77be8dccdc6d1c745f', 2, 1, 'MyApp', '[]', 0, '2019-05-29 14:54:40', '2019-05-29 14:54:40', '2020-05-29 14:54:40');
 INSERT INTO `oauth_access_tokens` VALUES ('6a8e04a0c74f204ed1225d7c19b13b15b7bee1afd94db125397ea001ebd7ae96d3643558695617a6', 2, 1, 'MyApp', '[]', 0, '2019-04-30 15:10:04', '2019-04-30 15:10:04', '2020-04-30 15:10:04');
 INSERT INTO `oauth_access_tokens` VALUES ('6b0fb7eb0075b041715db75dfab09e862621d13ed3c1f1e663fcd69f429fd87c9a3b4900eb14663b', 2, 7, 'MyApp', '[]', 0, '2019-10-11 14:03:02', '2019-10-11 14:03:02', '2020-10-11 14:03:02');
+INSERT INTO `oauth_access_tokens` VALUES ('6ccf9774c1a43a530d639c63734ffbe9516a03f64b99359f4bd4056fcf707b99a897dd332deb6b66', 2, 9, 'MyApp', '[]', 0, '2020-02-05 16:32:47', '2020-02-05 16:32:47', '2021-02-05 16:32:47');
 INSERT INTO `oauth_access_tokens` VALUES ('6dfcc3bdabe0e793737bb463b23b24d5eb7ff5207ef421c01d6fc402bbf7e8ca696e1e067661e2c1', 25, 1, 'MyApp', '[]', 0, '2019-08-01 16:49:58', '2019-08-01 16:49:58', '2020-08-01 16:49:58');
 INSERT INTO `oauth_access_tokens` VALUES ('6e98729a0c4e1e54fce7a96777dc287817a54f87519e047c0cc13b5aabe8f0df857446b0a9496fc0', 2, 1, 'MyApp', '[]', 0, '2019-04-12 15:45:29', '2019-04-12 15:45:29', '2020-04-12 15:45:29');
 INSERT INTO `oauth_access_tokens` VALUES ('6ed887714edb952c96143b8c9d33e5c545e960e24be63dcc78be6b34ed18636033e0cd11c88deda5', 2, 1, 'MyApp', '[]', 0, '2019-06-17 22:40:16', '2019-06-17 22:40:16', '2020-06-17 22:40:16');
 INSERT INTO `oauth_access_tokens` VALUES ('6f83e3687c1daaa2049f6832e39f265f2b2e59789cd56b93826e9acdcaee2e0fa9bb8b384e681c9b', 2, 1, 'MyApp', '[]', 0, '2019-07-14 19:26:08', '2019-07-14 19:26:08', '2020-07-14 19:26:08');
+INSERT INTO `oauth_access_tokens` VALUES ('70843493499233c9b9beb3fe5f86261922fa2a51e9aebee813646cca0f394540d2f14ce0826417c3', 2, 9, 'MyApp', '[]', 0, '2020-01-31 14:11:56', '2020-01-31 14:11:56', '2021-01-31 14:11:56');
 INSERT INTO `oauth_access_tokens` VALUES ('724a3a57298275991328f300077a559155fa445f52fe0b6b018131702870446c3034d8ae86e1aedc', 2, 1, 'MyApp', '[]', 0, '2019-06-04 14:18:40', '2019-06-04 14:18:40', '2020-06-04 14:18:40');
 INSERT INTO `oauth_access_tokens` VALUES ('731868eada1e734c46875d5f8cd9aa7dc9ce09d010a319c3120d8e0db5b8574c7e6c199ae4b28c1c', 2, 1, 'MyApp', '[]', 0, '2019-06-06 08:19:55', '2019-06-06 08:19:55', '2020-06-06 08:19:55');
 INSERT INTO `oauth_access_tokens` VALUES ('737a7e77bd8fd489f65d343a4fdf6e0f274b709c2f543196fef2bce4bd3daf54dfa581e7dfbbe6f8', 15, 1, 'MyApp', '[]', 0, '2019-05-08 22:13:47', '2019-05-08 22:13:47', '2020-05-08 22:13:47');
@@ -1154,14 +1230,17 @@ INSERT INTO `oauth_access_tokens` VALUES ('73d00ac92ef83e5ebd65713545efaaca63dc7
 INSERT INTO `oauth_access_tokens` VALUES ('75ea80618db778e84184ddc6eef2c5662b6ccf77bd470557c35b8c1bf92d9c4a3b1f68824aaf39f4', 2, 7, 'MyApp', '[]', 0, '2019-10-12 08:47:29', '2019-10-12 08:47:29', '2020-10-12 08:47:29');
 INSERT INTO `oauth_access_tokens` VALUES ('770cac5c9f08f8a79a9b5b4e609c89a456179b7d4bd74a1157206e91859b50af203b255d3631587d', 2, 3, 'MyApp', '[]', 0, '2019-08-27 10:54:31', '2019-08-27 10:54:31', '2020-08-27 10:54:31');
 INSERT INTO `oauth_access_tokens` VALUES ('77155dd2d0ecd79c4847de3822b861f1773255e1067f8fdce0ccc60ee6588cfd67069813e74d309b', 2, 1, 'MyApp', '[]', 0, '2019-05-01 08:55:11', '2019-05-01 08:55:11', '2020-05-01 08:55:11');
+INSERT INTO `oauth_access_tokens` VALUES ('788f19af97a07f4a202d1af4c5f66cdbae573520e2258df416314f73f11d416a4845d04d4c12b6b4', 2, 7, 'MyApp', '[]', 0, '2019-11-19 14:38:38', '2019-11-19 14:38:38', '2020-11-19 14:38:38');
 INSERT INTO `oauth_access_tokens` VALUES ('78b2bb1f8661378e17882229c1a748bc0db3e00a382df2a8f01bff7503bf26b52cbc0a67d92a07b3', 2, 7, 'MyApp', '[]', 0, '2019-10-01 10:25:31', '2019-10-01 10:25:31', '2020-10-01 10:25:31');
 INSERT INTO `oauth_access_tokens` VALUES ('796cf6d7b08cfd5dd3573bd9ca4357982b396a3a167831a97c51c5623d78b761cb29188f06a6ef29', 2, 1, 'MyApp', '[]', 0, '2019-06-17 14:20:04', '2019-06-17 14:20:04', '2020-06-17 14:20:04');
 INSERT INTO `oauth_access_tokens` VALUES ('79ff6ff67b3805dcc8e95f5e802b20a5137884f7ae51ad058b0f8480f071c6c72a6e8c1e5f08ab49', 2, 1, 'MyApp', '[]', 0, '2019-06-19 08:18:32', '2019-06-19 08:18:32', '2020-06-19 08:18:32');
+INSERT INTO `oauth_access_tokens` VALUES ('7a51de89b0c493cc9438b947765146767fec212e427199a3abe3a5c858f7f44bd7c132970131895b', 2, 9, 'MyApp', '[]', 0, '2020-02-07 09:08:17', '2020-02-07 09:08:17', '2021-02-07 09:08:17');
 INSERT INTO `oauth_access_tokens` VALUES ('7b89253aaad512dbbdb1c716ee1540274f6315215561a46f8c09651b6df750d31b6ff83f182a41f9', 2, 5, 'MyApp', '[]', 0, '2019-09-12 08:31:57', '2019-09-12 08:31:57', '2020-09-12 08:31:57');
 INSERT INTO `oauth_access_tokens` VALUES ('7b9982592a0313da930390fcad1015b7351edf510915e3cad09dcc41e73bde7b4d19f4b59ca78bdb', 2, 1, 'MyApp', '[]', 0, '2019-06-25 16:14:09', '2019-06-25 16:14:09', '2020-06-25 16:14:09');
 INSERT INTO `oauth_access_tokens` VALUES ('7d88adeac7bcb9c2af82229d4c4763b4e3859fb434f7a7d30851fe751ab917a2987229b085325550', 2, 1, 'MyApp', '[]', 0, '2019-07-08 14:41:34', '2019-07-08 14:41:34', '2020-07-08 14:41:34');
 INSERT INTO `oauth_access_tokens` VALUES ('7f0d3e0dde161325a88968a0e6ac03fb4c212d9af85e7592ffc34e969882c07f2b03b478aaacb368', 15, 1, 'MyApp', '[]', 0, '2019-05-10 13:58:35', '2019-05-10 13:58:35', '2020-05-10 13:58:35');
 INSERT INTO `oauth_access_tokens` VALUES ('7faa06fded3cefd3b20590ea56819dc8e4771aa129fa6d33be232fd852a86727d32ee2340dab36bf', 2, 5, 'MyApp', '[]', 0, '2019-09-13 14:11:21', '2019-09-13 14:11:21', '2020-09-13 14:11:21');
+INSERT INTO `oauth_access_tokens` VALUES ('7fcc41c3c7e0b7e18b4a805e319c20ebd160c2be6f5903b830de4e92d063afa2099ff72190be6ebb', 2, 9, 'MyApp', '[]', 0, '2020-02-03 10:56:54', '2020-02-03 10:56:54', '2021-02-03 10:56:54');
 INSERT INTO `oauth_access_tokens` VALUES ('8082575ad3affa2f8fd574a6b89ea9c780beb27597c595792f95d569d6b948024f6c236892887fdb', 2, 1, 'MyApp', '[]', 0, '2019-05-08 21:07:41', '2019-05-08 21:07:41', '2020-05-08 21:07:41');
 INSERT INTO `oauth_access_tokens` VALUES ('809d8aa479d04d48e514eb5374d4f74f447ebc0e8fef2096706f879bddde25029300ba89038aea0e', 2, 1, 'MyApp', '[]', 0, '2019-06-17 08:22:18', '2019-06-17 08:22:18', '2020-06-17 08:22:18');
 INSERT INTO `oauth_access_tokens` VALUES ('826e068d775d21d4a42be19cfa3b7442952e2dc15c6d9348c1ac5aa2e3167f9ac2939ed404043d5d', 2, 1, 'MyApp', '[]', 0, '2019-05-11 14:49:54', '2019-05-11 14:49:54', '2020-05-11 14:49:54');
@@ -1184,9 +1263,12 @@ INSERT INTO `oauth_access_tokens` VALUES ('8d48005d2de0b2d01b9b345a1cb009639aad9
 INSERT INTO `oauth_access_tokens` VALUES ('8d50b826dacc986631f6304d16bde3a67224475800f3fe352915ce7c9e1208c90c53d7fb40d85446', 2, 1, 'MyApp', '[]', 0, '2019-06-11 20:27:25', '2019-06-11 20:27:25', '2020-06-11 20:27:25');
 INSERT INTO `oauth_access_tokens` VALUES ('8d8ec8fb690211ecf871b5357e0614a0c8dcd59d7b7b6feb02a67073f002f206a806c994c864cb93', 2, 1, 'MyApp', '[]', 0, '2019-06-08 22:40:03', '2019-06-08 22:40:03', '2020-06-08 22:40:03');
 INSERT INTO `oauth_access_tokens` VALUES ('8d8f42f3196d79e6d7a5f3df2dc3b1fe23965b534fda8f24e34aee9636e2c417658c0efd6eef68da', 2, 1, 'MyApp', '[]', 0, '2019-07-08 16:49:58', '2019-07-08 16:49:58', '2020-07-08 16:49:58');
+INSERT INTO `oauth_access_tokens` VALUES ('8e29e5f7bea9377cb56a4b449a523639e0e40187e3b573158d7e5875f0d09bebed2701270f9ed1df', 2, 9, 'MyApp', '[]', 0, '2020-02-04 16:01:49', '2020-02-04 16:01:49', '2021-02-04 16:01:49');
 INSERT INTO `oauth_access_tokens` VALUES ('9046bc10022bc3fe333c454a67c0ad3f25ea3a6994d4cdb4b8dadcb37063eb027fa9e2493ba8bb55', 2, 1, 'MyApp', '[]', 0, '2019-06-27 13:36:37', '2019-06-27 13:36:37', '2020-06-27 13:36:37');
 INSERT INTO `oauth_access_tokens` VALUES ('90ba76c22e3e57985c99f55321015902bd43df32bd70750cb577ffb26e872500432385a1071157b2', 2, 7, 'MyApp', '[]', 0, '2019-10-15 09:17:14', '2019-10-15 09:17:14', '2020-10-15 09:17:14');
 INSERT INTO `oauth_access_tokens` VALUES ('93e3e9cc1d1dda63d76de5c82ac892695cfa728b2441d8d8e96cba0557f243bff7a31e28c208d749', 28, 1, 'MyApp', '[]', 0, '2019-08-01 16:56:43', '2019-08-01 16:56:43', '2020-08-01 16:56:43');
+INSERT INTO `oauth_access_tokens` VALUES ('9451d5fa3edffe8a26a5a9f230e3a1525360a8fb4502456e24baa6e0bb368cf64a783d5f35e284dc', 2, 7, 'MyApp', '[]', 0, '2019-10-23 16:44:17', '2019-10-23 16:44:17', '2020-10-23 16:44:17');
+INSERT INTO `oauth_access_tokens` VALUES ('956119920acaed8907b028192d2db47ea1074406540b328ed5ecacbcc4282cfbd871b41045ddeb57', 2, 9, 'MyApp', '[]', 0, '2020-02-08 12:49:34', '2020-02-08 12:49:34', '2021-02-08 12:49:34');
 INSERT INTO `oauth_access_tokens` VALUES ('9850dee9625374d277c156c78cd112cfb6e51d41befd5f9a520159145ca146eee4d897de501c7381', 2, 7, 'MyApp', '[]', 0, '2019-09-28 22:43:41', '2019-09-28 22:43:41', '2020-09-28 22:43:41');
 INSERT INTO `oauth_access_tokens` VALUES ('98a6f00376e75989642d08e34f5f224c8fb27bd3b34a32d50291717321265cfc3ddca23406ca87db', 2, 1, 'MyApp', '[]', 0, '2019-08-23 11:10:57', '2019-08-23 11:10:57', '2020-08-23 11:10:57');
 INSERT INTO `oauth_access_tokens` VALUES ('991932e8988494f0559e93420d89944b3eb7ad7ad9046048915b19268abab6bb5cc1c62ee4cefca8', 2, 1, 'MyApp', '[]', 0, '2019-05-04 18:03:10', '2019-05-04 18:03:10', '2020-05-04 18:03:10');
@@ -1213,8 +1295,11 @@ INSERT INTO `oauth_access_tokens` VALUES ('aaa4922e63eaef2d316628fa41754a6ea34bd
 INSERT INTO `oauth_access_tokens` VALUES ('aaad744270954488bca3097f31100a6db3e515a992982e33a868915cbe68bfe46437e8763b3ee497', 16, 1, 'MyApp', '[]', 0, '2019-05-17 16:04:59', '2019-05-17 16:04:59', '2020-05-17 16:04:59');
 INSERT INTO `oauth_access_tokens` VALUES ('ab868f37953c95ff2fe4eba6f02138cda88889d957d0e0d1fbcb6e3f7035ba4cfce82f5de6e6e275', 2, 1, 'MyApp', '[]', 0, '2019-04-08 15:11:24', '2019-04-08 15:11:24', '2020-04-08 15:11:24');
 INSERT INTO `oauth_access_tokens` VALUES ('ac72613869d4ae3e97a12b669f475f018845bac34378a7b4845011b7de543251bb1b8b3c7c15c567', 2, 1, 'MyApp', '[]', 0, '2019-08-01 22:52:54', '2019-08-01 22:52:54', '2020-08-01 22:52:54');
+INSERT INTO `oauth_access_tokens` VALUES ('ae33bda2c9f4146b4392f6e8d98a83ad23f594e6d3310d1e04c845c3867430d4c5d23bdbd86a2463', 2, 9, 'MyApp', '[]', 0, '2020-01-29 00:01:19', '2020-01-29 00:01:19', '2021-01-29 00:01:19');
+INSERT INTO `oauth_access_tokens` VALUES ('aef69bc5d9d09e2338961f43503d36f7650c975c89c57bba66585643f570b34dcd51bd6900b12a64', 2, 9, 'MyApp', '[]', 0, '2020-02-01 12:39:12', '2020-02-01 12:39:12', '2021-02-01 12:39:12');
 INSERT INTO `oauth_access_tokens` VALUES ('b0e45966d18e1111ed93409ce2045302d59d7ad2c3d299ec2933f3343a0fd3800ab03d707b124ee2', 2, 3, 'MyApp', '[]', 0, '2019-08-27 20:03:44', '2019-08-27 20:03:44', '2020-08-27 20:03:44');
 INSERT INTO `oauth_access_tokens` VALUES ('b34a24a2b8c978632ec7c8cd362f41f0cd5037b8750e49401aa431751290bf418f54fd0539ff24cb', 16, 1, 'MyApp', '[]', 0, '2019-05-17 17:27:34', '2019-05-17 17:27:34', '2020-05-17 17:27:34');
+INSERT INTO `oauth_access_tokens` VALUES ('b3dbd75c5aef6be09470b649d032dee4af35a3284ce4b75b87443fd4316b18faa29753d560883571', 2, 9, 'MyApp', '[]', 0, '2020-02-06 16:27:38', '2020-02-06 16:27:38', '2021-02-06 16:27:38');
 INSERT INTO `oauth_access_tokens` VALUES ('b45aaed65e12443d8460c6a8edb9a3da27db514ca07aecd2cc8057a47ed8d6f52460d50624ddedad', 2, 1, 'MyApp', '[]', 0, '2019-06-26 15:00:44', '2019-06-26 15:00:44', '2020-06-26 15:00:44');
 INSERT INTO `oauth_access_tokens` VALUES ('b45ae5222c4aa29bebf06a47f1f8451cad862cbededcebc663caa2dbb270ba58a9e6443faf4e81f3', 2, 1, 'MyApp', '[]', 0, '2019-06-01 08:07:35', '2019-06-01 08:07:35', '2020-06-01 08:07:35');
 INSERT INTO `oauth_access_tokens` VALUES ('b572c6a2b427344728bfa8150882dd9a74feceee56846ca16d9e2218517628afbb153887fc8350c7', 2, 1, 'MyApp', '[]', 0, '2019-06-13 08:10:12', '2019-06-13 08:10:12', '2020-06-13 08:10:12');
@@ -1224,12 +1309,16 @@ INSERT INTO `oauth_access_tokens` VALUES ('b72a19b2ca359e6b1f19e385c9fc778819352
 INSERT INTO `oauth_access_tokens` VALUES ('b78dc4d321e2c1918e4c9f0ab6342742369464c3e6a83c8cdae4e6ff6588a3d8b6c80b21a536eba0', 2, 1, 'MyApp', '[]', 0, '2019-05-16 19:00:23', '2019-05-16 19:00:23', '2020-05-16 19:00:23');
 INSERT INTO `oauth_access_tokens` VALUES ('b832fe9b7abbe886c3d5b9d2bb96d31b9f4c9b189fddf206b0472eebec1672a01b28711f2724c700', 2, 1, 'MyApp', '[]', 0, '2019-06-27 08:21:03', '2019-06-27 08:21:03', '2020-06-27 08:21:03');
 INSERT INTO `oauth_access_tokens` VALUES ('b8501e0320a46169a7dc8903e396f9301006a380db27d6af94129aac90c3f52a6e899de9fb558366', 2, 1, 'MyApp', '[]', 0, '2019-06-24 16:58:32', '2019-06-24 16:58:32', '2020-06-24 16:58:32');
+INSERT INTO `oauth_access_tokens` VALUES ('b892d31e4f216b5e841a64a37a1396430a8acea2cfc1882df62cd93a68da0310f20217af3af787ba', 2, 7, 'MyApp', '[]', 0, '2019-11-21 09:48:08', '2019-11-21 09:48:08', '2020-11-21 09:48:08');
 INSERT INTO `oauth_access_tokens` VALUES ('b8df5d41e814fe0747f1e4055f7a3616ea8b53c28c3f1ad51cfb66146666a1e451573b2838f287cd', 2, 1, 'MyApp', '[]', 0, '2019-07-25 08:12:34', '2019-07-25 08:12:34', '2020-07-25 08:12:34');
+INSERT INTO `oauth_access_tokens` VALUES ('b90668e6b1c11d5495d63289a12d3a82e0e4b6d02a75c806a9b27b70e62d9f701263fa80f65f410e', 2, 9, 'MyApp', '[]', 0, '2020-01-26 17:50:11', '2020-01-26 17:50:11', '2021-01-26 17:50:11');
 INSERT INTO `oauth_access_tokens` VALUES ('b9d2f38ce6f67e2fc94907bd3382f20b84e79fa3050a4e9614aa329ea6d6599fa39a7811ab942bca', 18, 1, 'MyApp', '[]', 0, '2019-05-20 10:10:42', '2019-05-20 10:10:42', '2020-05-20 10:10:42');
 INSERT INTO `oauth_access_tokens` VALUES ('ba863d122de17d4aaf1ba38733c0da9cf955f1fc3301376fc516fec0bc043e7646fffea88845eba3', 23, 1, 'MyApp', '[]', 0, '2019-08-02 08:48:46', '2019-08-02 08:48:46', '2020-08-02 08:48:46');
 INSERT INTO `oauth_access_tokens` VALUES ('bb4f29906f22c4a681daa5ab02ac0dd7169f7c2478fa29ee3055b3c7849e361d3372d26ee01fa851', 15, 1, 'MyApp', '[]', 0, '2019-05-10 13:59:50', '2019-05-10 13:59:50', '2020-05-10 13:59:50');
+INSERT INTO `oauth_access_tokens` VALUES ('bbf2251bfb71cd902e1bde4451ad73633be162d6715a6b0aeab1197c371250c15992f79a12d42e97', 2, 9, 'MyApp', '[]', 0, '2020-01-26 10:42:45', '2020-01-26 10:42:45', '2021-01-26 10:42:45');
 INSERT INTO `oauth_access_tokens` VALUES ('bc770cf7927b373b75211a1c39489e6147cc4d9dabf35e708ff7c5a0bc8382e322992a739a4c3b67', 2, 1, 'MyApp', '[]', 0, '2019-04-24 14:44:39', '2019-04-24 14:44:39', '2020-04-24 14:44:39');
 INSERT INTO `oauth_access_tokens` VALUES ('bcbed5ab3f6e097d6ad36bf6703f098f4954617ea8ca4946f4e9092267041d24430038e4f2bcc131', 2, 1, 'MyApp', '[]', 0, '2019-02-27 10:14:16', '2019-02-27 10:14:16', '2020-02-27 10:14:16');
+INSERT INTO `oauth_access_tokens` VALUES ('bd14264fb1ea6578e9bbecd7cd180ba56f40ea6f03f0f2f3a8697ece33fb7d213c7bfdbc1a34d14f', 2, 9, 'MyApp', '[]', 0, '2020-02-05 09:40:57', '2020-02-05 09:40:57', '2021-02-05 09:40:57');
 INSERT INTO `oauth_access_tokens` VALUES ('bd478e91b3fedca43b66d583ad09c3e1613763c3e344f55c66c4a0a4ccfec7e0ce38b4a0f9942c3a', 17, 1, 'MyApp', '[]', 0, '2019-05-17 09:36:49', '2019-05-17 09:36:49', '2020-05-17 09:36:49');
 INSERT INTO `oauth_access_tokens` VALUES ('be295188193163a7864d4368da2e87b8448b4933495a5d6d5b4e5f93a978081f8f9aae9cb5c860fb', 2, 1, 'MyApp', '[]', 0, '2019-04-24 08:08:03', '2019-04-24 08:08:03', '2020-04-24 08:08:03');
 INSERT INTO `oauth_access_tokens` VALUES ('c04addffdc549131b92bdf5f2c8d1276c68e5ba0f9601eedfb5462f676b6a5693431ff4b4267da36', 2, 1, 'MyApp', '[]', 0, '2019-05-15 08:15:03', '2019-05-15 08:15:03', '2020-05-15 08:15:03');
@@ -1242,6 +1331,8 @@ INSERT INTO `oauth_access_tokens` VALUES ('c37225ef1539303153ec7e3625f3c4c5c47f7
 INSERT INTO `oauth_access_tokens` VALUES ('c66bf89ed3c15e4b92ab86d63b707d7b5d3b2d0e8d73b77b3d9c2e176ea0e7f35675d1ad56ff60a4', 2, 1, 'MyApp', '[]', 0, '2019-05-17 08:45:50', '2019-05-17 08:45:50', '2020-05-17 08:45:50');
 INSERT INTO `oauth_access_tokens` VALUES ('c71c50272f464e51f02d0bfe55b937675318351fa2f0bc367d2acd201e27b983becd59f4dd518abe', 14, 1, 'MyApp', '[]', 0, '2019-05-08 22:11:56', '2019-05-08 22:11:56', '2020-05-08 22:11:56');
 INSERT INTO `oauth_access_tokens` VALUES ('c75e9a4299e0b85bb8dc94d30c406690c4fccf2e731ea360cbee0d4c34ab4f32075f26cb5ea946a8', 2, 5, 'MyApp', '[]', 0, '2019-09-10 08:17:58', '2019-09-10 08:17:58', '2020-09-10 08:17:58');
+INSERT INTO `oauth_access_tokens` VALUES ('c76ab95b6ca6d6a61edd95e802f5453f665846d9503bc544d63b1714af382c4b375a710d38fcd2c0', 2, 7, 'MyApp', '[]', 0, '2019-11-12 13:30:28', '2019-11-12 13:30:28', '2020-11-12 13:30:28');
+INSERT INTO `oauth_access_tokens` VALUES ('c7df752287b9f44570cd28ee07fa1e8ca432905d801c3803aff128ed8fd9b3367127740abcdc9c8a', 2, 9, 'MyApp', '[]', 0, '2020-02-06 09:57:06', '2020-02-06 09:57:06', '2021-02-06 09:57:06');
 INSERT INTO `oauth_access_tokens` VALUES ('c9dc32450fa3678a3011a88d25f008df0f97444b3fd4b7997403a2fc50619065ec24eb4d34996cef', 2, 1, 'MyApp', '[]', 0, '2019-08-24 08:29:02', '2019-08-24 08:29:02', '2020-08-24 08:29:02');
 INSERT INTO `oauth_access_tokens` VALUES ('ca0830b60fdd6ff23e8068066fe3592922922871622dd9e3bdaded4e6d0af13de5215963242e453b', 2, 1, 'MyApp', '[]', 0, '2019-06-27 11:42:44', '2019-06-27 11:42:44', '2020-06-27 11:42:44');
 INSERT INTO `oauth_access_tokens` VALUES ('ca9087419ae0358f575af4a602fcecc0f2f54ebff8294f5c99e72d0b3d48e307e17f581b1eb80a15', 2, 1, 'MyApp', '[]', 0, '2019-04-18 08:32:48', '2019-04-18 08:32:48', '2020-04-18 08:32:48');
@@ -1257,13 +1348,17 @@ INSERT INTO `oauth_access_tokens` VALUES ('d09fe90b308eda2daac310b0eb9cdbc739b91
 INSERT INTO `oauth_access_tokens` VALUES ('d13f0c2e4c697c9d7b266da46569f284d4b6dc87ae1a512b0afa005205e85a1ce2a2cc966684a4f4', 2, 1, 'MyApp', '[]', 0, '2019-04-13 08:19:03', '2019-04-13 08:19:03', '2020-04-13 08:19:03');
 INSERT INTO `oauth_access_tokens` VALUES ('d15030a90a5c96a02379defc11f2e964f24160bf7b7c40eabf11490be4da1e49e10a3bc071381666', 2, 3, 'MyApp', '[]', 0, '2019-08-31 13:47:26', '2019-08-31 13:47:26', '2020-08-31 13:47:26');
 INSERT INTO `oauth_access_tokens` VALUES ('d16f6d3038c011fb84bf52e54fe91bcb2af735135184c67aefb5cdac4040857cc4edad45f9706244', 2, 1, 'MyApp', '[]', 0, '2019-08-02 09:13:57', '2019-08-02 09:13:57', '2020-08-02 09:13:57');
+INSERT INTO `oauth_access_tokens` VALUES ('d196b2697657b0346cb96ece465df61389d7cb63c46acac5ba2aef9959ea2b3dd749aa1e2eceb593', 2, 9, 'MyApp', '[]', 0, '2020-02-04 09:39:40', '2020-02-04 09:39:40', '2021-02-04 09:39:40');
+INSERT INTO `oauth_access_tokens` VALUES ('d29912b39930e85e47247b4a592fecff880c0b1c4ba890e03336a8bdbb3997c7443e2a4915d73650', 2, 9, 'MyApp', '[]', 0, '2020-02-02 18:28:23', '2020-02-02 18:28:23', '2021-02-02 18:28:23');
 INSERT INTO `oauth_access_tokens` VALUES ('d2c8ca5403cc73031fc6f7fa1790164a9ebd28ec2603e4c5b24aa88c05cf3b043fbc7d953ea2066b', 2, 1, 'MyApp', '[]', 0, '2019-07-04 14:34:53', '2019-07-04 14:34:53', '2020-07-04 14:34:53');
 INSERT INTO `oauth_access_tokens` VALUES ('d54d9f21ea288de0d6177acf95a6c449bf591ad9a18e606950084437b54052f1602d7a9ea395beea', 18, 1, 'MyApp', '[]', 0, '2019-08-01 16:35:57', '2019-08-01 16:35:57', '2020-08-01 16:35:57');
 INSERT INTO `oauth_access_tokens` VALUES ('d5a2198f95ff44e5489155d375ff56a2b76a8ad74dc269ffa14eaa7f6e9298f5492a0b21da638837', 9, 1, 'MyApp', '[]', 0, '2019-05-07 19:17:11', '2019-05-07 19:17:11', '2020-05-07 19:17:11');
 INSERT INTO `oauth_access_tokens` VALUES ('d6a04bb62fee99a1c1caf96009a1e00a376a48fc772a1e7cf6c708bf3425f072b5cd16f0e84c6af9', 2, 1, 'MyApp', '[]', 0, '2019-05-05 16:24:06', '2019-05-05 16:24:06', '2020-05-05 16:24:06');
 INSERT INTO `oauth_access_tokens` VALUES ('d836e80f293b2fd237cab37db22dd7f18c9686084094ccffb02c22dc88c1f391d33ddd34bb90e14a', 16, 1, 'MyApp', '[]', 0, '2019-05-17 09:36:04', '2019-05-17 09:36:04', '2020-05-17 09:36:04');
 INSERT INTO `oauth_access_tokens` VALUES ('d8a7b0ea0070cc35b5a07d42d6df6e2926eda9100cc5ef6a467762daeae19adf69f3df298802ab6a', 2, 1, 'MyApp', '[]', 0, '2019-05-13 15:28:54', '2019-05-13 15:28:54', '2020-05-13 15:28:54');
+INSERT INTO `oauth_access_tokens` VALUES ('d8f2fbeef10c9ed28a33992ccea7cfae9570a35909539e28139fda0eca2fc3421f4fe1305ac0053d', 2, 7, 'MyApp', '[]', 0, '2019-11-12 08:32:39', '2019-11-12 08:32:39', '2020-11-12 08:32:39');
 INSERT INTO `oauth_access_tokens` VALUES ('d932de0315dd2f36c812034d2205b4049a0057b245cc342b4eb57c12b821ed4ca42681ac12cc3ee2', 2, 1, 'MyApp', '[]', 0, '2019-03-06 15:07:14', '2019-03-06 15:07:14', '2020-03-06 15:07:14');
+INSERT INTO `oauth_access_tokens` VALUES ('d9a5030f5a6e36f535a2644ca2ac40750847ceb8ba838b09e92186b4f924a98ff0e0068efcc40f9d', 2, 9, 'MyApp', '[]', 0, '2020-02-07 17:45:34', '2020-02-07 17:45:34', '2021-02-07 17:45:34');
 INSERT INTO `oauth_access_tokens` VALUES ('da27db48423af44a0c53bfda9c76dff9f2395c1a176c9ecc821108b5b66a9c9a729f43864af50056', 2, 1, 'MyApp', '[]', 0, '2019-07-24 08:59:45', '2019-07-24 08:59:45', '2020-07-24 08:59:45');
 INSERT INTO `oauth_access_tokens` VALUES ('daa11ebf2597b97605e25aacb3e8c02d97d87c38c0d0b8f67897f86cdd4c22c50affc007038031a5', 17, 1, 'MyApp', '[]', 0, '2019-05-21 09:36:24', '2019-05-21 09:36:24', '2020-05-21 09:36:24');
 INSERT INTO `oauth_access_tokens` VALUES ('dc6d13628502f05582be719561fd6ca4d11b3df28370afece4fd9fedbae2c2c07548941b7a7c2efa', 2, 1, 'MyApp', '[]', 0, '2019-05-25 11:59:20', '2019-05-25 11:59:20', '2020-05-25 11:59:20');
@@ -1271,10 +1366,14 @@ INSERT INTO `oauth_access_tokens` VALUES ('de33d617088f439eff8047790a638319db10e
 INSERT INTO `oauth_access_tokens` VALUES ('de68415e902dd4fcf04a7ae1e476f3d30a16b1cf1d0f6320a6813325260943eacdd1e7a4a7753081', 2, 7, 'MyApp', '[]', 0, '2019-10-03 14:59:44', '2019-10-03 14:59:44', '2020-10-03 14:59:44');
 INSERT INTO `oauth_access_tokens` VALUES ('df45fc915774d70657e7aafd768e88407f0f7286146b0b802b0646a0a3bffc5ddb01d64d63615465', 2, 1, 'MyApp', '[]', 0, '2019-06-13 13:36:07', '2019-06-13 13:36:07', '2020-06-13 13:36:07');
 INSERT INTO `oauth_access_tokens` VALUES ('df99239b883b868d17e70c88a2de5a2efadd07e9cd5bee7702562d0fd736a4ff6055694e11f916d0', 2, 1, 'MyApp', '[]', 0, '2019-06-27 15:32:16', '2019-06-27 15:32:16', '2020-06-27 15:32:16');
+INSERT INTO `oauth_access_tokens` VALUES ('e08ebf0b2550f2e86d6ec3222179cbe70d9ef996e612d67ca16eb96b940feff448e2d52d811c96cf', 2, 7, 'MyApp', '[]', 0, '2019-11-13 13:46:30', '2019-11-13 13:46:30', '2020-11-13 13:46:30');
 INSERT INTO `oauth_access_tokens` VALUES ('e2e4c7dde17d8b116d3348d9528a68f9dcb635c17790ea8c016d4875fced3f452d6d6aa205ce0486', 2, 7, 'MyApp', '[]', 0, '2019-10-14 16:08:04', '2019-10-14 16:08:04', '2020-10-14 16:08:04');
 INSERT INTO `oauth_access_tokens` VALUES ('e3890b95009f672f41289c3125d7b687961e5e1cf8ceb6528db40e6cae29dbd54cdc458deb8d70f4', 2, 1, 'MyApp', '[]', 0, '2019-08-19 16:53:02', '2019-08-19 16:53:02', '2020-08-19 16:53:02');
 INSERT INTO `oauth_access_tokens` VALUES ('e4b9c34997f907f1d754dc13e2b2df744ba7e298a94eec05e2e14cce6e08532efd41b84a911d0421', 2, 1, 'MyApp', '[]', 0, '2019-07-12 08:36:29', '2019-07-12 08:36:29', '2020-07-12 08:36:29');
 INSERT INTO `oauth_access_tokens` VALUES ('e4fcd3c507c33197236ee600fbfae1890b5a381fc33d975f25d75637e37d17d743365529d69553bf', 2, 1, 'MyApp', '[]', 0, '2019-05-16 08:13:16', '2019-05-16 08:13:16', '2020-05-16 08:13:16');
+INSERT INTO `oauth_access_tokens` VALUES ('e6893bef8e2915752e591986b782d915db460fb1967745a6670a5b996b75630c6ca4f009141706ec', 2, 7, 'MyApp', '[]', 0, '2019-11-22 10:12:25', '2019-11-22 10:12:25', '2020-11-22 10:12:25');
+INSERT INTO `oauth_access_tokens` VALUES ('e788fa1ef9774df7027b727e77aacd2148dbd98755c505eab1d34fd00e0412ee97f61d5aa683b911', 2, 9, 'MyApp', '[]', 0, '2020-02-03 17:06:18', '2020-02-03 17:06:18', '2021-02-03 17:06:18');
+INSERT INTO `oauth_access_tokens` VALUES ('e796b9947fd8bdf963fef371bc1f708fdb4ff243462e1ee1c4fe0b254d84eaaf1d6343fb0fec107a', 2, 7, 'MyApp', '[]', 0, '2019-12-04 09:08:46', '2019-12-04 09:08:46', '2020-12-04 09:08:46');
 INSERT INTO `oauth_access_tokens` VALUES ('ea941ba89a58f6f69ffbfb65dbe8102486e5aee43526e3cc9ecc54db4dcfe71fb8db3d52882594de', 2, 1, 'MyApp', '[]', 0, '2019-02-28 08:53:52', '2019-02-28 08:53:52', '2020-02-28 08:53:52');
 INSERT INTO `oauth_access_tokens` VALUES ('eb199816de787761c0fd652f6de4ec75f903776d07c6b194692d121e399de87f979af0f20380331c', 18, 1, 'MyApp', '[]', 0, '2019-08-01 08:30:20', '2019-08-01 08:30:20', '2020-08-01 08:30:20');
 INSERT INTO `oauth_access_tokens` VALUES ('ec900d3d79ea229f630aec2aed91b68d07adedb5696c67b9be3312ec21c57b4d2952723e7dd7aafa', 2, 1, 'MyApp', '[]', 0, '2019-06-25 16:24:42', '2019-06-25 16:24:42', '2020-06-25 16:24:42');
@@ -1293,9 +1392,11 @@ INSERT INTO `oauth_access_tokens` VALUES ('f66ca15e94fd11f4fa3b5e497355be704e3ba
 INSERT INTO `oauth_access_tokens` VALUES ('f70216bd4ea904b025e609647afaa62ee33f394a7816e10e76c15ab14fbe9d624979674190b54ce4', 2, 7, 'MyApp', '[]', 0, '2019-10-10 16:00:57', '2019-10-10 16:00:57', '2020-10-10 16:00:57');
 INSERT INTO `oauth_access_tokens` VALUES ('f867dd75382d40379874b24a53ecf5272cb6696d47fa8331452cf0a43cd5bdb24e0339908f3f3aab', 2, 1, 'MyApp', '[]', 0, '2019-04-22 17:26:22', '2019-04-22 17:26:22', '2020-04-22 17:26:22');
 INSERT INTO `oauth_access_tokens` VALUES ('f8d5092db08fe0e67fc640afab3eac8626ac3fb579fd8a04d8ecd707c064db967658b14d848c6bf2', 2, 1, 'MyApp', '[]', 0, '2019-06-29 10:45:12', '2019-06-29 10:45:12', '2020-06-29 10:45:12');
+INSERT INTO `oauth_access_tokens` VALUES ('f9bbbe2806902f3a7d1f5d479e3acdd6a95d5bc1f0030e0f67c57d105087dd7bfe46807bc9f24add', 2, 9, 'MyApp', '[]', 0, '2020-01-23 09:39:27', '2020-01-23 09:39:27', '2021-01-23 09:39:27');
 INSERT INTO `oauth_access_tokens` VALUES ('f9de553db938cbc7df3a7da7c509510a66d507f5f7cb3b3ac39ab50445aeb42f5de1a7afff0b74ca', 2, 1, 'MyApp', '[]', 0, '2019-07-22 08:12:38', '2019-07-22 08:12:38', '2020-07-22 08:12:38');
 INSERT INTO `oauth_access_tokens` VALUES ('fb1085609dd53df7a1b0bc7ffddc0a27552da0681ca83dccdc3856f03b478022f666d8a5e79d331d', 17, 1, 'MyApp', '[]', 0, '2019-05-17 09:41:27', '2019-05-17 09:41:27', '2020-05-17 09:41:27');
 INSERT INTO `oauth_access_tokens` VALUES ('fb452856dc1b66b6002da8863caef9b17730072341ad6c5fbd0b716f61abf8792b4b9b0dcc6e44ee', 5, 1, 'MyApp', '[]', 0, '2019-05-05 21:54:13', '2019-05-05 21:54:13', '2020-05-05 21:54:13');
+INSERT INTO `oauth_access_tokens` VALUES ('fb9213eaaf9b7812fbff14987cb5f1a75ba77085af359d9040b182e1a26cbb98d730f113e1c4dc04', 2, 9, 'MyApp', '[]', 0, '2020-02-03 13:57:34', '2020-02-03 13:57:34', '2021-02-03 13:57:34');
 INSERT INTO `oauth_access_tokens` VALUES ('fbaa68275cea65ecfd5a751325b78ac0bb015655f6c35e33e2b84b05301fad770a178811924eada1', 2, 1, 'MyApp', '[]', 0, '2019-06-11 09:06:22', '2019-06-11 09:06:22', '2020-06-11 09:06:22');
 INSERT INTO `oauth_access_tokens` VALUES ('fc06b29579a37f34c51a2b6923e2ed73bcb8b6e61ceba59714131a142cc0dc3f03d30deddce7ba8a', 2, 1, 'MyApp', '[]', 0, '2019-05-17 16:59:24', '2019-05-17 16:59:24', '2020-05-17 16:59:24');
 INSERT INTO `oauth_access_tokens` VALUES ('fcf2560586963cea6481f301476d43e1a39af320b5543d89eba5288028c9f581ff661e8111ff5d42', 2, 5, 'MyApp', '[]', 0, '2019-09-11 13:40:59', '2019-09-11 13:40:59', '2020-09-11 13:40:59');
@@ -1334,7 +1435,7 @@ CREATE TABLE `oauth_clients`  (
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `oauth_clients_user_id_index`(`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of oauth_clients
@@ -1347,6 +1448,8 @@ INSERT INTO `oauth_clients` VALUES (5, NULL, 'Laravel Personal Access Client', '
 INSERT INTO `oauth_clients` VALUES (6, NULL, 'Laravel Password Grant Client', 'YlV8gs9OXBzIyFLMxePrNe4cdreLREoLJjMhY95T', 'http://localhost', 0, 1, 0, '2019-09-03 08:33:55', '2019-09-03 08:33:55');
 INSERT INTO `oauth_clients` VALUES (7, NULL, 'Laravel Personal Access Client', 'GX2j0C7jcAyDH9b2NdpM0ersgboXQkNWzYFuaaR3', 'http://localhost', 1, 0, 0, '2019-09-15 23:28:04', '2019-09-15 23:28:04');
 INSERT INTO `oauth_clients` VALUES (8, NULL, 'Laravel Password Grant Client', 'l8XHRMkpm48QWkbixCrOkjkSave83F0oC9HB9vk6', 'http://localhost', 0, 1, 0, '2019-09-15 23:28:04', '2019-09-15 23:28:04');
+INSERT INTO `oauth_clients` VALUES (9, NULL, 'Laravel Personal Access Client', '96rejvMEyro9SOkGXiaqDNXW8PTHlQ55hb9fSYwA', 'http://localhost', 1, 0, 0, '2019-12-22 21:27:46', '2019-12-22 21:27:46');
+INSERT INTO `oauth_clients` VALUES (10, NULL, 'Laravel Password Grant Client', 'JMQv8j9ud9E7ZWDx5rsK44KpZPw1arUaoPmnBNHv', 'http://localhost', 0, 1, 0, '2019-12-22 21:27:46', '2019-12-22 21:27:46');
 
 -- ----------------------------
 -- Table structure for oauth_personal_access_clients
@@ -1359,7 +1462,7 @@ CREATE TABLE `oauth_personal_access_clients`  (
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `oauth_personal_access_clients_client_id_index`(`client_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of oauth_personal_access_clients
@@ -1368,6 +1471,7 @@ INSERT INTO `oauth_personal_access_clients` VALUES (1, 1, '2019-02-27 09:46:34',
 INSERT INTO `oauth_personal_access_clients` VALUES (2, 3, '2019-08-27 10:51:02', '2019-08-27 10:51:02');
 INSERT INTO `oauth_personal_access_clients` VALUES (3, 5, '2019-09-03 08:33:54', '2019-09-03 08:33:54');
 INSERT INTO `oauth_personal_access_clients` VALUES (4, 7, '2019-09-15 23:28:04', '2019-09-15 23:28:04');
+INSERT INTO `oauth_personal_access_clients` VALUES (5, 9, '2019-12-22 21:27:46', '2019-12-22 21:27:46');
 
 -- ----------------------------
 -- Table structure for oauth_refresh_tokens
@@ -1452,23 +1556,27 @@ CREATE TABLE `password_resets`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
--- Table structure for perm_command
+-- Table structure for perm_commands
 -- ----------------------------
-DROP TABLE IF EXISTS `perm_command`;
-CREATE TABLE `perm_command`  (
+DROP TABLE IF EXISTS `perm_commands`;
+CREATE TABLE `perm_commands`  (
   `idpercommand` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `command` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
   `created_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`idpercommand`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
--- Records of perm_command
+-- Records of perm_commands
 -- ----------------------------
-INSERT INTO `perm_command` VALUES (1, 'select', '2019-10-15 08:49:52', '2019-10-15 08:49:52');
-INSERT INTO `perm_command` VALUES (2, 'update', '2019-10-15 08:50:04', '2019-10-15 08:50:04');
-INSERT INTO `perm_command` VALUES (3, 'insert', '2019-10-15 08:50:13', '2019-10-15 08:50:13');
+INSERT INTO `perm_commands` VALUES (1, 'select', 'Liệt kê', '2019-10-15 08:49:52', '2019-11-12 11:16:19');
+INSERT INTO `perm_commands` VALUES (2, 'update', 'cập nhật', '2019-10-15 08:50:04', '2019-11-12 11:16:07');
+INSERT INTO `perm_commands` VALUES (3, 'insert', 'Chèn dữ liệu', '2019-10-15 08:50:13', '2019-11-12 11:15:57');
+INSERT INTO `perm_commands` VALUES (4, 'edit', 'Chỉnh sửa', '2019-11-12 10:59:34', '2019-11-12 11:14:44');
+INSERT INTO `perm_commands` VALUES (5, 'route', 'route', '2020-02-06 17:52:19', '2020-02-06 17:52:19');
+INSERT INTO `perm_commands` VALUES (6, 'url', 'url', '2020-02-06 17:52:33', '2020-02-06 17:52:33');
 
 -- ----------------------------
 -- Table structure for permissions
@@ -1479,24 +1587,30 @@ CREATE TABLE `permissions`  (
   `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `idpermcommand` int(10) UNSIGNED NULL DEFAULT NULL,
-  `idcatogory` int(11) UNSIGNED NULL DEFAULT NULL,
+  `idcategory` int(11) UNSIGNED NULL DEFAULT NULL,
   `idproduct` bigint(20) UNSIGNED NULL DEFAULT NULL,
+  `path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `idparent` int(11) UNSIGNED NULL DEFAULT NULL,
   `created_at` timestamp(0) NULL DEFAULT NULL,
-  `updated_at` timestamp(0) NULL DEFAULT NULL,
+  `updated_at` timestamp(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`idperm`) USING BTREE,
   UNIQUE INDEX `permissions_name_unique`(`name`) USING BTREE,
-  INDEX `fr_permission_category`(`idcatogory`) USING BTREE,
+  INDEX `fr_permission_category`(`idcategory`) USING BTREE,
   INDEX `fr_permission_product`(`idproduct`) USING BTREE,
   INDEX `fr_permission_command`(`idpermcommand`) USING BTREE,
-  CONSTRAINT `fr_permission_category` FOREIGN KEY (`idcatogory`) REFERENCES `categories` (`idcategory`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `fr_permission_product` FOREIGN KEY (`idproduct`) REFERENCES `products` (`idproduct`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `fr_permission_command` FOREIGN KEY (`idpermcommand`) REFERENCES `perm_command` (`idpercommand`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+  INDEX `fr_idparent_category`(`idparent`) USING BTREE,
+  CONSTRAINT `fr_idparent_category` FOREIGN KEY (`idparent`) REFERENCES `categories` (`idcategory`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fr_permission_category` FOREIGN KEY (`idcategory`) REFERENCES `categories` (`idcategory`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fr_permission_command` FOREIGN KEY (`idpermcommand`) REFERENCES `perm_commands` (`idpercommand`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fr_permission_product` FOREIGN KEY (`idproduct`) REFERENCES `products` (`idproduct`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of permissions
 -- ----------------------------
-INSERT INTO `permissions` VALUES (1, 'root', 'Quản trị hệ thống', NULL, NULL, NULL, '2019-04-13 08:30:03', '2019-04-13 08:30:03');
+INSERT INTO `permissions` VALUES (1, 'Xem sản phẩm trị nám', 'Xem sản phẩm trị nám', 1, 6, NULL, NULL, NULL, '2019-04-13 08:30:03', '2020-01-28 14:55:04');
+INSERT INTO `permissions` VALUES (2, 'list-product-giam-beo', 'Xem sản phẩm giảm béo', 1, 28, NULL, NULL, NULL, NULL, '2020-02-05 22:19:05');
+INSERT INTO `permissions` VALUES (3, 'Xem sản phẩm xóa nhăn', 'Xem sản phẩm xóa nhăn', 1, 9, NULL, NULL, NULL, NULL, '2020-01-29 14:35:07');
 
 -- ----------------------------
 -- Table structure for post_has_files
@@ -1562,6 +1676,7 @@ CREATE TABLE `posts`  (
   `body` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
   `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `id_post_type` int(11) NULL DEFAULT NULL,
+  `idcategory` int(11) NULL DEFAULT NULL,
   `created_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`idpost`) USING BTREE
@@ -1570,20 +1685,20 @@ CREATE TABLE `posts`  (
 -- ----------------------------
 -- Records of posts
 -- ----------------------------
-INSERT INTO `posts` VALUES (1, NULL, 'http://localhost/thammy/tiem-cang-bong-da-mat-baby-face/', NULL, 2, '2019-08-01 11:44:32', '2019-08-01 11:44:32');
-INSERT INTO `posts` VALUES (2, NULL, 'đã gọi điện', NULL, 4, '2019-08-01 12:04:11', '2019-08-01 12:04:11');
-INSERT INTO `posts` VALUES (3, NULL, 'http://localhost/thammy/#', NULL, 1, '2019-08-01 13:58:36', '2019-08-01 13:58:36');
-INSERT INTO `posts` VALUES (4, NULL, 'http://localhost/thammy/#', NULL, 1, '2019-08-01 14:14:35', '2019-08-01 14:14:35');
-INSERT INTO `posts` VALUES (5, NULL, 'https://thammyvienthienkhue.vn/tri-tan-nhang-yellow-laser-dieu-tri-nhanh-hieu-qua-toi-80/', NULL, 2, '2019-08-01 14:17:28', '2019-08-01 14:17:28');
-INSERT INTO `posts` VALUES (6, NULL, 'https://thammyvienthienkhue.vn/tri-tan-nhang-yellow-laser-dieu-tri-nhanh-hieu-qua-toi-80/#', NULL, 1, '2019-08-01 14:18:10', '2019-08-01 14:18:10');
-INSERT INTO `posts` VALUES (7, NULL, 'không bắt máy', NULL, 4, '2019-08-01 14:18:43', '2019-08-01 14:18:43');
-INSERT INTO `posts` VALUES (8, NULL, 'đặt lịch', NULL, 7, '2019-08-01 14:19:18', '2019-08-01 14:19:18');
-INSERT INTO `posts` VALUES (9, NULL, 'https://mgk.edu.vn/khai-giang/ ,khoa hoc chon: Phun thiêu thẩm mỹ', NULL, 2, '2019-08-01 14:59:17', '2019-08-01 14:59:17');
-INSERT INTO `posts` VALUES (10, NULL, 'https://mgk.edu.vn/ ,khoa hoc chon: Chăm sóc da', NULL, 1, '2019-08-01 15:40:52', '2019-08-01 15:40:52');
-INSERT INTO `posts` VALUES (11, NULL, 'khong bat mat', NULL, 4, '2019-08-01 17:04:38', '2019-08-01 17:04:38');
-INSERT INTO `posts` VALUES (12, NULL, 'k tl', NULL, 5, '2019-08-01 17:05:56', '2019-08-01 17:05:56');
-INSERT INTO `posts` VALUES (13, NULL, 'khòn bat mat', NULL, 4, '2019-08-01 17:47:22', '2019-08-01 17:47:22');
-INSERT INTO `posts` VALUES (14, NULL, 'ghgh', NULL, 8, '2019-08-01 17:52:19', '2019-08-01 17:52:19');
+INSERT INTO `posts` VALUES (1, NULL, 'http://localhost/thammy/tiem-cang-bong-da-mat-baby-face/', NULL, 2, NULL, '2019-08-01 11:44:32', '2019-08-01 11:44:32');
+INSERT INTO `posts` VALUES (2, NULL, 'đã gọi điện', NULL, 4, NULL, '2019-08-01 12:04:11', '2019-08-01 12:04:11');
+INSERT INTO `posts` VALUES (3, NULL, 'http://localhost/thammy/#', NULL, 1, NULL, '2019-08-01 13:58:36', '2019-08-01 13:58:36');
+INSERT INTO `posts` VALUES (4, NULL, 'http://localhost/thammy/#', NULL, 1, NULL, '2019-08-01 14:14:35', '2019-08-01 14:14:35');
+INSERT INTO `posts` VALUES (5, NULL, 'https://thammyvienthienkhue.vn/tri-tan-nhang-yellow-laser-dieu-tri-nhanh-hieu-qua-toi-80/', NULL, 2, NULL, '2019-08-01 14:17:28', '2019-08-01 14:17:28');
+INSERT INTO `posts` VALUES (6, NULL, 'https://thammyvienthienkhue.vn/tri-tan-nhang-yellow-laser-dieu-tri-nhanh-hieu-qua-toi-80/#', NULL, 1, NULL, '2019-08-01 14:18:10', '2019-08-01 14:18:10');
+INSERT INTO `posts` VALUES (7, NULL, 'không bắt máy', NULL, 4, NULL, '2019-08-01 14:18:43', '2019-08-01 14:18:43');
+INSERT INTO `posts` VALUES (8, NULL, 'đặt lịch', NULL, 7, NULL, '2019-08-01 14:19:18', '2019-08-01 14:19:18');
+INSERT INTO `posts` VALUES (9, NULL, 'https://mgk.edu.vn/khai-giang/ ,khoa hoc chon: Phun thiêu thẩm mỹ', NULL, 2, NULL, '2019-08-01 14:59:17', '2019-08-01 14:59:17');
+INSERT INTO `posts` VALUES (10, NULL, 'https://mgk.edu.vn/ ,khoa hoc chon: Chăm sóc da', NULL, 1, NULL, '2019-08-01 15:40:52', '2019-08-01 15:40:52');
+INSERT INTO `posts` VALUES (11, NULL, 'khong bat mat', NULL, 4, NULL, '2019-08-01 17:04:38', '2019-08-01 17:04:38');
+INSERT INTO `posts` VALUES (12, NULL, 'k tl', NULL, 5, NULL, '2019-08-01 17:05:56', '2019-08-01 17:05:56');
+INSERT INTO `posts` VALUES (13, NULL, 'khòn bat mat', NULL, 4, NULL, '2019-08-01 17:47:22', '2019-08-01 17:47:22');
+INSERT INTO `posts` VALUES (14, NULL, 'ghgh', NULL, 8, NULL, '2019-08-01 17:52:19', '2019-08-01 17:52:19');
 
 -- ----------------------------
 -- Table structure for producthasfile
@@ -1604,7 +1719,7 @@ CREATE TABLE `producthasfile`  (
   CONSTRAINT `fr_hasfile` FOREIGN KEY (`idfile`) REFERENCES `files` (`idfile`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fr_hastype` FOREIGN KEY (`hastype`) REFERENCES `imagetype` (`idimagetype`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fr_producthasfile` FOREIGN KEY (`idproduct`) REFERENCES `products` (`idproduct`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 42 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 44 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of producthasfile
@@ -1650,6 +1765,8 @@ INSERT INTO `producthasfile` VALUES (38, 28, 2, 37, 0, '2019-10-01 16:07:41', '2
 INSERT INTO `producthasfile` VALUES (39, 28, 2, 38, 1, '2019-10-07 13:47:02', '2019-10-07 13:47:02');
 INSERT INTO `producthasfile` VALUES (40, 28, 2, 39, 1, '2019-10-07 13:47:02', '2019-10-07 13:47:02');
 INSERT INTO `producthasfile` VALUES (41, 28, 2, 40, 1, '2019-10-07 13:47:02', '2019-10-07 13:47:02');
+INSERT INTO `producthasfile` VALUES (42, 34, 2, 49, 1, '2020-02-01 13:16:41', '2020-02-01 13:16:41');
+INSERT INTO `producthasfile` VALUES (43, 34, 2, 50, 1, '2020-02-01 13:16:41', '2020-02-01 13:16:41');
 
 -- ----------------------------
 -- Table structure for products
@@ -1678,8 +1795,8 @@ CREATE TABLE `products`  (
   CONSTRAINT `fr_product_color` FOREIGN KEY (`idcolor`) REFERENCES `color` (`idcolor`) ON DELETE SET NULL ON UPDATE SET NULL,
   CONSTRAINT `fr_product_crosstype` FOREIGN KEY (`idcrosstype_p`) REFERENCES `cross_type` (`idcrosstype`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fr_product_size` FOREIGN KEY (`idsize`) REFERENCES `size` (`idsize`) ON DELETE SET NULL ON UPDATE SET NULL,
-  CONSTRAINT `fr_product_type` FOREIGN KEY (`id_post_type`) REFERENCES `post_types` (`idposttype`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `fr_product_status_type` FOREIGN KEY (`idstatus_type`) REFERENCES `status_types` (`id_status_type`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `fr_product_status_type` FOREIGN KEY (`idstatus_type`) REFERENCES `status_types` (`id_status_type`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fr_product_type` FOREIGN KEY (`id_post_type`) REFERENCES `post_types` (`idposttype`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 35 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
@@ -1716,9 +1833,9 @@ INSERT INTO `products` VALUES (28, 'Siêu vi kim PRP', 'sieu-vi-kim-prp', 'Đó 
 INSERT INTO `products` VALUES (29, 'Trị nám với công nghệ triphasic ( khuyến mãi )', 'tri-nam-voi-cong-nghe-triphasic-khuyen-mai-', 'Đó là những mảng màu nâu xuất hiện trên da, hình thành do sự gia tăng hắc sắc tố melanin. Melanin là yếu tố quyết định màu da của con người, có vai trò chống nắng', '<p class=\"MsoNormal\"><b>a. Định Nghĩa:</b> <span style=\"mso-bidi-font-size:14.0pt;mso-bidi-font-family:&quot;Times New Roman&quot;;color:black\">Đó là&nbsp;những mảng màu nâu xuất hiện trên da, hình thành do sựgia tăng hắc sắc tố melanin. Melanin là yếu tố quyết định màu da của con người,có vai trò chống nắng, bảo vệ cơ thể khỏi tác hại của tia UV có trong ánh nắngmặt trời. Thế nhưng, nếu sắc tố này được sản xuất quá nhiều sẽ dẫn đến tình trạngtích tụ, tập trung tại một vùng nhất định trên da và gây ra nám.<o:p></o:p></span></p><p class=\"MsoNormal\"><b>b. Nguyên Nhân:</b> <o:p></o:p></p><p class=\"MsoNormal\" align=\"left\"><b><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;;color:black\">+ </span></b><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;;color:black;mso-bidi-font-weight:bold\">Ánhnắng mặt trời:</span><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;;color:black\"> Đây làmột trong những nguyên nhân quan trọng nhất gây nám. Tác động của ánh nắng mặttrời sẽ làm sản sinh một cách bất thường lượng melanin dưới da, khiến những đốmnám hình thành và lan rộng. Bên cạnh đó, việc để làn da tiếp xúc trực tiếp vớiánh nắng mặt trời còn phá hủy tế bào, làm vỡ cấu trúc dưới da dẫn đến việc dakhô, lão hóa<br>&nbsp;+ Yếu tố di truyền: Nám dacòn có thể do yếu tố di truyền gây nên. Theo các nghiên cứu khoa học, tỉ lệbệnh nhân có tiền sử gia đình có người bị nám da lên đến khoảng 30%. Đây là mộttrong những nguyên nhân gây “đau đầu” nhất, bởi nám da do yếu tố di truyền rấtkhó chữa trị.<br>&nbsp;+ Yếu tố nội tiết: Việcrối loạn nột tiết tố gây ra tình trạng hắc sắc tố melanin tăng nhanh cũng lànguyên nhân thường thấy gây nám da. Phụ nữ mang thai thường bị nám, tỉ lệ nàyrơi vào khoảng từ 50-70%. Việc sử dụng thuốc ngừa thai, hoặc bước vào giai đoạntiền mãn kinh, tuổi dậy thì... cũng là những nguyên nhân khiến bạn mắc phảinám. Thông thường, nếu bạn bị nám do rối loạn nội tiết thì sau khi bạn ổn địnhlại nội tiết tố, nám sẽ tự mất đi.&nbsp;<o:p></o:p></span></p><p class=\"MsoNormal\" align=\"left\"><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;;color:black\">&nbsp;+ Ngoài ra có rất nhiều nguyên nhân khác như sử dụng mỹ phẩmkhông đúng cách, chế độ sinh hoạt không hợp lý<o:p></o:p></span></p><p class=\"MsoNormal\"><b>c. Phương Pháp Khoa HọcCông Nghệ Triphasic Laser <o:p></o:p></b></p><p class=\"MsoNormal\" style=\"line-height:150%\"><span style=\"mso-bidi-font-size:14.0pt;line-height:150%;color:black\">Công nghệ trị Nám Laser Triphasic Spotmang tính đột về trị liệu Nám bằng Laser, là công nghệ Thông Minh 4.0 với 2 đặctính nổi bật và khách biệt:<o:p></o:p></span></p><p class=\"MsoNormal\" style=\"line-height:150%\"><b>+ Định Vị</b><span style=\"mso-bidi-font-size:14.0pt;line-height:150%\">: Lăng kính của Triphasiclaser được chia thành 81 điểm lăng kính, chúng sẽ phân tích vùng sáng tối củada trên mỗi điểm năng kính để phân loại đâu là vùng da bị Nám &amp; vùng dabình thường, giúp tăng hiệu quả phá vỡ melanin gấp nhiều lần so với công nghệlaser thông thường mà không làm tổn thương các vùng da không bị Nám<o:p></o:p></span></p><p class=\"MsoNormal\" style=\"line-height:150%\"><b>+ Tự Điều Chỉnh</b><span style=\"mso-bidi-font-size:14.0pt;line-height:150%\">: Sau khi đã phân vị đượcvùng da Nám và da thường, các điểm lăng kính sẽ tự điều chỉnh năng lượng chophù hợp. Với vúng da bị Nám, năng lượng sẽ tăng lên gấp 40 lần để phá hủy Hắc TốMelanin. Ngược lại vùng da không bị Nám thì các điểm lăng kính sẽ tự động giảmnăng lượng tới mức trẻ hóa, giúp da căng sáng mà không bị tổn thương.<o:p></o:p></span></p>', 10, NULL, NULL, NULL, NULL, 5, '2019-09-20 15:58:52', '2019-09-30 08:43:14');
 INSERT INTO `products` VALUES (30, 'Trị nám với công nghệ triphasic ( test prev_id )', 'tri-nam-voi-cong-nghe-triphasic-test-prev_id-', 'Đó là những mảng màu nâu xuất hiện trên da, hình thành do sựgia tăng hắc sắc tố melanin. Melanin là yếu tố quyết định màu da của con người,', '<p class=\"MsoNormal\" style=\"color: rgb(92, 104, 115); font-family: &quot;Roboto Condensed&quot;, sans-serif; font-size: 17px;\"><span style=\"font-weight: 700;\">a. Định Nghĩa:</span>&nbsp;<span style=\"color: black;\">Đó là&nbsp;những mảng màu nâu xuất hiện trên da, hình thành do sựgia tăng hắc sắc tố melanin. Melanin là yếu tố quyết định màu da của con người,có vai trò chống nắng, bảo vệ cơ thể khỏi tác hại của tia UV có trong ánh nắngmặt trời. Thế nhưng, nếu sắc tố này được sản xuất quá nhiều sẽ dẫn đến tình trạngtích tụ, tập trung tại một vùng nhất định trên da và gây ra nám.<o:p></o:p></span></p><p class=\"MsoNormal\" style=\"color: rgb(92, 104, 115); font-family: &quot;Roboto Condensed&quot;, sans-serif; font-size: 17px;\"><span style=\"font-weight: 700;\">b. Nguyên Nhân:</span><o:p></o:p></p><p class=\"MsoNormal\" align=\"left\" style=\"color: rgb(92, 104, 115); font-family: &quot;Roboto Condensed&quot;, sans-serif; font-size: 17px;\"><span style=\"font-weight: 700;\"><span style=\"color: black;\">+&nbsp;</span></span><span style=\"color: black;\">Ánhnắng mặt trời:</span><span style=\"color: black;\">&nbsp;Đây làmột trong những nguyên nhân quan trọng nhất gây nám. Tác động của ánh nắng mặttrời sẽ làm sản sinh một cách bất thường lượng melanin dưới da, khiến những đốmnám hình thành và lan rộng. Bên cạnh đó, việc để làn da tiếp xúc trực tiếp vớiánh nắng mặt trời còn phá hủy tế bào, làm vỡ cấu trúc dưới da dẫn đến việc dakhô, lão hóa<br>&nbsp;+ Yếu tố di truyền: Nám dacòn có thể do yếu tố di truyền gây nên. Theo các nghiên cứu khoa học, tỉ lệbệnh nhân có tiền sử gia đình có người bị nám da lên đến khoảng 30%. Đây là mộttrong những nguyên nhân gây “đau đầu” nhất, bởi nám da do yếu tố di truyền rấtkhó chữa trị.<br>&nbsp;+ Yếu tố nội tiết: Việcrối loạn nột tiết tố gây ra tình trạng hắc sắc tố melanin tăng nhanh cũng lànguyên nhân thường thấy gây nám da. Phụ nữ mang thai thường bị nám, tỉ lệ nàyrơi vào khoảng từ 50-70%. Việc sử dụng thuốc ngừa thai, hoặc bước vào giai đoạntiền mãn kinh, tuổi dậy thì... cũng là những nguyên nhân khiến bạn mắc phảinám. Thông thường, nếu bạn bị nám do rối loạn nội tiết thì sau khi bạn ổn địnhlại nội tiết tố, nám sẽ tự mất đi.&nbsp;<o:p></o:p></span></p><p class=\"MsoNormal\" align=\"left\" style=\"color: rgb(92, 104, 115); font-family: &quot;Roboto Condensed&quot;, sans-serif; font-size: 17px;\"><span style=\"color: black;\">&nbsp;+ Ngoài ra có rất nhiều nguyên nhân khác như sử dụng mỹ phẩmkhông đúng cách, chế độ sinh hoạt không hợp lý<o:p></o:p></span></p><p class=\"MsoNormal\" style=\"color: rgb(92, 104, 115); font-family: &quot;Roboto Condensed&quot;, sans-serif; font-size: 17px;\"><span style=\"font-weight: 700;\">c. Phương Pháp Khoa HọcCông Nghệ Triphasic Laser<o:p></o:p></span></p><p class=\"MsoNormal\" style=\"color: rgb(92, 104, 115); font-family: &quot;Roboto Condensed&quot;, sans-serif; font-size: 17px; line-height: 25.5px;\"><span style=\"line-height: 25.5px; color: black;\">Công nghệ trị Nám Laser Triphasic Spotmang tính đột về trị liệu Nám bằng Laser, là công nghệ Thông Minh 4.0 với 2 đặctính nổi bật và khách biệt:<o:p></o:p></span></p><p class=\"MsoNormal\" style=\"color: rgb(92, 104, 115); font-family: &quot;Roboto Condensed&quot;, sans-serif; font-size: 17px; line-height: 25.5px;\"><span style=\"font-weight: 700;\">+ Định Vị</span><span style=\"line-height: 25.5px;\">: Lăng kính của Triphasiclaser được chia thành 81 điểm lăng kính, chúng sẽ phân tích vùng sáng tối củada trên mỗi điểm năng kính để phân loại đâu là vùng da bị Nám &amp; vùng dabình thường, giúp tăng hiệu quả phá vỡ melanin gấp nhiều lần so với công nghệlaser thông thường mà không làm tổn thương các vùng da không bị Nám<o:p></o:p></span></p><p class=\"MsoNormal\" style=\"color: rgb(92, 104, 115); font-family: &quot;Roboto Condensed&quot;, sans-serif; font-size: 17px; line-height: 25.5px;\"><span style=\"font-weight: 700;\">+ Tự Điều Chỉnh</span><span style=\"line-height: 25.5px;\">: Sau khi đã phân vị đượcvùng da Nám và da thường, các điểm lăng kính sẽ tự điều chỉnh năng lượng chophù hợp. Với vúng da bị Nám, năng lượng sẽ tăng lên gấp 40 lần để phá hủy Hắc TốMelanin. Ngược lại vùng da không bị Nám thì các điểm lăng kính sẽ tự động giảmnăng lượng tới mức trẻ hóa, giúp da căng sáng mà không bị tổn thương.</span></p>', 10, NULL, NULL, NULL, NULL, 5, '2019-09-28 15:30:28', '2019-09-30 08:43:14');
 INSERT INTO `products` VALUES (31, 'TRỊ NÁM VỚI CÔNG NGHỆ TRIPHASIC LASER khuyen mai', 'tri-nam-voi-cong-nghe-triphasic-laser-khuyen-mai', 'Ánh nắng mặt trời: Đây là một trong những nguyên nhân quan trọng nhất gây nám. Tác động của ánh nắng mặt trời sẽ làm sản sinh một cách bất thường lượng melanin dưới da, khiến những đốm nám hình thành và lan rộng', '<p class=\"MsoNormal\"><b>a. Định Nghĩa:</b> <span style=\"mso-bidi-font-size:14.0pt;mso-bidi-font-family:&quot;Times New Roman&quot;;color:black\">Đó là&nbsp;những mảng màu nâu xuất hiện trên da, hình thành do sựgia tăng hắc sắc tố melanin. Melanin là yếu tố quyết định màu da của con người,có vai trò chống nắng, bảo vệ cơ thể khỏi tác hại của tia UV có trong ánh nắngmặt trời. Thế nhưng, nếu sắc tố này được sản xuất quá nhiều sẽ dẫn đến tình trạngtích tụ, tập trung tại một vùng nhất định trên da và gây ra nám.<o:p></o:p></span></p><p class=\"MsoNormal\"><b>b. Nguyên Nhân:</b> <o:p></o:p></p><p class=\"MsoNormal\" align=\"left\"><b><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;;color:black\">+ </span></b><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;;color:black;mso-bidi-font-weight:bold\">Ánhnắng mặt trời:</span><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;;color:black\"> Đây làmột trong những nguyên nhân quan trọng nhất gây nám. Tác động của ánh nắng mặttrời sẽ làm sản sinh một cách bất thường lượng melanin dưới da, khiến những đốmnám hình thành và lan rộng. Bên cạnh đó, việc để làn da tiếp xúc trực tiếp vớiánh nắng mặt trời còn phá hủy tế bào, làm vỡ cấu trúc dưới da dẫn đến việc dakhô, lão hóa<br>&nbsp;+ Yếu tố di truyền: Nám dacòn có thể do yếu tố di truyền gây nên. Theo các nghiên cứu khoa học, tỉ lệbệnh nhân có tiền sử gia đình có người bị nám da lên đến khoảng 30%. Đây là mộttrong những nguyên nhân gây “đau đầu” nhất, bởi nám da do yếu tố di truyền rấtkhó chữa trị.<br>&nbsp;+ Yếu tố nội tiết: Việcrối loạn nột tiết tố gây ra tình trạng hắc sắc tố melanin tăng nhanh cũng lànguyên nhân thường thấy gây nám da. Phụ nữ mang thai thường bị nám, tỉ lệ nàyrơi vào khoảng từ 50-70%. Việc sử dụng thuốc ngừa thai, hoặc bước vào giai đoạntiền mãn kinh, tuổi dậy thì... cũng là những nguyên nhân khiến bạn mắc phảinám. Thông thường, nếu bạn bị nám do rối loạn nội tiết thì sau khi bạn ổn địnhlại nội tiết tố, nám sẽ tự mất đi.&nbsp;<o:p></o:p></span></p><p class=\"MsoNormal\" align=\"left\"><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;;color:black\">&nbsp;+ Ngoài ra có rất nhiều nguyên nhân khác như sử dụng mỹ phẩmkhông đúng cách, chế độ sinh hoạt không hợp lý<o:p></o:p></span></p><p class=\"MsoNormal\"><b>c. Phương Pháp Khoa HọcCông Nghệ Triphasic Laser <o:p></o:p></b></p><p class=\"MsoNormal\" style=\"line-height:150%\"><span style=\"mso-bidi-font-size:14.0pt;line-height:150%;color:black\">Công nghệ trị Nám Laser Triphasic Spotmang tính đột về trị liệu Nám bằng Laser, là công nghệ Thông Minh 4.0 với 2 đặctính nổi bật và khách biệt:<o:p></o:p></span></p><p class=\"MsoNormal\" style=\"line-height:150%\"><b>+ Định Vị</b><span style=\"mso-bidi-font-size:14.0pt;line-height:150%\">: Lăng kính của Triphasiclaser được chia thành 81 điểm lăng kính, chúng sẽ phân tích vùng sáng tối củada trên mỗi điểm năng kính để phân loại đâu là vùng da bị Nám &amp; vùng dabình thường, giúp tăng hiệu quả phá vỡ melanin gấp nhiều lần so với công nghệlaser thông thường mà không làm tổn thương các vùng da không bị Nám<o:p></o:p></span></p>', 10, NULL, NULL, NULL, NULL, 5, '2019-10-01 12:36:46', '2019-10-02 17:42:38');
-INSERT INTO `products` VALUES (32, 'TRỊ NÁM VỚI CÔNG NGHỆ TRIPHASIC LASER tes ljiuem ,ao', 'tri-nam-voi-cong-nghe-triphasic-laser-tes-ljiuem-,ao', 'Yếu tố nội tiết: Việc rối loạn nột tiết tố gây ra tình trạng hắc sắc tố melanin tăng nhanh cũng là nguyên nhân thường thấy gây nám da. Phụ nữ mang thai thường bị nám, tỉ lệ này rơi vào khoảng từ 50-70%. Việc sử dụng thuốc ngừa tha', '<p class=\"MsoNormal\"><b>a. Định Nghĩa:</b> <span style=\"mso-bidi-font-size:14.0pt;mso-bidi-font-family:&quot;Times New Roman&quot;;color:black\">Đó là&nbsp;những mảng màu nâu xuất hiện trên da, hình thành do sựgia tăng hắc sắc tố melanin. Melanin là yếu tố quyết định màu da của con người,có vai trò chống nắng, bảo vệ cơ thể khỏi tác hại của tia UV có trong ánh nắngmặt trời. Thế nhưng, nếu sắc tố này được sản xuất quá nhiều sẽ dẫn đến tình trạngtích tụ, tập trung tại một vùng nhất định trên da và gây ra nám.<o:p></o:p></span></p><p class=\"MsoNormal\"><b>b. Nguyên Nhân:</b> <o:p></o:p></p><p class=\"MsoNormal\" align=\"left\"><b><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;;color:black\">+ </span></b><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;;color:black;mso-bidi-font-weight:bold\">Ánhnắng mặt trời:</span><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;;color:black\"> Đây làmột trong những nguyên nhân quan trọng nhất gây nám. Tác động của ánh nắng mặttrời sẽ làm sản sinh một cách bất thường lượng melanin dưới da, khiến những đốmnám hình thành và lan rộng. Bên cạnh đó, việc để làn da tiếp xúc trực tiếp vớiánh nắng mặt trời còn phá hủy tế bào, làm vỡ cấu trúc dưới da dẫn đến việc dakhô, lão hóa<br>&nbsp;+ Yếu tố di truyền: Nám dacòn có thể do yếu tố di truyền gây nên. Theo các nghiên cứu khoa học, tỉ lệbệnh nhân có tiền sử gia đình có người bị nám da lên đến khoảng 30%. Đây là mộttrong những nguyên nhân gây “đau đầu” nhất, bởi nám da do yếu tố di truyền rấtkhó chữa trị.<br>&nbsp;+ Yếu tố nội tiết: Việcrối loạn nột tiết tố gây ra tình trạng hắc sắc tố melanin tăng nhanh cũng lànguyên nhân thường thấy gây nám da. Phụ nữ mang thai thường bị nám, tỉ lệ nàyrơi vào khoảng từ 50-70%. Việc sử dụng thuốc ngừa thai, hoặc bước vào giai đoạntiền mãn kinh, tuổi dậy thì... cũng là những nguyên nhân khiến bạn mắc phảinám. Thông thường, nếu bạn bị nám do rối loạn nội tiết thì sau khi bạn ổn địnhlại nội tiết tố, nám sẽ tự mất đi.&nbsp;<o:p></o:p></span></p><p class=\"MsoNormal\" align=\"left\"><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;;color:black\">&nbsp;+ Ngoài ra có rất nhiều nguyên nhân khác như sử dụng mỹ phẩmkhông đúng cách, chế độ sinh hoạt không hợp lý<o:p></o:p></span></p><p class=\"MsoNormal\"><b>c. Phương Pháp Khoa HọcCông Nghệ Triphasic Laser <o:p></o:p></b></p><p class=\"MsoNormal\" style=\"line-height:150%\"><span style=\"mso-bidi-font-size:14.0pt;line-height:150%;color:black\">Công nghệ trị Nám Laser Triphasic Spotmang tính đột về trị liệu Nám bằng Laser, là công nghệ Thông Minh 4.0 với 2 đặctính nổi bật và khách biệt:<o:p></o:p></span></p><p class=\"MsoNormal\" style=\"line-height:150%\"><b>+ Định Vị</b><span style=\"mso-bidi-font-size:14.0pt;line-height:150%\">: Lăng kính của Triphasiclaser được chia thành 81 điểm lăng kính, chúng sẽ phân tích vùng sáng tối củada trên mỗi điểm năng kính để phân loại đâu là vùng da bị Nám &amp; vùng dabình thường, giúp tăng hiệu quả phá vỡ melanin gấp nhiều lần so với công nghệlaser thông thường mà không làm tổn thương các vùng da không bị Nám<o:p></o:p></span></p>', 10, NULL, NULL, NULL, NULL, 5, '2019-10-01 13:53:51', '2019-10-02 17:42:38');
+INSERT INTO `products` VALUES (32, 'TRỊ NÁM TRIPHASIC LASER', 'tri-nam-triphasic-laser', 'Yếu tố nội tiết: Việc rối loạn nột tiết tố gây ra tình trạng hắc sắc tố melanin tăng nhanh cũng là nguyên nhân thường thấy gây nám da. Phụ nữ mang thai thường bị nám, tỉ lệ này rơi vào khoảng từ 50-70%. Việc sử dụng thuốc ngừa tha', '<p class=\"MsoNormal\"><b>a. Định Nghĩa:</b> <span style=\"mso-bidi-font-size:14.0pt;mso-bidi-font-family:&quot;Times New Roman&quot;;color:black\">Đó là&nbsp;những mảng màu nâu xuất hiện trên da, hình thành do sựgia tăng hắc sắc tố melanin. Melanin là yếu tố quyết định màu da của con người,có vai trò chống nắng, bảo vệ cơ thể khỏi tác hại của tia UV có trong ánh nắngmặt trời. Thế nhưng, nếu sắc tố này được sản xuất quá nhiều sẽ dẫn đến tình trạngtích tụ, tập trung tại một vùng nhất định trên da và gây ra nám.<o:p></o:p></span></p><p class=\"MsoNormal\"><b>b. Nguyên Nhân:</b> <o:p></o:p></p><p class=\"MsoNormal\" align=\"left\"><b><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;;color:black\">+ </span></b><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;;color:black;mso-bidi-font-weight:bold\">Ánhnắng mặt trời:</span><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;;color:black\"> Đây làmột trong những nguyên nhân quan trọng nhất gây nám. Tác động của ánh nắng mặttrời sẽ làm sản sinh một cách bất thường lượng melanin dưới da, khiến những đốmnám hình thành và lan rộng. Bên cạnh đó, việc để làn da tiếp xúc trực tiếp vớiánh nắng mặt trời còn phá hủy tế bào, làm vỡ cấu trúc dưới da dẫn đến việc dakhô, lão hóa<br>&nbsp;+ Yếu tố di truyền: Nám dacòn có thể do yếu tố di truyền gây nên. Theo các nghiên cứu khoa học, tỉ lệbệnh nhân có tiền sử gia đình có người bị nám da lên đến khoảng 30%. Đây là mộttrong những nguyên nhân gây “đau đầu” nhất, bởi nám da do yếu tố di truyền rấtkhó chữa trị.<br>&nbsp;+ Yếu tố nội tiết: Việcrối loạn nột tiết tố gây ra tình trạng hắc sắc tố melanin tăng nhanh cũng lànguyên nhân thường thấy gây nám da. Phụ nữ mang thai thường bị nám, tỉ lệ nàyrơi vào khoảng từ 50-70%. Việc sử dụng thuốc ngừa thai, hoặc bước vào giai đoạntiền mãn kinh, tuổi dậy thì... cũng là những nguyên nhân khiến bạn mắc phảinám. Thông thường, nếu bạn bị nám do rối loạn nội tiết thì sau khi bạn ổn địnhlại nội tiết tố, nám sẽ tự mất đi.&nbsp;<o:p></o:p></span></p><p class=\"MsoNormal\" align=\"left\"><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;;color:black\">&nbsp;+ Ngoài ra có rất nhiều nguyên nhân khác như sử dụng mỹ phẩmkhông đúng cách, chế độ sinh hoạt không hợp lý<o:p></o:p></span></p><p class=\"MsoNormal\"><b>c. Phương Pháp Khoa HọcCông Nghệ Triphasic Laser <o:p></o:p></b></p><p class=\"MsoNormal\" style=\"line-height:150%\"><span style=\"mso-bidi-font-size:14.0pt;line-height:150%;color:black\">Công nghệ trị Nám Laser Triphasic Spotmang tính đột về trị liệu Nám bằng Laser, là công nghệ Thông Minh 4.0 với 2 đặctính nổi bật và khách biệt:<o:p></o:p></span></p><p class=\"MsoNormal\" style=\"line-height:150%\"><b>+ Định Vị</b><span style=\"mso-bidi-font-size:14.0pt;line-height:150%\">: Lăng kính của Triphasiclaser được chia thành 81 điểm lăng kính, chúng sẽ phân tích vùng sáng tối củada trên mỗi điểm năng kính để phân loại đâu là vùng da bị Nám &amp; vùng dabình thường, giúp tăng hiệu quả phá vỡ melanin gấp nhiều lần so với công nghệlaser thông thường mà không làm tổn thương các vùng da không bị Nám<o:p></o:p></span></p>', 10, NULL, NULL, NULL, NULL, 5, '2019-10-01 13:53:51', '2020-01-31 10:36:05');
 INSERT INTO `products` VALUES (33, 'Trị nám với công nghệ triphasic ( khuyến mãi )', 'tri-nam-voi-cong-nghe-triphasic-khuyen-mai-', 'Ánh nắng mặt trời: Đây là một trong những nguyên nhân quan trọng nhất gây nám. Tác động của ánh nắng mặt trời sẽ làm sản sinh một cách bất thường lượng melanin dưới da, khiến những đốm nám hình thành và lan rộng.', '<p class=\"MsoNormal\"><b>a. Định Nghĩa:</b> <span style=\"mso-bidi-font-size:14.0pt;mso-bidi-font-family:&quot;Times New Roman&quot;;\r\ncolor:black\">Đó là&nbsp;những mảng màu nâu xuất hiện trên da, hình thành do sự\r\ngia tăng hắc sắc tố melanin. Melanin là yếu tố quyết định màu da của con người,\r\ncó vai trò chống nắng, bảo vệ cơ thể khỏi tác hại của tia UV có trong ánh nắng\r\nmặt trời. Thế nhưng, nếu sắc tố này được sản xuất quá nhiều sẽ dẫn đến tình trạng\r\ntích tụ, tập trung tại một vùng nhất định trên da và gây ra nám.<o:p></o:p></span></p>\r\n\r\n<p class=\"MsoNormal\"><b>b. Nguyên Nhân:</b> <o:p></o:p></p>\r\n\r\n<p class=\"MsoNormal\" align=\"left\"><b><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;\r\nmso-bidi-font-family:&quot;Times New Roman&quot;;color:black\">+ </span></b><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;\r\nmso-bidi-font-family:&quot;Times New Roman&quot;;color:black;mso-bidi-font-weight:bold\">Ánh\r\nnắng mặt trời:</span><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:\r\n&quot;Times New Roman&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;;color:black\"> Đây là\r\nmột trong những nguyên nhân quan trọng nhất gây nám. Tác động của ánh nắng mặt\r\ntrời sẽ làm sản sinh một cách bất thường lượng melanin dưới da, khiến những đốm\r\nnám hình thành và lan rộng. Bên cạnh đó, việc để làn da tiếp xúc trực tiếp với\r\nánh nắng mặt trời còn phá hủy tế bào, làm vỡ cấu trúc dưới da dẫn đến việc da\r\nkhô, lão hóa<br>\r\n&nbsp;+ Yếu tố di truyền: Nám da\r\ncòn có thể do yếu tố di truyền gây nên. Theo các nghiên cứu khoa học, tỉ lệ\r\nbệnh nhân có tiền sử gia đình có người bị nám da lên đến khoảng 30%. Đây là một\r\ntrong những nguyên nhân gây “đau đầu” nhất, bởi nám da do yếu tố di truyền rất\r\nkhó chữa trị.<br>\r\n&nbsp;+ Yếu tố nội tiết: Việc\r\nrối loạn nột tiết tố gây ra tình trạng hắc sắc tố melanin tăng nhanh cũng là\r\nnguyên nhân thường thấy gây nám da. Phụ nữ mang thai thường bị nám, tỉ lệ này\r\nrơi vào khoảng từ 50-70%. Việc sử dụng thuốc ngừa thai, hoặc bước vào giai đoạn\r\ntiền mãn kinh, tuổi dậy thì... cũng là những nguyên nhân khiến bạn mắc phải\r\nnám. Thông thường, nếu bạn bị nám do rối loạn nội tiết thì sau khi bạn ổn định\r\nlại nội tiết tố, nám sẽ tự mất đi.&nbsp;<o:p></o:p></span></p>\r\n\r\n<p class=\"MsoNormal\" align=\"left\"><span style=\"mso-bidi-font-size:\r\n14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;;\r\ncolor:black\">&nbsp;+ Ngoài ra có rất nhiều nguyên nhân khác như sử dụng mỹ phẩm\r\nkhông đúng cách, chế độ sinh hoạt không hợp lý<o:p></o:p></span></p>', 10, NULL, NULL, NULL, NULL, 5, '2019-10-01 15:56:56', '2019-10-02 17:42:38');
-INSERT INTO `products` VALUES (34, 'TRỊ NÁM VỚI CÔNG NGHỆ TRIPHASIC LASER khuyen mai', 'tri-nam-voi-cong-nghe-triphasic-laser-khuyen-mai', 'Ánh nắng mặt trời: Đây là một trong những nguyên nhân quan trọng nhất gây nám. Tác động của ánh nắng mặt trời sẽ làm sản sinh một cách bất thường lượng melanin dưới da, khiến những đốm nám hình thành và lan rộng.', '<p class=\"MsoNormal\"><b>a. Định Nghĩa:</b> <span style=\"mso-bidi-font-size:14.0pt;mso-bidi-font-family:&quot;Times New Roman&quot;;\r\ncolor:black\">Đó là&nbsp;những mảng màu nâu xuất hiện trên da, hình thành do sự\r\ngia tăng hắc sắc tố melanin. Melanin là yếu tố quyết định màu da của con người,\r\ncó vai trò chống nắng, bảo vệ cơ thể khỏi tác hại của tia UV có trong ánh nắng\r\nmặt trời. Thế nhưng, nếu sắc tố này được sản xuất quá nhiều sẽ dẫn đến tình trạng\r\ntích tụ, tập trung tại một vùng nhất định trên da và gây ra nám.<o:p></o:p></span></p>\r\n\r\n<p class=\"MsoNormal\"><b>b. Nguyên Nhân:</b> <o:p></o:p></p>\r\n\r\n<p class=\"MsoNormal\" align=\"left\"><b><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;\r\nmso-bidi-font-family:&quot;Times New Roman&quot;;color:black\">+ </span></b><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;\r\nmso-bidi-font-family:&quot;Times New Roman&quot;;color:black;mso-bidi-font-weight:bold\">Ánh\r\nnắng mặt trời:</span><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:\r\n&quot;Times New Roman&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;;color:black\"> Đây là\r\nmột trong những nguyên nhân quan trọng nhất gây nám. Tác động của ánh nắng mặt\r\ntrời sẽ làm sản sinh một cách bất thường lượng melanin dưới da, khiến những đốm\r\nnám hình thành và lan rộng. Bên cạnh đó, việc để làn da tiếp xúc trực tiếp với\r\nánh nắng mặt trời còn phá hủy tế bào, làm vỡ cấu trúc dưới da dẫn đến việc da\r\nkhô, lão hóa<br>\r\n&nbsp;+ Yếu tố di truyền: Nám da\r\ncòn có thể do yếu tố di truyền gây nên. Theo các nghiên cứu khoa học, tỉ lệ\r\nbệnh nhân có tiền sử gia đình có người bị nám da lên đến khoảng 30%. Đây là một\r\ntrong những nguyên nhân gây “đau đầu” nhất, bởi nám da do yếu tố di truyền rất\r\nkhó chữa trị.<br>\r\n&nbsp;+ Yếu tố nội tiết: Việc\r\nrối loạn nột tiết tố gây ra tình trạng hắc sắc tố melanin tăng nhanh cũng là\r\nnguyên nhân thường thấy gây nám da. Phụ nữ mang thai thường bị nám, tỉ lệ này\r\nrơi vào khoảng từ 50-70%. Việc sử dụng thuốc ngừa thai, hoặc bước vào giai đoạn\r\ntiền mãn kinh, tuổi dậy thì... cũng là những nguyên nhân khiến bạn mắc phải\r\nnám. Thông thường, nếu bạn bị nám do rối loạn nội tiết thì sau khi bạn ổn định\r\nlại nội tiết tố, nám sẽ tự mất đi.&nbsp;<o:p></o:p></span></p>\r\n\r\n<p class=\"MsoNormal\" align=\"left\"><span style=\"mso-bidi-font-size:\r\n14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;;\r\ncolor:black\">&nbsp;+ Ngoài ra có rất nhiều nguyên nhân khác như sử dụng mỹ phẩm\r\nkhông đúng cách, chế độ sinh hoạt không hợp lý<o:p></o:p></span></p>', 10, NULL, NULL, NULL, NULL, 5, '2019-10-01 15:59:09', '2019-10-02 17:42:38');
+INSERT INTO `products` VALUES (34, 'TRỊ NÁM VỚI CÔNG NGHỆ TRIPHASIC LASER khuyen mai', 'tri-nam-voi-cong-nghe-triphasic-laser-khuyen-mai', 'Ánh nắng mặt trời: Đây là một trong những nguyên nhân quan trọng nhất gây nám. Tác động của ánh nắng mặt trời sẽ làm sản sinh một cách bất thường lượng melanin dưới da, khiến những đốm nám hình thành và lan rộng.', '<p class=\"MsoNormal\"><b>a. Định Nghĩa:</b> <span style=\"mso-bidi-font-size:14.0pt;mso-bidi-font-family:&quot;Times New Roman&quot;;color:black\">Đó là&nbsp;những mảng màu nâu xuất hiện trên da, hình thành do sựgia tăng hắc sắc tố melanin. Melanin là yếu tố quyết định màu da của con người,có vai trò chống nắng, bảo vệ cơ thể khỏi tác hại của tia UV có trong ánh nắngmặt trời. Thế nhưng, nếu sắc tố này được sản xuất quá nhiều sẽ dẫn đến tình trạngtích tụ, tập trung tại một vùng nhất định trên da và gây ra nám.<o:p></o:p></span></p><p class=\"MsoNormal\"><b>b. Nguyên Nhân:<img style=\"margin-left:auto;margin-right:auto\" width=\"645\" height=\"429\" src=\"http://localhost/dichvu/uploads/2020/02/01/20200201_1580537197_5e35156d1674d.png\"></b> <o:p></o:p></p><p class=\"MsoNormal\" align=\"left\"><b><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;;color:black\">+ </span></b><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;;color:black;mso-bidi-font-weight:bold\">Ánhnắng mặt trời:</span><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;;color:black\"> Đây làmột trong những nguyên nhân quan trọng nhất gây nám. Tác động của ánh nắng mặttrời sẽ làm sản sinh một cách bất thường lượng melanin dưới da, khiến những đốmnám hình thành và lan rộng. Bên cạnh đó, việc để làn da tiếp xúc trực tiếp vớiánh nắng mặt trời còn phá hủy tế bào, làm vỡ cấu trúc dưới da dẫn đến việc dakhô, lão hóa<br>&nbsp;+ Yếu tố di truyền: Nám dacòn có thể do yếu tố di truyền gây nên. Theo các nghiên cứu khoa học, tỉ lệbệnh nhân có tiền sử gia đình có người bị nám da lên đến khoảng 30%. Đây là mộttrong những nguyên nhân gây “đau đầu” nhất, bởi nám da do yếu tố di truyền rấtkhó chữa trị.<br>&nbsp;+ Yếu tố nội tiết: Việcrối loạn nột tiết tố gây ra tình trạng hắc sắc tố melanin tăng nhanh cũng lànguyên nhân thường thấy gây nám da. Phụ nữ mang thai thường bị nám, tỉ lệ nàyrơi vào khoảng từ 50-70%. Việc sử dụng thuốc ngừa thai, hoặc bước vào giai đoạntiền mãn kinh, tuổi dậy thì... cũng là những nguyên nhân khiến bạn mắc phảinám. Thông thường, nếu bạn bị nám do rối loạn nội tiết thì sau khi bạn ổn địnhlại nội tiết tố, nám sẽ tự mất đi.&nbsp;<o:p></o:p></span></p><p class=\"MsoNormal\" align=\"left\"><span style=\"mso-bidi-font-size:14.0pt;mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;;color:black\">&nbsp;+ Ngoài ra có rất nhiều nguyên nhân khác như sử dụng mỹ phẩmkhông đúng cách, chế độ sinh hoạt không hợp lý<o:p></o:p></span></p>', 10, NULL, NULL, NULL, NULL, 5, '2019-10-01 15:59:09', '2020-02-04 10:48:38');
 
 -- ----------------------------
 -- Table structure for profile
@@ -1766,7 +1883,7 @@ CREATE TABLE `profile`  (
 -- Records of profile
 -- ----------------------------
 INSERT INTO `profile` VALUES (1, 2, 'Hậu', 'Tấn', 'Dương', '1980-01-01 00:00:00', 'Số 7, Trần Quang Diệu, P14', 1, 1, 1, 3, 1, 1, '0967655819', 'about', 'facebook', 'zalo', 'uploads/2019/10/15/20191015_1571121559_5da56997578ca.png', '2019-05-05 21:02:41', '2019-10-15 13:39:19');
-INSERT INTO `profile` VALUES (6, 15, 'hatazu', 'juong', 'zu', '1988-02-02 00:00:00', 'ninh thuan', 1, 1, 1, 4, 1, NULL, '0125656556', '', '', '', 'uploads/2019/05/11/20190511_1557541962_5cd6344a2c218.png', '2019-05-08 22:13:47', '2019-10-14 14:07:36');
+INSERT INTO `profile` VALUES (6, 15, 'hatazu', 'juong', 'zu', '1988-02-02 00:00:00', 'ninh thuan', 1, 1, 1, 4, 1, NULL, '0125656556', '', '', '', 'uploads/2020/01/29/20200129_1580299504_5e3174f057903.png', '2019-05-08 22:13:47', '2020-01-29 19:05:04');
 INSERT INTO `profile` VALUES (7, 16, 'Dung', 'Thanh', 'Nguyễn', '1980-09-25 00:00:00', 'Đồng Nai', 1, 1, 1, 13, 1, NULL, '0967655810', '', '', '', 'uploads/2019/05/17/20190517_1558084001_5cde79a1e2f65.png', '2019-05-17 09:36:04', '2019-10-14 14:07:36');
 INSERT INTO `profile` VALUES (8, 24, '', '', '', NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '2019-08-01 16:49:22', '2019-10-14 13:44:47');
 INSERT INTO `profile` VALUES (9, 25, '', '', '', NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '2019-08-01 16:49:58', '2019-10-14 13:44:47');
@@ -1811,12 +1928,14 @@ CREATE TABLE `roles`  (
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`idrole`) USING BTREE,
   UNIQUE INDEX `roles_name_unique`(`name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of roles
 -- ----------------------------
 INSERT INTO `roles` VALUES (1, 'administrator', 'Quản trị', '2019-04-13 08:29:22', '2019-04-13 08:30:50');
+INSERT INTO `roles` VALUES (2, 'moderator', 'Điều hành viên', '2019-11-20 15:37:25', '2019-11-20 15:37:25');
+INSERT INTO `roles` VALUES (3, 'Member', 'Thành viên', '2019-11-20 15:38:06', '2019-11-20 15:38:06');
 
 -- ----------------------------
 -- Table structure for sessions
@@ -1942,7 +2061,7 @@ CREATE TABLE `sv_customers`  (
   CONSTRAINT `fr_svcustomer_district` FOREIGN KEY (`iddistrict`) REFERENCES `district` (`iddistrict`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fr_svcustomer_province` FOREIGN KEY (`idprovince`) REFERENCES `province` (`idprovince`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fr_svcustomer_ward` FOREIGN KEY (`idward`) REFERENCES `ward` (`idward`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 50 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 52 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of sv_customers
@@ -1996,6 +2115,8 @@ INSERT INTO `sv_customers` VALUES (46, 'Hùng', NULL, 'Đào', 'hungkarim@mgkgro
 INSERT INTO `sv_customers` VALUES (47, 'Hải', NULL, 'Nguyễn', 'admin@mgkgroup.vn', NULL, '099090999', '75, losangeless', NULL, NULL, 17, 1, NULL, '', NULL, 'chú ý đơn', '2019-10-11 13:55:29', '2019-10-11 13:55:29');
 INSERT INTO `sv_customers` VALUES (48, 'toàn', NULL, 'nguyen', 'admin@mgkgroup.vn', NULL, '090999999', '202, Hiệp bình, Phường Hiệp Bình Chánh', NULL, NULL, 18, 1, NULL, '', NULL, 'chu y', '2019-10-11 16:12:20', '2019-10-11 16:12:20');
 INSERT INTO `sv_customers` VALUES (49, 'Hằng', NULL, 'Thành', 'admin@mgkgroup.vn', NULL, '011254545454', '100a, phạm văn đồng', NULL, NULL, 14, 1, NULL, '', NULL, 'chú ý', '2019-10-11 16:18:24', '2019-10-11 16:18:24');
+INSERT INTO `sv_customers` VALUES (50, 'Nam', NULL, 'Nguyễn', 'admin@mgkgroup.vn', NULL, '0909090909', 'số 7, trần quang diệu, p14', NULL, NULL, 3, 1, NULL, '', NULL, NULL, '2019-11-12 08:31:18', '2019-11-12 08:31:18');
+INSERT INTO `sv_customers` VALUES (51, 'Nam', NULL, 'Nguyễn', 'admin@mgkgroup.vn', NULL, '0909091234', 'số 7, trần quang diệu, p14', NULL, NULL, 3, 1, NULL, '', NULL, NULL, '2019-12-02 16:00:11', '2019-12-02 16:00:11');
 
 -- ----------------------------
 -- Table structure for sv_post_types
@@ -2077,8 +2198,8 @@ CREATE TABLE `users`  (
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES (2, 'admin', 'admin@mgkgroup.vn', NULL, '$2y$10$3Ds/XEHqtDG4jZpGUBdIPOQYy/9SgRsXb4pKD2B5eiU5SkeZBYWDG', 'voOSPfyFJk2tkZ8dmL5l0g9GpW9H7D7Tf74tyALwljkWVeR4nqlR82KIOrsy', '2019-02-27 10:14:15', '2019-06-27 15:31:50');
-INSERT INTO `users` VALUES (15, 'cskh1@mgkgroup.vn', 'cskh1@mgkgroup.vn', NULL, '$2y$10$QQCa0HdnBDnIbXmac1q3euNSAhSnCp9.75tzydSfab4Cpa88zEKoi', 'hjPhKivYKcHQEFUanaB6jr5vePYDgjvrFBUGTbKX9KzEFOcIKYcr9iob4dAP', '2019-05-08 22:13:47', '2019-08-01 16:39:29');
+INSERT INTO `users` VALUES (2, 'admin', 'admin@mgkgroup.vn', NULL, '$2y$10$3Ds/XEHqtDG4jZpGUBdIPOQYy/9SgRsXb4pKD2B5eiU5SkeZBYWDG', 'aUg2ElitMGUrP8F3nZMtipL6cZvp8dA2KfgwVhWMMqjSrfy8mLi2kvj3VY8z', '2019-02-27 10:14:15', '2019-06-27 15:31:50');
+INSERT INTO `users` VALUES (15, 'cskh1@mgkgroup.vn', 'cskh1@mgkgroup.vn', NULL, '$2y$10$QQCa0HdnBDnIbXmac1q3euNSAhSnCp9.75tzydSfab4Cpa88zEKoi', 'QhcnYmV641mrg4G6mWf2d3Et2ohEPbjyJXBpoZyL2Ha0lbEkN6QGnWZ9bsdf', '2019-05-08 22:13:47', '2019-08-01 16:39:29');
 INSERT INTO `users` VALUES (16, 'letan01dn', 'letan01dn@mgkgroup.vn', NULL, '$2y$10$GPgP6YIMxSp5S0pUj8MDmu97gE0Co4UIWKjNH3eLaYG7KBtdc7wV6', 'eOcQTpyMQvUYbC894ZGvSxivsDCMYr7xF35mqagEGtuommze8DZHJncb5wNQ', '2019-05-17 09:36:04', '2019-05-17 09:36:04');
 INSERT INTO `users` VALUES (17, 'letan01bd', 'letan01bd@mgkgroup.vn', NULL, '$2y$10$KH39/RhVD6ai0St8ZW0b6O9PGz5C0E1.l2F1lzfJVqNf5nO/dyCz6', NULL, '2019-05-17 09:36:49', '2019-05-17 09:36:49');
 INSERT INTO `users` VALUES (18, 'digital1', 'digital1@mgkgroup.vn', NULL, '$2y$10$h2zeZyxVFQbky62Kbz.q2OympEwRlfNecRc/cm7TDVwQGE3PmJ6Lu', 'dslUs9Vmvfi3jEF3kJx0kD0FL6gqJNDbvuS8M4yk6OcOGXtZgGVWKEwvLpV6', '2019-05-17 09:39:23', '2019-05-17 09:39:23');
@@ -2133,6 +2254,18 @@ CREATE PROCEDURE `AddMenuItemProcedure`(IN `_idmenu` INT(11), IN `_idcategory` I
 BEGIN
                insert into menu_has_cate( idmenu, idcategory, idparent, depth, reorder, trash ) values ( _idmenu, _idcategory, _idparent, _depth, _reorder, _trash);
 							 select LAST_INSERT_ID() as idmenuhascate;
+            END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Procedure structure for AddPermissionProcedure
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `AddPermissionProcedure`;
+delimiter ;;
+CREATE PROCEDURE `AddPermissionProcedure`(IN `_name` VARCHAR(250), IN `_description` TEXT, IN _idpermcommand INT(11), IN _idcategory INT(11),IN `_path` VARCHAR(250))
+BEGIN             
+                INSERT into permissions(`name`,description,idpermcommand,idcategory,path) VALUES (_name, _description, _idpermcommand, _idcategory,_path);
             END
 ;;
 delimiter ;
@@ -2670,7 +2803,7 @@ BEGIN
         SET _idcattype = (SELECT idcattype FROM category_types WHERE catnametype = _namecattype);
         IF _idcattype > 0 THEN
         BEGIN
-           SELECT c.idcategory, c.shortname, c.namecat, _namecattype as catnametype, c.idparent, (select namecat from categories WHERE idcategory = c.idparent) as parent FROM categories as c WHERE idcattype = _idcattype;
+           SELECT idcattype, c.idcategory, c.shortname, c.namecat, _namecattype as catnametype, c.idparent, (select namecat from categories WHERE idcategory = c.idparent) as parent FROM categories as c WHERE idcattype = _idcattype;
         END; 
         ELSE
         BEGIN
@@ -2720,14 +2853,13 @@ DROP PROCEDURE IF EXISTS `ListAllProductProcedure`;
 delimiter ;;
 CREATE PROCEDURE `ListAllProductProcedure`(IN `_start_date` VARCHAR(255), IN `_end_date` VARCHAR(255), IN `_idcategory` INT(11), IN `_id_post_type` INT(11), IN `_id_status_type` INT(11), IN `_idstore` INT(11))
 BEGIN
-               /*select al_info.*,GROUP_CONCAT(al_info.namecat SEPARATOR ', ') as listcat from (select a_info.*,(select namecat from categories where idcategory = a_info.idcategory) as namecat FROM (select info.*,(select urlfile from files where idfile=info.idfile) as urlfile from (select p.*,imp.*,(select idcategory FROM catehasproduct WHERE idproduct = p.idpro) as idcategory,(select `name` from users where id = imp.iduser) as author,(select idfile from producthasfile WHERE idproduct = p.idpro and hastype = 1 ORDER BY idproducthasfile desc LIMIT 1) as idfile from (SELECT idproduct as idpro,namepro,slug,short_desc,description,id_post_type,idsize,idcolor,idcrosstype_p,idparent_p,idstatus_type FROM `products` WHERE created_at BETWEEN _start_date AND _end_date) as p join (select * from imp_products where idstore = _idstore) as imp on p.idpro = imp.idproduct) as info) as a_info) as al_info GROUP BY al_info.idproduct DESC LIMIT 100;*/
 if _idcategory = 0 THEN
 		BEGIN					 
-			SELECT info7.*,imp2.*, phf2.idfile, f.urlfile, u.`name` as author FROM (SELECT info6.*, MAX(info6.idproducthasfile) as max_idproducthasfile FROM (SELECT info5.*,phf1.idproducthasfile FROM (SELECT info4.*,MAX(info4.idimp) as max_idimp FROM (SELECT info3.*, imp1.idimp,imp1.idcrosstype from ( SELECT info2.*,GROUP_CONCAT(info2.namecat SEPARATOR ', ') as listcat FROM (SELECT info1.*,p.namepro, p.slug, p.short_desc, p.description FROM (SELECT cate.idcategory, cate.namecat, chp.idcateproduct, chp.idproduct FROM (SELECT * from categories WHERE idcattype = 4) as cate LEFT JOIN catehasproduct as chp on cate.idcategory = chp.idcategory WHERE chp.idcateproduct is not NULL) as info1 LEFT JOIN products as p on info1.idproduct = p.idproduct WHERE p.idstatus_type = _id_status_type AND p.idproduct is not NULL and id_post_type = _id_post_type and created_at BETWEEN _start_date AND _end_date) as info2 GROUP BY info2.idproduct ) as info3 LEFT JOIN imp_products as imp1 on info3.idproduct = imp1.idproduct WHERE imp1.idstore=_idstore AND imp1.id_status_type = 4 AND imp1.idcrosstype in (0,4) and imp1.idimp is not NULL) as info4 GROUP BY info4.idproduct) as info5 LEFT JOIN producthasfile as phf1 on info5.idproduct = phf1.idproduct WHERE phf1.hastype = 1 and phf1.status_file = 1 and phf1.idproducthasfile is not NULL) as info6 GROUP BY info6.idproduct) as info7 LEFT JOIN imp_products as imp2 on info7.max_idimp = imp2.idimp LEFT JOIN producthasfile as phf2 on info7.max_idproducthasfile = phf2.idproducthasfile LEFT JOIN files as f on phf2.idfile = f.idfile LEFT JOIN users as u on imp2.iduser = u.id ORDER BY info7.max_idimp DESC limit 100;
+			SELECT info7.*,imp2.*, phf2.idfile, f.urlfile, u.`name` as author FROM (SELECT info6.*, MAX(info6.idproducthasfile) as max_idproducthasfile FROM (SELECT info5.*,phf1.idproducthasfile FROM (SELECT info4.*,MAX(info4.idimp) as max_idimp FROM (SELECT info3.*, imp1.idimp,imp1.idcrosstype from ( SELECT info2.*,GROUP_CONCAT(info2.namecat SEPARATOR ', ') as listcat FROM (SELECT info1.*,p.namepro, p.slug, p.short_desc, p.description FROM (SELECT cate.idcategory, cate.namecat, chp.idcateproduct, chp.idproduct FROM (SELECT * from categories WHERE idcattype = 4) as cate LEFT JOIN catehasproduct as chp on cate.idcategory = chp.idcategory WHERE chp.idcateproduct is not NULL and chp.created_at BETWEEN _start_date AND _end_date) as info1 LEFT JOIN products as p on info1.idproduct = p.idproduct WHERE p.idstatus_type = _id_status_type AND p.idproduct is not NULL and id_post_type = _id_post_type and created_at BETWEEN _start_date AND _end_date) as info2 GROUP BY info2.idproduct ) as info3 LEFT JOIN imp_products as imp1 on info3.idproduct = imp1.idproduct WHERE imp1.idstore=_idstore AND imp1.id_status_type = 4 AND imp1.idcrosstype in (0,4) and imp1.idimp is not NULL) as info4 GROUP BY info4.idproduct) as info5 LEFT JOIN producthasfile as phf1 on info5.idproduct = phf1.idproduct WHERE phf1.hastype = 1 and phf1.status_file = 1 and phf1.idproducthasfile is not NULL) as info6 GROUP BY info6.idproduct) as info7 LEFT JOIN imp_products as imp2 on info7.max_idimp = imp2.idimp LEFT JOIN producthasfile as phf2 on info7.max_idproducthasfile = phf2.idproducthasfile LEFT JOIN files as f on phf2.idfile = f.idfile LEFT JOIN users as u on imp2.iduser = u.id ORDER BY info7.max_idimp DESC limit 100;
 		 END;
  ELSEif _idcategory > 0 THEN
 	begin
-		SELECT info7.*,imp2.*, phf2.idfile, f.urlfile FROM (SELECT info6.*, MAX(info6.idproducthasfile) as max_idproducthasfile FROM (SELECT info5.*,phf1.idproducthasfile FROM (SELECT info4.*,MAX(info4.idimp) as max_idimp FROM (SELECT info3.*, imp1.idimp,imp1.idcrosstype from ( SELECT info2.*,GROUP_CONCAT(info2.namecat SEPARATOR ', ') as listcat FROM (SELECT info1.*,p.namepro, p.slug, p.short_desc, p.description FROM (SELECT chp.idproduct, cate.namecat from catehasproduct as chp LEFT JOIN categories as cate on chp.idcategory = cate.idcategory WHERE chp.idcategory = _idcategory and cate.idcategory is not NULL) as info1 LEFT JOIN products as p on info1.idproduct = p.idproduct WHERE p.idstatus_type = _id_status_type AND p.idproduct is not NULL and id_post_type = _id_post_type and created_at BETWEEN _start_date AND _end_date) as info2 GROUP BY info2.idproduct ) as info3 LEFT JOIN imp_products as imp1 on info3.idproduct = imp1.idproduct WHERE imp1.idstore=_idstore AND imp1.id_status_type = 4 AND imp1.idcrosstype in (0,4) and imp1.idimp is not NULL) as info4 GROUP BY info4.idproduct) as info5 LEFT JOIN producthasfile as phf1 on info5.idproduct = phf1.idproduct WHERE phf1.hastype = 1 and phf1.status_file = 1 and phf1.idproducthasfile is not NULL) as info6 GROUP BY info6.idproduct) as info7 LEFT JOIN imp_products as imp2 on info7.max_idimp = imp2.idimp LEFT JOIN producthasfile as phf2 on info7.max_idproducthasfile = phf2.idproducthasfile LEFT JOIN files as f on phf2.idfile = f.idfile LEFT JOIN users as u on imp2.iduser = u.id ORDER BY info7.max_idimp DESC LIMIT 100;
+		SELECT info7.*,imp2.*, phf2.idfile, f.urlfile FROM (SELECT info6.*, MAX(info6.idproducthasfile) as max_idproducthasfile FROM (SELECT info5.*,phf1.idproducthasfile FROM (SELECT info4.*,MAX(info4.idimp) as max_idimp FROM (SELECT info3.*, imp1.idimp,imp1.idcrosstype from ( SELECT info2.*,GROUP_CONCAT(info2.namecat SEPARATOR ', ') as listcat FROM (SELECT info1.*,p.namepro, p.slug, p.short_desc, p.description FROM ( SELECT chp.idproduct, cate.namecat from catehasproduct as chp LEFT JOIN categories as cate on chp.idcategory = cate.idcategory WHERE chp.idcategory = _idcategory and cate.idcategory is not NULL) as info1 LEFT JOIN products as p on info1.idproduct = p.idproduct WHERE p.idstatus_type = _id_status_type AND p.idproduct is not NULL and p.id_post_type = _id_post_type and p.created_at BETWEEN _start_date AND _end_date) as info2 GROUP BY info2.idproduct ) as info3 LEFT JOIN imp_products as imp1 on info3.idproduct = imp1.idproduct WHERE imp1.idstore=_idstore AND imp1.id_status_type = 4 AND imp1.idcrosstype in (0,4) and imp1.idimp is not NULL) as info4 GROUP BY info4.idproduct) as info5 LEFT JOIN producthasfile as phf1 on info5.idproduct = phf1.idproduct WHERE phf1.hastype = 1 and phf1.status_file = 1 and phf1.idproducthasfile is not NULL) as info6 GROUP BY info6.idproduct) as info7 LEFT JOIN imp_products as imp2 on info7.max_idimp = imp2.idimp LEFT JOIN producthasfile as phf2 on info7.max_idproducthasfile = phf2.idproducthasfile LEFT JOIN files as f on phf2.idfile = f.idfile LEFT JOIN users as u on imp2.iduser = u.id ORDER BY info7.max_idimp DESC LIMIT 100;
 	end;
 END if;
 END
@@ -2810,28 +2942,28 @@ BEGIN
 		end;
 	elseif ( _sel_receive = 1 AND _id_post_type = 0) then
 		BEGIN
-		    select user_join.idimppost,user_join.idpost,(select count(*) from expposts where parent_idpost_exp = user_join.idpost) as count_interactive,user_join.created_at,cus.mobile,cus.firstname,cus.email,user_join.body,user_join.address_reg  from (SELECT user_reg.idimppost,user_reg.idpost,user_reg.iduser_imp,user_reg.created_at,user_reg.body,user_reg.address_reg FROM (SELECT imp.created_at,imp.idpost,imp.idimppost,imp.iduser_imp,po.body,imp.address_reg FROM (SELECT im.* FROM (SELECT * FROM impposts WHERE created_at >= _start_date AND  created_at < _end_date) AS im WHERE im.id_status_type='1') AS imp JOIN
+		    select user_join.idimppost,user_join.idpost,(select count(*) from expposts where parent_idpost_exp = user_join.idpost) as count_interactive,user_join.created_at,cus.mobile,cus.firstname,cus.email,user_join.body,user_join.address_reg, user_join.url  from (SELECT user_reg.idimppost,user_reg.idpost,user_reg.iduser_imp,user_reg.created_at,user_reg.body,user_reg.address_reg FROM (SELECT imp.created_at,imp.idpost,imp.idimppost,imp.iduser_imp,po.body,imp.address_reg, imp.url FROM (SELECT im.* FROM (SELECT * FROM impposts WHERE created_at >= _start_date AND  created_at < _end_date) AS im WHERE im.id_status_type='1') AS imp JOIN
 		    (SELECT pt.* FROM (SELECT p.* FROM (SELECT idpost,body,id_post_type,idcategory FROM posts WHERE created_at >= _start_date AND created_at < _end_date) AS p WHERE p.idcategory=_idcategory) AS pt WHERE pt.id_post_type = '1' OR pt.id_post_type = '2') AS po ON imp.idpost = po.idpost) AS user_reg LEFT JOIN expposts AS expp ON user_reg.idpost = expp.parent_idpost_exp WHERE expp.parent_idpost_exp IS NULL) as user_join join sv_customers as cus on cus.idcustomer = user_join.iduser_imp;
 		end;
 	ELSEIF ( _sel_receive = 2 AND _id_post_type = 0 ) then
 		BEGIN
-		    SELECT user_join.idimppost,user_join.idpost,(select count(*) from expposts where parent_idpost_exp = user_join.idpost) as count_interactive,user_join.created_at,cus.mobile,cus.firstname,cus.email,user_join.body,user_join.address_reg  FROM (SELECT user_reg.idimppost,user_reg.idpost,user_reg.iduser_imp,user_reg.created_at,user_reg.body,user_reg.address_reg FROM (SELECT imp.created_at,imp.idpost,imp.idimppost,imp.iduser_imp,po.body,imp.address_reg FROM (SELECT im.* FROM (SELECT * FROM impposts WHERE created_at >= _start_date AND  created_at < _end_date) AS im WHERE im.id_status_type='1') AS imp JOIN
+		    SELECT user_join.idimppost,user_join.idpost,(select count(*) from expposts where parent_idpost_exp = user_join.idpost) as count_interactive,user_join.created_at,cus.mobile,cus.firstname,cus.email,user_join.body,user_join.address_reg,user_join.url  FROM (SELECT user_reg.idimppost,user_reg.idpost,user_reg.iduser_imp,user_reg.created_at,user_reg.body,user_reg.address_reg FROM (SELECT imp.created_at,imp.idpost,imp.idimppost,imp.iduser_imp,po.body,imp.address_reg, imp.url FROM (SELECT im.* FROM (SELECT * FROM impposts WHERE created_at >= _start_date AND  created_at < _end_date) AS im WHERE im.id_status_type='1') AS imp JOIN
 		    (SELECT pt.* FROM (SELECT p.* FROM (SELECT idpost,body,id_post_type,idcategory FROM posts WHERE created_at >= _start_date AND created_at < _end_date) AS p WHERE p.idcategory=_idcategory) AS pt WHERE pt.id_post_type = '1' OR pt.id_post_type = '2') AS po ON imp.idpost = po.idpost) AS user_reg right JOIN ( select * from expposts GROUP BY parent_idpost_exp ) AS expp ON user_reg.idpost = expp.parent_idpost_exp) AS user_join JOIN sv_customers AS cus ON cus.idcustomer = user_join.iduser_imp;
 		END;
 	elseIF ( _sel_receive = 0 AND _id_post_type > 0) THEN
 		BEGIN
-		    SELECT user_reg.idimppost,user_reg.idpost,(select count(*) from expposts where parent_idpost_exp = user_reg.idpost) as count_interactive,user_reg.created_at,cus.mobile,cus.firstname,cus.email,user_reg.body,user_reg.address_reg FROM (SELECT imp.created_at,imp.idpost,imp.idimppost,imp.iduser_imp,po.body,imp.address_reg FROM (SELECT im.* FROM (SELECT * FROM impposts WHERE created_at >= _start_date AND  created_at < _end_date) AS im WHERE im.id_status_type = _id_status_type) AS imp JOIN
+		    SELECT user_reg.idimppost,user_reg.idpost,(select count(*) from expposts where parent_idpost_exp = user_reg.idpost) as count_interactive,user_reg.created_at,cus.mobile,cus.firstname,cus.email,user_reg.body,user_reg.address_reg,user_reg.url FROM (SELECT imp.created_at,imp.idpost,imp.idimppost,imp.iduser_imp,po.body,imp.address_reg,imp.url FROM (SELECT im.* FROM (SELECT * FROM impposts WHERE created_at >= _start_date AND  created_at < _end_date) AS im WHERE im.id_status_type = _id_status_type) AS imp JOIN
 		    (SELECT pt.* FROM (SELECT p.* FROM (SELECT idpost,body,id_post_type,idcategory FROM posts WHERE created_at >= _start_date AND created_at < _end_date) AS p WHERE p.idcategory=_idcategory) AS pt WHERE pt.id_post_type = _id_post_type) AS po ON imp.idpost=po.idpost) AS user_reg JOIN
 		    sv_customers AS cus ON user_reg.iduser_imp = cus.idcustomer;
 		END;
 	ELSEIF ( _sel_receive = 1 AND _id_post_type > 0) THEN
 		BEGIN
-		    SELECT user_join.idimppost,user_join.idpost,(select count(*) from expposts where parent_idpost_exp = user_join.idpost) as count_interactive,user_join.created_at,cus.mobile,cus.firstname,cus.email,user_join.body,user_join.address_reg  FROM (SELECT user_reg.idimppost,user_reg.idpost,user_reg.iduser_imp,user_reg.created_at,user_reg.body,user_reg.address_reg FROM (SELECT imp.created_at,imp.idpost,imp.idimppost,imp.iduser_imp,po.body,imp.address_reg FROM (SELECT im.* FROM (SELECT * FROM impposts WHERE created_at >= _start_date AND  created_at < _end_date) AS im WHERE im.id_status_type='1') AS imp JOIN
+		    SELECT user_join.idimppost,user_join.idpost,(select count(*) from expposts where parent_idpost_exp = user_join.idpost) as count_interactive,user_join.created_at,cus.mobile,cus.firstname,cus.email,user_join.body,user_join.address_reg,user_join.url  FROM (SELECT user_reg.idimppost,user_reg.idpost,user_reg.iduser_imp,user_reg.created_at,user_reg.body,user_reg.address_reg,user_reg.url FROM (SELECT imp.created_at,imp.idpost,imp.idimppost,imp.iduser_imp,po.body,imp.address_reg,imp.url FROM (SELECT im.* FROM (SELECT * FROM impposts WHERE created_at >= _start_date AND  created_at < _end_date) AS im WHERE im.id_status_type='1') AS imp JOIN
 		    (SELECT pt.* FROM (SELECT p.* FROM (SELECT idpost,body,id_post_type,idcategory FROM posts WHERE created_at >= _start_date AND created_at < _end_date) AS p WHERE p.idcategory=_idcategory) AS pt WHERE pt.id_post_type = _id_post_type) AS po ON imp.idpost = po.idpost) AS user_reg LEFT JOIN expposts AS expp ON user_reg.idpost = expp.parent_idpost_exp WHERE expp.parent_idpost_exp IS NULL) AS user_join JOIN sv_customers AS cus ON cus.idcustomer = user_join.iduser_imp;
 		END;
 	ELSEIF ( _sel_receive = 2 AND _id_post_type > 0 ) THEN
 		BEGIN
-		    SELECT user_join.idimppost,user_join.idpost,(select count(*) from expposts where parent_idpost_exp = user_join.idpost) as count_interactive,user_join.created_at,cus.mobile,cus.firstname,cus.email,user_join.body,user_join.address_reg  FROM (SELECT user_reg.idimppost,user_reg.idpost,user_reg.iduser_imp,user_reg.created_at,user_reg.body,user_reg.address_reg FROM (SELECT imp.created_at,imp.idpost,imp.idimppost,imp.iduser_imp,po.body,imp.address_reg FROM (SELECT im.* FROM (SELECT * FROM impposts WHERE created_at >= _start_date AND  created_at < _end_date) AS im WHERE im.id_status_type='1') AS imp JOIN
+		    SELECT user_join.idimppost,user_join.idpost,(select count(*) from expposts where parent_idpost_exp = user_join.idpost) as count_interactive,user_join.created_at,cus.mobile,cus.firstname,cus.email,user_join.body,user_join.address_reg,user_join.url  FROM (SELECT user_reg.idimppost,user_reg.idpost,user_reg.iduser_imp,user_reg.created_at,user_reg.body,user_reg.address_reg, user_reg.url FROM (SELECT imp.created_at,imp.idpost,imp.idimppost,imp.iduser_imp,po.body,imp.address_reg, imp.url FROM (SELECT im.* FROM (SELECT * FROM impposts WHERE created_at >= _start_date AND  created_at < _end_date) AS im WHERE im.id_status_type='1') AS imp JOIN
 		    (SELECT pt.* FROM (SELECT p.* FROM (SELECT idpost,body,id_post_type,idcategory FROM posts WHERE created_at >= _start_date AND created_at < _end_date) AS p WHERE p.idcategory=_idcategory) AS pt WHERE pt.id_post_type = _id_post_type) AS po ON imp.idpost = po.idpost) AS user_reg RIGHT JOIN expposts AS expp ON user_reg.idpost = expp.parent_idpost_exp) AS user_join JOIN sv_customers AS cus ON cus.idcustomer = user_join.iduser_imp;
 		END;
         end if;  
@@ -2906,7 +3038,7 @@ DROP PROCEDURE IF EXISTS `ListItemCateByIdMenuProcedure`;
 delimiter ;;
 CREATE PROCEDURE `ListItemCateByIdMenuProcedure`(IN `_idmenu` INT(11))
 BEGIN
-               SELECT mnhas.idmenuhascate, mnhas.idmenu,mnhas.idcategory,(select namecat from categories where idcategory = mnhas.idcategory) as namemenu, mnhas.idparent, mnhas.reorder, mnhas.depth, mnhas.trash FROM menu_has_cate as mnhas WHERE idmenu=_idmenu ORDER BY reorder ASC;
+               SELECT mnhas.idmenuhascate, mnhas.idmenu,mnhas.idcategory,(select namecat from categories where idcategory = mnhas.idcategory) as namemenu, mnhas.idparent, mnhas.reorder, mnhas.depth, mnhas.trash FROM menu_has_cate as mnhas WHERE mnhas.idmenu=_idmenu and mnhas.trash < 1 ORDER BY reorder ASC;
             END
 ;;
 delimiter ;
@@ -2958,6 +3090,18 @@ END
 delimiter ;
 
 -- ----------------------------
+-- Procedure structure for ListPermissionProcedure
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `ListPermissionProcedure`;
+delimiter ;;
+CREATE PROCEDURE `ListPermissionProcedure`()
+BEGIN             
+SELECT p.idperm, p.`name`, p.description, pc.command, c.namecat FROM `permissions` as p LEFT JOIN perm_commands as pc on p.idpermcommand = pc.idpercommand LEFT JOIN categories as c on p.idcategory = c.idcategory;
+END
+;;
+delimiter ;
+
+-- ----------------------------
 -- Procedure structure for ListpostProcedure
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `ListpostProcedure`;
@@ -2994,23 +3138,29 @@ delimiter ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `ListProductByIdcateProcedure`;
 delimiter ;;
-CREATE PROCEDURE `ListProductByIdcateProcedure`(IN `_idcategory` INT(11), IN `_page` INT(11), IN `_idstore` INT(11), IN `_limit` INT(11))
-BEGIN
+CREATE PROCEDURE `ListProductByIdcateProcedure`(IN `_idcategory` INT(11), IN `_page` INT(11), IN `_idstore` INT(11), IN `_limit` INT(11), IN _iduser INT(11))
+SP:BEGIN				
             DECLARE _start int(11);
 						DECLARE _max_order int(11);
 						set @idorder:= 0;
-						set _start = 0;
+						set _start := 0;
+						set @_commit := 0;
+						call UserPermission(_iduser, _idcategory, "select", @_commit);
+						if @_commit < 1 THEN 
+							BEGIN
+							SELECT @_commit as _commit, 0 as count_page;
+							LEAVE sp;
+							END;
+						END IF;
 						DROP TABLE IF EXISTS tmp_product1;
 						DROP TABLE IF EXISTS tmp_product2;
 						DROP TABLE IF EXISTS tmp_product3;
-						
-            create TEMPORARY TABLE tmp_product1(id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY , max_idimp_price INTEGER not NULL, max_idproducthasfile INTEGER not NULL) as (SELECT info4.max_idimp_price, MAX(info4.idproducthasfile) as max_idproducthasfile FROM (SELECT info3.idproduct, info3.max_idimp_price, phf1.idproducthasfile FROM (SELECT info2.idproduct, MAX(info2.idimp) as max_idimp_price FROM (SELECT info1.idproduct, imp1.idimp FROM (SELECT cat.idproduct FROM (SELECT idproduct FROM catehasproduct WHERE idcategory = _idcategory) as cat LEFT JOIN products as p ON p.idproduct = cat.idproduct WHERE p.idstatus_type = 5 and p.idproduct is not NULL) as info1 LEFT JOIN imp_products as imp1 on imp1.idproduct = info1.idproduct WHERE imp1.idimp is not NULL AND imp1.idcrosstype in (0,4)) as info2 GROUP BY info2.idproduct) as info3 LEFT JOIN producthasfile as phf1 on phf1.idproduct = info3.idproduct WHERE phf1.hastype = 1 and phf1.status_file = 1) as info4 GROUP BY info4.idproduct ORDER BY info4.max_idimp_price DESC);
+            create TEMPORARY TABLE tmp_product1(id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY , max_idimp_price INTEGER not NULL, max_idproducthasfile INTEGER not NULL) as (SELECT info4.max_idimp_price, MAX(info4.idproducthasfile) as max_idproducthasfile FROM (SELECT info3.idproduct, info3.max_idimp_price, phf1.idproducthasfile FROM (SELECT info2.idproduct, MAX(info2.idimp) as max_idimp_price FROM (SELECT info1.idproduct, imp1.idimp FROM (SELECT cat.idproduct FROM (SELECT idproduct FROM catehasproduct WHERE idcategory = _idcategory and checked > 0) as cat LEFT JOIN products as p ON p.idproduct = cat.idproduct WHERE p.idstatus_type = 5 and p.idproduct is not NULL) as info1 LEFT JOIN imp_products as imp1 on imp1.idproduct = info1.idproduct WHERE imp1.idimp is not NULL AND imp1.idcrosstype in (0,4)) as info2 GROUP BY info2.idproduct) as info3 LEFT JOIN producthasfile as phf1 on phf1.idproduct = info3.idproduct WHERE phf1.hastype = 1 and phf1.status_file = 1) as info4 GROUP BY info4.idproduct ORDER BY info4.max_idimp_price DESC);
 						set _max_order = (SELECT COUNT(*) FROM tmp_product1 as tmp1);
 						create TEMPORARY TABLE tmp_product2(id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY , max_idimp_price INTEGER not NULL, max_idproducthasfile INTEGER not NULL) as (SELECT * FROM tmp_product1);
 						DROP TABLE tmp_product1;
 						create TEMPORARY TABLE tmp_product3(idtmp INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY , idorder INTEGER not NULL);
 						set @count_page = (_max_order DIV 12);
-						
 						set @end_count_item = (_max_order % 12);		
 						if @end_count_item > 0 THEN
 							BEGIN
@@ -3052,12 +3202,12 @@ BEGIN
 									PREPARE stmt FROM @queryString;
 									EXECUTE stmt;
 									DEALLOCATE PREPARE stmt;
-								SELECT @count_page as count_page, info1.*,imp1.*,imp2.price as old_price, phf1.idfile, f.urlfile, p.namepro, p.slug, p.short_desc, p.description FROM (SELECT tmp3.*, tmp2.max_idimp_price, tmp2.max_idproducthasfile FROM tmp_product3 as tmp3 LEFT JOIN tmp_product2 as tmp2 on tmp3.idorder = tmp2.id) as info1 LEFT JOIN imp_products as imp1 on info1.max_idimp_price = imp1.idimp LEFT JOIN imp_products as imp2 ON imp1.prev_id = imp2.idimp LEFT JOIN producthasfile as phf1 on phf1.idproducthasfile = imp1.idproduct LEFT JOIN files as f on phf1.idfile = f.idfile LEFT JOIN products as p on imp1.idproduct = p.idproduct;
+								SELECT @_commit as _commit, @count_page as count_page, info1.*,imp1.*,imp2.price as old_price, phf1.idfile, f.urlfile, p.namepro, p.slug, p.short_desc, p.description FROM (SELECT tmp3.*, tmp2.max_idimp_price, tmp2.max_idproducthasfile FROM tmp_product3 as tmp3 LEFT JOIN tmp_product2 as tmp2 on tmp3.idorder = tmp2.id) as info1 LEFT JOIN imp_products as imp1 on info1.max_idimp_price = imp1.idimp LEFT JOIN imp_products as imp2 ON imp1.prev_id = imp2.idimp LEFT JOIN producthasfile as phf1 on phf1.idproducthasfile = imp1.idproduct LEFT JOIN files as f on phf1.idfile = f.idfile LEFT JOIN products as p on imp1.idproduct = p.idproduct;
 							END;
 						END if;
 						DROP TABLE tmp_product2;
 						DROP TABLE tmp_product3;
-            END
+END
 ;;
 delimiter ;
 
@@ -3125,6 +3275,18 @@ delimiter ;;
 CREATE PROCEDURE `ListRoleIdpermProcedure`(IN `id_perm` INT(11))
 BEGIN
                 select r.idrole, r.name, p.idimp_perm, p.idrole as id_role from roles as r LEFT join (select * from imp_perms where idperm=id_perm) as p on r.idrole=p.idrole;
+            END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Procedure structure for ListRolesProcedure
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `ListRolesProcedure`;
+delimiter ;;
+CREATE PROCEDURE `ListRolesProcedure`()
+BEGIN             
+                SELECT p.`name`,p.description,pc.command,c.namecat FROM `permissions` as p LEFT JOIN perm_commands as pc on p.idpermcommand = pc.idpercommand LEFT JOIN categories as c on p.idcategory = c.idcategory;
             END
 ;;
 delimiter ;
@@ -3274,6 +3436,26 @@ BEGIN
 delimiter ;
 
 -- ----------------------------
+-- Procedure structure for LstParentByIdcattypeProcedure
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `LstParentByIdcattypeProcedure`;
+delimiter ;;
+CREATE PROCEDURE `LstParentByIdcattypeProcedure`(IN `_idcattype` INT(11))
+BEGIN             
+                IF _idcattype > 0 THEN
+                BEGIN
+                   SELECT c.idcategory, c.namecat FROM categories as c WHERE c.idcattype = _idcattype and c.idparent = 0;
+                END; 
+                ELSE
+                BEGIN
+                   SELECT c.* FROM categories as c;    
+                END;
+                END IF; 
+            END
+;;
+delimiter ;
+
+-- ----------------------------
 -- Procedure structure for MakeCrosstypeProcedure
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `MakeCrosstypeProcedure`;
@@ -3413,6 +3595,18 @@ BEGIN
 delimiter ;
 
 -- ----------------------------
+-- Procedure structure for PermissionByidProcedure
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `PermissionByidProcedure`;
+delimiter ;;
+CREATE PROCEDURE `PermissionByidProcedure`(IN _idperm INT(11))
+BEGIN             
+                SELECT p.*,c.idcattype FROM (SELECT * from permissions WHERE idperm = _idperm) as p LEFT JOIN categories as c on p.idcategory = c.idcategory;
+            END
+;;
+delimiter ;
+
+-- ----------------------------
 -- Procedure structure for PostByIdProcedure
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `PostByIdProcedure`;
@@ -3534,6 +3728,37 @@ BEGIN
 delimiter ;
 
 -- ----------------------------
+-- Procedure structure for ReportProductProcedure
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `ReportProductProcedure`;
+delimiter ;;
+CREATE PROCEDURE `ReportProductProcedure`(IN `strqr_tmp_cate` text,IN `_id_post_type` int,IN `_id_status_type` int, in _idstore int ,IN `_start_date` timestamp,`_end_date` timestamp)
+BEGIN
+set @rg = (select strqr_tmp_cate REGEXP '^[(0-9,)]{1,}');
+if @rg > 0 THEN
+BEGIN 
+	DROP TABLE IF EXISTS tmp_category;
+	create TEMPORARY TABLE tmp_category(idtmp INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY , idcategory INTEGER not NULL);
+	set @str = CONCAT('INSERT into tmp_category(idcategory) VALUES ', strqr_tmp_cate);
+	SET @queryString = @str;
+	PREPARE stmt FROM @queryString;
+	EXECUTE stmt;
+	DEALLOCATE PREPARE stmt;
+	select info8.*, imp2.*, phf2.idfile, f.urlfile, u.`name` as author from (SELECT info7.*, MAX(info7.idproducthasfile) as max_idproducthasfile FROM (select info6.*,phf1.idproducthasfile from (SELECT info5.*,MAX(info5.idimp) as max_idimp from (select info4.*, imp1.idimp,imp1.idcrosstype from (SELECT info3.*, GROUP_CONCAT(info3.namecat SEPARATOR ', ') as listcat from (select info2.*,c.namecat from (select info1.*,p.namepro, p.slug, p.short_desc, p.description FROM ( SELECT chp.idproduct, chp.idcategory from catehasproduct as chp right JOIN tmp_category as tmp_c on chp.idcategory = tmp_c.idcategory WHERE chp.created_at BETWEEN _start_date and _end_date ) as info1 LEFT JOIN products as p on info1.idproduct = p.idproduct WHERE p.idstatus_type = _id_status_type AND p.idproduct is not NULL and p.id_post_type = _id_post_type and p.created_at BETWEEN _start_date AND _end_date) as info2 LEFT JOIN categories as c on c.idcategory = info2.idcategory) as info3 GROUP BY info3.idproduct) as info4 LEFT JOIN imp_products as imp1 on info4.idproduct = imp1.idproduct WHERE imp1.idstore=_idstore AND imp1.id_status_type = 4 AND imp1.idcrosstype in (0,4) and imp1.idimp is not NULL) as info5 GROUP BY info5.idproduct) as info6 LEFT JOIN producthasfile as phf1 on info6.idproduct = phf1.idproduct WHERE phf1.hastype = 1 and phf1.status_file = 1 and phf1.idproducthasfile is not NULL) as info7 GROUP BY info7.idproduct) as info8 LEFT JOIN imp_products as imp2 on info8.max_idimp = imp2.idimp LEFT JOIN producthasfile as phf2 on info8.max_idproducthasfile = phf2.idproducthasfile LEFT JOIN files as f on phf2.idfile = f.idfile LEFT JOIN users as u on imp2.iduser = u.id ORDER BY info8.max_idimp DESC LIMIT 100;
+	DROP TABLE tmp_category;
+END;
+ELSE
+BEGIN
+	SELECT info7.*,imp2.*, phf2.idfile, f.urlfile, u.`name` as author FROM (SELECT info6.*, MAX(info6.idproducthasfile) as max_idproducthasfile FROM (SELECT info5.*,phf1.idproducthasfile FROM (SELECT info4.*,MAX(info4.idimp) as max_idimp FROM (SELECT info3.*, imp1.idimp,imp1.idcrosstype from ( SELECT info2.*,GROUP_CONCAT(info2.namecat SEPARATOR ', ') as listcat FROM (SELECT info1.*,p.namepro, p.slug, p.short_desc, p.description FROM (SELECT cate.idcategory, cate.namecat, chp.idcateproduct, chp.idproduct FROM catehasproduct as chp LEFT JOIN categories as cate on cate.idcategory = chp.idcategory WHERE chp.idcateproduct is not NULL and chp.created_at BETWEEN _start_date AND _end_date) as info1 LEFT JOIN products as p on info1.idproduct = p.idproduct WHERE p.idstatus_type = _id_status_type AND p.idproduct is not NULL and id_post_type = _id_post_type and created_at BETWEEN _start_date AND _end_date) as info2 GROUP BY info2.idproduct ) as info3 LEFT JOIN imp_products as imp1 on info3.idproduct = imp1.idproduct WHERE imp1.idstore=_idstore AND imp1.id_status_type = 4 AND imp1.idcrosstype in (0,4) and imp1.idimp is not NULL) as info4 GROUP BY info4.idproduct) as info5 LEFT JOIN producthasfile as phf1 on info5.idproduct = phf1.idproduct WHERE phf1.hastype = 1 and phf1.status_file = 1 and phf1.idproducthasfile is not NULL) as info6 GROUP BY info6.idproduct) as info7 LEFT JOIN imp_products as imp2 on info7.max_idimp = imp2.idimp LEFT JOIN producthasfile as phf2 on info7.max_idproducthasfile = phf2.idproducthasfile LEFT JOIN files as f on phf2.idfile = f.idfile LEFT JOIN users as u on imp2.iduser = u.id ORDER BY info7.max_idimp DESC limit 100;
+END;
+END IF;
+	
+
+END
+;;
+delimiter ;
+
+-- ----------------------------
 -- Procedure structure for SelAllColorProcedure
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `SelAllColorProcedure`;
@@ -3576,7 +3801,7 @@ DROP PROCEDURE IF EXISTS `SelCateSelectedProcedure`;
 delimiter ;;
 CREATE PROCEDURE `SelCateSelectedProcedure`(IN `_idproduct` INT(11))
 BEGIN
-                SELECT c.idcateproduct,c.idcategory from catehasproduct as c where c.idproduct = _idproduct and idcategory > 0 ORDER BY c.idcateproduct DESC limit 1;
+                SELECT c.idcateproduct,c.idcategory from catehasproduct as c where c.idproduct = _idproduct and c.checked > 0 ORDER BY c.idcateproduct;
             END
 ;;
 delimiter ;
@@ -3789,9 +4014,17 @@ delimiter ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `SelProductByIdProcedure`;
 delimiter ;;
-CREATE PROCEDURE `SelProductByIdProcedure`(IN `_idproduct` INT(11), IN `_idstore` INT(11))
-BEGIN
-    SELECT p.namepro,p.short_desc, p.slug, p.description, info3.*, imp1.*, imp2.price as old_price, phf.idfile as idfile, f.urlfile as url_thumbnail from (SELECT info1.idproduct, info1.max_idimp_price, info2.max_idproducthasfile from (SELECT MAX(idimp) as max_idimp_price, info.idproduct FROM (SELECT * FROM imp_products WHERE idstore = _idstore and id_status_type = 4 and  idproduct = _idproduct and idcrosstype in (0,4)) as info GROUP BY info.idproduct) as info1 LEFT JOIN (SELECT MAX(idproducthasfile) as max_idproducthasfile,idproduct from producthasfile WHERE idproduct = _idproduct and hastype = 1 GROUP BY idproduct) as info2 on info1.idproduct = info2.idproduct) as info3 LEFT JOIN products as p on info3.idproduct = p.idproduct LEFT JOIN imp_products as imp1 on info3.max_idimp_price = imp1.idimp LEFT JOIN imp_products as imp2 on imp1.prev_id = imp2.idimp LEFT JOIN producthasfile as phf on info3.max_idproducthasfile = phf.idproducthasfile LEFT JOIN files as f on phf.idfile = f.idfile;
+CREATE PROCEDURE `SelProductByIdProcedure`(IN `_idproduct` INT(11), IN `_idstore` INT(11), IN _iduser INT)
+sp:BEGIN
+						set @_commit := 0;
+						call UserProductPermissionProcedure(_iduser,'select',_idproduct , @_commit );
+						if @_commit < 1 THEN 
+							BEGIN
+							SELECT @_commit as _commit;
+							LEAVE sp;
+							END;
+						END IF;
+    SELECT  @_commit as _commit, p.namepro,p.short_desc, p.slug, p.description, info3.*, imp1.*, imp2.price as old_price, phf.idfile as idfile, f.urlfile as url_thumbnail from (SELECT info1.idproduct, info1.max_idimp_price, info2.max_idproducthasfile from (SELECT MAX(idimp) as max_idimp_price, info.idproduct FROM (SELECT * FROM imp_products WHERE idstore = _idstore and id_status_type = 4 and  idproduct = _idproduct and idcrosstype in (0,4)) as info GROUP BY info.idproduct) as info1 LEFT JOIN (SELECT MAX(idproducthasfile) as max_idproducthasfile,idproduct from producthasfile WHERE idproduct = _idproduct and hastype = 1 GROUP BY idproduct) as info2 on info1.idproduct = info2.idproduct) as info3 LEFT JOIN products as p on info3.idproduct = p.idproduct LEFT JOIN imp_products as imp1 on info3.max_idimp_price = imp1.idimp LEFT JOIN imp_products as imp2 on imp1.prev_id = imp2.idimp LEFT JOIN producthasfile as phf on info3.max_idproducthasfile = phf.idproducthasfile LEFT JOIN files as f on phf.idfile = f.idfile;
             END
 ;;
 delimiter ;
@@ -3918,7 +4151,8 @@ BEGIN
 		set result = CONCAT(result,",", str_item);
 		set x = LENGTH(rs_split);
 		END WHILE;
-		set outresult = SUBSTRING(result,2); 
+		set outresult = SUBSTRING(result,2);
+		SELECT outresult;
 END
 ;;
 delimiter ;
@@ -3936,6 +4170,18 @@ BEGIN
 delimiter ;
 
 -- ----------------------------
+-- Procedure structure for TrashIdmenuhascateProcedure
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `TrashIdmenuhascateProcedure`;
+delimiter ;;
+CREATE PROCEDURE `TrashIdmenuhascateProcedure`(IN `_idmenuhascate` int)
+BEGIN
+	UPDATE menu_has_cate set trash = 1 WHERE idmenuhascate = _idmenuhascate;
+END
+;;
+delimiter ;
+
+-- ----------------------------
 -- Procedure structure for UpdateCatehasproProcedure
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `UpdateCatehasproProcedure`;
@@ -3944,6 +4190,38 @@ CREATE PROCEDURE `UpdateCatehasproProcedure`(IN `_idcateproduct` INT(11))
 BEGIN
                 update catehasproduct set idcategory = 0 where idcateproduct = _idcateproduct;
             END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Procedure structure for UpdateIdcategoryProcedure
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `UpdateIdcategoryProcedure`;
+delimiter ;;
+CREATE PROCEDURE `UpdateIdcategoryProcedure`(IN `_idcategory` int,IN `_idproduct` int,IN `_checked` int, IN _hidden_idcate INT)
+BEGIN
+ if _checked = 0 THEN
+ BEGIN
+	UPDATE catehasproduct set checked = 0
+	WHERE idcateproduct = _hidden_idcate;
+ END;
+ ELSE
+ BEGIN
+	set @_idcateproduct = (SELECT idcateproduct from (SELECT * FROM catehasproduct WHERE checked < 1 ) as cate WHERE cate.idproduct = _idproduct AND cate.idcategory = _idcategory);
+	if @_idcateproduct > 0 THEN
+		BEGIN
+			UPDATE catehasproduct set checked = 1
+			WHERE idcateproduct = @_idcateproduct;
+		END;
+	ELSE
+		BEGIN
+			INSERT INTO catehasproduct(idproduct,idcategory,checked) VALUES (_idproduct,_idcategory,1);
+		END;
+	END IF;
+ END;
+ end if;
+	
+END
 ;;
 delimiter ;
 
@@ -4035,6 +4313,18 @@ BEGIN
 delimiter ;
 
 -- ----------------------------
+-- Procedure structure for UpdatePermissionProcedure
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `UpdatePermissionProcedure`;
+delimiter ;;
+CREATE PROCEDURE `UpdatePermissionProcedure`(IN `_name` VARCHAR(250), IN `_description` TEXT, IN _idpermcommand INT(11), IN _idcategory INT(11), IN _idperm INT(11))
+BEGIN             
+                update permissions set `name` = _name, description = _description, idpermcommand = _idpermcommand, idcategory = _idcategory where idperm = _idperm;
+            END
+;;
+delimiter ;
+
+-- ----------------------------
 -- Procedure structure for UpdateProfileProcedure
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `UpdateProfileProcedure`;
@@ -4055,6 +4345,75 @@ CREATE PROCEDURE `UploadAvatarProcedure`(IN `_idprofile` INT, IN `_url_avatar` V
 BEGIN
                 update `profile` set url_avatar = _url_avatar where idprofile=_idprofile;
             END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Procedure structure for UserPermission
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `UserPermission`;
+delimiter ;;
+CREATE PROCEDURE `UserPermission`(IN `iduser` int, IN _idcategory INT, IN _command VARCHAR(255), OUT result bit)
+sp:BEGIN
+	set @_idrole = (SELECT idrole FROM `grants` WHERE to_iduser= iduser limit 1);
+	if @_idrole is NULL THEN
+		BEGIN
+			set result = 0;
+			LEAVE sp;
+		END;
+	 ELSE
+		BEGIN
+		set @_idcommand = (SELECT idpercommand from perm_commands WHERE command = _command);
+		if @_idcommand IS NULL THEN 
+			BEGIN
+			set result = 0;
+			LEAVE sp;
+			END;
+		END IF;
+		if EXISTS (SELECT tbl_perm.idcategory from (select pcom.idpercommand,pcom.command,perm.idcategory from (SELECT idrole FROM `grants` WHERE to_iduser= iduser) as tbl_role LEFT JOIN imp_perms as imp on imp.idrole = tbl_role.idrole LEFT JOIN permissions as perm on imp.idperm = perm.idperm LEFT JOIN perm_commands as pcom on pcom.idpercommand = perm.idpermcommand) as tbl_perm WHERE tbl_perm.idcategory = _idcategory and tbl_perm.idpercommand = @_idcommand limit 1) THEN
+		BEGIN
+		set result = 1;
+		END;
+		ELSE SET result = 0;
+		END IF;
+		/*select rl.`name` as role, perm.`name`,pcom.idpercommand,pcom.command,cate.idcategory,cate.namecat from (SELECT idrole FROM `grants` WHERE to_iduser= iduser) as tbl_role LEFT JOIN imp_perms as imp on imp.idrole = tbl_role.idrole LEFT JOIN permissions as perm on imp.idperm = perm.idperm LEFT JOIN perm_commands as pcom on pcom.idpercommand = perm.idpermcommand LEFT JOIN categories as cate on cate.idcategory = perm.idcatogory LEFT JOIN roles as rl on imp.idrole = rl.idrole;*/
+		END;
+	END if;
+END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Procedure structure for UserProductPermissionProcedure
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `UserProductPermissionProcedure`;
+delimiter ;;
+CREATE PROCEDURE `UserProductPermissionProcedure`(IN `_iduser` int,IN `_command` varchar(255),`_idproduct` int, OUT result bit)
+sp:BEGIN
+	set @_idrole = (SELECT idrole FROM `grants` WHERE to_iduser= _iduser limit 1);
+	if @_idrole is NULL THEN
+		BEGIN
+			set result = 0;
+			LEAVE sp;
+		END;
+	 ELSE
+		BEGIN
+		set @_idcommand = (SELECT idpercommand from perm_commands WHERE command = _command);
+		if @_idcommand IS NULL THEN 
+			BEGIN
+			set result = 0;
+			LEAVE sp;
+			END;
+		END IF;
+		if EXISTS (SELECT cateperm.idcategory from (select DISTINCT perm.idcategory from (SELECT idrole FROM `grants` WHERE to_iduser= _iduser) as tbl_role LEFT JOIN imp_perms as imp on imp.idrole = tbl_role.idrole LEFT JOIN permissions as perm on imp.idperm = perm.idperm LEFT JOIN perm_commands as pcom on pcom.idpercommand = perm.idpermcommand WHERE pcom.idpercommand = @_idcommand) as cateperm LEFT JOIN (SELECT idcategory FROM catehasproduct WHERE idproduct = _idproduct and checked > 0) as curidcate on cateperm.idcategory = curidcate.idcategory WHERE curidcate.idcategory is not NULL) THEN
+		BEGIN
+		set result = 1;
+		END;
+		ELSE SET result = 0;
+		END IF;
+		END;
+	END if;
+END
 ;;
 delimiter ;
 

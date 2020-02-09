@@ -95,7 +95,7 @@ class GrantController extends Controller
         $grant = Grant::find($idgrant);
         $grant->idrole = $request->get('sel_idrole');
         $grant->to_iduser = $request->get('sel_touser');
-        $grant->to_iduser = $byiduser;
+        $grant->by_iduser = $byiduser;
         $grant->save();
         $message = "Đã cập nhật";
         return redirect()->route('admin.grantperm.index')->with('success',$message);

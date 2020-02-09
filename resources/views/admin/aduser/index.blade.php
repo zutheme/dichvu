@@ -2,11 +2,11 @@
 
 @section('other_styles')
    <!-- Datatables -->
-	  <link href="{{ asset('dashboard/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
-	  <link href="{{ asset('dashboard/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
-	  <link href="{{ asset('dashboard/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}" rel="stylesheet">
-	  <link href="{{ asset('dashboard/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">
-	  <link href="{{ asset('dashboard/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}" rel="stylesheet">
+      <link href="{{ asset('dashboard/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
+      <link href="{{ asset('dashboard/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
+      <link href="{{ asset('dashboard/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}" rel="stylesheet">
+      <link href="{{ asset('dashboard/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">
+      <link href="{{ asset('dashboard/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}" rel="stylesheet">
     
      <!-- Custom Theme Style -->
     <link href="{{ asset('dashboard/build/css/custom.min.css') }}" rel="stylesheet">
@@ -15,29 +15,20 @@
 
 @section('content')
    <div class="row">
-	<div class="col-12">
-	<div class="card">
-	    <div class="card-body">
-	    	@if(Auth::guest())
-                  <a href="{{url('/login')}}" class="btn btn-primary">login</a>
-                @endif
-              </div>
-              @if (Auth::check()) 
-                  <a href="{{url('/logout')}}" class="btn btn-primary">logout</a>
-              @endif
-	        <h4 class="card-title">Thông tin đăng ký</h4>
-	        @if(isset($errors))
-	        	{{ $errors }}
-			@endif
-	        @if($message = Session::get('success'))
-	        	<h6 class="card-subtitle">{{ $message }}</h6>
-			@endif
-			<div align="right">
-				<a class="btn btn-default btn-primary" href="{{ URL::route('admin.aduser.create') }}">Thêm mới</a>
-			</div>
-	        <div class="table-responsive m-t-40">
-	            <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
-	                <thead>
+   	<div class="x_content">
+	        <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                <div align="right">
+						<a class="btn btn-default btn-primary" href="{{ URL::route('admin.grantperm.create') }}">Thêm mới</a>
+					</div>
+                  <div class="x_title">
+                     @if($message = Session::get('success'))
+			        	<h2 class="card-subtitle">{{ $message }}</h2>
+					@endif               
+                  </div>
+                  <div class="x_content">
+                   <table id="datatable" class="table table-striped table-bordered">
+                      <thead>
 	                    <tr>
 	                        <th>Name</th>
 							<th>Email</th>
@@ -80,18 +71,17 @@
 							</tr>
 							@endforeach                
 	                </tbody>
-	            </table>
-	        </div>
-	    </div>
-	</div>
+                    </table>
+                  </div>
+                </div>
+              </div>
 	</div>
 </div>
 
-  
- 
 @stop
 @section('other_scripts')
-    <!-- Datatables -->
+  
+   <!-- Datatables -->
     <script src="{{ asset('dashboard/vendors/datatables.net/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('dashboard/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
     <script src="{{ asset('dashboard/vendors/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>

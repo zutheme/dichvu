@@ -13,11 +13,8 @@
     <link href="{{ asset('dashboard/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css') }}" rel="stylesheet">
 @stop
 @section('content')
-<?php 		
-			$idimpcross = app('request')->input('idimpcross');
-			//var_dump($getlist);
-			?>
-<?php $no_thumbnail = 'dashboard/production/images/no_photo.jpg'; ?>
+<?php 	$idimpcross = app('request')->input('idimpcross'); 
+		$no_thumbnail = 'dashboard/production/images/no_photo.jpg'; ?>
 <div class="row">
 	<div class="col-md-12 col-xs-12">
 		<h2>Chỉnh sửa</h2>
@@ -81,7 +78,7 @@
 						<script>
 					    var item ='';
 					    var list_gallery = [];
-					    console.log(list_gallery);
+					    //console.log(list_gallery);
 						</script> 
 						<ul class="multi-file">
 							@foreach($gallery as $row)
@@ -579,6 +576,7 @@
     </div>
   </div>
 </div>
+
 <script>var _idproduct = '{{ $idproduct }}';</script>
 @stop
 @section('other_scripts')
@@ -589,7 +587,8 @@
 	<script src="{{ asset('dashboard/production/js/process_images/capture_image.js?v=0.3.1') }}"></script>
   	<script src="{{ asset('dashboard/production/editor/editor.js?v=0.0.1') }}"></script>
   	<script src="{{ asset('dashboard/production/js/edit_post.js?v=0.1.0') }}"></script>
-  	<script src="{{ asset('dashboard/production/js/edit_muti_select.js?v=0.1.9') }}"></script>	
+  	{{-- <script src="{{ asset('dashboard/production/js/edit_muti_select.js?v=0.1.9') }}"></script> --}}
+  	<script src="{{ asset('dashboard/production/js/edit_update_category.js?v=0.0.3.6') }}"></script>	
   	{{-- <script src="{{ asset('dashboard/production/js/process_images/image_product.js.js?v=0.0.2') }}"></script> --}}
   	<script src="{{ asset('dashboard/production/js/uploadmultifile.js?v=0.8.8') }}"></script>
     <script src="{{ asset('dashboard/production/js/media-galerry.js?v=0.6.2') }}"></script>
@@ -597,5 +596,5 @@
     {{--  <script src="{{ asset('dashboard/production/js/cross_product.js?v=0.0.5') }}"></script> --}}
     {{-- <script src="{{ asset('dashboard/build/js/custom.min.js') }}"></script> --}}
     <script src="{{ asset('dashboard/build/js/custom.js') }}"></script>
-    <script src="{{ asset('dashboard/production/js/custom.js?v=0.0.5') }}"></script>
+    {{-- <script src="{{ asset('dashboard/production/js/custom.js?v=0.0.5') }}"></script> --}}
 @stop

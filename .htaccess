@@ -24,7 +24,7 @@ DirectoryIndex index.php
 
     RewriteEngine On
 
-    #RewriteBase /
+    RewriteBase /
 
     #RewriteCond %{SERVER_PORT} 80
 

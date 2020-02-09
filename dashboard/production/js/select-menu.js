@@ -10,6 +10,10 @@ _e_type_category.addEventListener("change", function(){
       select_category_by_idcatetype(select_idcat);
     }
 });
+// var select_idcat = _e_type_category.options[_e_type_category.selectedIndex].value;
+//   if(select_idcat > -1){
+//     select_category_by_idcatetype(select_idcat);
+//   }
 
 function select_category_by_idcatetype(select_idcattype){
   var _csrf_token = document.getElementsByName("csrf-token")[0].getAttribute("content");

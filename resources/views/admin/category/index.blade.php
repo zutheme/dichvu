@@ -20,7 +20,7 @@ $_namecattype = isset($_namecattype) ? Request::segment(3) : 'product'; ?>
 </script>
 @section('content')
    <div class="row">
-	<div class="col-sm-6">
+	<div class="col-sm-9">
 	<div class="card">
 	    <div class="card-body">
 	        <h4 class="card-title">Chuyên mục</h4>
@@ -56,7 +56,8 @@ $_namecattype = isset($_namecattype) ? Request::segment(3) : 'product'; ?>
 								<td>{{ $row['namecat'] }}</td>
 								<td>{{ $row['parent'] }}</td>
 								<td>{{ $row['catnametype'] }}</td>					
-								<td class="btn-control"><a class="btn btn-primary btn-edit" href="{{ action('Admin\CategoryController@edit',['idcategory' => $row['idcategory'],'idcattype' => $row['idcattype']]) }}"><i class="fa fa-edit"></i></a></td>
+								{{-- <td class="btn-control"><a class="btn btn-primary btn-edit" href="{{ action('Admin\CategoryController@edit',['idcategory' => $row['idcategory'],'idcattype' => $row['idcattype'] ] ) }}"><i class="fa fa-edit"></i></a></td> --}}
+								<td><a href="{{ action('Admin\CategoryController@edit',['idcategory' => $row['idcategory'],'idcattype' => $row['idcattype']] ) }}" class="btn btn-default btn-create-new">edit</a></td>
 								<td class="btn-control">
 								     <form method="post" class="delete_form" action="{{action('Admin\CategoryController@destroy', $row['idcategory'])}}">
 								      {{csrf_field()}}
@@ -72,7 +73,7 @@ $_namecattype = isset($_namecattype) ? Request::segment(3) : 'product'; ?>
 	    </div>
 	</div>
 	</div>
-	<div class="col-sm-6">
+	<div class="col-sm-3">
 		<div class="card">
 		    <div class="card-body">
 		    	<div class="list-cate">

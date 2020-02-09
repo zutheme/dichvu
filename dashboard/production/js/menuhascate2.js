@@ -1,3 +1,4 @@
+var e_htz_popup_processing = document.getElementsByClassName("htz-popup-processing")[0];
 function getSelectedText(elementId) {
     var elt = document.getElementById(elementId);
     if (elt.selectedIndex == -1) return null;
@@ -214,11 +215,50 @@ function create_menu(categories){
      _e_label.innerHTML = categories[i].namemenu;
      _e_mydiv.appendChild(_e_label);
      //_e_mydiv.appendChild(_e_mydivheader);
+     _e_mydiv_remove = document.createElement("div");
+     _e_mydiv_remove.setAttribute("class","remove");
+     _e_a_remove = document.createElement("a");
+     _e_a_remove.setAttribute("class","delete");
+     _e_a_remove.setAttribute("href","javascript:void(0)");
+     _e_a_remove.innerHTML = '<i class="fa fa-trash" aria-hidden="true"></i>';
+     //_e_a_remove.setAttribute("Onlick","removecatemenu(this)");
+     _e_a_remove.setAttribute('onclick', "removecatemenu(this);");
+ 
+     _e_mydiv_remove.appendChild(_e_a_remove);
+
+     _e_mydiv.appendChild(_e_mydiv_remove);
+
      e_li.appendChild(_e_mydiv);
      e_ul.appendChild(e_li);
   }
   _e_menu.appendChild(e_ul);
 }
+function removecatemenu(element){
+    var _e_parent = element.parentElement.parentElement;
+    var _idmenuhascate = _e_parent.getElementsByClassName("idmenuhascate")[0].value;
+    var _csrf_token = document.getElementsByName("csrf-token")[0].getAttribute("content");
+    var http = new XMLHttpRequest();
+    var url = url_home + "/admin/menuhascate/trash/"+_idmenuhascate;
+    //var params = JSON.stringify(obj);
+    http.open("POST", url, true);
+    http.setRequestHeader("X-CSRF-TOKEN", _csrf_token);
+    http.setRequestHeader("Accept", "application/json");
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    e_htz_popup_processing.style.display = "block";
+    http.onreadystatechange = function() {
+        if(http.readyState == 4 && http.status == 200) {
+            var myArr = JSON.parse(this.responseText);
+            //console.log(myArr);
+            if(myArr.success){
+              e_htz_popup_processing.style.display = "none";        
+               _e_parent.parentElement.style.display = "none";
+            }
+        }
+    }
+    http.send();
+    //http.send(params);
+}
+
 document.addEventListener("DOMContentLoaded", function(event) {
      var _store_items = localStorage.getItem('lmn_items');
      var categories = JSON.parse(_store_items);

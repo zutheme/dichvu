@@ -50,6 +50,9 @@
 	            <div class="catebyidcatetype">     
 	            </div>
 	        </div>
+	        <div class="form-group">
+				<input type="text" name="path" class="form-control" placeholder="path">
+			</div>
 	       {{--  <div class="form-group"> 
             	<select class="select2_single form-control" name="selidcatetype">
             		<option value="0">Chọn kiểu chuyên mục ...</option>

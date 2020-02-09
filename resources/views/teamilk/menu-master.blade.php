@@ -112,13 +112,15 @@
 
 <ul class="hidden-menu" style="display: none;">
 
-<li class="c-search-toggler-wrapper">
+{{-- <li class="c-search-toggler-wrapper">
 
-    <a href="#" class="c-btn-icon c-search-toggler"><i class="fa fa-search"></i></a></li>
+    <a href="#" class="c-btn-icon c-search-toggler"><i class="fa fa-search"></i></a>
+</li> --}}
 
 <li class="c-cart-toggler-wrapper">
 
-    <a href="{{ url('shopcart') }}" class="c-btn-icon c-cart-toggler"><i class="icon-handbag c-cart-icon"></i> <span class="c-cart-number c-theme-bg">0</span></a></li>
+    <a href="{{ url('shopcart') }}" class="c-btn-icon c-cart-toggler"><i class="icon-handbag c-cart-icon"></i> <span class="c-cart-number c-theme-bg">0</span></a>
+</li>
 
 {{-- <li class="user-profile"> 
 

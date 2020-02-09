@@ -9,6 +9,7 @@
 <div class="row">
 	<div class="col-sm-6">
 		<h2>Chỉnh sửa</h2>
+		 
 		@if(count($errors) > 0)
 		<div class="alert alert-danger">
 			<ul>
@@ -49,7 +50,10 @@
 	         	</select>
 	        </div>
 			<div class="form-group">
-	            <div class="catebyidcatetype">     
+	            <div class="catebyidcatetype">
+	            @if($listcate)
+					{!! $listcate !!}
+				@endif     
 	            </div>
 	        </div>	
 				
@@ -67,6 +71,6 @@
 @section('other_scripts')
     {{-- <script src="{{ asset('dashboard/build/js/custom.min.js') }}"></script> --}}
     <script src="{{ asset('dashboard/build/js/custom.js') }}"></script>
-    <script src="{{ asset('dashboard/production/js/custom.js?v=0.0.2') }}"></script>
-    <script src="{{ asset('dashboard/production/js/select-menu.js?v=0.0.0.1') }}"></script>
+   {{--  <script src="{{ asset('dashboard/production/js/custom.js?v=0.0.2') }}"></script> --}}
+    <script src="{{ asset('dashboard/production/js/select-permission.js?v=0.0.0.4') }}"></script>
 @stop

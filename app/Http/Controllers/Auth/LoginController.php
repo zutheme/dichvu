@@ -75,8 +75,8 @@ class LoginController extends Controller
            $success['token'] =  $user->createToken('MyApp')->accessToken;
            //return redirect()->intended('dashboard');
            $value = $request->session()->get('key');
-          //return redirect('/');
-           return redirect()->route('teamilk.index')->with('success',$value);
+          return redirect('/');
+           //return redirect()->route('teamilk.home')->with('success',$value);
         } else {
           $errors = new MessageBag(['error' => 'Email hoặc mật khẩu không đúng']);
           //return redirect()->back()->withInput()->withErrors($errors);

@@ -10,7 +10,7 @@
      <!-- Custom Theme Style -->
     <link href="{{ asset('dashboard/build/css/custom.min.css') }}" rel="stylesheet">
     <link href="{{ asset('dashboard/production/css/custom.css?v=0.1.2') }}" rel="stylesheet">
-    <link href="{{ asset('dashboard/production/css/menuhascate.css?v=0.3.2') }}" rel="stylesheet">
+    <link href="{{ asset('dashboard/production/css/menuhascate.css?v=0.3.6') }}" rel="stylesheet">
 @stop
 <?php $_namecattype = Request::segment(3);
 $_namecattype = isset($_namecattype) ? Request::segment(3) : 'product'; ?>
@@ -122,5 +122,5 @@ $_namecattype = isset($_namecattype) ? Request::segment(3) : 'product'; ?>
     {{-- <script src="{{ asset('dashboard/build/js/custom.min.js') }}"></script> --}}
     <script src="{{ asset('dashboard/build/js/custom.js') }}"></script>
     {{-- <script src="{{ asset('dashboard/production/js/custom.js?v=0.0.2') }}"></script> --}}
-    <script src="{{ asset('dashboard/production/js/menuhascate2.js?v=0.4.1.0') }}"></script>
+    <script src="{{ asset('dashboard/production/js/menuhascate2.js?v=0.4.3.1') }}"></script>
 @stop

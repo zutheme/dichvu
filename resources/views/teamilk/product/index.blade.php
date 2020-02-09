@@ -32,9 +32,13 @@
 <div class="c-layout-breadcrumbs-1 c-subtitle c-fonts-uppercase c-fonts-bold c-bordered c-bordered-both">
 	<div class="container">
 		<div class="c-page-title c-pull-left">
+			@if(isset($rs_lpro) and $rs_lpro[0]['_commit'] > 0)
 			<ul class="c-page-breadcrumbs c-theme-nav c-pull-right c-fonts-regular">
 			<?php breadcrumb($rs_cat_product,$curent_idcategory,'',0); ?>				
 			</ul>
+			@else
+				<h5>Not permit</h5>
+			@endif
 		</div>
 		
 	</div>
@@ -44,6 +48,7 @@
 	 {{-- @include('teamilk.product.sidebar-grid') --}}
 </div>-->
 <div class="c-layout-sidebar-content ">
+@if(isset($rs_lpro) and $rs_lpro[0]['_commit'] > 0)
 			<!-- BEGIN: PAGE CONTENT -->
 			<!-- BEGIN: CONTENT/SHOPS/SHOP-RESULT-FILTER-1 -->
 			<!--<div class="c-shop-result-filter-1 clearfix form-inline">-->
@@ -81,8 +86,7 @@
 	@if(isset($rs_lpro))
 	<?php $count = 0; ?>
 	@foreach($rs_lpro as $row)
-		@if($count%4 == 0) <div class="row"> @endif
-			
+		@if($count%4 == 0) <div class="row"> @endif	
 			<div class="col-md-3 col-sm-6 c-margin-b-20">
 				<div class="c-content-product-2 c-bg-white c-border">
 					<div class="c-content-overlay">
@@ -135,6 +139,9 @@
 	@endif
 @endif
 <!-- END: PAGE CONTENT -->
+@else
+	<h4>Contact administator</h4>
+@endif
 	</div>
 </div>
 @stop

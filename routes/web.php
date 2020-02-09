@@ -3,31 +3,12 @@
 
 
 /*
-
-
-
 |--------------------------------------------------------------------------
-
-
-
 | Web Routes
-
-
-
 |--------------------------------------------------------------------------
-
-
-
 |
-
-
-
 | Here is where you can register web routes for your application. These
-
-
-
 | routes are loaded by the RouteServiceProvider within a group which
-
 | contains the "web" middleware group. Now create something great!
 |
 */
@@ -426,14 +407,14 @@ Route::group(['middleware' => 'auth'], function() {
 
 	Route::get('admin/category/storeby/{_namecattype}' , ['uses' =>'Admin\CategoryController@storeby', 'as'=>'admin'] );
 	Route::post('admin/category/storeby/{_namecattype}' , ['uses' =>'Admin\CategoryController@storeby', 'as'=>'admin'] );
-
-	// admin/category/34/edit
-	//Route::get('admin/category/storeby/{_namecattype}' , ['uses' =>'Admin\CategoryController@storeby', 'as'=>'admin'] );
-	//Route::post('admin/category/storeby/{_namecattype}' , ['uses' =>'Admin\CategoryController@storeby', 'as'=>'admin'] );
+	
+	// Route::get('admin/category/edit/{idcategory}/{idcattyp}', ['as' => 'admin.category.edit', 'uses' => 'Admin\CategoryController@edit']);
+	// Route::post('admin/category/edit/{idcategory}/{idcattyp}', ['as' => 'admin.category.edit', 'uses' => 'Admin\CategoryController@edit']);
+	// Route::get('admin/category' , ['uses' =>'Admin\CategoryController@index', 'as'=>'admin.category.index'] );
+	// Route::post('admin/category' , ['uses' =>'Admin\CategoryController@index', 'as'=>'admin.category.index'] );
 	Route::resource('admin/category' , 'Admin\CategoryController', array('as'=>'admin') );
 
 	Route::get('admin/menu/hasidcate/{_idmenu}', 'Admin\MenuController@menuhasidcate');
-
 	Route::post('admin/menu/hasidcate/{_idmenu}', 'Admin\MenuController@menuhasidcate');
 
 	Route::resource('admin/menu' , 'Admin\MenuController', array('as'=>'admin') );
@@ -449,12 +430,10 @@ Route::group(['middleware' => 'auth'], function() {
 
 
 	Route::get('admin/menuhascate/bytype/{_namecattype}', 'Admin\MenuHasCateController@catebytype');
-
-
-
 	Route::post('admin/menuhascate/bytype/{_namecattype}', 'Admin\MenuHasCateController@catebytype');
 
-
+	Route::get('admin/menuhascate/trash/{_idmenuhascate}','Admin\MenuHasCateController@trashidmenucate');
+	Route::post('admin/menuhascate/trash/{_idmenuhascate}','Admin\MenuHasCateController@trashidmenucate');
 
 	Route::resource('admin/menuhascate' , 'Admin\MenuHasCateController', array('as'=>'admin') );
 
@@ -677,6 +656,8 @@ Route::group(['middleware' => 'auth'], function() {
 
 	Route::post('admin/product/listcategorybyid/{_cattype}/{_idcat}/{_idproduct}',['uses' =>'Admin\ProductsController@listcategorybyid', 'as'=>'admin']);
 	Route::get('admin/product/listcategorybyid/{_cattype}/{_idcat}/{_idproduct}',['uses' =>'Admin\ProductsController@listcategorybyid', 'as'=>'admin']);
+	Route::post('admin/product/updatecategory/{_idcat}/{_idproduct}/{_checked}/{__hidden_idcate}',['uses' =>'Admin\ProductsController@updateidcategory', 'as'=>'admin']);
+	Route::get('admin/product/updatecategory/{_idcat}/{_idproduct}/{_checked}/_hidden_idcate',['uses' =>'Admin\ProductsController@updateidcategory', 'as'=>'admin']);
 
 	Route::post('/admin/product/listproductbyidcate',['uses' =>'Admin\ProductsController@listproductbyidcate', 'as'=>'admin']);
 	Route::get('/admin/product/listproductbyidcate/{_idcat}/{_idproduct}',['uses' =>'Admin\ProductsController@listproductbyidcate', 'as'=>'admin']);
@@ -694,8 +675,10 @@ Route::group(['middleware' => 'auth'], function() {
 	//grant permistio
 	Route::resource('admin/roles','Admin\RoleController', array('as'=>'admin'));
 
+	Route::get('admin/permission/bytype/{_namecattype}', 'Admin\PermissionController@catebytypehtml');
+	Route::post('admin/permission/bytype/{_namecattype}', 'Admin\PermissionController@catebytypehtml');
 	Route::resource('admin/permission','Admin\PermissionController', array('as'=>'admin'));
-
+	
     Route::resource('admin/impperm','Admin\ImpPermController', array('as'=>'admin'));
 
     Route::resource('admin/grantperm','Admin\GrantController', array('as'=>'admin'));

@@ -122,6 +122,7 @@ class ProductController extends Controller
 
     public function show($idproduct){
         $_namecattype="product";
+        $iduser = Auth::id();
         $_idstore = 31;
         $qr_cateselected = DB::select('call SelCateSelectedProcedure(?)',array($idproduct));
         $cate_selected = json_decode(json_encode($qr_cateselected), true);
@@ -129,7 +130,7 @@ class ProductController extends Controller
         $size = json_decode(json_encode($qr_size), true);
         //$qr_product = DB::select('call DetailByIdProductProcedure(?)',array($idproduct));
         //$product = json_decode(json_encode($qr_product), true);
-        $qr_product = DB::select('call SelProductByIdProcedure(?,?)',array($idproduct,$_idstore));
+        $qr_product = DB::select('call SelProductByIdProcedure(?,?,?)',array($idproduct,$_idstore,$iduser));
         $product = json_decode(json_encode($qr_product), true);
         $_idgallery = 2;
         $qr_gallery = DB::select('call SelGalleryProcedure(?,?)',array($idproduct,$_idgallery));
@@ -234,7 +235,8 @@ class ProductController extends Controller
         $_page = 1; $_limit = 100; $_idstore = 31;
         try {
             //$qr_lpro = DB::select('call LatestProductByIdcateProcedure(?,?,?)',array($_idcategory, $_idstore, $_limit));
-            $qr_lpro = DB::select('call ListProductByIdcateProcedure(?,?,?,?)',array($_idcategory,$_page,$_idstore,$_limit));
+            $iduser = Auth::id();
+            $qr_lpro = DB::select('call ListProductByIdcateProcedure(?,?,?,?,?)',array($_idcategory, $_page, $_idstore, $_limit, $iduser));
             $rs_lpro = json_decode(json_encode($qr_lpro), true);     
              return view('teamilk.product.index')->with(compact('rs_lpro','_idcategory'));
         } catch (\Illuminate\Database\QueryException $ex) {
@@ -257,10 +259,11 @@ class ProductController extends Controller
 
     }
 
-    public function listproductbypage($_idcategory,$_page){
+    public function listproductbypage($_idcategory = 0, $_page = 1){
         try {
              $_limit = 100; $_idstore = 31;
-             $qr_lpro = DB::select('call ListProductByIdcateProcedure(?,?,?,?)',array($_idcategory,$_page,$_idstore,$_limit));
+             $iduser = Auth::id();
+             $qr_lpro = DB::select('call ListProductByIdcateProcedure(?,?,?,?,?)',array($_idcategory,$_page,$_idstore,$_limit,$iduser));
             //$qr_lpro = DB::select('call ListViewProductByIdCateProcedure(?)',array($_idcategory));
             $rs_lpro = json_decode(json_encode($qr_lpro), true);     
              return view('teamilk.product.index')->with(compact('rs_lpro','_idcategory'));
@@ -295,7 +298,6 @@ class ProductController extends Controller
         $idorder = 1;
         $parent = 0;
         if(!isset($str_session)||empty($str_session)){
-            //$_str_query = 'INSERT into tmp_product(idproduct,input_quality) VALUES ('.$_idproduct.','.$_quality.')';
             $qr_initsession = DB::select("CALL InitsessionProcedure(?,?,?,?)",array($_idproduct, $_quality, $_idstore, $idorder));
             $rs_initsession = json_decode(json_encode($qr_initsession), true);         
             foreach ($rs_initsession as $row) {
@@ -316,8 +318,7 @@ class ProductController extends Controller
                     $idorder++;
                 }
             }
-            //$_str_query = 'INSERT into tmp_product(idproduct,input_quality) VALUES ('.$_idproduct.','.$_quality.')';
-            //$qr_initsession = DB::select("CALL ReachInitSessionProcedure(?,?,?)",array($_str_query, $_idstore, $idorder));
+           
             try{
                 $qr_initsession = DB::select("CALL InitsessionProcedure(?,?,?,?)",array($_idproduct, $_quality, $_idstore, $idorder));
                 $rs_initsession = json_decode(json_encode($qr_initsession), true);

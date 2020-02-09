@@ -139,8 +139,19 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
 
      */
-
-    public function edit($idcategory,$_namecattype)
+    public function editbycatetype(Request $request, $idcategory,$_namecattype)
+    {
+        $categorybyid = category::find($idcategory);
+        $categories = category::all()->toArray();
+        $categorytypes = CategoryType::all()->toArray();
+        $result = DB::select('call SelCategorybyIdProcedure(?)',array($idcategory));
+        $selected = json_decode(json_encode($result), true);
+        $qr_parent_cate = DB::select('call ListParentCatByTypeProcedure(?)',array($_namecattype));
+        $parent_cate = json_decode(json_encode($qr_parent_cate), true);
+        return view('admin.category.edit',compact('categorybyid','categories','idcategory','categorytypes','selected'));
+    }
+    // public function edit(Request $request, $idcategory,$_namecattype)
+    public function edit(Request $request, $idcategory,$_namecattype)
     {
         $categorybyid = category::find($idcategory);
         $categories = category::all()->toArray();
@@ -177,10 +188,7 @@ class CategoryController extends Controller
 
      */
 
-    public function update(Request $request, $idcategory)
-
-    {
-
+    public function update(Request $request, $idcategory){
         $this->validate($request,['namecat'=>'required']);
 
         //$idcustomer = $category->idcustomer;

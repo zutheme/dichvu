@@ -25,6 +25,7 @@ class PermissionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    private $main_menu='';
     public function index()
     {
         $qr_permission = DB::select('call ListPermissionProcedure()',array());
@@ -62,7 +63,8 @@ class PermissionController extends Controller
         $input = $request->all();
         $name = $request->get('name');
         $description = $request->get('description');
-        $idpermcommand = $request->get('idpermcommand');          
+        $idpermcommand = $request->get('idpermcommand');
+        $_path = $request->get('path');          
         $message = "";
         $idcategory = 0;  
         try {
@@ -73,7 +75,7 @@ class PermissionController extends Controller
                    $idcategory = $_idcategory;
                 } 
             }
-            $qr_permission = DB::select('call AddPermissionProcedure(?,?,?,?)',array($name, $description, $idpermcommand, $idcategory));
+            $qr_permission = DB::select('call AddPermissionProcedure(?,?,?,?)',array($name, $description, $idpermcommand, $idcategory, $_path));
             $rs_permission = json_decode(json_encode($qr_permission), true);
             $result = $name.','.$idpermcommand.','.$idcategory.','.$iduserimp;
         } catch (\Illuminate\Database\QueryException $ex) {
@@ -115,7 +117,11 @@ class PermissionController extends Controller
         $perm_commands = perm_command::all()->toArray();
         $result = DB::select('call ListRoleIdpermProcedure(?)',array($idperm));
         $roles = json_decode(json_encode($result), true);
-        return view('admin.permission.edit',compact('permissions','idperm','roles','perm_commands','categorytypes'));
+        $idcategory = $permissions->idcategory;
+        $cate_selected = array($idcategory);
+        $idcattype = $permissions->idcattype;
+        $listcate = $this->catebytype($idcattype,$cate_selected);
+        return view('admin.permission.edit',compact('permissions','idperm','roles','perm_commands','categorytypes','listcate'));
     }
     public function map($value){
         return (array)$value;
@@ -130,21 +136,28 @@ class PermissionController extends Controller
     public function update(Request $request, $idperm)
     {
         $this->validate($request,['name'=>'required']);
-        $permission = permission::find($idperm);
-        $permission->name = $request->get('name');
-        $permission->description = $request->get('description');
-        $permission->save();
-        // $iduserimp = Auth::id();
+        //$permission = permission::find($idperm);
+        $name = $request->get('name');
+        $description = $request->get('description');
+        $idpermcommand = $request->get('idpermcommand');
+        $iduserimp = Auth::id();
+        $idcategory = 0;
         $message = "";
-        // $listroles = $request->input('role_list');
-        //     if($listroles){
-        //         foreach ($listroles as $item) {
-        //             $str = explode("-", $item);
-        //             $message .="(str[0]=".$str[0]." * str[1]=".$str[1]."),";
-        //             $idimp_perm = $str[0];
-        //             $idrole = $str[1];
-        //         } 
-        // }
+        try {
+            //$iduserimp = Auth::id();
+            $l_idcategory = $request->input('list_check');
+            if($l_idcategory){
+                foreach ($l_idcategory as $_idcategory) {
+                   $idcategory = $_idcategory;
+                } 
+            }
+            $qr_permission = DB::select('call UpdatePermissionProcedure(?,?,?,?,?)',array($name, $description, $idpermcommand, $idcategory, $idperm));
+            $rs_permission = json_decode(json_encode($qr_permission), true);
+           $message = $name.','.$idpermcommand.','.$idcategory.','.$iduserimp.','.$idperm;
+        } catch (\Illuminate\Database\QueryException $ex) {
+            $errors = new MessageBag(['errorlogin' => $ex->getMessage()]);
+            return redirect()->back()->withInput()->withErrors($errors);
+        } 
         return redirect()->route('admin.permission.index')->with('success',$message);
     }
 
@@ -160,5 +173,46 @@ class PermissionController extends Controller
         $permission->delete();
         return redirect()->route('admin.permission.index')->with('success','record have deleted');
     }
-    
+    //show sub category
+    public function catebytypehtml($_idcatetype,$cate_selected = array()) {
+        $qr_catebytype = DB::select('call ListAllCateByIdcatetype(?)',array($_idcatetype));
+        $categories = json_decode(json_encode($qr_catebytype), true);
+        $this->showCategories($categories,0,$cate_selected);
+        $result =  $this->main_menu;
+        return response()->json(array('success' => true, 'result' => $result), 200);
+    }
+    public function catebytype($_idcatetype,$cate_selected = array()) {
+        $qr_catebytype = DB::select('call ListAllCateByIdcatetype(?)',array($_idcatetype));
+        $categories = json_decode(json_encode($qr_catebytype), true);
+        $this->showCategories($categories,0,$cate_selected);
+        $result =  $this->main_menu;
+        return $result;
+        //return response()->json(array('success' => true, 'result' => $result), 200);
+    }
+    public function showCategories($categories, $idparent = 0, $cate_selected){
+        $cate_child = array();
+        foreach ($categories as $key => $item) {
+            if ($item['idparent'] == $idparent){
+                $cate_child[] = $item;
+                unset($categories[$key]);
+            }
+        }
+        $list_cat="";     
+        if($cate_child) {
+            
+            $this->main_menu .= '<ul class="list-check">';
+            foreach ($cate_child as $key => $item){
+                $this->main_menu .= '<li><input class="array-parent" type="hidden" value="'.$idparent.'">';
+                if(in_array($item['idcategory'], $cate_selected)){
+                     $checked='checked';
+                }else{
+                    $checked='';
+                }
+                $this->main_menu .= '<input name="list_check[]" class="array-check" type="radio" value="'.$item['idcategory'].'" '.$checked.' ><label>'.$item['namecat'].'</label>';
+                $this->showCategories($categories, $item['idcategory'], $cate_selected);
+                $this->main_menu .= '</li>';
+            }
+            $this->main_menu .= '</ul>';
+        }
+    }
 }
