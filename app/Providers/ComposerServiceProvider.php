@@ -22,7 +22,7 @@ class ComposerServiceProvider extends ServiceProvider
     {
        
         //View::composer(['admin.dashboard','dashboard'], function ($view) {
-        View::composer(array('teamilk.master','teamilk.product.show','teamilk.product.index','teamilk.account.profile','teamilk.addcart.check-out','admin.dashboard','admin.topnav','teamilk.menu-master'), function ($view) {
+        View::composer(array('teamilk.master','teamilk.product.show','teamilk.product.index','teamilk.account.profile','teamilk.addcart.check-out','teamilk.menu-master','admin.dashboard','admin.topnav','admin.sidebar'), function ($view) {
             $_namecattype="website";
             $rs_catbytype = DB::select('call ListAllCatByTypeProcedure(?)',array($_namecattype));
             $catbytypes = json_decode(json_encode($rs_catbytype), true);
