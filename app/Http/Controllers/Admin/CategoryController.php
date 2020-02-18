@@ -253,8 +253,7 @@ class CategoryController extends Controller
 
     }
 
-    public function CategoryBynametype($_namecattype)
-    {
+    public function CategoryBynametype($_namecattype){
         $statustypes = status_type::all()->toArray();
         $posttypes = PostType::all()->toArray();
         $result = DB::select('call ListAllCatByTypeProcedure(?)',array($_namecattype));
@@ -266,20 +265,12 @@ class CategoryController extends Controller
         //return redirect()->route('admin.category.index')->with(compact('posttypes','categories','statustypes'));
     }
 
-    public function createby($_namecattype)
-
-    {
-
+    public function createby($_namecattype){
         //$categories = category::all()->toArray();
-
         $result = DB::select('call ListAllCatByTypeProcedure(?)',array($_namecattype));
-
         $categories = json_decode(json_encode($result), true);
-
         $categorytypes = CategoryType::all()->toArray();
-
         return view('admin.category.create',compact('categories','categorytypes','_namecattype'));
-
     }
 
      public function storeby(Request $request,$_namecattype)

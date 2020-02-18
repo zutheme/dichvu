@@ -358,10 +358,6 @@ Route::group(['middleware' => 'auth'], function() {
 
 
 
-
-
-
-
 	Route::get('admin/category/listcategorybyid', 'Admin\CategoryController@listcatbyidcat');
 
 
@@ -369,32 +365,14 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::post('admin/category/listcategorybyid', 'Admin\CategoryController@listcatbyidcat');
 
 
-
-
-
-
-
 	Route::get('admin/category/catebyidcatetype/{_idcatetype}', 'Admin\CategoryController@category_by_idcatetype');
-
 
 
 	Route::post('admin/category/catebyidcatetype/{_idcatetype}', 'Admin\CategoryController@category_by_idcatetype');
 
 
-
-
-
-
-
 	Route::get('admin/categoryby/{_namecattype}', ['uses' =>'Admin\CategoryController@CategoryBynametype', 'as'=>'admin']);
-
-
-
 	Route::post('admin/categoryby/{_namecattype}', ['uses' =>'Admin\CategoryController@CategoryBynametype', 'as'=>'admin']);
-
-
-
-
 
 
 

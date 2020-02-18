@@ -1,6 +1,9 @@
 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-              <div class="menu_section">
-                <h3>Tổng hợp</h3>
+            @if(isset($str_dashboard))
+              <?php print_r($str_dashboard); ?>
+            @endif
+            <div class="menu_section">
+              <h3>Tổng hợp</h3>
               <ul class="nav side-menu">
                   <li><a><i class="fa fa-home"></i> Quản lý khách hàng <span class="fa fa-chevron-down"></span></a>
                     @if(isset($catbytypes))
