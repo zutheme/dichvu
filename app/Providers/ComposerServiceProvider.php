@@ -94,6 +94,7 @@ class ComposerServiceProvider extends ServiceProvider
         }
         $list_cat="";       
         if ($cate_child){
+            $char++;
             $this->main_menu .= '<div class="menu_section '.$char.'"><ul class="nav side-menu">';
             foreach ($cate_child as $key => $item){
                 $this->main_menu .= '<li>'.$item['namecat'];
@@ -101,7 +102,6 @@ class ComposerServiceProvider extends ServiceProvider
                 $this->main_menu .= '</li>';
             }
             $this->main_menu .= '</ul></div>';
-            $char++;
         }
     }
 }

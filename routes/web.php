@@ -530,36 +530,13 @@ Route::group(['middleware' => 'auth'], function() {
 
 	Route::resource('admin/customerreg' , 'Admin\CustomerRegController', array('as'=>'admin') );
 
-
-
-
-
-
-
 	//post management
 
-
-
 	Route::get('admin/post/listcatbyidcat', 'Admin\CategoryController@listcatbyidcat');
-
-
-
 	Route::post('admin/post/listcatbyidcat', 'Admin\CategoryController@listcatbyidcat');
-
-
-
 	Route::resource('admin/post' , 'Admin\PostsController', array('as'=>'admin') );
-
-
-
 	Route::resource('admin/posttype' , 'Admin\PostTypeController', array('as'=>'admin') );
-
-
-
 	Route::resource('admin/cattype' , 'Admin\CategoryTypeController', array('as'=>'admin') );
-
-
-
 	Route::resource('admin/statustype' , 'Admin\StatusTypeController', array('as'=>'admin') );
 
 
