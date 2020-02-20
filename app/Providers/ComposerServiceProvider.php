@@ -41,7 +41,7 @@ class ComposerServiceProvider extends ServiceProvider
             $qr_menu = DB::select('call ListItemCateByIdMenuProcedure(?)',array($idmenu));
             $rs_menu = json_decode(json_encode($qr_menu), true);
             //category by name
-            $str_dashboard = $this->CategoryBynametype('dashboard');
+            $str_dashboard = $this->ListAllCateByTypeId('dashboard', 0);
             $view->with(compact('stores','catbytypes','profile','iduser','rs_cat_product','rs_menu','str_dashboard'));
         });
     }
@@ -55,13 +55,7 @@ class ComposerServiceProvider extends ServiceProvider
     {
         //
     }
-    public function CategoryBynametype($_namecattype){
-       
-        $result = DB::select('call ListAllCatByTypeProcedure(?)',array($_namecattype));
-        $categories = json_decode(json_encode($result), true);
-        $str = $this->ListAllCateByTypeId($_namecattype,0);     
-        return $str;
-    }
+   
     public function ListAllCateByTypeId($_cattype='product', $_idcat=0) {
         $_cate_selected = array();
         $_cate_selected[0]['idcategory'] = 0;
@@ -69,7 +63,7 @@ class ComposerServiceProvider extends ServiceProvider
         $categories = json_decode(json_encode($result), true);
         $str_ul="";$str_li="";
         $this->showCategories($categories, 0, 0);   
-        $str_html = $str_li.$this->main_menu;
+        $str_html = ''.$this->main_menu.'';
         return $str_html; 
     }
     public function showCategories($categories, $idparent = 0, $level = 0)
@@ -85,7 +79,7 @@ class ComposerServiceProvider extends ServiceProvider
         $list_cat="";       
         if ($cate_child){
             if($level == 0){
-                $this->main_menu .= '<div class="menu_section depth-'.$level.'"><ul class="nav side-menu">';
+                $this->main_menu .= '<div class="menu_section"><ul class="nav side-menu depth-'.$level.'">';
             }else{
                 $this->main_menu .= '<ul class="nav child_menu depth-'.$level.'">';
             }
