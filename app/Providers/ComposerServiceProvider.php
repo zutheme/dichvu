@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Validator;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Routing\UrlGenerator;
 // use App\Http\Controllers\ControllerName;
 class ComposerServiceProvider extends ServiceProvider
 {
@@ -57,16 +58,13 @@ class ComposerServiceProvider extends ServiceProvider
     }
    
     public function ListAllCateByTypeId($_cattype='product', $_idcat=0) {
-        $_cate_selected = array();
-        $_cate_selected[0]['idcategory'] = 0;
         $result = DB::select('call ListAllCatByTypeProcedure(?)',array($_cattype));
         $categories = json_decode(json_encode($result), true);
-        $str_ul="";$str_li="";
         $this->showCategories($categories, 0, 0);   
-        $str_html = ''.$this->main_menu.'';
+        $str_html = $this->main_menu;
         return $str_html; 
     }
-    public function showCategories($categories, $idparent = 0, $level = 0)
+    public function showCategories($categories, $idparent = 0, $level = 0, $maxlevel = 0)
     {
         $cate_child = array();
         foreach ($categories as $key => $item){
@@ -78,13 +76,20 @@ class ComposerServiceProvider extends ServiceProvider
         }
         $list_cat="";       
         if ($cate_child){
-            if($level == 0){
-                $this->main_menu .= '<div class="menu_section"><ul class="nav side-menu depth-'.$level.'">';
+            if($level == 0 ){
+             $this->main_menu = '<div class="menu_section"><ul class="nav side-menu depth-'.$level.'">';
             }else{
                 $this->main_menu .= '<ul class="nav child_menu depth-'.$level.'">';
             }
             foreach ($cate_child as $key => $item){
-                $this->main_menu .= '<li><a href="#">'.$item['namecat'].'</a>';
+                $route = "#";
+                if($level == 0 ){
+
+                }
+                if(isset($item['pathroute'])){
+                    $route = $item['pathroute'];
+                }
+                $this->main_menu .= '<li><a href="'.asset($route).'">'.$item['namecat'].'</a>';
                 $this->showCategories($categories, $item['idcategory'], $level+1);
                 $this->main_menu .= '</li>';
             }

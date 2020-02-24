@@ -81,7 +81,7 @@
 
             <!-- sidebar menu -->
 
-            @include('admin.sidebar');
+            @include('admin.sidebar')
 
             <!-- /sidebar menu -->
             <!-- /menu footer buttons -->
