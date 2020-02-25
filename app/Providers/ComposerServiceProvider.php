@@ -64,7 +64,7 @@ class ComposerServiceProvider extends ServiceProvider
         $str_html = $this->main_menu;
         return $str_html; 
     }
-    public function showCategories($categories, $idparent = 0, $level = 0, $maxlevel = 0)
+    public function showCategories($categories, $idparent = 0, $level = 0)
     {
         $cate_child = array();
         foreach ($categories as $key => $item){
@@ -77,18 +77,17 @@ class ComposerServiceProvider extends ServiceProvider
         $list_cat="";       
         if ($cate_child){
             if($level == 0 ){
-             $this->main_menu = '<div class="menu_section"><ul class="nav side-menu depth-'.$level.' max-'.$maxlevel.'">';
+             $this->main_menu = '<div class="menu_section"><ul class="nav side-menu depth-'.$level.'">';
             }else{
-                $this->main_menu .= '<ul class="nav child_menu depth-'.$level.' max-'.$maxlevel.'">';
+                $this->main_menu .= '<ul class="nav child_menu depth-'.$level.'">';
             }
             foreach ($cate_child as $key => $item){    
-                if($item['haschild']== 1){
-                    $route = "#";
-                }else if(isset($item['pathroute'])){
+               $route = "#";
+               if(isset($item['pathroute'])&&$item['haschild'] < 1){
                     $route = $item['pathroute'];
                 }
                 $this->main_menu .= '<li><a href="'.asset($route).'">'.$item['namecat'].'</a>';
-                $this->showCategories($categories, $item['idcategory'], $level+1,$maxlevel);
+                $this->showCategories($categories, $item['idcategory'], $level+1);
                 $this->main_menu .= '</li>';
             }
             if($level == 0){
