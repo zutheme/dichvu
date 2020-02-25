@@ -58,7 +58,7 @@ class ComposerServiceProvider extends ServiceProvider
     }
    
     public function ListAllCateByTypeId($_cattype='product', $_idcat=0) {
-        $result = DB::select('call ListAllCatByTypeProcedure(?)',array($_cattype));
+        $result = DB::select('call ListCatPermissionByTypeProcedure(?)',array($_cattype));
         $categories = json_decode(json_encode($result), true);
         $this->showCategories($categories, 0, 0);   
         $str_html = $this->main_menu;
@@ -77,20 +77,18 @@ class ComposerServiceProvider extends ServiceProvider
         $list_cat="";       
         if ($cate_child){
             if($level == 0 ){
-             $this->main_menu = '<div class="menu_section"><ul class="nav side-menu depth-'.$level.'">';
+             $this->main_menu = '<div class="menu_section"><ul class="nav side-menu depth-'.$level.' max-'.$maxlevel.'">';
             }else{
-                $this->main_menu .= '<ul class="nav child_menu depth-'.$level.'">';
+                $this->main_menu .= '<ul class="nav child_menu depth-'.$level.' max-'.$maxlevel.'">';
             }
-            foreach ($cate_child as $key => $item){
-                $route = "#";
-                if($level == 0 ){
-
-                }
-                if(isset($item['pathroute'])){
+            foreach ($cate_child as $key => $item){    
+                if($item['haschild']== 1){
+                    $route = "#";
+                }else if(isset($item['pathroute'])){
                     $route = $item['pathroute'];
                 }
                 $this->main_menu .= '<li><a href="'.asset($route).'">'.$item['namecat'].'</a>';
-                $this->showCategories($categories, $item['idcategory'], $level+1);
+                $this->showCategories($categories, $item['idcategory'], $level+1,$maxlevel);
                 $this->main_menu .= '</li>';
             }
             if($level == 0){
