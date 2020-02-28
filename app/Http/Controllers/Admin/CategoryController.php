@@ -395,18 +395,14 @@ class CategoryController extends Controller
                 unset($categories[$key]);
             }
         }
-        $list_cat="";       
+        $list_cat="";
         if ($cate_child)
         {
             $this->main_menu .= '<ul class="list-check">';
-            foreach ($cate_child as $key => $item)
-            {
+            foreach ($cate_child as $key => $item){
                 // Hiển thị tiêu đề chuyên mục
                 $selected = ($this->compare_in_list($_cate_selected,$item['idcategory']) > 0) ? ' checked' : '';
-                //$idcateproduct = $this->compare_in_list($_cate_selected,$item['idcategory']);
-                //$this->main_menu .= '<li><input type="checkbox" name="list_check[]" value="'.$item['idcategory'].'-'.$idcateproduct.'"'.$selected.'>'.$item['namecat'].":".$list_cat;
-                $this->main_menu .= '<li><input class="checklist" type="checkbox" name="list_check[]" value="'.$item['idcategory'].'"'.$selected.'>'.$item['namecat'].":".$list_cat;
-                // Tiếp tục đệ quy để tìm chuyên mục con của chuyên mục đang lặp
+                $this->main_menu .= '<li><input class="checklist" type="checkbox" name="list_check[]" value="'.$item['idcategory'].'"'.$selected.'>'.$item['namecat'];
                 $this->showCategories($categories, $item['idcategory'], $char.'|---', $_cate_selected);
                 $this->main_menu .= '</li>';
             }

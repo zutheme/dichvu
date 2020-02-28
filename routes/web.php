@@ -463,34 +463,11 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('admin/customerreg/interactivecustomer', ['uses' =>'Admin\CustomerRegController@interactive_customer', 'as'=>'admin']);
 
 
-
-
-
-
-
 	Route::post('admin/customerreg/interactivecustomer', ['uses' =>'Admin\CustomerRegController@interactive_customer', 'as'=>'admin']);
-
-
-
-
-
-
 
 	Route::get('admin/customerreg/listcustomerbydate/{_idcategory}/{_id_post_type}/{_id_status_type}', ['uses' =>'Admin\CustomerRegController@ListCustomerByDate', 'as'=>'admin']);
 
-
-
-
-
-
-
 	Route::post('admin/customerreg/listcustomerbydate/{_idcategory}/{_id_post_type}/{_id_status_type}', ['uses' =>'Admin\CustomerRegController@ListCustomerByDate', 'as'=>'admin']);
-
-
-
-
-
-
 
 	Route::get('admin/customerreg/listcustomerbycat/{_idcategory}/{_id_post_type}/{_id_status_type}', ['uses' =>'Admin\CustomerRegController@ListCustomerByCat', 'as'=>'admin']);
 
@@ -498,19 +475,7 @@ Route::group(['middleware' => 'auth'], function() {
 
 	Route::post('admin/customerreg/listcustomerbycat/{_idcategory}/{_id_post_type}/{_id_status_type}', ['uses' =>'Admin\CustomerRegController@ListCustomerByCat', 'as'=>'admin']);
 
-
-
-
-
-
-
 	//show detail
-
-
-
-
-
-
 
 	Route::get('admin/customerreg/{_idimport}', ['uses' =>'Admin\CustomerRegController@show', 'as'=>'admin']);
 
@@ -518,15 +483,7 @@ Route::group(['middleware' => 'auth'], function() {
 
 	Route::post('admin/customerreg/{_idimport}', ['uses' =>'Admin\CustomerRegController@show', 'as'=>'admin']);
 
-
-
-
-
-
-
 	//end show detail
-
-
 
 	Route::resource('admin/customerreg' , 'Admin\CustomerRegController', array('as'=>'admin') );
 
@@ -539,63 +496,25 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::resource('admin/cattype' , 'Admin\CategoryTypeController', array('as'=>'admin') );
 	Route::resource('admin/statustype' , 'Admin\StatusTypeController', array('as'=>'admin') );
 
-
-
-
-
-
-
 	//upload file
-
-
-
-
-
-
 
 	Route::post('admin/upload' , 'Admin\UploadController@upload');
 
-
-
 	Route::get('admin/upload' , 'Admin\UploadController@upload');
-
-
 
 	Route::post('admin/uploadfile' , 'Admin\UploadController@uploadfile');
 
-
-
 	Route::get('admin/uploadfile' , 'Admin\UploadController@uploadfile');
-
-
-
-
-
-
 
 	Route::post('admin/files/uploaddataurl' , 'Admin\FilesController@uploadDataULR');
 
-
-
 	Route::get('admin/files/uploaddataurl' , 'Admin\FilesController@uploadDataULR');
-
-
-
-	
-
-
 
 	Route::post('admin/files/uploadfile' , 'Admin\FilesController@uploadfile');
 
-
-
 	Route::get('admin/files/uploadfile' , 'Admin\FilesController@uploadfile');
 
-
-
 	Route::resource('admin/files' , 'Admin\FilesController', array('as'=>'admin'));
-
-
 
 	//deparment
 	Route::get('admin/department/listdepartmentbyid', 'Admin\DepartmentController@listdepartmentbyid');
@@ -639,82 +558,30 @@ Route::group(['middleware' => 'auth'], function() {
 
     //profile
 
-
     Route::post('admin/profile/uploadavatar/{iduser}/{idprofile}',['uses' =>'ProfileController@uploadavatar']);
-
-
-
-
-
-
-
 	Route::get('admin/profile/uploadavatar/{iduser}/{idprofile}',['uses' =>'ProfileController@uploadavatar']);
-
-
-
-
-
-
 
     Route::get('admin/profile/{iduser}', ['uses' =>'ProfileController@show']);
 
-
-
-
-
-
-
 	Route::post('admin/profile/{iduser}', ['uses' =>'ProfileController@show']);
-
-
-
-
-
-
 
 	Route::get('admin/profile/update/{iduser}', ['uses' =>'ProfileController@update']);
 
-
-
 	Route::post('admin/profile/update/{iduser}', ['uses' =>'ProfileController@update']);
-
-
-
-
-
-
 
 	Route::get('admin/profile/changepassword/{iduser}', ['uses' =>'ProfileController@changepassword']);
 
-
-
 	Route::post('admin/profile/changepassword/{iduser}', ['uses' =>'ProfileController@changepassword']);
 
-
-
 	Route::resource('admin/profile','ProfileController');
-
-
-
 	//list order
-
-
-
 	Route::post('admin/orderlist/show/{_ordernumber}',['uses' =>'Admin\OrdersManagementController@show']);
-
-
 
 	Route::get('admin/orderlist/show/{_ordernumber}',['uses' =>'Admin\OrdersManagementController@show']);
 
-
-
 	Route::post('admin/orderlist/{_idstore}',['uses' =>'Admin\OrdersManagementController@listorder']);
 
-
-
 	Route::get('admin/orderlist/{_idstore}',['uses' =>'Admin\OrdersManagementController@listorder']);
-
-
 
 });
 

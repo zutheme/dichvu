@@ -50,9 +50,6 @@
 	            <div class="catebyidcatetype">     
 	            </div>
 	        </div>
-	        <div class="form-group">
-				<input type="text" name="path" class="form-control" placeholder="path">
-			</div>
 	       {{--  <div class="form-group"> 
             	<select class="select2_single form-control" name="selidcatetype">
             		<option value="0">Chọn kiểu chuyên mục ...</option>
@@ -80,5 +77,5 @@
 {{-- <script src="{{ asset('dashboard/build/js/custom.min.js') }}"></script> --}}
     <script src="{{ asset('dashboard/build/js/custom.js') }}"></script>
     <script src="{{ asset('dashboard/production/js/custom.js?v=0.0.2') }}"></script>
-    <script src="{{ asset('dashboard/production/js/select-menu.js?v=0.0.0.1') }}"></script>
+    <script src="{{ asset('dashboard/production/js/select-typecate.js?v=0.0.0.3') }}"></script>
 @stop
