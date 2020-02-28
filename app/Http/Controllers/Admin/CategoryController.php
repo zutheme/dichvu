@@ -99,7 +99,7 @@ class CategoryController extends Controller
         $categories = new category(['namecat'=> $request->get('namecat'),'idcattype'=>$request->get('sel_idcattype'),'idparent'=> $request->get('sel_idparent'), 'pathroute' => $request->get('pathroute')]);
 
         $categories->save();
-
+        //return redirect('admin/categoryby/'.$_namecattype)->with(compact('categories'));
         return redirect()->route('admin.category.index')->with('success','data added');
 
     }
@@ -237,9 +237,7 @@ class CategoryController extends Controller
 
 
 
-    public function listcatbyidcat()
-
-    {
+    public function listcatbyidcat(){
 
         $input = json_decode(file_get_contents('php://input'),true);
 
@@ -273,11 +271,9 @@ class CategoryController extends Controller
         return view('admin.category.create',compact('categories','categorytypes','_namecattype'));
     }
 
-     public function storeby(Request $request,$_namecattype)
+    public function storeby(Request $request,$_namecattype)
     {
-
         $this->validate($request,['namecat'=>'required']);
-
         $category = new category(['namecat'=> $request->get('namecat'),'idcattype'=>$request->get('sel_idcattype'),'idparent'=> $request->get('sel_idparent'), 'pathroute' => $request->get('pathroute')]);
         $category->save();
         $result = DB::select('call ListAllCatByTypeProcedure(?)',array($_namecattype));

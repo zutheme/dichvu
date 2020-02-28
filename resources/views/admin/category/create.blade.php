@@ -4,8 +4,8 @@
     <link href="{{ asset('dashboard/build/css/custom.min.css') }}" rel="stylesheet">
     <link href="{{ asset('dashboard/production/css/custom.css?v=0.1.2') }}" rel="stylesheet">
 @stop
-<?php $_namecattype = Request::segment(3);
-$_namecattype = isset($_namecattype) ? Request::segment(3) : 'product'; ?>
+<?php $_namecattype = Request::segment(4);
+$_namecattype = isset($_namecattype) ? Request::segment(4) : 'product'; ?>
 @section('content')
 <div class="row">
 	<div class="col-sm-6">

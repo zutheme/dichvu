@@ -11,7 +11,7 @@
  Target Server Version : 100133
  File Encoding         : 65001
 
- Date: 25/02/2020 17:39:36
+ Date: 28/02/2020 16:32:36
 */
 
 SET NAMES utf8mb4;
@@ -46,7 +46,7 @@ CREATE TABLE `categories`  (
   PRIMARY KEY (`idcategory`) USING BTREE,
   INDEX `fr_cattype`(`idcattype`) USING BTREE,
   CONSTRAINT `fr_cattype` FOREIGN KEY (`idcattype`) REFERENCES `category_types` (`idcattype`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 49 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 55 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of categories
@@ -87,6 +87,12 @@ INSERT INTO `categories` VALUES (45, NULL, 'Tổng hợp', 9, 0, NULL, NULL, NUL
 INSERT INTO `categories` VALUES (46, NULL, 'Hệ thống', 9, 0, NULL, NULL, NULL, '2020-02-25 17:06:41', '2020-02-25 17:06:41');
 INSERT INTO `categories` VALUES (47, NULL, 'Phân quyền', 9, 46, NULL, NULL, NULL, '2020-02-25 17:23:46', '2020-02-25 17:23:46');
 INSERT INTO `categories` VALUES (48, NULL, 'Vai trò', 9, 47, NULL, NULL, 'admin/roles', '2020-02-25 17:29:46', '2020-02-25 17:29:46');
+INSERT INTO `categories` VALUES (49, NULL, 'Lệnh thực thi', 9, 47, NULL, NULL, 'admin/perm_command', '2020-02-28 15:43:00', '2020-02-28 15:43:00');
+INSERT INTO `categories` VALUES (50, NULL, 'Tạo quyền', 9, 47, NULL, NULL, 'admin/permission', '2020-02-28 16:15:43', '2020-02-28 16:15:43');
+INSERT INTO `categories` VALUES (51, NULL, 'Cấp quyền cho nhóm', 9, 47, NULL, NULL, 'admin/impperm', '2020-02-28 16:16:30', '2020-02-28 16:16:30');
+INSERT INTO `categories` VALUES (52, NULL, 'Cấp quyền người dùng', 9, 47, NULL, NULL, 'admin/grantperm', '2020-02-28 16:17:02', '2020-02-28 16:17:14');
+INSERT INTO `categories` VALUES (53, NULL, 'Quản lý người dùng', 9, 47, NULL, NULL, 'admin/aduser', '2020-02-28 16:27:45', '2020-02-28 16:27:45');
+INSERT INTO `categories` VALUES (54, NULL, 'Danh mục quyền', 9, 47, NULL, NULL, 'admin/categoryby/dashboard', '2020-02-28 16:28:20', '2020-02-28 16:28:20');
 
 -- ----------------------------
 -- Table structure for category_types
@@ -1296,6 +1302,7 @@ INSERT INTO `oauth_access_tokens` VALUES ('9da2db5f94161b541c8d644a7bbb0d3e24a90
 INSERT INTO `oauth_access_tokens` VALUES ('a06ad6bc9ebe165b2b4302af7e716d0296b00b418511335d92fd92169581a1c75fb5858810dbc021', 2, 1, 'MyApp', '[]', 0, '2019-07-22 08:44:59', '2019-07-22 08:44:59', '2020-07-22 08:44:59');
 INSERT INTO `oauth_access_tokens` VALUES ('a079e3f003ea2847b1f53a00528b009d982dde864f8d3e4fea0c3aafa967f0694084d956aac112ba', 2, 1, 'MyApp', '[]', 0, '2019-05-13 08:08:57', '2019-05-13 08:08:57', '2020-05-13 08:08:57');
 INSERT INTO `oauth_access_tokens` VALUES ('a0fbfb03a0d8eb10f3baa098b6cae6e8df9c1b03095cba56d9c8393360d7231c8838bbda4e63ecc7', 16, 1, 'MyApp', '[]', 0, '2019-05-20 09:27:16', '2019-05-20 09:27:16', '2020-05-20 09:27:16');
+INSERT INTO `oauth_access_tokens` VALUES ('a1bffd81cbce675dc6671c4ba14e271ec420a1dd2125afcc21ca0010c37483a0844146aebd9edfb4', 2, 9, 'MyApp', '[]', 0, '2020-02-26 16:25:02', '2020-02-26 16:25:02', '2021-02-26 16:25:02');
 INSERT INTO `oauth_access_tokens` VALUES ('a28a87583b0af205b6171128af5616c51edef53433f61162f145258a7951f081a160022914f60304', 2, 1, 'MyApp', '[]', 0, '2019-06-05 14:30:32', '2019-06-05 14:30:32', '2020-06-05 14:30:32');
 INSERT INTO `oauth_access_tokens` VALUES ('a3298a5df2ee219b30885500eb88dde4c825f8e90809c79dcc074eb13568ee39899fcd27f4c997c6', 2, 1, 'MyApp', '[]', 0, '2019-03-05 14:43:40', '2019-03-05 14:43:40', '2020-03-05 14:43:40');
 INSERT INTO `oauth_access_tokens` VALUES ('a3ca726af4a336a81e728b7a9700a2813ba0eab9879cda175d0d2cbfa4c963f1afb12c136781a4bb', 2, 1, 'MyApp', '[]', 0, '2019-06-18 20:27:24', '2019-06-18 20:27:24', '2020-06-18 20:27:24');
@@ -1320,6 +1327,7 @@ INSERT INTO `oauth_access_tokens` VALUES ('b3dbd75c5aef6be09470b649d032dee4af35a
 INSERT INTO `oauth_access_tokens` VALUES ('b45aaed65e12443d8460c6a8edb9a3da27db514ca07aecd2cc8057a47ed8d6f52460d50624ddedad', 2, 1, 'MyApp', '[]', 0, '2019-06-26 15:00:44', '2019-06-26 15:00:44', '2020-06-26 15:00:44');
 INSERT INTO `oauth_access_tokens` VALUES ('b45ae5222c4aa29bebf06a47f1f8451cad862cbededcebc663caa2dbb270ba58a9e6443faf4e81f3', 2, 1, 'MyApp', '[]', 0, '2019-06-01 08:07:35', '2019-06-01 08:07:35', '2020-06-01 08:07:35');
 INSERT INTO `oauth_access_tokens` VALUES ('b572c6a2b427344728bfa8150882dd9a74feceee56846ca16d9e2218517628afbb153887fc8350c7', 2, 1, 'MyApp', '[]', 0, '2019-06-13 08:10:12', '2019-06-13 08:10:12', '2020-06-13 08:10:12');
+INSERT INTO `oauth_access_tokens` VALUES ('b5b92a4a40186a7b769eca73469e06d1dfda1f2151c3071008685a7511821eb6cbe98a9d70117245', 2, 9, 'MyApp', '[]', 0, '2020-02-28 15:39:18', '2020-02-28 15:39:18', '2021-02-28 15:39:18');
 INSERT INTO `oauth_access_tokens` VALUES ('b5bdb4e4e8f75a1f46aa2cf9bc4213e8d9a8d772756b11a2c5b5291e73d890476c69aa948881a060', 2, 9, 'MyApp', '[]', 0, '2020-02-18 14:52:43', '2020-02-18 14:52:43', '2021-02-18 14:52:43');
 INSERT INTO `oauth_access_tokens` VALUES ('b65902c224481a8cc80e985d8a19a8d355e027c60d7d248cd06788fca8a94d27e0bee5ffa01d9548', 2, 1, 'MyApp', '[]', 0, '2019-06-20 08:18:24', '2019-06-20 08:18:24', '2020-06-20 08:18:24');
 INSERT INTO `oauth_access_tokens` VALUES ('b68fc76b4cf8ab066dc1f93f6339f07ccb349b3735a2e2c4838e086d9ca9873f35349347fbbc6ab6', 2, 1, 'MyApp', '[]', 0, '2019-05-31 08:12:06', '2019-05-31 08:12:06', '2020-05-31 08:12:06');
@@ -1406,6 +1414,7 @@ INSERT INTO `oauth_access_tokens` VALUES ('f0e5c2dc0fe82cef934732f7963344fc5c876
 INSERT INTO `oauth_access_tokens` VALUES ('f1a93b1534fdbd63545d6fb9d777f94f72474f0ad76d73b22c8c0a291f3e4772fa26f39694972f95', 2, 9, 'MyApp', '[]', 0, '2020-02-18 09:49:36', '2020-02-18 09:49:36', '2021-02-18 09:49:36');
 INSERT INTO `oauth_access_tokens` VALUES ('f1ee8a965d2867bf2235a9d647b98ec847dc3862b9e47331c7f443bba7e4e29ab2f91a85cdc378bd', 2, 7, 'MyApp', '[]', 0, '2019-10-11 09:59:07', '2019-10-11 09:59:07', '2020-10-11 09:59:07');
 INSERT INTO `oauth_access_tokens` VALUES ('f440d733d86874bd55e90f565f8122efa04c3cb5f89a3cab2dda3c626a2ac803a1c7cfabe4e86592', 2, 1, 'MyApp', '[]', 0, '2019-05-10 14:00:20', '2019-05-10 14:00:20', '2020-05-10 14:00:20');
+INSERT INTO `oauth_access_tokens` VALUES ('f450c8bc7277de19e3ec39a525199ccdef38ed354ee9da81a6883923e96cfb86916c3f4757310a7d', 2, 9, 'MyApp', '[]', 0, '2020-02-28 09:41:26', '2020-02-28 09:41:26', '2021-02-28 09:41:26');
 INSERT INTO `oauth_access_tokens` VALUES ('f4cf186493094c0baa9ea5b4d3f149de3de2961b7963272064e540537dfe7d98db76601e6345af07', 2, 1, 'MyApp', '[]', 0, '2019-07-14 20:28:06', '2019-07-14 20:28:06', '2020-07-14 20:28:06');
 INSERT INTO `oauth_access_tokens` VALUES ('f5e2b2f0195eb9946ada086c63c04d82b8e94d3015d4594f0b19659ef043f8966699c000faab1bd0', 2, 1, 'MyApp', '[]', 0, '2019-05-10 08:23:58', '2019-05-10 08:23:58', '2020-05-10 08:23:58');
 INSERT INTO `oauth_access_tokens` VALUES ('f66ca15e94fd11f4fa3b5e497355be704e3ba4a7b7bed055d0d543fea64fbcd3e16f51bf90090567', 2, 1, 'MyApp', '[]', 0, '2019-04-23 13:36:16', '2019-04-23 13:36:16', '2020-04-23 13:36:16');

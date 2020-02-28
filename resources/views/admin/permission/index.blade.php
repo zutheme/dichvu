@@ -25,8 +25,10 @@
 			<div align="right">
 				<a class="btn btn-default btn-primary" href="{{ route('admin.permission.create') }}">Thêm mới</a>
 			</div>
-	        <div class="table-responsive m-t-40">
-	            <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+	        {{-- <div class="table-responsive m-t-40">
+	            <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%"> --}}
+	          <div class="x_content">
+	           <table id="datatable" class="table table-striped table-bordered">
 	                <thead>
 	                    <tr>
 	                        <th>Tên quyền</th>

@@ -32,8 +32,10 @@ echo $_namecattype; ?>
 			<div align="right">
 				<a class="btn btn-default btn-primary" href="{{ url('/admin/category/createby/'.$_namecattype)}}">Thêm mới</a>
 			</div>
-	        <div class="table-responsive m-t-40">
-	            <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+	       {{--  <div class="table-responsive m-t-40"> --}}
+	            {{-- <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%"> --}}
+	        <div class="x_content">
+	           <table id="datatable" class="table table-striped table-bordered">
 	                <thead>
 	                    <tr>
 	                        <th>Tên chuyên mục</th>
