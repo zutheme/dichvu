@@ -816,3 +816,6 @@ table.dataTable.nowrap th, table.dataTable.nowrap td {
     position: relative;
     padding-left:15px;
 }
+.catebyidcatetype ul.list-check {
+    list-style: none;
+}

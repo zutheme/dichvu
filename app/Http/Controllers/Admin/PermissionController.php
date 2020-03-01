@@ -63,19 +63,19 @@ class PermissionController extends Controller
         $input = $request->all();
         $name = $request->get('name');
         $description = $request->get('description');
-        $idpermcommand = $request->get('idpermcommand');
-        $_path = $request->get('path');          
+        $idpermcommand = $request->get('idpermcommand');         
         $message = "";
         $idcategory = 0;  
         try {
             $iduserimp = Auth::id();
+            //$idcategory = $request->input('list_check');
             $l_idcategory = $request->input('list_check');
             if($l_idcategory){
                 foreach ($l_idcategory as $_idcategory) {
                    $idcategory = $_idcategory;
                 } 
             }
-            $qr_permission = DB::select('call AddPermissionProcedure(?,?,?,?)',array($name, $description, $idpermcommand, $idcategory, $_path));
+            $qr_permission = DB::select('call AddPermissionProcedure(?,?,?,?)',array($name, $description, $idpermcommand, $idcategory));
             $rs_permission = json_decode(json_encode($qr_permission), true);
             $result = $name.','.$idpermcommand.','.$idcategory.','.$iduserimp;
         } catch (\Illuminate\Database\QueryException $ex) {

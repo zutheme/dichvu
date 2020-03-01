@@ -19,7 +19,7 @@ function select_category_by_idcatetype(select_idcattype){
   var _csrf_token = document.getElementsByName("csrf-token")[0].getAttribute("content");
   var http = new XMLHttpRequest();
   var host = window.location.hostname;
-  var url = url_home+"/admin/menuhascate/bytype/"+select_idcattype;
+  var url = url_home+"/admin/menuhascate/bytypeperm/"+select_idcattype;
   //console.log(url);
   //var params = JSON.stringify({"sel_idcategory":select_idcat});
   http.open("POST", url, true);
@@ -44,43 +44,4 @@ function select_category_by_idcatetype(select_idcattype){
 function isRealValue(obj){
   return obj && obj !== 'null' && obj !== 'undefined';
 }
-//add category to menu
-//make call ajax
-function makeAjaxCall(idmenu, obj, callback){
-   var _csrf_token = document.getElementsByName("csrf-token")[0].getAttribute("content");
-   var xhr = new XMLHttpRequest();
-   var url = url_home + "/admin/menu/additem/"+idmenu;
-   xhr.open("POST", url, true);
-   xhr.setRequestHeader("X-CSRF-TOKEN", _csrf_token);
-   xhr.setRequestHeader("Accept", "application/json");
-   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-   var params = JSON.stringify(obj);
-   xhr.send(params);
-   xhr.onreadystatechange = function(){
-     if (xhr.readyState === 4){
-        if (xhr.status === 200){
-           console.log("xhr done successfully");
-           var resp = xhr.responseText;
-           var respJson = JSON.parse(resp);
-           callback(respJson);
-        } else {
-           console.log("xhr failed");
-        }
-     } else {
-        console.log("xhr processing going on");
-     }
-   }
-   console.log("request sent succesfully");
-}
-
-function processUserDetailsResponse(userData){
-  _data = userData.idmenuhascate;
-  console.log(_data);
-  return _data;
-} 
-//end make call
-function errorHandler(statusCode){
- console.log("failed with status", status);
-}
-
 

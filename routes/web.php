@@ -409,31 +409,21 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('admin/menuhascate/bytype/{_namecattype}', 'Admin\MenuHasCateController@catebytype');
 	Route::post('admin/menuhascate/bytype/{_namecattype}', 'Admin\MenuHasCateController@catebytype');
 
+	Route::get('admin/menuhascate/bytypeperm/{_namecattype}','Admin\MenuHasCateController@catepermissionbytype');
+	Route::post('admin/menuhascate/bytypeperm/{_namecattype}', 'Admin\MenuHasCateController@catepermissionbytype');
+
 	Route::get('admin/menuhascate/trash/{_idmenuhascate}','Admin\MenuHasCateController@trashidmenucate');
 	Route::post('admin/menuhascate/trash/{_idmenuhascate}','Admin\MenuHasCateController@trashidmenucate');
 
 	Route::resource('admin/menuhascate' , 'Admin\MenuHasCateController', array('as'=>'admin') );
 
 
-
-
-
-
-
 	Route::get('admin/svpost/makepost', 'Admin\SvPostController@makepost');
-
-
 
 	Route::post('admin/svpost/makepost', 'Admin\SvPostController@makepost');
 
 
-
 	Route::resource('admin/svpost' , 'Admin\SvPostController', array('as'=>'admin') );
-
-
-
-
-
 
 
 	Route::resource('admin/svposttype' , 'Admin\SvPostTypeController', array('as'=>'admin') );

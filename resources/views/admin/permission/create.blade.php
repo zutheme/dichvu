@@ -2,7 +2,7 @@
 @section('other_styles')
     <!-- Custom Theme Style -->
     <link href="{{ asset('dashboard/build/css/custom.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('dashboard/production/css/custom.css?v=0.1.2') }}" rel="stylesheet">  
+    <link href="{{ asset('dashboard/production/css/custom.css?v=0.1.3') }}" rel="stylesheet">  
 @stop
 @section('content')
 <div class="row">
@@ -77,5 +77,5 @@
 {{-- <script src="{{ asset('dashboard/build/js/custom.min.js') }}"></script> --}}
     <script src="{{ asset('dashboard/build/js/custom.js') }}"></script>
     <script src="{{ asset('dashboard/production/js/custom.js?v=0.0.2') }}"></script>
-    <script src="{{ asset('dashboard/production/js/select-typecate.js?v=0.0.0.3') }}"></script>
+    <script src="{{ asset('dashboard/production/js/select-typecate.js?v=0.0.0.5') }}"></script>
 @stop

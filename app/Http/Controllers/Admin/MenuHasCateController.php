@@ -234,4 +234,36 @@ class MenuHasCateController extends Controller {
             $this->main_menu .= '</ul>';
         }
     }
+     //show sub category
+    public function catepermissionbytype($_idcatetype) {
+        $qr_catebytype = DB::select('call ListAllCateByIdcatetype(?)',array($_idcatetype));
+        $categories = json_decode(json_encode($qr_catebytype), true);
+        $this->showCatePermission($categories,0);
+        $result =  $this->main_menu;
+        return response()->json(array('success' => true, 'result' => $result), 200);
+    }
+    public function showCatePermission($categories, $idparent = 0){
+        $cate_child = array();
+        foreach ($categories as $key => $item) {
+            if ($item['idparent'] == $idparent){
+                $cate_child[] = $item;
+                unset($categories[$key]);
+            }
+        }
+        $list_cat="";     
+        if($cate_child) {
+            $checked='';
+            $this->main_menu .= '<ul class="list-check">';
+            foreach ($cate_child as $key => $item){
+                $this->main_menu .= '<li><input class="array-parent" type="hidden" value="'.$idparent.'">';
+                // if(in_array($item['idcategory'], $_cate_selected)){
+                //      $checked='checked';
+                // }
+                $this->main_menu .= '<input name="list_check[]" class="array-check" type="radio" value="'.$item['idcategory'].'"><label>'.$item['namecat'].'</label>';
+                $this->showCatePermission($categories, $item['idcategory']);
+                $this->main_menu .= '</li>';
+            }
+            $this->main_menu .= '</ul>';
+        }
+    }
 }
