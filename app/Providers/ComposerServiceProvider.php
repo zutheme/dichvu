@@ -42,7 +42,9 @@ class ComposerServiceProvider extends ServiceProvider
             $qr_menu = DB::select('call ListItemCateByIdMenuProcedure(?)',array($idmenu));
             $rs_menu = json_decode(json_encode($qr_menu), true);
             //category by name
-            $str_dashboard = $this->ListAllCateByTypeId('dashboard', 0);
+            //$str_dashboard = $this->ListAllCateByTypeId('dashboard', 0);
+            $_iduser = Auth::id();
+            $str_dashboard = $this->ListAllCateByTypeId($_iduser,'select','dashboard',0);
             $view->with(compact('stores','catbytypes','profile','iduser','rs_cat_product','rs_menu','str_dashboard'));
         });
     }
@@ -56,9 +58,11 @@ class ComposerServiceProvider extends ServiceProvider
     {
         //
     }
-   
-    public function ListAllCateByTypeId($_cattype='product', $_idcat=0) {
-        $result = DB::select('call ListCatPermissionByTypeProcedure(?)',array($_cattype));
+  
+   //public function ListAllCateByTypeId($_cattype='product', $_idcat=0)
+    public function ListAllCateByTypeId( $_iduser,$_command,$_catnametype,$result) {
+        $result = DB::select('call ListCatPermDashboardByTypeProcedure(?,?,?,?)',array($_iduser,$_command,$_catnametype,$result));
+        //$result = DB::select('call ListCatPermissionByTypeProcedure(?)',array($_catnametype));
         $categories = json_decode(json_encode($result), true);
         $this->showCategories($categories, 0, 0);   
         $str_html = $this->main_menu;

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Role;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\DB;
 use Validator;
 use Illuminate\Support\MessageBag;
@@ -17,7 +19,12 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = role::all()->toArray();
+        //$roles = role::all()->toArray();
+        $_iduser = Auth::id();
+        $result = 0;
+        $qr_roles = DB::select('call ListCatPermDashboardByTypeProcedure(?,?,?,?)',array($_iduser,'select','dashboard',$result));
+        //$qr_roles = DB::select('call ListRolePermissionProcedure(?)',array($_iduser));
+        $roles = json_decode(json_encode($qr_roles), true);
         return view('admin.roles.index',compact('roles'));
     }
 

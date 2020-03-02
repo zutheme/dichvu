@@ -3,15 +3,15 @@
 
  Source Server         : localhost_3306
  Source Server Type    : MySQL
- Source Server Version : 100133
+ Source Server Version : 100136
  Source Host           : localhost:3306
- Source Schema         : db_dichvu
+ Source Schema         : dbdichvu
 
  Target Server Type    : MySQL
- Target Server Version : 100133
+ Target Server Version : 100136
  File Encoding         : 65001
 
- Date: 02/03/2020 17:47:43
+ Date: 02/03/2020 22:52:00
 */
 
 SET NAMES utf8mb4;
@@ -1269,6 +1269,7 @@ INSERT INTO `oauth_access_tokens` VALUES ('7a51de89b0c493cc9438b947765146767fec2
 INSERT INTO `oauth_access_tokens` VALUES ('7b89253aaad512dbbdb1c716ee1540274f6315215561a46f8c09651b6df750d31b6ff83f182a41f9', 2, 5, 'MyApp', '[]', 0, '2019-09-12 08:31:57', '2019-09-12 08:31:57', '2020-09-12 08:31:57');
 INSERT INTO `oauth_access_tokens` VALUES ('7b9982592a0313da930390fcad1015b7351edf510915e3cad09dcc41e73bde7b4d19f4b59ca78bdb', 2, 1, 'MyApp', '[]', 0, '2019-06-25 16:14:09', '2019-06-25 16:14:09', '2020-06-25 16:14:09');
 INSERT INTO `oauth_access_tokens` VALUES ('7d88adeac7bcb9c2af82229d4c4763b4e3859fb434f7a7d30851fe751ab917a2987229b085325550', 2, 1, 'MyApp', '[]', 0, '2019-07-08 14:41:34', '2019-07-08 14:41:34', '2020-07-08 14:41:34');
+INSERT INTO `oauth_access_tokens` VALUES ('7e6323773adbba3ca5d66e94488ab9637f9cb31ff4ce6fe7e0c0ad2344b60979f1597bad2ae36e7a', 2, 9, 'MyApp', '[]', 0, '2020-03-02 19:20:58', '2020-03-02 19:20:58', '2021-03-02 19:20:58');
 INSERT INTO `oauth_access_tokens` VALUES ('7f0d3e0dde161325a88968a0e6ac03fb4c212d9af85e7592ffc34e969882c07f2b03b478aaacb368', 15, 1, 'MyApp', '[]', 0, '2019-05-10 13:58:35', '2019-05-10 13:58:35', '2020-05-10 13:58:35');
 INSERT INTO `oauth_access_tokens` VALUES ('7faa06fded3cefd3b20590ea56819dc8e4771aa129fa6d33be232fd852a86727d32ee2340dab36bf', 2, 5, 'MyApp', '[]', 0, '2019-09-13 14:11:21', '2019-09-13 14:11:21', '2020-09-13 14:11:21');
 INSERT INTO `oauth_access_tokens` VALUES ('7fcc41c3c7e0b7e18b4a805e319c20ebd160c2be6f5903b830de4e92d063afa2099ff72190be6ebb', 2, 9, 'MyApp', '[]', 0, '2020-02-03 10:56:54', '2020-02-03 10:56:54', '2021-02-03 10:56:54');
@@ -2963,6 +2964,36 @@ BEGIN
 delimiter ;
 
 -- ----------------------------
+-- Procedure structure for ListCatPermDashboardByTypeProcedure
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `ListCatPermDashboardByTypeProcedure`;
+delimiter ;;
+CREATE PROCEDURE `ListCatPermDashboardByTypeProcedure`(IN `_iduser` int,IN `_command` varchar(255),IN `_catnametype` varchar(255),IN `result` bit)
+sp:BEGIN
+	set @_idrole = (SELECT idrole FROM `grants` WHERE to_iduser= _iduser limit 1);
+	if @_idrole is NULL THEN
+		BEGIN
+			set result = 0;
+			LEAVE sp;
+		END;
+	 ELSE
+		BEGIN
+		set @_idcommand = (SELECT idpercommand from perm_commands WHERE command = _command);
+		if @_idcommand IS NULL THEN 
+			BEGIN
+			set result = 0;
+			LEAVE sp;
+			END;
+		END IF;
+		set @_idcatetype = (SELECT idcattype FROM category_types WHERE catnametype = _catnametype);
+		SELECT cat1.*, CASE WHEN cat2.idparent > 0 THEN 1 ELSE 0 END haschild from (select c.* from ( select DISTINCT perm.idcategory from (SELECT idrole FROM `grants` WHERE to_iduser= _iduser) as tbl_role LEFT JOIN imp_perms as imp on imp.idrole = tbl_role.idrole LEFT JOIN permissions as perm on imp.idperm = perm.idperm LEFT JOIN perm_commands as pcom on pcom.idpercommand = perm.idpermcommand WHERE pcom.idpercommand = @_idcommand) as cateperm LEFT JOIN categories as c on c.idcategory = cateperm.idcategory WHERE c.idcattype = @_idcatetype) as cat1 LEFT JOIN (select DISTINCT c.idparent from ( select DISTINCT perm.idcategory from (SELECT idrole FROM `grants` WHERE to_iduser= _iduser) as tbl_role LEFT JOIN imp_perms as imp on imp.idrole = tbl_role.idrole LEFT JOIN permissions as perm on imp.idperm = perm.idperm LEFT JOIN perm_commands as pcom on pcom.idpercommand = perm.idpermcommand WHERE pcom.idpercommand = @_idcommand) as cateperm LEFT JOIN categories as c on c.idcategory = cateperm.idcategory WHERE c.idcattype = @_idcatetype) as cat2 on cat1.idcategory = cat2.idparent;
+		END;
+	END if;
+END
+;;
+delimiter ;
+
+-- ----------------------------
 -- Procedure structure for ListCatPermissionByTypeProcedure
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `ListCatPermissionByTypeProcedure`;
@@ -2973,13 +3004,14 @@ BEGIN
         SET _idcattype = (SELECT idcattype FROM category_types WHERE catnametype = _namecatetype);
         IF _idcattype > 0 THEN
         BEGIN
-           SELECT cat4.*, CASE WHEN cat3.idcategory > 0 THEN 1 ELSE 0 END haschild from (SELECT * FROM categories  WHERE idcattype = _idcattype) as cat4 LEFT JOIN (SELECT DISTINCT cat1.idcategory from (SELECT idcategory, idparent FROM categories  WHERE idcattype = _idcattype) as cat1 JOIN (SELECT idcategory, idparent FROM categories WHERE idcattype = _idcattype and idparent > 0 ) as cat2 on cat2.idparent = cat1.idcategory) as cat3 on cat4.idcategory = cat3.idcategory;
+           SELECT cat4.*, CASE WHEN cat3.idparent > 0 THEN 1 ELSE 0 END haschild from (SELECT * FROM categories  WHERE idcattype = _idcattype) as cat4 LEFT JOIN (SELECT DISTINCT idparent from categories WHERE idcattype =_idcattype) as cat3 on cat4.idcategory = cat3.idparent;
         END; 
         ELSE
         BEGIN
            SELECT c.* FROM categories as c;    
         END;
         END IF;
+				/*SELECT cat4.*, CASE WHEN cat3.idcategory > 0 THEN 1 ELSE 0 END haschild from (SELECT * FROM categories  WHERE idcattype = _idcattype) as cat4 LEFT JOIN (SELECT DISTINCT cat1.idcategory from (SELECT idcategory, idparent FROM categories  WHERE idcattype = _idcattype) as cat1 JOIN (SELECT idcategory, idparent FROM categories WHERE idcattype = _idcattype and idparent > 0 ) as cat2 on cat2.idparent = cat1.idcategory) as cat3 on cat4.idcategory = cat3.idcategory;*/
 END
 ;;
 delimiter ;
@@ -3371,6 +3403,28 @@ BEGIN
 delimiter ;
 
 -- ----------------------------
+-- Procedure structure for ListRolePermissionProcedure
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `ListRolePermissionProcedure`;
+delimiter ;;
+CREATE PROCEDURE `ListRolePermissionProcedure`(IN `_iduser` int)
+sp:BEGIN
+	set @_idrole = (SELECT idrole FROM `grants` WHERE to_iduser= _iduser limit 1);
+	if @_idrole is NULL THEN
+		BEGIN
+			#set result = 0;
+			LEAVE sp;
+		END;
+	 ELSE
+		BEGIN
+			SELECT * from roles;
+		END;
+	END if;
+END
+;;
+delimiter ;
+
+-- ----------------------------
 -- Procedure structure for ListRolesProcedure
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `ListRolesProcedure`;
@@ -3720,7 +3774,7 @@ sp:BEGIN
 			END;
 		END IF;
 		set @_idcatetype = (SELECT idcattype FROM category_types WHERE catnametype = _catnametype);
-		select cat3.* from ( select DISTINCT cat1.idcategory from (select cateperm.*, c.idparent from (select DISTINCT perm.idcategory from (SELECT idrole FROM `grants` WHERE to_iduser= _iduser) as tbl_role LEFT JOIN imp_perms as imp on imp.idrole = tbl_role.idrole LEFT JOIN permissions as perm on imp.idperm = perm.idperm LEFT JOIN perm_commands as pcom on pcom.idpercommand = perm.idpermcommand WHERE pcom.idpercommand = @_idcommand) as cateperm LEFT JOIN categories as c on c.idcategory = cateperm.idcategory WHERE c.idcattype = @_idcatetype) as cat1 LEFT JOIN (select cateperm.*,c.idparent from (select DISTINCT perm.idcategory from (SELECT idrole FROM `grants` WHERE to_iduser= _iduser) as tbl_role LEFT JOIN imp_perms as imp on imp.idrole = tbl_role.idrole LEFT JOIN permissions as perm on imp.idperm = perm.idperm LEFT JOIN perm_commands as pcom on pcom.idpercommand = perm.idpermcommand WHERE pcom.idpercommand = @_idcommand) as cateperm LEFT JOIN categories as c on c.idcategory = cateperm.idcategory WHERE c.idcattype = @_idcatetype) as cat2 on cat2.idparent = cat1.idcategory) as cat3;
+		SELECT cat1.*, CASE WHEN cat2.idparent > 0 THEN 1 ELSE 0 END haschild from (select c.* from ( select DISTINCT perm.idcategory from (SELECT idrole FROM `grants` WHERE to_iduser= _iduser) as tbl_role LEFT JOIN imp_perms as imp on imp.idrole = tbl_role.idrole LEFT JOIN permissions as perm on imp.idperm = perm.idperm LEFT JOIN perm_commands as pcom on pcom.idpercommand = perm.idpermcommand WHERE pcom.idpercommand = @_idcommand) as cateperm LEFT JOIN categories as c on c.idcategory = cateperm.idcategory WHERE c.idcattype = @_idcatetype) as cat1 LEFT JOIN (select DISTINCT c.idparent from ( select DISTINCT perm.idcategory from (SELECT idrole FROM `grants` WHERE to_iduser= _iduser) as tbl_role LEFT JOIN imp_perms as imp on imp.idrole = tbl_role.idrole LEFT JOIN permissions as perm on imp.idperm = perm.idperm LEFT JOIN perm_commands as pcom on pcom.idpercommand = perm.idpermcommand WHERE pcom.idpercommand = @_idcommand) as cateperm LEFT JOIN categories as c on c.idcategory = cateperm.idcategory WHERE c.idcattype = @_idcatetype) as cat2 on cat1.idcategory = cat2.idparent;
 		END;
 	END if;
 END
@@ -4537,7 +4591,6 @@ sp:BEGIN
 		END;
 	END if;
 END
-;
 ;;
 delimiter ;
 
