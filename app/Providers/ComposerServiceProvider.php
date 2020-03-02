@@ -64,12 +64,10 @@ class ComposerServiceProvider extends ServiceProvider
         $str_html = $this->main_menu;
         return $str_html; 
     }
-    public function showCategories($categories, $idparent = 0, $level = 0)
-    {
+    public function showCategories($categories, $idparent = 0, $level = 0){
         $cate_child = array();
         foreach ($categories as $key => $item){
-            if ($item['idparent'] == $idparent)
-            {
+            if ($item['idparent'] == $idparent){
                 $cate_child[] = $item;
                 unset($categories[$key]);
             }
