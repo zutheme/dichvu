@@ -61,9 +61,9 @@ class ComposerServiceProvider extends ServiceProvider
   
    //public function ListAllCateByTypeId($_cattype='product', $_idcat=0)
     public function ListAllCateByTypeId( $_iduser,$_command,$_catnametype,$result) {
-        $result = DB::select('call ListCatPermDashboardByTypeProcedure(?,?,?,?)',array($_iduser,$_command,$_catnametype,$result));
+        $qr_cate = DB::select('call ListCatPermDashboardByTypeProcedure(?,?,?)',array($_iduser , $_command, $_catnametype));
         //$result = DB::select('call ListCatPermissionByTypeProcedure(?)',array($_catnametype));
-        $categories = json_decode(json_encode($result), true);
+        $categories = json_decode(json_encode($qr_cate), true);
         $this->showCategories($categories, 0, 0);   
         $str_html = $this->main_menu;
         return $str_html; 

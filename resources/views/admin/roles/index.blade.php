@@ -19,6 +19,9 @@
 	<div class="card">
 	    <div class="card-body">
 	        <h4 class="card-title">Thông tin đăng ký</h4>
+	        @if($_curent_url)
+	        	<h6 class="card-subtitle">{{ $_curent_url }}</h6>
+	        @endif
 	        @if($message = Session::get('success'))
 	        	<h6 class="card-subtitle">{{ $message }}</h6>
 			@endif

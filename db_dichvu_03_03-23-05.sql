@@ -3,15 +3,15 @@
 
  Source Server         : localhost_3306
  Source Server Type    : MySQL
- Source Server Version : 100133
+ Source Server Version : 100136
  Source Host           : localhost:3306
- Source Schema         : db_dichvu
+ Source Schema         : dbdichvu
 
  Target Server Type    : MySQL
- Target Server Version : 100133
+ Target Server Version : 100136
  File Encoding         : 65001
 
- Date: 03/03/2020 17:50:32
+ Date: 03/03/2020 23:05:59
 */
 
 SET NAMES utf8mb4;
@@ -1254,6 +1254,7 @@ INSERT INTO `oauth_access_tokens` VALUES ('6e98729a0c4e1e54fce7a96777dc287817a54
 INSERT INTO `oauth_access_tokens` VALUES ('6ed887714edb952c96143b8c9d33e5c545e960e24be63dcc78be6b34ed18636033e0cd11c88deda5', 2, 1, 'MyApp', '[]', 0, '2019-06-17 22:40:16', '2019-06-17 22:40:16', '2020-06-17 22:40:16');
 INSERT INTO `oauth_access_tokens` VALUES ('6f83e3687c1daaa2049f6832e39f265f2b2e59789cd56b93826e9acdcaee2e0fa9bb8b384e681c9b', 2, 1, 'MyApp', '[]', 0, '2019-07-14 19:26:08', '2019-07-14 19:26:08', '2020-07-14 19:26:08');
 INSERT INTO `oauth_access_tokens` VALUES ('70843493499233c9b9beb3fe5f86261922fa2a51e9aebee813646cca0f394540d2f14ce0826417c3', 2, 9, 'MyApp', '[]', 0, '2020-01-31 14:11:56', '2020-01-31 14:11:56', '2021-01-31 14:11:56');
+INSERT INTO `oauth_access_tokens` VALUES ('7202309429ef48890b9f55208d84479aa6cb484e663da8836f0a4cf28add2d6732c737ff5d62bd4a', 2, 9, 'MyApp', '[]', 0, '2020-03-03 21:30:16', '2020-03-03 21:30:16', '2021-03-03 21:30:16');
 INSERT INTO `oauth_access_tokens` VALUES ('724a3a57298275991328f300077a559155fa445f52fe0b6b018131702870446c3034d8ae86e1aedc', 2, 1, 'MyApp', '[]', 0, '2019-06-04 14:18:40', '2019-06-04 14:18:40', '2020-06-04 14:18:40');
 INSERT INTO `oauth_access_tokens` VALUES ('731868eada1e734c46875d5f8cd9aa7dc9ce09d010a319c3120d8e0db5b8574c7e6c199ae4b28c1c', 2, 1, 'MyApp', '[]', 0, '2019-06-06 08:19:55', '2019-06-06 08:19:55', '2020-06-06 08:19:55');
 INSERT INTO `oauth_access_tokens` VALUES ('737a7e77bd8fd489f65d343a4fdf6e0f274b709c2f543196fef2bce4bd3daf54dfa581e7dfbbe6f8', 15, 1, 'MyApp', '[]', 0, '2019-05-08 22:13:47', '2019-05-08 22:13:47', '2020-05-08 22:13:47');
@@ -2969,33 +2970,33 @@ delimiter ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `ListCatPermDashboardByTypeProcedure`;
 delimiter ;;
-CREATE PROCEDURE `ListCatPermDashboardByTypeProcedure`(IN `_iduser` int,IN `_command` varchar(255),IN `_catnametype` varchar(255),IN `_curent_url` VARCHAR(255),OUT `result` bit)
+CREATE PROCEDURE `ListCatPermDashboardByTypeProcedure`(IN `_iduser` int,IN `_command` varchar(255),IN `_catnametype` varchar(255))
 sp:BEGIN
 	set @_idrole = (SELECT idrole FROM `grants` WHERE to_iduser= _iduser limit 1);
 	if @_idrole is NULL THEN
 		BEGIN
-			set result = 0;
+			select 0 as allow;
 			LEAVE sp;
 		END;
-	 ELSE
-		BEGIN
+	end if;
+		if _command is NULL or _command='' THEN 
+			SET _command='select';
+		END IF; 
 		set @_idcommand = (SELECT idpercommand from perm_commands WHERE command = _command);
 		if @_idcommand IS NULL THEN 
 			BEGIN
-			set result = 0;
+			select 0 as allow;
 			LEAVE sp;
 			END;
 		END IF;
-		SET @_idcategory = (SELECT idcategory from categories WHERE pathroute = _curent_url);
-		if @_idcategory is NULL THEN
+		set @_idcattype = (SELECT idcattype from category_types WHERE catnametype = _catnametype);
+		if @_idcattype is NULL then
 			BEGIN
-				set result = 0;
-				LEAVE sp;
+			select 0 as allow;
+			LEAVE sp;
 			END;
-		END IF;
-		/* SELECT cat1.*, CASE WHEN cat2.idparent > 0 THEN 1 ELSE 0 END haschild from (select c.* from (select DISTINCT perm.idcategory from (SELECT idrole FROM `grants` WHERE to_iduser= _iduser) as tbl_role LEFT JOIN imp_perms as imp on imp.idrole = tbl_role.idrole LEFT JOIN permissions as perm on imp.idperm = perm.idperm LEFT JOIN perm_commands as pcom on pcom.idpercommand = perm.idpermcommand WHERE pcom.idpercommand = @_idcommand) as cateperm LEFT JOIN categories as c on c.idcategory = cateperm.idcategory WHERE c.idcattype = @_idcatetype) as cat1 LEFT JOIN (select DISTINCT c.idparent from ( select DISTINCT perm.idcategory from (SELECT idrole FROM `grants` WHERE to_iduser= _iduser) as tbl_role LEFT JOIN imp_perms as imp on imp.idrole = tbl_role.idrole LEFT JOIN permissions as perm on imp.idperm = perm.idperm LEFT JOIN perm_commands as pcom on pcom.idpercommand = perm.idpermcommand WHERE pcom.idpercommand = @_idcommand) as cateperm LEFT JOIN categories as c on c.idcategory = cateperm.idcategory WHERE c.idcattype = @_idcatetype) as cat2 on cat1.idcategory = cat2.idparent;*/
-		END;
-	END if;
+		END if;
+		select cat2.*,CASE WHEN cat3.idparent > 0 THEN 1 ELSE 0 END haschild from (select cat1.*, c.idcattype, c.namecat, c.pathroute, c.idparent from (SELECT imp.idperm, imp.idrole, imp.iduserimp,perm.`name`, perm.description, perm.idpermcommand, perm.idcategory from (SELECT idrole FROM `grants` WHERE to_iduser= _iduser) as tbrole LEFT JOIN imp_perms as imp on imp.idrole = tbrole.idrole LEFT JOIN permissions as perm on imp.idperm = perm.idperm WHERE perm.idpermcommand = @_idcommand) as cat1 LEFT JOIN categories as c on c.idcategory = cat1.idcategory) as cat2 LEFT JOIN (select DISTINCT c.idparent from (SELECT perm.idcategory from (SELECT idrole FROM `grants` WHERE to_iduser= 2) as tbrole LEFT JOIN imp_perms as imp on imp.idrole = tbrole.idrole LEFT JOIN permissions as perm on imp.idperm = perm.idperm WHERE perm.idpermcommand = 1) as cat1 LEFT JOIN categories as c on c.idcategory = cat1.idcategory) as cat3 on cat2.idcategory = cat3.idparent WHERE cat2.idcattype = @_idcattype;
 END
 ;;
 delimiter ;
@@ -3414,12 +3415,13 @@ delimiter ;
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `ListRolePermissionProcedure`;
 delimiter ;;
-CREATE PROCEDURE `ListRolePermissionProcedure`(IN `_iduser` int)
+CREATE PROCEDURE `ListRolePermissionProcedure`(IN `_iduser` int, IN `_command` varchar(255),IN `_catnametype` varchar(255),IN `_curent_url` VARCHAR(255))
 sp:BEGIN
-	set @_idrole = (SELECT idrole FROM `grants` WHERE to_iduser= _iduser limit 1);
-	if @_idrole is NULL THEN
+DECLARE allow int(2) DEFAULT 0;
+	set allow = 0;
+	CALL UserPermDashByCateProcedure ( _iduser, _command, _catnametype, _curent_url, allow );
+	if allow = 0 THEN 
 		BEGIN
-			#set result = 0;
 			LEAVE sp;
 		END;
 	 ELSE
@@ -3428,7 +3430,6 @@ sp:BEGIN
 		END;
 	END if;
 END
-;
 ;;
 delimiter ;
 
@@ -4530,6 +4531,95 @@ CREATE PROCEDURE `UploadAvatarProcedure`(IN `_idprofile` INT, IN `_url_avatar` V
 BEGIN
                 update `profile` set url_avatar = _url_avatar where idprofile=_idprofile;
             END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Procedure structure for UserPermDashboardByTypeProcedure
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `UserPermDashboardByTypeProcedure`;
+delimiter ;;
+CREATE PROCEDURE `UserPermDashboardByTypeProcedure`(IN `_iduser` int,IN `_command` varchar(255),IN `_catnametype` varchar(255),IN `_curent_url` VARCHAR(255),OUT `result` bit)
+sp:BEGIN
+	set @_idrole = (SELECT idrole FROM `grants` WHERE to_iduser= _iduser limit 1);
+	if @_idrole is NULL THEN
+		BEGIN
+			set result = 0;
+			LEAVE sp;
+		END;
+	 ELSE
+		BEGIN
+		set @_idcommand = (SELECT idpercommand from perm_commands WHERE command = _command);
+		if @_idcommand IS NULL THEN 
+			BEGIN
+			set result = 0;
+			LEAVE sp;
+			END;
+		END IF;
+		SET @_idcategory = (SELECT idcategory from categories WHERE pathroute = _curent_url);
+		if @_idcategory is NULL THEN
+			BEGIN
+				set result = 0;
+				LEAVE sp;
+			END;
+		ELSE
+			 BEGIN
+					if EXISTS (SELECT imp.idperm, imp.idrole, imp.iduserimp,perm.`name`, perm.description, perm.idpermcommand, perm.idcategory from (SELECT idrole FROM `grants` WHERE to_iduser= _iduser) as tbrole LEFT JOIN imp_perms as imp on imp.idrole = tbrole.idrole LEFT JOIN permissions as perm on imp.idperm = perm.idperm WHERE perm.idpermcommand = @_idcommand AND perm.idcategory = @_idcategory) THEN
+					set result = 1;
+					ELSE
+						set result = 0;
+					end if;
+			 END;
+		END IF;
+		END;
+	END if;
+END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Procedure structure for UserPermDashByCateProcedure
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `UserPermDashByCateProcedure`;
+delimiter ;;
+CREATE PROCEDURE `UserPermDashByCateProcedure`(IN `_iduser` int,IN `_command` varchar(255),IN `_catnametype` varchar(255),IN `_curent_url` VARCHAR(255),OUT `result` int)
+sp:BEGIN
+	set @_idrole = (SELECT idrole FROM `grants` WHERE to_iduser= _iduser limit 1);
+	if @_idrole is NULL THEN
+		BEGIN
+			set result = 0;
+			LEAVE sp;
+		END;
+	 ELSE
+		BEGIN
+		if _command is NULL or _command='' THEN 
+			SET _command='select';
+		END IF;
+		set @_idcommand = (SELECT idpercommand from perm_commands WHERE command = _command);
+		if @_idcommand IS NULL THEN 
+			BEGIN
+			set result = 0;
+			LEAVE sp;
+			END;
+		END IF;
+		SET @_idcategory = (SELECT idcategory from categories WHERE pathroute = _curent_url);
+		if @_idcategory is NULL THEN
+			BEGIN
+				set result = 0;
+				LEAVE sp;
+			END;
+		ELSE
+			 BEGIN
+					if EXISTS (SELECT imp.idperm, imp.idrole, imp.iduserimp,perm.`name`, perm.description, perm.idpermcommand, perm.idcategory from (SELECT idrole FROM `grants` WHERE to_iduser= _iduser) as tbrole LEFT JOIN imp_perms as imp on imp.idrole = tbrole.idrole LEFT JOIN permissions as perm on imp.idperm = perm.idperm WHERE perm.idpermcommand = @_idcommand AND perm.idcategory = @_idcategory) THEN
+					set result = 1;
+					ELSE
+						set result = 0;
+					end if;
+			 END;
+		END IF;
+		END;
+	END if;
+END
 ;;
 delimiter ;
 

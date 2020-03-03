@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\DB;
 use Validator;
 use Illuminate\Support\MessageBag;
+use Illuminate\Routing\UrlGenerator;
 class RoleController extends Controller
 {
     /**
@@ -17,15 +18,21 @@ class RoleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //$roles = role::all()->toArray();
         $_iduser = Auth::id();
-        $result = 0;
-        $qr_roles = DB::select('call ListCatPermDashboardByTypeProcedure(?,?,?,?)',array($_iduser,'select','dashboard',$result));
-        //$qr_roles = DB::select('call ListRolePermissionProcedure(?)',array($_iduser));
+        $host = $request->getHttpHost();
+        $_curent_url = url()->current();
+        $url1 = \Request::segment(1);
+        $url2 = \Request::segment(2);
+        if($url2){
+            $url2 = '/'.$url2;
+        }
+        $_curent_url = $url1.$url2;
+        $qr_roles = DB::select('call ListRolePermissionProcedure(?,?,?,?)',array($_iduser, 'select' ,'dashboard' , $_curent_url));
         $roles = json_decode(json_encode($qr_roles), true);
-        return view('admin.roles.index',compact('roles'));
+        return view('admin.roles.index',compact('roles','_curent_url'));
     }
 
     /**
