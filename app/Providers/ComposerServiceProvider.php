@@ -19,34 +19,14 @@ class ComposerServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    private $main_menu = '';
+    //private $main_menu = '';
     public function boot()
     {
-        //View::composer(['admin.dashboard','dashboard'], function ($view) {
-        View::composer(array('teamilk.master','teamilk.product.show','teamilk.product.index','teamilk.account.profile','teamilk.addcart.check-out','teamilk.menu-master','admin.dashboard','admin.topnav','admin.sidebar'), function ($view) {
-            //$_namecattype="website";
-            //$rs_catbytype = DB::select('call ListAllCatByTypeProcedure(?)',array($_namecattype));
-            //$catbytypes = json_decode(json_encode($rs_catbytype), true);
-            $iduser = Auth::id();
-            $qr_select_profile = DB::select('call SelectProfileProcedure(?)',array($iduser));
-            $profile = json_decode(json_encode($qr_select_profile), true);
-            //list store
-            // $_namecattype = "store";
-            // $qr_store = DB::select('call ListAllCatByTypeProcedure(?)',array($_namecattype));
-            // $stores = json_decode(json_encode($qr_store), true);
-            //$_cattype = "product";
-            // $qr_cat_product = DB::select('call ListAllCatByTypeProcedure(?)',array('product'));
-            // $rs_cat_product = json_decode(json_encode($qr_cat_product), true);
-            //menu
+        View::composer(array('teamilk.master'), function ($view) {
             $idmenu = 1;
             $qr_menu = DB::select('call ListItemCateByIdMenuProcedure(?)',array($idmenu));
-            $rs_menu = json_decode(json_encode($qr_menu), true);
-            //category by name
-            //$str_dashboard = $this->ListAllCateByTypeId('dashboard', 0);
-            $_iduser = Auth::id();
-            $str_dashboard = $this->ListAllCateByTypeId($_iduser,'select','dashboard',0);
-            $view->with(compact('profile','iduser','rs_menu','str_dashboard'));
-            //$view->with(compact('stores','catbytypes','profile','iduser','rs_cat_product','rs_menu','str_dashboard'));
+            $rs_menu = json_decode(json_encode($qr_menu), true); 
+            $view->with(compact('rs_menu'));
         });
     }
 
@@ -55,50 +35,9 @@ class ComposerServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
-    {
+    public function register(){
         //
     }
   
-   //public function ListAllCateByTypeId($_cattype='product', $_idcat=0)
-    public function ListAllCateByTypeId( $_iduser,$_command,$_catnametype,$result) {
-        $qr_cate = DB::select('call ListCatPermDashboardByTypeProcedure(?,?,?)',array($_iduser , $_command, $_catnametype));
-        //$result = DB::select('call ListCatPermissionByTypeProcedure(?)',array($_catnametype));
-        $categories = json_decode(json_encode($qr_cate), true);
-        $this->showCategories($categories, 0, 0);   
-        $str_html = $this->main_menu;
-        return $str_html; 
-    }
-    public function showCategories($categories, $idparent = 0, $level = 0){
-        $cate_child = array();
-        foreach ($categories as $key => $item){
-            if ($item['idparent'] == $idparent){
-                $cate_child[] = $item;
-                unset($categories[$key]);
-            }
-        }
-        $list_cat="";       
-        if ($cate_child){
-            if($level == 0 ){
-             $this->main_menu = '<div class="menu_section"><ul class="nav side-menu depth-'.$level.'">';
-            }else{
-                $this->main_menu .= '<ul class="nav child_menu depth-'.$level.'">';
-            }
-            foreach ($cate_child as $key => $item){    
-               $route = "#";
-               if(isset($item['pathroute'])&&$item['haschild'] < 1){
-                    $route = $item['pathroute'];
-                }
-                $this->main_menu .= '<li><a href="'.asset($route).'">'.$item['namecat'].'</a>';
-                $this->showCategories($categories, $item['idcategory'], $level+1);
-                $this->main_menu .= '</li>';
-            }
-            if($level == 0){
-                $this->main_menu .= '</ul></div>';
-            }else{
-                $this->main_menu .= '</ul>';
-            }
-            
-        }
-    }
+   
 }

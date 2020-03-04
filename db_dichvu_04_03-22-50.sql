@@ -3,15 +3,15 @@
 
  Source Server         : localhost_3306
  Source Server Type    : MySQL
- Source Server Version : 100133
+ Source Server Version : 100136
  Source Host           : localhost:3306
- Source Schema         : db_dichvu
+ Source Schema         : dbdichvu
 
  Target Server Type    : MySQL
- Target Server Version : 100133
+ Target Server Version : 100136
  File Encoding         : 65001
 
- Date: 04/03/2020 17:45:30
+ Date: 04/03/2020 22:50:52
 */
 
 SET NAMES utf8mb4;
@@ -1357,6 +1357,7 @@ INSERT INTO `oauth_access_tokens` VALUES ('b90668e6b1c11d5495d63289a12d3a82e0e4b
 INSERT INTO `oauth_access_tokens` VALUES ('b9d2f38ce6f67e2fc94907bd3382f20b84e79fa3050a4e9614aa329ea6d6599fa39a7811ab942bca', 18, 1, 'MyApp', '[]', 0, '2019-05-20 10:10:42', '2019-05-20 10:10:42', '2020-05-20 10:10:42');
 INSERT INTO `oauth_access_tokens` VALUES ('ba863d122de17d4aaf1ba38733c0da9cf955f1fc3301376fc516fec0bc043e7646fffea88845eba3', 23, 1, 'MyApp', '[]', 0, '2019-08-02 08:48:46', '2019-08-02 08:48:46', '2020-08-02 08:48:46');
 INSERT INTO `oauth_access_tokens` VALUES ('bb4f29906f22c4a681daa5ab02ac0dd7169f7c2478fa29ee3055b3c7849e361d3372d26ee01fa851', 15, 1, 'MyApp', '[]', 0, '2019-05-10 13:59:50', '2019-05-10 13:59:50', '2020-05-10 13:59:50');
+INSERT INTO `oauth_access_tokens` VALUES ('bbb3670139a2aaef2c2df06c1afe5cde68f3cfb8cf0d5c3c4e3606231c315c3bc30e063c053dc988', 2, 9, 'MyApp', '[]', 0, '2020-03-04 20:50:32', '2020-03-04 20:50:32', '2021-03-04 20:50:32');
 INSERT INTO `oauth_access_tokens` VALUES ('bbf2251bfb71cd902e1bde4451ad73633be162d6715a6b0aeab1197c371250c15992f79a12d42e97', 2, 9, 'MyApp', '[]', 0, '2020-01-26 10:42:45', '2020-01-26 10:42:45', '2021-01-26 10:42:45');
 INSERT INTO `oauth_access_tokens` VALUES ('bc770cf7927b373b75211a1c39489e6147cc4d9dabf35e708ff7c5a0bc8382e322992a739a4c3b67', 2, 1, 'MyApp', '[]', 0, '2019-04-24 14:44:39', '2019-04-24 14:44:39', '2020-04-24 14:44:39');
 INSERT INTO `oauth_access_tokens` VALUES ('bcbed5ab3f6e097d6ad36bf6703f098f4954617ea8ca4946f4e9092267041d24430038e4f2bcc131', 2, 1, 'MyApp', '[]', 0, '2019-02-27 10:14:16', '2019-02-27 10:14:16', '2020-02-27 10:14:16');
@@ -1421,6 +1422,7 @@ INSERT INTO `oauth_access_tokens` VALUES ('e796b9947fd8bdf963fef371bc1f708fdb4ff
 INSERT INTO `oauth_access_tokens` VALUES ('ea941ba89a58f6f69ffbfb65dbe8102486e5aee43526e3cc9ecc54db4dcfe71fb8db3d52882594de', 2, 1, 'MyApp', '[]', 0, '2019-02-28 08:53:52', '2019-02-28 08:53:52', '2020-02-28 08:53:52');
 INSERT INTO `oauth_access_tokens` VALUES ('eb199816de787761c0fd652f6de4ec75f903776d07c6b194692d121e399de87f979af0f20380331c', 18, 1, 'MyApp', '[]', 0, '2019-08-01 08:30:20', '2019-08-01 08:30:20', '2020-08-01 08:30:20');
 INSERT INTO `oauth_access_tokens` VALUES ('eb3a64432aa2a5bb7edf3cc7410b2df171a0052aeacdbfba84be21987e96b29d99de55a44a702cd5', 2, 9, 'MyApp', '[]', 0, '2020-02-09 14:29:52', '2020-02-09 14:29:52', '2021-02-09 14:29:52');
+INSERT INTO `oauth_access_tokens` VALUES ('ebd04747bb251c9ec534f5870414c0711377c875a47855bd69440b7813a80b1ada26b58259036035', 2, 9, 'MyApp', '[]', 0, '2020-03-04 21:38:12', '2020-03-04 21:38:12', '2021-03-04 21:38:12');
 INSERT INTO `oauth_access_tokens` VALUES ('ec900d3d79ea229f630aec2aed91b68d07adedb5696c67b9be3312ec21c57b4d2952723e7dd7aafa', 2, 1, 'MyApp', '[]', 0, '2019-06-25 16:24:42', '2019-06-25 16:24:42', '2020-06-25 16:24:42');
 INSERT INTO `oauth_access_tokens` VALUES ('edd8592520c0805f08f3f4cb50be68a5dc7341d4061acdaada73e547da129b06e5553c1211d2051f', 2, 1, 'MyApp', '[]', 0, '2019-03-02 08:09:02', '2019-03-02 08:09:02', '2020-03-02 08:09:02');
 INSERT INTO `oauth_access_tokens` VALUES ('ee516afb3890478cad4d40604f06275ec5afdb0b7e2c3cb4d10b33e892e4a734d93d5a1415e1c818', 29, 1, 'MyApp', '[]', 0, '2019-08-01 17:51:07', '2019-08-01 17:51:07', '2020-08-01 17:51:07');
@@ -2254,7 +2256,7 @@ CREATE TABLE `users`  (
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES (2, 'admin', 'admin@mgkgroup.vn', NULL, '$2y$10$3Ds/XEHqtDG4jZpGUBdIPOQYy/9SgRsXb4pKD2B5eiU5SkeZBYWDG', 'DhCxikyKBTflCjmc1dKXhsXTlvmclqgVz5EWoHbmAGTxV9Id4V6wO6Lwefwd', '2019-02-27 10:14:15', '2019-06-27 15:31:50');
+INSERT INTO `users` VALUES (2, 'admin', 'admin@mgkgroup.vn', NULL, '$2y$10$3Ds/XEHqtDG4jZpGUBdIPOQYy/9SgRsXb4pKD2B5eiU5SkeZBYWDG', 'LIzcbJgAlAv7s2AruNWYOPLJ0I7PXkEGFdXt4ya4HnX5cK5WQRUdAdV0KsQN', '2019-02-27 10:14:15', '2019-06-27 15:31:50');
 INSERT INTO `users` VALUES (15, 'cskh1@mgkgroup.vn', 'cskh1@mgkgroup.vn', NULL, '$2y$10$QQCa0HdnBDnIbXmac1q3euNSAhSnCp9.75tzydSfab4Cpa88zEKoi', 'QhcnYmV641mrg4G6mWf2d3Et2ohEPbjyJXBpoZyL2Ha0lbEkN6QGnWZ9bsdf', '2019-05-08 22:13:47', '2019-08-01 16:39:29');
 INSERT INTO `users` VALUES (16, 'letan01dn', 'letan01dn@mgkgroup.vn', NULL, '$2y$10$GPgP6YIMxSp5S0pUj8MDmu97gE0Co4UIWKjNH3eLaYG7KBtdc7wV6', 'eOcQTpyMQvUYbC894ZGvSxivsDCMYr7xF35mqagEGtuommze8DZHJncb5wNQ', '2019-05-17 09:36:04', '2019-05-17 09:36:04');
 INSERT INTO `users` VALUES (17, 'letan01bd', 'letan01bd@mgkgroup.vn', NULL, '$2y$10$KH39/RhVD6ai0St8ZW0b6O9PGz5C0E1.l2F1lzfJVqNf5nO/dyCz6', NULL, '2019-05-17 09:36:49', '2019-05-17 09:36:49');
@@ -3428,15 +3430,23 @@ DECLARE allow int(2) DEFAULT 0;
 	CALL UserPermDashByCateProcedure ( _iduser, _command, _catnametype, _curent_url, allow );
 	if allow = 0 THEN 
 		BEGIN
+			SELECT 0 as allow;
 			LEAVE sp;
 		END;
 	 ELSE
 		BEGIN
-			SELECT * from roles;
+			if _command = 'select' then
+				begin
+					SELECT *,1 as allow  from roles;
+				end;
+			ELSEIF _command = 'create' then
+				begin
+					select 1 as allow;
+				end;
+			end if;
 		END;
 	END if;
 END
-;
 ;;
 delimiter ;
 

@@ -1,17 +1,4 @@
-<?php //foreach($profile as $row) {
-        //$idprofile = $row["idprofile"];
-        //$firstname = $row["firstname"];
-        //$lastname = $row['lastname'];
-        //$middlename = $row['middlename'];
-        //$sel_sex = $row['sex'];
-        //$birthday = $row['birthday'];
-        //$address = $row['address'];
-        //$mobile = $row['mobile'];
-        //$url_avatar = $row['url_avatar'];
-        //echo "<script> var birthday='".$birthday."'</script>";
-     //}
-     //$url_avartar_sex = ($sel_sex == 0) ? 'dashboard/production/images/avatar/avatar-female.jpg' : 'dashboard/production/images/avatar/avatar-male.jpg';
-     //$url_avatar = (strlen($url_avatar) > 0) ? $url_avatar : $url_avartar_sex; ?>
+
 <div class="top_nav">
 
           <div class="nav_menu">
@@ -64,7 +51,7 @@
 
                     @if (Auth::check()) 
 
-                      <li><a href="{{ url('/logout') }}"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li> 
+                      <li><a href="{{ url('admin/logout') }}"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li> 
 
                     @endif
 

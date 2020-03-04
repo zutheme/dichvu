@@ -41,15 +41,16 @@ class LoginController extends Controller
         Auth::logout();
         return redirect('/');
     }
-    public function logoutadmin(){
-        Auth::logout();
-        return redirect('/admin');
-    }
-
+    
     public function getLogin()
     {
         if (Auth::check()) {
-            $user = Auth::user(); 
+            $user = Auth::user();
+            $iduser = Auth::id(); 
+            //profile
+            $qr_select_profile = DB::select('call SelectProfileProcedure(?)',array($iduser));
+            $profile = json_encode($qr_select_profile);
+            session()->put('profile', $profile); 
             return redirect()->route('teamilk.home')->with('success',$user->name);
         } else {
             return view('teamilk.login');

@@ -40,7 +40,9 @@
             </div>
 
             <div class="clearfix"></div>
-            <?php if(isset($profile)) {
+            <?php $str_profile = session()->get('profile'); 
+              $profile = json_decode($str_profile, true); 
+              if(isset($profile)) {
               $sel_sex = 0;
               $url_avatar = "";
               foreach($profile as $row) {

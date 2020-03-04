@@ -85,8 +85,9 @@
 {{-- <body class="c-layout-header-fixed c-layout-header-mobile-fixed c-layout-header-fullscreen"> --}}
 
 <body class="c-layout-header-fixed c-layout-header-mobile-fixed c-layout-header-topbar c-layout-header-topbar-collapse">
-
-  <?php if(isset($profile)) {
+  <?php $str_profile = session()->get('profile'); 
+        $profile = json_decode($str_profile, true); 
+        if(isset($profile)) {
 
       $sel_sex = 0;
 

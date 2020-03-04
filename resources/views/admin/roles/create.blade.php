@@ -8,6 +8,15 @@
 <div class="row">
 	<div class="col-sm-6">
 		<h2>Thêm mới</h2>
+		@if(isset($_command))
+			{{ $_command }}
+		@endif
+		@if(isset($_curent_url))
+			{{ $_curent_url }}
+		@endif
+		@if (isset($result))
+			{{ $result }}
+		@endif
 		@if(count($errors) > 0)
 		<div class="alert alert-danger">
 			<ul>

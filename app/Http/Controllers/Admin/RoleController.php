@@ -22,17 +22,18 @@ class RoleController extends Controller
     {
         //$roles = role::all()->toArray();
         $_iduser = Auth::id();
-        $host = $request->getHttpHost();
-        $_curent_url = url()->current();
-        $url1 = \Request::segment(1);
-        $url2 = \Request::segment(2);
-        if($url2){
-            $url2 = '/'.$url2;
-        }
-        $_curent_url = $url1.$url2;
-        $qr_roles = DB::select('call ListRolePermissionProcedure(?,?,?,?)',array($_iduser, 'select' ,'dashboard' , $_curent_url));
+        $arr = $this->curent_url();
+        $_command = $arr['command'];
+        $_curent_url = $arr['url'];
+        $qr_roles = DB::select('call ListRolePermissionProcedure(?,?,?,?)',array($_iduser, $_command ,'dashboard' , $_curent_url));
         $roles = json_decode(json_encode($qr_roles), true);
-        return view('admin.roles.index',compact('roles','_curent_url'));
+        $allow = $roles[0]['allow'];
+        if($allow > 0 ){
+            return view('admin.roles.index',compact('roles','_curent_url'));
+        }else{
+            return view('admin.welcome.disable');
+            //return redirect()->route('admin.welcome.disable')->with('disable');
+        }  
     }
 
     /**
@@ -42,7 +43,19 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return view('admin.roles.create');
+        $_iduser = Auth::id();
+        $arr = $this->curent_url();
+        $_command = $arr['command'];
+        $_curent_url = $arr['url'];
+        $qr_roles = DB::select('call ListRolePermissionProcedure(?,?,?,?)',array($_iduser, $_command ,'dashboard' , $_curent_url));
+        $roles = json_decode(json_encode($qr_roles), true);
+        $allow = $roles[0]['allow'];
+        if($allow > 0 ){
+            return view('admin.roles.create',compact('_command','_curent_url','result'));
+        }else{
+            return view('admin.welcome.disable');
+            //return redirect()->route('admin.welcome.disable')->with('disable');
+        }  
     }
 
     /**
@@ -122,5 +135,23 @@ class RoleController extends Controller
         $role = role::find($idrole);
         $role->delete();
         return redirect()->route('admin.roles.index')->with('success','record have deleted');
+    }
+    public function curent_url()
+    {
+        //$host = $request->getHttpHost();
+        //$_curent_url = url()->current();
+        $_command = "select";
+        $url1 = \Request::segment(1);
+        $url2 = \Request::segment(2);
+        $url3 = \Request::segment(3);
+        if($url2){
+            $url2 = '/'.$url2;
+        }
+        if($url3){
+            $_command = $url3;
+            $url3 = '/'.$url3;
+        }
+        $result = array('url'=>$url1.$url2.$url3,'command'=>$_command);
+        return $result;
     }
 }

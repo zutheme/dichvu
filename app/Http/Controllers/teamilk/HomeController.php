@@ -43,6 +43,7 @@ class HomeController extends Controller
 
             $qr_popular = DB::select('call RelateProductProcedure');
             $popular = json_decode(json_encode($qr_popular), true);
+
             return view('teamilk.home',compact('popular','rs_LstProCombo','rs_promotion','teamilks1','teamilks2'));
         } catch (\Illuminate\Database\QueryException $ex) {
             $errors = new MessageBag(['error' => $ex->getMessage()]);

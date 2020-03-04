@@ -18,16 +18,24 @@ Route::get('/deletesession', function () {
 });
 
 Route::get('/testdata', function () {
-       $qr_permissions = DB::select('call PermissionByidProcedure(?)',array(2));
+       //$qr_permissions = DB::select('call PermissionByidProcedure(?)',array(2));
        //$array = objectToArray($qr_permissions);
         //$rs_permissions = json_decode(json_encode($qr_permissions), true);
-		$permissions = new stdClass();
-		foreach ($qr_permissions as $item) {
-			foreach ($item as $key => $value) {
-				$permissions->$key = $value;
-			}
-		}
-		echo $permissions->name.",".$permissions->description;
+		// $permissions = new stdClass();
+		// foreach ($qr_permissions as $item) {
+		// 	foreach ($item as $key => $value) {
+		// 		$permissions->$key = $value;
+		// 	}
+		// }
+		// echo $permissions->name.",".$permissions->description;
+		// $idmenu = 1;
+  //       $qr_menu = DB::select('call ListItemCateByIdMenuProcedure(?)',array($idmenu));
+  //       $str_menu = json_encode($qr_menu); 
+  //       //$rs_menu = json_decode(json_encode($qr_menu), true); 
+  //       session()->put('test-menu', $str_menu);
+  //       $str_session = session()->get('test-menu');
+  //       $rs_menu = json_decode($str_session, true); 
+        //var_dump($rs_menu);
 });
 
 Route::get('/showsession', function () {
@@ -78,25 +86,13 @@ Route::any('/', array( 'as' => 'teamilk', 'uses' => 'teamilk\HomeController@home
 
 
 
-Route::get('/admin', function () {
 
-	if (Auth::check()) {
-	    $user = Auth::user();  
-	    //return redirect()->route('admin.adsvcustomer.index')->with('success',$user->name);
-	    return view('admin.welcome.loginsuccess');
-	} else {
-		//return route('login');
-	    return redirect('admin/login');
-	}
 
-});
-
+Route::get('/admin', ['uses' =>'Admin\LoginController@CheckLogin', 'as'=>'admin']);
+Route::post('/admin', ['uses' =>'Admin\LoginController@CheckLogin', 'as'=>'admin']);
 
 
 Route::get('admin/login', ['uses' =>'Admin\LoginController@getLogin', 'as'=>'admin']);
-
-
-
 Route::post('admin/login', ['uses' =>'Admin\LoginController@getLogin', 'as'=>'admin']);
 
 Route::get('admin/logout', ['uses' =>'Admin\LoginController@logout', 'as'=>'admin']);
