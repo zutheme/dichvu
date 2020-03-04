@@ -41,6 +41,11 @@ class LoginController extends Controller
         Auth::logout();
         return redirect('/');
     }
+    public function logoutadmin(){
+        Auth::logout();
+        return redirect('/admin');
+    }
+
     public function getLogin()
     {
         if (Auth::check()) {

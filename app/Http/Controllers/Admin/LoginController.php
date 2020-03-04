@@ -18,7 +18,8 @@ class LoginController extends Controller
     {
         if (Auth::check()) {
             $user = Auth::user(); 
-            return redirect()->route('admin.adsvcustomer.index')->with('success',$user->name);
+            //return view('admin.welcome.loginsuccess');
+            return redirect()->route('admin.welcome.loginsuccess')->with('success',$user->name);
         } else {
             return view('admin.login');
         }
@@ -45,7 +46,8 @@ class LoginController extends Controller
            $user = Auth::user(); 
            $success['token'] =  $user->createToken('MyApp')->accessToken;
            //return redirect()->intended('dashboard');
-           return redirect()->route('admin.adsvcustomer.index')->with('success',$user->name);
+           return view('admin.welcome.loginsuccess');
+           //return redirect()->route('admin.welcome.loginsuccess')->with('success',$user->name);
         } else {
           $errors = new MessageBag(['errorlogin' => 'Email hoặc mật khẩu không đúng']);
           return redirect()->back()->withInput()->withErrors($errors);

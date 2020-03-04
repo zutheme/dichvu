@@ -81,19 +81,12 @@ Route::any('/', array( 'as' => 'teamilk', 'uses' => 'teamilk\HomeController@home
 Route::get('/admin', function () {
 
 	if (Auth::check()) {
-
 	    $user = Auth::user();  
-
-	    return redirect()->route('admin.adsvcustomer.index')->with('success',$user->name);
-
-	    //return view('admin.post.index');
-
+	    //return redirect()->route('admin.adsvcustomer.index')->with('success',$user->name);
+	    return view('admin.welcome.loginsuccess');
 	} else {
-
 		//return route('login');
-
 	    return redirect('admin/login');
-
 	}
 
 });
@@ -106,7 +99,7 @@ Route::get('admin/login', ['uses' =>'Admin\LoginController@getLogin', 'as'=>'adm
 
 Route::post('admin/login', ['uses' =>'Admin\LoginController@getLogin', 'as'=>'admin']);
 
-
+Route::get('admin/logout', ['uses' =>'Admin\LoginController@logout', 'as'=>'admin']);
 
 //postlogin
 
