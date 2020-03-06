@@ -63,7 +63,7 @@
                   $idward = $row['idward'];
                }
                $url_avartar_sex = ($sel_sex == 0) ? 'dashboard/production/images/avatar/avatar-female.jpg' : 'dashboard/production/images/avatar/avatar-male.jpg';
-               $url_avatar = (strlen($url_avatar) > 0) ? $url_avatar : $url_avartar_sex; 
+               $url_avatar = (strlen($url_avatar) > 0) ? $url_avatar : $url_avartar_sex;
              } ?>
 
             <!-- menu profile quick info -->
