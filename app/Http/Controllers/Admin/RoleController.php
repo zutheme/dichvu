@@ -21,15 +21,10 @@ class RoleController extends Controller
     public function index(Request $request)
     {
         //$roles = role::all()->toArray();
-        $_iduser = Auth::id();
-        $arr = $this->curent_url();
-        $_command = $arr['command'];
-        $_curent_url = $arr['url'];
-        $qr_roles = DB::select('call ListRolePermissionProcedure(?,?,?,?)',array($_iduser, $_command ,'dashboard' , $_curent_url));
-        $roles = json_decode(json_encode($qr_roles), true);
+        $roles = $this->CheckPermission();
         $allow = $roles[0]['allow'];
         if($allow > 0 ){
-            return view('admin.roles.index',compact('roles','_curent_url'));
+            return view('admin.roles.index',compact('roles'));
         }else{
             return view('admin.welcome.disable');
             //return redirect()->route('admin.welcome.disable')->with('disable');
@@ -43,15 +38,10 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $_iduser = Auth::id();
-        $arr = $this->curent_url();
-        $_command = $arr['command'];
-        $_curent_url = $arr['url'];
-        $qr_roles = DB::select('call ListRolePermissionProcedure(?,?,?,?)',array($_iduser, $_command ,'dashboard' , $_curent_url));
-        $roles = json_decode(json_encode($qr_roles), true);
+        $roles = $this->CheckPermission();
         $allow = $roles[0]['allow'];
         if($allow > 0 ){
-            return view('admin.roles.create',compact('_command','_curent_url','result'));
+            return view('admin.roles.create');
         }else{
             return view('admin.welcome.disable');
             //return redirect()->route('admin.welcome.disable')->with('disable');
@@ -153,5 +143,14 @@ class RoleController extends Controller
         }
         $result = array('url'=>$url1.$url2.$url3,'command'=>$_command);
         return $result;
+    }
+    public function CheckPermission(){
+        $_iduser = Auth::id();
+        $arr = $this->curent_url();
+        $_command = $arr['command'];
+        $_curent_url = $arr['url'];
+        $qr_roles = DB::select('call ListRolePermissionProcedure(?,?,?,?)',array($_iduser, $_command ,'dashboard' , $_curent_url));
+        $roles = json_decode(json_encode($qr_roles), true);
+        return $roles;
     }
 }

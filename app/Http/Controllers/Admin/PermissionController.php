@@ -215,4 +215,31 @@ class PermissionController extends Controller
             $this->main_menu .= '</ul>';
         }
     }
+    public function curent_url()
+    {
+        //$host = $request->getHttpHost();
+        //$_curent_url = url()->current();
+        $_command = "select";
+        $url1 = \Request::segment(1);
+        $url2 = \Request::segment(2);
+        $url3 = \Request::segment(3);
+        if($url2){
+            $url2 = '/'.$url2;
+        }
+        if($url3){
+            $_command = $url3;
+            $url3 = '/'.$url3;
+        }
+        $result = array('url'=>$url1.$url2.$url3,'command'=>$_command);
+        return $result;
+    }
+    public function CheckPermission(){
+        $_iduser = Auth::id();
+        $arr = $this->curent_url();
+        $_command = $arr['command'];
+        $_curent_url = $arr['url'];
+        $qr_perm_commands = DB::select('call ListPermissionCommands(?,?,?,?)',array($_iduser, $_command ,'dashboard' , $_curent_url));
+        $perm_commands = json_decode(json_encode($qr_perm_commands), true);
+        return $perm_commands;
+    }
 }

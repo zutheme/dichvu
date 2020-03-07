@@ -382,62 +382,26 @@ Route::group(['middleware' => 'auth'], function() {
 
 	Route::get('admin/menu/hasidcate/{_idmenu}', 'Admin\MenuController@menuhasidcate');
 	Route::post('admin/menu/hasidcate/{_idmenu}', 'Admin\MenuController@menuhasidcate');
-
 	Route::resource('admin/menu' , 'Admin\MenuController', array('as'=>'admin') );
-
 	Route::resource('admin/perm_command' , 'Admin\perm_commandContronler', array('as'=>'admin') );
-
 	Route::get('admin/menu/additem/{_idmenu}', 'Admin\MenuHasCateController@AddMenuItem');
-
-
-
 	Route::post('admin/menu/additem/{_idmenu}', 'Admin\MenuHasCateController@AddMenuItem');
-
-
-
 	Route::get('admin/menuhascate/bytype/{_namecattype}', 'Admin\MenuHasCateController@catebytype');
 	Route::post('admin/menuhascate/bytype/{_namecattype}', 'Admin\MenuHasCateController@catebytype');
-
 	Route::get('admin/menuhascate/bytypeperm/{_namecattype}','Admin\MenuHasCateController@catepermissionbytype');
 	Route::post('admin/menuhascate/bytypeperm/{_namecattype}', 'Admin\MenuHasCateController@catepermissionbytype');
-
 	Route::get('admin/menuhascate/trash/{_idmenuhascate}','Admin\MenuHasCateController@trashidmenucate');
 	Route::post('admin/menuhascate/trash/{_idmenuhascate}','Admin\MenuHasCateController@trashidmenucate');
-
 	Route::resource('admin/menuhascate' , 'Admin\MenuHasCateController', array('as'=>'admin') );
-
-
 	Route::get('admin/svpost/makepost', 'Admin\SvPostController@makepost');
-
 	Route::post('admin/svpost/makepost', 'Admin\SvPostController@makepost');
-
-
 	Route::resource('admin/svpost' , 'Admin\SvPostController', array('as'=>'admin') );
 
-
 	Route::resource('admin/svposttype' , 'Admin\SvPostTypeController', array('as'=>'admin') );
-
-
-
-
-
-
-
 	//customer register
-
-
-
 	Route::get('admin/customerreg/interactive', 'Admin\CustomerRegController@make_interactive');
 
-
-
 	Route::post('admin/customerreg/interactive', 'Admin\CustomerRegController@make_interactive');
-
-
-
-
-
-
 
 	Route::get('admin/customerreg/interactivecustomer', ['uses' =>'Admin\CustomerRegController@interactive_customer', 'as'=>'admin']);
 

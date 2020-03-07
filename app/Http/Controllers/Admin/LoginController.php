@@ -24,6 +24,7 @@ class LoginController extends Controller
            session()->put('profile', $profile);
           //$str_session = session()->get('sidebar-admin');
           return view('admin.welcome.loginsuccess');
+           //return redirect()->route('admin.welcome.loginsuccess')->with('success',$user->name);
       } else {
         //return route('login');
           return redirect('admin/login');
@@ -37,13 +38,14 @@ class LoginController extends Controller
     {
         if (Auth::check()) {
             $user = Auth::user(); 
-            //return view('admin.welcome.loginsuccess');
-            return redirect()->route('admin.welcome.loginsuccess')->with('success',$user->name);
+            return view('admin.welcome.loginsuccess');
+            //return redirect()->route('admin.welcome.loginsuccess')->with('success',$user->name);
         } else {
             return view('admin.login');
         }
 
     }
+    
     public function postLogin(Request $request) {
       $rules = [
         'email' =>'required|email',
