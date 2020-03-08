@@ -32,6 +32,7 @@ class LoginController extends Controller
     }
     public function logout(){
         Auth::logout();
+        
         return redirect('admin/login');
     }
     public function getLogin()
@@ -64,9 +65,15 @@ class LoginController extends Controller
         $email = $request->input('email');
         $password = $request->input('password');
         if( Auth::attempt(['email' => $email, 'password' =>$password])) {
-           $user = Auth::user(); 
+           $user = Auth::user();
+           $iduser = Auth::id(); 
            $success['token'] =  $user->createToken('MyApp')->accessToken;
-           //return redirect()->intended('dashboard');
+           $str_dashboard = $this->ListAllCateByTypeId($iduser,'select','dashboard',0);
+           session()->put('sidebar-admin', $str_dashboard);
+           //profile
+           $qr_select_profile = DB::select('call SelectProfileProcedure(?)',array($iduser));
+           $profile = json_encode($qr_select_profile);
+           session()->put('profile', $profile);
            return view('admin.welcome.loginsuccess');
            //return redirect()->route('admin.welcome.loginsuccess')->with('success',$user->name);
         } else {

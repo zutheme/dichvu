@@ -28,11 +28,17 @@ class PermissionController extends Controller
     private $main_menu='';
     public function index()
     {
-        $qr_permission = DB::select('call ListPermissionProcedure()',array());
-        $permissions = json_decode(json_encode($qr_permission), true);
-        $qr_role = DB::select('call ListRolesProcedure()',array());
-        $roles = json_decode(json_encode($qr_role), true);
-        return view('admin.permission.index',compact('permissions','roles'));
+        $permissions = $this->CheckPermission();
+        $allow = $permissions[0]['allow'];
+        if($allow > 0 ){
+             return view('admin.permission.index',compact('permissions'));
+        }else{
+            return view('admin.welcome.disable');
+            //return redirect()->route('admin.welcome.disable')->with('disable');
+        } 
+        //$qr_permission = DB::select('call ListPermissionProcedure()',array());
+        //$permissions = json_decode(json_encode($qr_permission), true);
+        //return view('admin.permission.index',compact('permissions'));
     }
 
     /**
@@ -42,9 +48,18 @@ class PermissionController extends Controller
      */
     public function create()
     {   
-        $categorytypes = CategoryType::all()->toArray();
-        $perm_commands = perm_command::all()->toArray();
-        return view('admin.permission.create',compact('perm_commands','categorytypes','posttypes'));
+        $permissions = $this->CheckPermission();
+        $allow = $permissions[0]['allow'];
+        if($allow > 0 ){
+            $categorytypes = CategoryType::all()->toArray();
+            $perm_commands = perm_command::all()->toArray();
+            return view('admin.permission.create',compact('perm_commands','categorytypes','posttypes'));
+             //return view('admin.permission.index',compact('permissions'));
+        }else{
+            return view('admin.welcome.disable');
+            //return redirect()->route('admin.welcome.disable')->with('disable');
+        } 
+        
     }
 
     /**
@@ -217,7 +232,6 @@ class PermissionController extends Controller
     }
     public function curent_url()
     {
-        //$host = $request->getHttpHost();
         //$_curent_url = url()->current();
         $_command = "select";
         $url1 = \Request::segment(1);
@@ -238,8 +252,8 @@ class PermissionController extends Controller
         $arr = $this->curent_url();
         $_command = $arr['command'];
         $_curent_url = $arr['url'];
-        $qr_perm_commands = DB::select('call ListPermissionCommands(?,?,?,?)',array($_iduser, $_command ,'dashboard' , $_curent_url));
-        $perm_commands = json_decode(json_encode($qr_perm_commands), true);
-        return $perm_commands;
+        $qr_permission = DB::select('call ListEnablePermission(?,?,?,?)',array($_iduser, $_command ,'dashboard' , $_curent_url));
+        $permissions = json_decode(json_encode($qr_permission), true);
+        return $permissions;
     }
 }
