@@ -19,9 +19,16 @@ class ImpPermController extends Controller
      */
     public function index()
     {
-        $result = DB::select('call ListImppermProcedure()');
-        $impperms = json_decode(json_encode($result), true);
-        return view('admin.impperm.index',compact('impperms'));
+        // $result = DB::select('call ListImppermProcedure()');
+        // $impperms = json_decode(json_encode($result), true);
+        // return view('admin.impperm.index',compact('impperms'));
+        $impperms = $this->CheckPermission();
+        $allow = $impperms[0]['allow'];
+        if($allow > 0 ){
+             return view('admin.impperm.index',compact('impperms'));
+        }else{
+            return view('admin.welcome.disable');
+        }   
     }
 
     /**
@@ -29,11 +36,17 @@ class ImpPermController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        $permissions = Permission::all()->toArray();
-        $roles = Role::all()->toArray();
-        return view('admin.impperm.create',compact('permissions','roles'));
+    public function create(){
+        $impperms = $this->CheckPermission();
+        $allow = $impperms[0]['allow'];
+        if($allow > 0 ){
+             //return view('admin.impperm.index',compact('impperms'));
+            $permissions = Permission::all()->toArray();
+            $roles = Role::all()->toArray();
+            return view('admin.impperm.create',compact('permissions','roles'));
+        }else{
+            return view('admin.welcome.disable');
+        }   
     }
 
     /**
@@ -120,5 +133,31 @@ class ImpPermController extends Controller
         $impperm = ImpPerm::find($id_impperm);
         $impperm->delete();
         return redirect()->route('admin.impperm.index')->with('success','record have deleted');
+    }
+    public function curent_url()
+    {
+        //$_curent_url = url()->current();
+        $_command = "select";
+        $url1 = \Request::segment(1);
+        $url2 = \Request::segment(2);
+        $url3 = \Request::segment(3);
+        if($url2){
+            $url2 = '/'.$url2;
+        }
+        if($url3){
+            $_command = $url3;
+            $url3 = '/'.$url3;
+        }
+        $result = array('url'=>$url1.$url2.$url3,'command'=>$_command);
+        return $result;
+    }
+    public function CheckPermission(){
+        $_iduser = Auth::id();
+        $arr = $this->curent_url();
+        $_command = $arr['command'];
+        $_curent_url = $arr['url'];
+        $qr_permission = DB::select('call GrantPermissionRoleProcedure(?,?,?,?)',array($_iduser, $_command ,'dashboard' , $_curent_url));
+        $permissions = json_decode(json_encode($qr_permission), true);
+        return $permissions;
     }
 }

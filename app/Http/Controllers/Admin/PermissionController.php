@@ -54,7 +54,6 @@ class PermissionController extends Controller
             $categorytypes = CategoryType::all()->toArray();
             $perm_commands = perm_command::all()->toArray();
             return view('admin.permission.create',compact('perm_commands','categorytypes','posttypes'));
-             //return view('admin.permission.index',compact('permissions'));
         }else{
             return view('admin.welcome.disable');
             //return redirect()->route('admin.welcome.disable')->with('disable');

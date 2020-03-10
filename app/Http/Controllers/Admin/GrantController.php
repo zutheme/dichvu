@@ -10,18 +10,23 @@ use App\Grant;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Auth;
-class GrantController extends Controller
-{
+class GrantController extends Controller{
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $result = DB::select('call ListgrantProcedure()');
-        $grantperms = json_decode(json_encode($result), true);
-        return view('admin.grantperm.index',compact('grantperms'));
+    public function index(){
+        // $result = DB::select('call ListgrantProcedure()');
+        // $grantperms = json_decode(json_encode($result), true);
+        // return view('admin.grantperm.index',compact('grantperms'));
+        $grantperms = $this->CheckPermission();
+        $allow = $grantperms[0]['allow'];
+        if($allow > 0 ){
+             return view('admin.grantperm.index',compact('grantperms'));
+        }else{
+            return view('admin.welcome.disable');
+        } 
     }
 
     /**
@@ -29,11 +34,17 @@ class GrantController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        $roles = Role::all()->toArray();
-        $users = user::all()->toArray();
-        return view('admin.grantperm.create',compact('roles','users'));
+    public function create(){
+        $grantperms = $this->CheckPermission();
+        $allow = $grantperms[0]['allow'];
+        if($allow > 0 ){
+             //return view('admin.grantperm.index',compact('grantperms'));
+            $roles = Role::all()->toArray();
+            $users = user::all()->toArray();
+            return view('admin.grantperm.create',compact('roles','users'));
+        }else{
+            return view('admin.welcome.disable');
+        } 
     }
 
     /**
@@ -42,8 +53,7 @@ class GrantController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {          
+    public function store(Request $request){
         $message = "";  
         try {
             $iduserimp = Auth::id();
@@ -112,5 +122,30 @@ class GrantController extends Controller
         $grant = Grant::find($idgrant);
         $grant->delete();
         return redirect()->route('admin.grantperm.index')->with('success','record have deleted');
+    }
+    public function curent_url(){
+        //$_curent_url = url()->current();
+        $_command = "select";
+        $url1 = \Request::segment(1);
+        $url2 = \Request::segment(2);
+        $url3 = \Request::segment(3);
+        if($url2){
+            $url2 = '/'.$url2;
+        }
+        if($url3){
+            $_command = $url3;
+            $url3 = '/'.$url3;
+        }
+        $result = array('url'=>$url1.$url2.$url3,'command'=>$_command);
+        return $result;
+    }
+    public function CheckPermission(){
+        $_iduser = Auth::id();
+        $arr = $this->curent_url();
+        $_command = $arr['command'];
+        $_curent_url = $arr['url'];
+        $qr_permission = DB::select('call GrantRoleForUserProcedure(?,?,?,?)',array($_iduser, $_command ,'dashboard', $_curent_url));
+        $permissions = json_decode(json_encode($qr_permission), true);
+        return $permissions;
     }
 }

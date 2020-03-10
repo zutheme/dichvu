@@ -39,16 +39,18 @@ class AduserController extends Controller
     {
 
         //$_namecattype="website";
-
         //$rs_catbytype = DB::select('call ListAllCatByTypeProcedure(?)',array($_namecattype));
-
         //$catbytypes = json_decode(json_encode($rs_catbytype), true);
-
-        $users = User::all()->toArray();
-
+        //$users = User::all()->toArray();
         //return view('admin.aduser.index',compact('users','catbytypes'));
-
-        return view('admin.aduser.index',compact('users'));
+        $users = $this->CheckPermission();
+        $allow = $users[0]['allow'];
+        if($allow > 0 ){
+             return view('admin.aduser.index',compact('users'));
+        }else{
+            return view('admin.welcome.disable');
+        } 
+        
 
     }
 
@@ -88,9 +90,7 @@ class AduserController extends Controller
 
      */
 
-    public function store(Request $request)
-
-    {
+    public function store(Request $request){
 
         $validator = Validator::make($request->all(), [ 
 
@@ -105,14 +105,9 @@ class AduserController extends Controller
         ]);
 
         if ($validator->fails()) { 
-
             $errors = $validator->errors();
-
             return redirect()->route('admin.aduser.create')->with(compact('errors'));           
-
         }
-
-        
 
         try {
 
@@ -306,37 +301,44 @@ class AduserController extends Controller
 
      */
 
-    public function destroy($id)
-
-    {
+    public function destroy($id){
 
         //$users = User::find($id);
-
         //$users->delete();
-
         try {
-
             $qr_delete_user = DB::select('call DeleteUserProcedure(?)',array($id));
-
             $rs_delete_user = json_decode(json_encode($qr_delete_user), true);
-
         } catch (\Illuminate\Database\QueryException $ex) {
-
             $errors = new MessageBag(['error' => $ex->getMessage()]);
-
             //return redirect()->route('admin.aduser.create')->with('error',$errors);
-
             return redirect()->route('admin.aduser.create')->with(compact('errors'));
-
         }       
-
         return redirect()->route('admin.aduser.index')->with('success','record have deleted');
-
     }
-
-    
-
-    
-
+    public function curent_url(){
+        //$_curent_url = url()->current();
+        $_command = "select";
+        $url1 = \Request::segment(1);
+        $url2 = \Request::segment(2);
+        $url3 = \Request::segment(3);
+        if($url2){
+            $url2 = '/'.$url2;
+        }
+        if($url3){
+            $_command = $url3;
+            $url3 = '/'.$url3;
+        }
+        $result = array('url'=>$url1.$url2.$url3,'command'=>$_command);
+        return $result;
+    }
+    public function CheckPermission(){
+        $_iduser = Auth::id();
+        $arr = $this->curent_url();
+        $_command = $arr['command'];
+        $_curent_url = $arr['url'];
+        $qr_permission = DB::select('call EnableAddUserProcedure(?,?,?,?)',array($_iduser, $_command ,'dashboard', $_curent_url));
+        $permissions = json_decode(json_encode($qr_permission), true);
+        return $permissions;
+    }  
 }
 
