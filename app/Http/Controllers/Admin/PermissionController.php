@@ -57,8 +57,7 @@ class PermissionController extends Controller
         }else{
             return view('admin.welcome.disable');
             //return redirect()->route('admin.welcome.disable')->with('disable');
-        } 
-        
+        }      
     }
 
     /**
@@ -67,8 +66,7 @@ class PermissionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         $validator = Validator::make($request->all(), ['name' => 'required','idpermcommand' => 'required']);
         if ($validator->fails()) { 
             $errors = $validator->errors();

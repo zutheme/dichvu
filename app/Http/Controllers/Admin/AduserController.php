@@ -34,10 +34,7 @@ class AduserController extends Controller
 
      */
 
-    public function index()
-
-    {
-
+    public function index(){
         //$_namecattype="website";
         //$rs_catbytype = DB::select('call ListAllCatByTypeProcedure(?)',array($_namecattype));
         //$catbytypes = json_decode(json_encode($rs_catbytype), true);
@@ -50,32 +47,22 @@ class AduserController extends Controller
         }else{
             return view('admin.welcome.disable');
         } 
-        
-
     }
-
-
-
     /**
-
      * Show the form for creating a new resource.
-
      *
-
      * @return \Illuminate\Http\Response
-
      */
-
-    public function create()
-
-    {
-
-        $result = DB::select('call ListDepartParentProcedure()');
-
-        $departparents = json_decode(json_encode($result), true);
-
-        return view('admin.aduser.create',compact('departparents'));
-
+    public function create(){
+        $users = $this->CheckPermission();
+        $allow = $users[0]['allow'];
+        if($allow > 0 ){
+            $result = DB::select('call ListDepartParentProcedure()');
+            $departparents = json_decode(json_encode($result), true);
+            return view('admin.aduser.create',compact('departparents'));
+        }else{
+            return view('admin.welcome.disable');
+        } 
     }
 
     /**
@@ -220,7 +207,6 @@ class AduserController extends Controller
      */
 
     public function edit($id)
-
     {
 
         $users = User::find($id);

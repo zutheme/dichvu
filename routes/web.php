@@ -18,24 +18,23 @@ Route::get('/deletesession', function () {
 });
 
 Route::get('/testdata', function () {
-       //$qr_permissions = DB::select('call PermissionByidProcedure(?)',array(2));
-       //$array = objectToArray($qr_permissions);
-        //$rs_permissions = json_decode(json_encode($qr_permissions), true);
-		// $permissions = new stdClass();
-		// foreach ($qr_permissions as $item) {
-		// 	foreach ($item as $key => $value) {
-		// 		$permissions->$key = $value;
-		// 	}
-		// }
-		// echo $permissions->name.",".$permissions->description;
-		// $idmenu = 1;
-  //       $qr_menu = DB::select('call ListItemCateByIdMenuProcedure(?)',array($idmenu));
-  //       $str_menu = json_encode($qr_menu); 
-  //       //$rs_menu = json_decode(json_encode($qr_menu), true); 
-  //       session()->put('test-menu', $str_menu);
-  //       $str_session = session()->get('test-menu');
-  //       $rs_menu = json_decode($str_session, true); 
-        //var_dump($rs_menu);
+        //$_curent_url = url()->current();
+        $_command = "select";
+        $url1 = \Request::segment(1);
+        $url2 = \Request::segment(2);
+        $url3 = \Request::segment(3);
+        if($url3&&strcmp($url2,"categoryby") == 0){
+            $_command = '';
+            $url3 = '/'.$url3;
+        }else{
+            $_command = $url3;
+            $url3 = '/'.$url3;
+        }
+        if($url2){
+            $url2 = '/'.$url2;
+        }
+        $result = array('url'=>$url1.$url2.$url3,'command'=>$_command);
+       	var_dump($result); 
 });
 
 Route::get('/showsession', function () {

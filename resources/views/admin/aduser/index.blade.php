@@ -19,7 +19,7 @@
 	        <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                 <div align="right">
-						<a class="btn btn-default btn-primary" href="{{ URL::route('admin.grantperm.create') }}">Thêm mới</a>
+						<a class="btn btn-default btn-primary" href="{{ URL::route('admin.aduser.create') }}">Thêm mới</a>
 					</div>
                   <div class="x_title">
                      @if($message = Session::get('success'))

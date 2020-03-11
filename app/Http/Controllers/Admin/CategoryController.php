@@ -17,7 +17,8 @@ use Illuminate\Support\Facades\DB;
 use App\status_type;
 
 use App\PostType;
-
+use Auth;
+use Illuminate\Support\Facades\Route;
 class CategoryController extends Controller
 
 {
@@ -40,16 +41,12 @@ class CategoryController extends Controller
 
     // }
 
-    public function index()
-
-    {
+    public function index(){
 
         $result = DB::select('call ListCategoryProcedure()');
-
         $categories = json_decode(json_encode($result), true);
-
         return view('admin.category.index',compact('categories'));
-
+        
     }
 
 
@@ -64,16 +61,16 @@ class CategoryController extends Controller
 
      */
 
-    public function create()
-
-    {
-
-        $categories = category::all()->toArray();
-
-        $categorytypes = CategoryType::all()->toArray();
-
-        return view('admin.category.create',compact('categories','categorytypes'));
-
+    public function create(){
+        $categories = $this->CheckPermission();
+        $allow = $categories[0]['allow'];
+        if($allow > 0 ){
+            $categories = category::all()->toArray();
+            $categorytypes = CategoryType::all()->toArray();
+            return view('admin.category.create',compact('categories','categorytypes'));
+        }else{
+            return view('admin.welcome.disable');
+        } 
     }
 
 
@@ -252,23 +249,38 @@ class CategoryController extends Controller
     }
 
     public function CategoryBynametype($_namecattype){
-        $statustypes = status_type::all()->toArray();
-        $posttypes = PostType::all()->toArray();
-        $result = DB::select('call ListAllCatByTypeProcedure(?)',array($_namecattype));
-        $categories = json_decode(json_encode($result), true);
-        $qr_parent_cate = DB::select('call ListParentCatByTypeProcedure(?)',array($_namecattype));
-        $parent_cate = json_decode(json_encode($qr_parent_cate), true);
-        $str = $this->ListAllCateByTypeId($_namecattype,0);     
-        return view('admin.category.index',compact('parent_cate','posttypes','categories','statustypes','str'));
+        $rtcategories = $this->CheckPermission();
+        $allow = $rtcategories[0]['allow'];
+        $curent_url = $this->curent_url();  
+        if($allow > 0 ){
+            $statustypes = status_type::all()->toArray();
+            $posttypes = PostType::all()->toArray();
+            $result = DB::select('call ListAllCatByTypeProcedure(?)',array($_namecattype));
+            $categories = json_decode(json_encode($result), true);
+            $qr_parent_cate = DB::select('call ListParentCatByTypeProcedure(?)',array($_namecattype));
+            $parent_cate = json_decode(json_encode($qr_parent_cate), true);
+            $str = $this->ListAllCateByTypeId($_namecattype,0);     
+            return view('admin.category.index',compact('parent_cate','posttypes','categories','statustypes','str','curent_url','rtcategories'));
+        }else{
+            return view('admin.welcome.disable');
+        } 
+        
         //return redirect()->route('admin.category.index')->with(compact('posttypes','categories','statustypes'));
     }
 
-    public function createby($_namecattype){
-        //$categories = category::all()->toArray();
-        $result = DB::select('call ListAllCatByTypeProcedure(?)',array($_namecattype));
-        $categories = json_decode(json_encode($result), true);
-        $categorytypes = CategoryType::all()->toArray();
-        return view('admin.category.create',compact('categories','categorytypes','_namecattype'));
+    public function createby($_namecattype){ 
+        $rtcategories = $this->CheckPermission();
+        $allow = $rtcategories[0]['allow'];
+        //$curent_url = $this->curent_url();  
+        if($allow > 0 ){
+            $categories = category::all()->toArray();
+            $result = DB::select('call ListAllCatByTypeProcedure(?)',array($_namecattype));
+            $categories = json_decode(json_encode($result), true);
+            $categorytypes = CategoryType::all()->toArray();
+            return view('admin.category.create',compact('categories','categorytypes','_namecattype'));
+        }else{
+            return view('admin.welcome.disable');
+        } 
     }
 
     public function storeby(Request $request,$_namecattype)
@@ -384,8 +396,7 @@ class CategoryController extends Controller
         $str_html = '<ul class="list-check">'.$str_li.$this->main_menu."</li></ul>";
         return $str_html; 
     }
-    public function showCategories($categories, $idparent = 0, $char = '', $_cate_selected)
-    {
+    public function showCategories($categories, $idparent = 0, $char = '', $_cate_selected){
         $cate_child = array();
         foreach ($categories as $key => $item)
         {
@@ -396,8 +407,7 @@ class CategoryController extends Controller
             }
         }
         $list_cat="";
-        if ($cate_child)
-        {
+        if ($cate_child){
             $this->main_menu .= '<ul class="list-check">';
             foreach ($cate_child as $key => $item){
                 // Hiển thị tiêu đề chuyên mục
@@ -410,12 +420,49 @@ class CategoryController extends Controller
         }
     }
     public function compare_in_list($_cate_selected, $x = 0){
-        foreach ($_cate_selected as $item)
-        {
+        foreach ($_cate_selected as $item){
            if($x == $item['idcategory']) return $item['idcateproduct'];
         }
         return 0;
     }
+    public function curent_url(){
+        //$_curent_url = url()->current();
+        $totalSegsCount = count(\Request::segments());
+        $_command = "select";
+        $url1 = \Request::segment(1);
+        $url2 = \Request::segment(2);
+        $url3 = \Request::segment(3);
+        $url4 = \Request::segment(4);
+        if($url3&&strcmp($url2,"categoryby") == 0){
+            $_command = 'select';
+            $url3 = '/'.$url3;
+        }elseif (strcmp($url3,"createby")== 0 && strcmp($url2,"category")==0){
+            $_command = 'create';
+            $url3 = '/'.$url3;
+        }
+        else{
+            $_command = $url3;
+            $url3 = '/'.$url3;
+        }
+        if($url2){
+            $url2 = '/'.$url2;
+        }
+        if($url4){
+            $url4 = '/'.$url4;
+        }
+        $currentroute = \Route::current()->getName();
+        $result = array('url'=>$url1.$url2.$url3.$url4,'command'=>$_command,'route'=>$currentroute,'totalSegsCount'=>$totalSegsCount);
+        return $result;
+    }
+    public function CheckPermission(){
+        $_iduser = Auth::id();
+        $arr = $this->curent_url();
+        $_command = $arr['command'];
+        $_curent_url = $arr['url'];
+        $qr_permission = DB::select('call EnableCreateNewCategoryProcedure(?,?,?,?)',array($_iduser, $_command ,'dashboard', $_curent_url));
+        $permissions = json_decode(json_encode($qr_permission), true);
+        return $permissions;
+    }  
     
 }
 

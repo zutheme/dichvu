@@ -29,6 +29,16 @@ echo $_namecattype; ?>
 	        @if(isset($_namecattype))
 	        	<h6 class="card-subtitle">{{ $_namecattype }}</h6>
 			@endif
+			@if(isset($curent_url))
+	        	<?php echo $curent_url['url'].':'.$curent_url['command'].':'.$curent_url['route'].':'.$curent_url['totalSegsCount']; ?>
+			@endif
+			@if(isset($rtcategories))
+	        	<?php $allow = $rtcategories[0]['allow']; 
+	        	if($allow > 0 ){
+	        		echo '<br>allow='.$allow;
+	        	}
+	        	 ?>
+			@endif
 			<div align="right">
 				<a class="btn btn-default btn-primary" href="{{ url('/admin/category/createby/'.$_namecattype)}}">Thêm mới</a>
 			</div>
