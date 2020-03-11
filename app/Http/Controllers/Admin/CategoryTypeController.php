@@ -34,7 +34,13 @@ class CategoryTypeController extends Controller
      */
     public function create()
     {
-        return view('admin.cattype.create');
+         $cattypes = $this->CheckPermission();
+        $allow = $cattypes[0]['allow'];
+        if($allow > 0 ){
+             return view('admin.cattype.create');
+        }else{
+            return view('admin.welcome.disable');
+        }         
     }
 
     /**

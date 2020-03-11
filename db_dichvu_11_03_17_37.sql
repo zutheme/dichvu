@@ -3,15 +3,15 @@
 
  Source Server         : localhost_3306
  Source Server Type    : MySQL
- Source Server Version : 100136
+ Source Server Version : 100133
  Source Host           : localhost:3306
- Source Schema         : dbdichvu
+ Source Schema         : db_dichvu
 
  Target Server Type    : MySQL
- Target Server Version : 100136
+ Target Server Version : 100133
  File Encoding         : 65001
 
- Date: 08/03/2020 22:05:58
+ Date: 11/03/2020 17:37:32
 */
 
 SET NAMES utf8mb4;
@@ -46,7 +46,7 @@ CREATE TABLE `categories`  (
   PRIMARY KEY (`idcategory`) USING BTREE,
   INDEX `fr_cattype`(`idcattype`) USING BTREE,
   CONSTRAINT `fr_cattype` FOREIGN KEY (`idcattype`) REFERENCES `category_types` (`idcattype`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 60 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 68 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of categories
@@ -88,16 +88,23 @@ INSERT INTO `categories` VALUES (46, NULL, 'Hệ thống', 9, 0, NULL, NULL, NUL
 INSERT INTO `categories` VALUES (47, NULL, 'Phân quyền', 9, 46, NULL, NULL, NULL, '2020-02-25 17:23:46', '2020-02-25 17:23:46');
 INSERT INTO `categories` VALUES (48, NULL, 'Vai trò', 9, 47, NULL, NULL, 'admin/roles', '2020-02-25 17:29:46', '2020-02-25 17:29:46');
 INSERT INTO `categories` VALUES (49, NULL, 'Lệnh thực thi', 9, 47, NULL, NULL, 'admin/perm_command', '2020-02-28 15:43:00', '2020-02-28 15:43:00');
-INSERT INTO `categories` VALUES (50, NULL, 'Tạo quyền', 9, 47, NULL, NULL, 'admin/permission', '2020-02-28 16:15:43', '2020-02-28 16:15:43');
+INSERT INTO `categories` VALUES (50, NULL, 'Danh sách quyền', 9, 47, NULL, NULL, 'admin/permission', '2020-02-28 16:15:43', '2020-03-10 11:50:42');
 INSERT INTO `categories` VALUES (51, NULL, 'Cấp quyền cho nhóm', 9, 47, NULL, NULL, 'admin/impperm', '2020-02-28 16:16:30', '2020-02-28 16:16:30');
 INSERT INTO `categories` VALUES (52, NULL, 'Cấp quyền người dùng', 9, 47, NULL, NULL, 'admin/grantperm', '2020-02-28 16:17:02', '2020-02-28 16:17:14');
 INSERT INTO `categories` VALUES (53, NULL, 'Quản lý người dùng', 9, 47, NULL, NULL, 'admin/aduser', '2020-02-28 16:27:45', '2020-02-28 16:27:45');
-INSERT INTO `categories` VALUES (54, NULL, 'Danh mục quyền', 9, 47, NULL, NULL, 'admin/categoryby/dashboard', '2020-02-28 16:28:20', '2020-02-28 16:28:20');
+INSERT INTO `categories` VALUES (54, NULL, 'Chuyên mục quyền', 9, 47, NULL, NULL, 'admin/categoryby/dashboard', '2020-02-28 16:28:20', '2020-03-10 17:03:24');
 INSERT INTO `categories` VALUES (55, NULL, 'Loại nội dung', 9, 46, NULL, NULL, NULL, '2020-03-06 17:03:40', '2020-03-06 17:03:40');
 INSERT INTO `categories` VALUES (56, NULL, 'Kiểu chuyên mục', 9, 55, NULL, NULL, 'admin/cattype', '2020-03-06 17:04:27', '2020-03-06 17:04:27');
 INSERT INTO `categories` VALUES (57, NULL, 'Kiểu nội dung', 9, 55, NULL, NULL, 'admin/posttype', '2020-03-06 17:06:08', '2020-03-06 17:06:08');
 INSERT INTO `categories` VALUES (58, NULL, 'Kiểu trạng thái', 9, 55, NULL, NULL, 'admin/statustype', '2020-03-06 17:06:39', '2020-03-06 17:06:58');
 INSERT INTO `categories` VALUES (59, NULL, 'Tạo mới role', 9, 47, NULL, NULL, 'admin/roles/create', '2020-03-06 17:25:23', '2020-03-06 17:25:23');
+INSERT INTO `categories` VALUES (60, NULL, 'Enable create new permission', 9, 47, NULL, NULL, 'admin/permission/create', '2020-03-10 12:52:28', '2020-03-10 12:52:28');
+INSERT INTO `categories` VALUES (61, NULL, 'Enable grant permission for role', 9, 47, NULL, NULL, 'admin/impperm/create', '2020-03-10 14:44:24', '2020-03-10 14:50:21');
+INSERT INTO `categories` VALUES (63, NULL, 'enable grant user into role', 9, 47, NULL, NULL, 'admin/grantperm/create', '2020-03-10 16:59:00', '2020-03-10 16:59:00');
+INSERT INTO `categories` VALUES (64, NULL, 'Create new user', 9, 47, NULL, NULL, 'admin/aduser/create', '2020-03-11 08:31:18', '2020-03-11 08:31:18');
+INSERT INTO `categories` VALUES (65, NULL, 'Create new category', 9, 47, NULL, NULL, 'admin/category/createby/dashboard', '2020-03-11 09:18:36', '2020-03-11 09:18:36');
+INSERT INTO `categories` VALUES (66, NULL, 'Enable create category type', 9, 47, NULL, NULL, 'admin/cattype/create', '2020-03-11 14:08:33', '2020-03-11 14:08:33');
+INSERT INTO `categories` VALUES (67, NULL, 'Create new status type', 9, 47, NULL, NULL, 'admin/statustype/create', '2020-03-11 14:20:16', '2020-03-11 14:20:16');
 
 -- ----------------------------
 -- Table structure for category_types
@@ -600,7 +607,7 @@ CREATE TABLE `grants`  (
   CONSTRAINT `fr_grant_byuser` FOREIGN KEY (`by_iduser`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fr_grant_role` FOREIGN KEY (`idrole`) REFERENCES `roles` (`idrole`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fr_grant_user` FOREIGN KEY (`to_iduser`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of grants
@@ -609,6 +616,7 @@ INSERT INTO `grants` VALUES (1, 1, 2, 2, '2019-04-13 08:30:20', '2019-04-13 08:3
 INSERT INTO `grants` VALUES (2, 3, 24, 2, '2020-01-27 14:08:22', '2020-02-05 22:29:49');
 INSERT INTO `grants` VALUES (3, 3, 23, 2, '2020-01-27 14:38:17', '2020-01-27 14:38:17');
 INSERT INTO `grants` VALUES (4, 3, 15, 2, '2020-01-28 15:14:58', '2020-01-28 15:14:58');
+INSERT INTO `grants` VALUES (5, 3, 15, 2, '2020-03-10 17:09:56', '2020-03-10 17:09:56');
 
 -- ----------------------------
 -- Table structure for imagetype
@@ -646,7 +654,7 @@ CREATE TABLE `imp_perms`  (
   CONSTRAINT `fr_impperm` FOREIGN KEY (`idperm`) REFERENCES `permissions` (`idperm`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fr_impperm_role` FOREIGN KEY (`idrole`) REFERENCES `roles` (`idrole`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fr_impperm_user` FOREIGN KEY (`iduserimp`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 31 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of imp_perms
@@ -662,7 +670,6 @@ INSERT INTO `imp_perms` VALUES (8, 4, 1, 2, '2020-02-29 18:35:19', '2020-02-29 1
 INSERT INTO `imp_perms` VALUES (9, 5, 1, 2, '2020-02-29 18:35:32', '2020-02-29 18:35:32');
 INSERT INTO `imp_perms` VALUES (10, 6, 1, 2, '2020-02-29 18:35:45', '2020-02-29 18:35:45');
 INSERT INTO `imp_perms` VALUES (11, 7, 1, 2, '2020-02-29 18:36:09', '2020-02-29 18:36:09');
-INSERT INTO `imp_perms` VALUES (12, 8, 1, 2, '2020-02-29 18:36:21', '2020-02-29 18:36:21');
 INSERT INTO `imp_perms` VALUES (13, 9, 1, 2, '2020-02-29 18:36:33', '2020-02-29 18:36:33');
 INSERT INTO `imp_perms` VALUES (14, 10, 1, 2, '2020-02-29 18:36:47', '2020-02-29 18:36:47');
 INSERT INTO `imp_perms` VALUES (16, 11, 1, 2, '2020-02-29 18:52:20', '2020-02-29 18:52:20');
@@ -672,6 +679,14 @@ INSERT INTO `imp_perms` VALUES (19, 14, 1, 2, '2020-03-06 17:13:00', '2020-03-06
 INSERT INTO `imp_perms` VALUES (20, 15, 1, 2, '2020-03-06 17:13:22', '2020-03-06 17:13:22');
 INSERT INTO `imp_perms` VALUES (21, 16, 1, 2, '2020-03-06 17:15:38', '2020-03-06 17:15:38');
 INSERT INTO `imp_perms` VALUES (22, 18, 1, 2, '2020-03-07 10:15:35', '2020-03-07 10:15:35');
+INSERT INTO `imp_perms` VALUES (23, 8, 1, 2, '2020-03-10 11:46:30', '2020-03-10 11:46:30');
+INSERT INTO `imp_perms` VALUES (24, 19, 1, 2, '2020-03-10 12:55:15', '2020-03-10 12:55:15');
+INSERT INTO `imp_perms` VALUES (25, 20, 1, 2, '2020-03-10 14:54:42', '2020-03-10 14:54:42');
+INSERT INTO `imp_perms` VALUES (26, 21, 1, 2, '2020-03-10 17:08:13', '2020-03-10 17:08:13');
+INSERT INTO `imp_perms` VALUES (27, 22, 1, 2, '2020-03-11 09:15:45', '2020-03-11 09:15:45');
+INSERT INTO `imp_perms` VALUES (28, 23, 1, 2, '2020-03-11 12:03:04', '2020-03-11 12:03:04');
+INSERT INTO `imp_perms` VALUES (29, 24, 1, 2, '2020-03-11 14:09:56', '2020-03-11 14:09:56');
+INSERT INTO `imp_perms` VALUES (30, 25, 1, 2, '2020-03-11 14:21:25', '2020-03-11 14:21:25');
 
 -- ----------------------------
 -- Table structure for imp_products
@@ -1295,6 +1310,7 @@ INSERT INTO `oauth_access_tokens` VALUES ('8003504115997ba82b125bb797dd41dcd88ce
 INSERT INTO `oauth_access_tokens` VALUES ('8082575ad3affa2f8fd574a6b89ea9c780beb27597c595792f95d569d6b948024f6c236892887fdb', 2, 1, 'MyApp', '[]', 0, '2019-05-08 21:07:41', '2019-05-08 21:07:41', '2020-05-08 21:07:41');
 INSERT INTO `oauth_access_tokens` VALUES ('809d8aa479d04d48e514eb5374d4f74f447ebc0e8fef2096706f879bddde25029300ba89038aea0e', 2, 1, 'MyApp', '[]', 0, '2019-06-17 08:22:18', '2019-06-17 08:22:18', '2020-06-17 08:22:18');
 INSERT INTO `oauth_access_tokens` VALUES ('80e67f5770458e7c116c533376a47afcc6314475956fdd2194befde4f9ae3a6b4d5976a2fe7257f3', 2, 9, 'MyApp', '[]', 0, '2020-03-04 08:27:08', '2020-03-04 08:27:08', '2021-03-04 08:27:08');
+INSERT INTO `oauth_access_tokens` VALUES ('80f632630c3b5a1820417e07e66c83cdfc6aa408eb29be234bd26211380b98078b31c255f369b6d6', 2, 9, 'MyApp', '[]', 0, '2020-03-11 13:35:13', '2020-03-11 13:35:13', '2021-03-11 13:35:13');
 INSERT INTO `oauth_access_tokens` VALUES ('826e068d775d21d4a42be19cfa3b7442952e2dc15c6d9348c1ac5aa2e3167f9ac2939ed404043d5d', 2, 1, 'MyApp', '[]', 0, '2019-05-11 14:49:54', '2019-05-11 14:49:54', '2020-05-11 14:49:54');
 INSERT INTO `oauth_access_tokens` VALUES ('830b9b811bde283b7424f529c43531f008d032684d49c41990ef9d124c9a241184d28781b9590517', 2, 1, 'MyApp', '[]', 0, '2019-06-26 13:51:23', '2019-06-26 13:51:23', '2020-06-26 13:51:23');
 INSERT INTO `oauth_access_tokens` VALUES ('83870b82718ef447c79c7e9db8790703bdf0329fb1e613c304f0f99b2bf4593bad36d2a782eab02e', 2, 1, 'MyApp', '[]', 0, '2019-06-05 08:11:10', '2019-06-05 08:11:10', '2020-06-05 08:11:10');
@@ -1327,11 +1343,13 @@ INSERT INTO `oauth_access_tokens` VALUES ('956119920acaed8907b028192d2db47ea1074
 INSERT INTO `oauth_access_tokens` VALUES ('9850dee9625374d277c156c78cd112cfb6e51d41befd5f9a520159145ca146eee4d897de501c7381', 2, 7, 'MyApp', '[]', 0, '2019-09-28 22:43:41', '2019-09-28 22:43:41', '2020-09-28 22:43:41');
 INSERT INTO `oauth_access_tokens` VALUES ('98a6f00376e75989642d08e34f5f224c8fb27bd3b34a32d50291717321265cfc3ddca23406ca87db', 2, 1, 'MyApp', '[]', 0, '2019-08-23 11:10:57', '2019-08-23 11:10:57', '2020-08-23 11:10:57');
 INSERT INTO `oauth_access_tokens` VALUES ('991932e8988494f0559e93420d89944b3eb7ad7ad9046048915b19268abab6bb5cc1c62ee4cefca8', 2, 1, 'MyApp', '[]', 0, '2019-05-04 18:03:10', '2019-05-04 18:03:10', '2020-05-04 18:03:10');
+INSERT INTO `oauth_access_tokens` VALUES ('99409acf139f3061fbde36e775502bdd970690ef1c4eefd9ab9d1e505834f26c0b298b329e35d90f', 2, 9, 'MyApp', '[]', 0, '2020-03-10 10:50:16', '2020-03-10 10:50:16', '2021-03-10 10:50:16');
 INSERT INTO `oauth_access_tokens` VALUES ('9a694520f6b84a7b83a6726a349cffa9dff332dec8d46fa0a8eca9395f152f61b622dcd7df980182', 24, 1, 'MyApp', '[]', 0, '2019-08-01 17:46:20', '2019-08-01 17:46:20', '2020-08-01 17:46:20');
 INSERT INTO `oauth_access_tokens` VALUES ('9b2d032065278cc4ba102d36ac8ae942aea78e586596849ff2b6e22c0f04e068aa5001c4252fcc35', 2, 5, 'MyApp', '[]', 0, '2019-09-09 10:52:11', '2019-09-09 10:52:11', '2020-09-09 10:52:11');
 INSERT INTO `oauth_access_tokens` VALUES ('9b96e18443e36eb25a504938349045ab1a01ece7337b890779e6a61ae34ec4540a9a360c7811d30f', 2, 1, 'MyApp', '[]', 0, '2019-07-24 13:32:05', '2019-07-24 13:32:05', '2020-07-24 13:32:05');
 INSERT INTO `oauth_access_tokens` VALUES ('9bba88e9d87e0ec78a35d5257ca44a10e77506eb4cfb606041ce3d3db9520067a5767ec9f150fb1c', 2, 1, 'MyApp', '[]', 0, '2019-04-17 08:46:50', '2019-04-17 08:46:50', '2020-04-17 08:46:50');
 INSERT INTO `oauth_access_tokens` VALUES ('9da2db5f94161b541c8d644a7bbb0d3e24a9071e4af6254819690614d4e6eb720bdb87f7ea4ae47b', 2, 1, 'MyApp', '[]', 0, '2019-06-05 10:24:05', '2019-06-05 10:24:05', '2020-06-05 10:24:05');
+INSERT INTO `oauth_access_tokens` VALUES ('9feeb2cf0d0a713ac191913f4f676549a37943f4dd4c79f7b3e5b37152f5dbab483bb77eb575db7d', 2, 9, 'MyApp', '[]', 0, '2020-03-09 16:38:18', '2020-03-09 16:38:18', '2021-03-09 16:38:18');
 INSERT INTO `oauth_access_tokens` VALUES ('a06ad6bc9ebe165b2b4302af7e716d0296b00b418511335d92fd92169581a1c75fb5858810dbc021', 2, 1, 'MyApp', '[]', 0, '2019-07-22 08:44:59', '2019-07-22 08:44:59', '2020-07-22 08:44:59');
 INSERT INTO `oauth_access_tokens` VALUES ('a079e3f003ea2847b1f53a00528b009d982dde864f8d3e4fea0c3aafa967f0694084d956aac112ba', 2, 1, 'MyApp', '[]', 0, '2019-05-13 08:08:57', '2019-05-13 08:08:57', '2020-05-13 08:08:57');
 INSERT INTO `oauth_access_tokens` VALUES ('a0fbfb03a0d8eb10f3baa098b6cae6e8df9c1b03095cba56d9c8393360d7231c8838bbda4e63ecc7', 16, 1, 'MyApp', '[]', 0, '2019-05-20 09:27:16', '2019-05-20 09:27:16', '2020-05-20 09:27:16');
@@ -1405,6 +1423,7 @@ INSERT INTO `oauth_access_tokens` VALUES ('caf233061a79e92ec8f62209dc61fee142f30
 INSERT INTO `oauth_access_tokens` VALUES ('cb0ffa7026ddc4a9259a29276d4d1b57e197070cefe238148fa7d0132a2057392ef71aecd3af6f61', 2, 1, 'MyApp', '[]', 0, '2019-07-02 10:40:45', '2019-07-02 10:40:45', '2020-07-02 10:40:45');
 INSERT INTO `oauth_access_tokens` VALUES ('cb694bfb52d361c2bef04d22bd8eca368f6889fbda88e1237b31841eab18ffae7f3c894d7d527fcf', 2, 1, 'MyApp', '[]', 0, '2019-04-20 08:22:12', '2019-04-20 08:22:12', '2020-04-20 08:22:12');
 INSERT INTO `oauth_access_tokens` VALUES ('ccdd05d158c5d97cd5658b2a653465e7a7562d4ab6e9e8dfb5485a61461b22e4f7da556ef81af426', 2, 1, 'MyApp', '[]', 0, '2019-06-18 08:14:28', '2019-06-18 08:14:28', '2020-06-18 08:14:28');
+INSERT INTO `oauth_access_tokens` VALUES ('ce2b92df610d1638c2a75d423f371f5dd5b902935818851b55385545d91abdb1d71d1292dae62166', 2, 9, 'MyApp', '[]', 0, '2020-03-11 08:15:35', '2020-03-11 08:15:35', '2021-03-11 08:15:35');
 INSERT INTO `oauth_access_tokens` VALUES ('cea0de1545baa2a5ea628ac3b342551f11148de095c54674f73b0c4495d96362c149485e48d18e8c', 2, 1, 'MyApp', '[]', 0, '2019-07-17 11:48:02', '2019-07-17 11:48:02', '2020-07-17 11:48:02');
 INSERT INTO `oauth_access_tokens` VALUES ('cf918b59b9a43555ab4f6e5b84e875962d123c549652d28071e013ea6c48681fe30d54221f43ddae', 2, 1, 'MyApp', '[]', 0, '2019-06-19 13:32:12', '2019-06-19 13:32:12', '2020-06-19 13:32:12');
 INSERT INTO `oauth_access_tokens` VALUES ('d02caadbe84fd28b0aa4211e62994ca49301e0262629b9ad5782f207df349048fdf60856309f9e1a', 27, 1, 'MyApp', '[]', 0, '2019-08-01 16:51:49', '2019-08-01 16:51:49', '2020-08-01 16:51:49');
@@ -1428,6 +1447,7 @@ INSERT INTO `oauth_access_tokens` VALUES ('da27db48423af44a0c53bfda9c76dff9f2395
 INSERT INTO `oauth_access_tokens` VALUES ('daa11ebf2597b97605e25aacb3e8c02d97d87c38c0d0b8f67897f86cdd4c22c50affc007038031a5', 17, 1, 'MyApp', '[]', 0, '2019-05-21 09:36:24', '2019-05-21 09:36:24', '2020-05-21 09:36:24');
 INSERT INTO `oauth_access_tokens` VALUES ('dc087b5a6677060985acc89e36bd73654478f879002047b43c24e49a3505f0c48a01f2a0308f5306', 2, 9, 'MyApp', '[]', 0, '2020-03-04 17:29:09', '2020-03-04 17:29:09', '2021-03-04 17:29:09');
 INSERT INTO `oauth_access_tokens` VALUES ('dc6d13628502f05582be719561fd6ca4d11b3df28370afece4fd9fedbae2c2c07548941b7a7c2efa', 2, 1, 'MyApp', '[]', 0, '2019-05-25 11:59:20', '2019-05-25 11:59:20', '2020-05-25 11:59:20');
+INSERT INTO `oauth_access_tokens` VALUES ('dc7b66dbbc823bc0fa2831d7091c741a504a95418a80c67e0ad8b6847856a320fc84ba827060cc48', 2, 9, 'MyApp', '[]', 0, '2020-03-10 08:16:12', '2020-03-10 08:16:12', '2021-03-10 08:16:12');
 INSERT INTO `oauth_access_tokens` VALUES ('de33d617088f439eff8047790a638319db10e5480f541fe15e1214998ab469ecc3e45da83855d4a6', 13, 1, 'MyApp', '[]', 0, '2019-05-08 22:05:35', '2019-05-08 22:05:35', '2020-05-08 22:05:35');
 INSERT INTO `oauth_access_tokens` VALUES ('de68415e902dd4fcf04a7ae1e476f3d30a16b1cf1d0f6320a6813325260943eacdd1e7a4a7753081', 2, 7, 'MyApp', '[]', 0, '2019-10-03 14:59:44', '2019-10-03 14:59:44', '2020-10-03 14:59:44');
 INSERT INTO `oauth_access_tokens` VALUES ('df45fc915774d70657e7aafd768e88407f0f7286146b0b802b0646a0a3bffc5ddb01d64d63615465', 2, 1, 'MyApp', '[]', 0, '2019-06-13 13:36:07', '2019-06-13 13:36:07', '2020-06-13 13:36:07');
@@ -1672,7 +1692,7 @@ CREATE TABLE `permissions`  (
   CONSTRAINT `fr_permission_category` FOREIGN KEY (`idcategory`) REFERENCES `categories` (`idcategory`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fr_permission_command` FOREIGN KEY (`idpermcommand`) REFERENCES `perm_commands` (`idpercommand`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fr_permission_product` FOREIGN KEY (`idproduct`) REFERENCES `products` (`idproduct`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of permissions
@@ -1695,6 +1715,13 @@ INSERT INTO `permissions` VALUES (15, 'Status type', 'Status type', 1, 58, NULL,
 INSERT INTO `permissions` VALUES (16, 'Post type', 'Post type', 1, 57, NULL, NULL, NULL, NULL);
 INSERT INTO `permissions` VALUES (17, 'permission create new role', 'permission create new role', 7, 59, NULL, NULL, NULL, NULL);
 INSERT INTO `permissions` VALUES (18, 'Create role permission', 'Create role permission', 7, 59, NULL, NULL, NULL, NULL);
+INSERT INTO `permissions` VALUES (19, 'enable create new permission', 'enable create new permission', 7, 60, NULL, NULL, NULL, NULL);
+INSERT INTO `permissions` VALUES (20, 'enable grant new permission for role', 'enable grant new permission for role', 7, 61, NULL, NULL, NULL, NULL);
+INSERT INTO `permissions` VALUES (21, 'Assign user to role', 'Assign user to role', 7, 63, NULL, NULL, NULL, NULL);
+INSERT INTO `permissions` VALUES (22, 'Enable create new user', 'Enable create new user', 7, 64, NULL, NULL, NULL, NULL);
+INSERT INTO `permissions` VALUES (23, 'enable create new category', 'enable create new category', 7, 65, NULL, NULL, NULL, NULL);
+INSERT INTO `permissions` VALUES (24, 'Enable create new category type', 'Enable create new category type', 7, 66, NULL, NULL, NULL, NULL);
+INSERT INTO `permissions` VALUES (25, 'Enable create new status type', 'Enable create new status type', 7, 67, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for post_has_files
@@ -2624,6 +2651,134 @@ BEGIN
 delimiter ;
 
 -- ----------------------------
+-- Procedure structure for EnableAddUserProcedure
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `EnableAddUserProcedure`;
+delimiter ;;
+CREATE PROCEDURE `EnableAddUserProcedure`(IN `_iduser` int, IN `_command` varchar(255),IN `_catnametype` varchar(255),IN `_curent_url` VARCHAR(255))
+sp:BEGIN
+DECLARE allow int(2) DEFAULT 0;
+	set allow = 0;
+	CALL UserPermDashByCateProcedure ( _iduser, _command, _catnametype, _curent_url, allow );
+	if allow = 0 THEN 
+		BEGIN
+			SELECT 0 as allow;
+			LEAVE sp;
+		END;
+	 ELSE
+		BEGIN
+			if _command = 'select' then
+				begin
+					 SELECT *,1 as allow FROM USERS;
+				end;
+			ELSEIF _command = 'create' then
+				begin
+					select 1 as allow;
+				end;
+			end if;
+		END;
+	END if;
+END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Procedure structure for EnableCreateNewCategoryProcedure
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `EnableCreateNewCategoryProcedure`;
+delimiter ;;
+CREATE PROCEDURE `EnableCreateNewCategoryProcedure`(IN `_iduser` int, IN `_command` varchar(255),IN `_catnametype` varchar(255),IN `_curent_url` VARCHAR(255))
+sp:BEGIN
+DECLARE allow int(2) DEFAULT 0;
+	set allow = 0;
+	CALL UserPermDashByCateProcedure ( _iduser, _command, _catnametype, _curent_url, allow );
+	if allow = 0 THEN 
+		BEGIN
+			SELECT 0 as allow;
+			LEAVE sp;
+		END;
+	 ELSE
+		BEGIN
+			if _command = 'select' then
+				begin
+					 SELECT 1 as allow;
+				end;
+			ELSEIF _command = 'create' then
+				begin
+					select 1 as allow;
+				end;
+			end if;
+		END;
+	END if;
+END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Procedure structure for EnableListCateTypeProcedure
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `EnableListCateTypeProcedure`;
+delimiter ;;
+CREATE PROCEDURE `EnableListCateTypeProcedure`(IN `_iduser` int, IN `_command` varchar(255),IN `_catnametype` varchar(255),IN `_curent_url` VARCHAR(255))
+sp:BEGIN
+DECLARE allow int(2) DEFAULT 0;
+	set allow = 0;
+	CALL UserPermDashByCateProcedure ( _iduser, _command, _catnametype, _curent_url, allow );
+	if allow = 0 THEN 
+		BEGIN
+			SELECT 0 as allow;
+			LEAVE sp;
+		END;
+	 ELSE
+		BEGIN
+			if _command = 'select' then
+				begin
+					SELECT *,1 as allow from category_types;
+				end;
+			ELSEIF _command = 'create' then
+				begin
+					select 1 as allow;
+				end;
+			end if;
+		END;
+	END if;
+END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Procedure structure for EnableListStatusTypeProcedure
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `EnableListStatusTypeProcedure`;
+delimiter ;;
+CREATE PROCEDURE `EnableListStatusTypeProcedure`(IN `_iduser` int, IN `_command` varchar(255),IN `_catnametype` varchar(255),IN `_curent_url` VARCHAR(255))
+sp:BEGIN
+DECLARE allow int(2) DEFAULT 0;
+	set allow = 0;
+	CALL UserPermDashByCateProcedure ( _iduser, _command, _catnametype, _curent_url, allow );
+	if allow = 0 THEN 
+		BEGIN
+			SELECT 0 as allow;
+			LEAVE sp;
+		END;
+	 ELSE
+		BEGIN
+			if _command = 'select' then
+				begin
+					SELECT *,1 as allow from status_types;
+				end;
+			ELSEIF _command = 'create' then
+				begin
+					select 1 as allow;
+				end;
+			end if;
+		END;
+	END if;
+END
+;;
+delimiter ;
+
+-- ----------------------------
 -- Procedure structure for Getparentidprocedure
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `Getparentidprocedure`;
@@ -2640,6 +2795,70 @@ BEGIN
                   END WHILE;
                   SELECT XYZ;
             END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Procedure structure for GrantPermissionRoleProcedure
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `GrantPermissionRoleProcedure`;
+delimiter ;;
+CREATE PROCEDURE `GrantPermissionRoleProcedure`(IN `_iduser` int, IN `_command` varchar(255),IN `_catnametype` varchar(255),IN `_curent_url` VARCHAR(255))
+sp:BEGIN
+DECLARE allow int(2) DEFAULT 0;
+	set allow = 0;
+	CALL UserPermDashByCateProcedure ( _iduser, _command, _catnametype, _curent_url, allow );
+	if allow = 0 THEN 
+		BEGIN
+			SELECT 0 as allow;
+			LEAVE sp;
+		END;
+	 ELSE
+		BEGIN
+			if _command = 'select' then
+				begin
+					SELECT 1 as allow, imp.idimp_perm, p.name as nameperm, r.name as namerole, u.name as nameuser FROM imp_perms as imp left join permissions as p ON imp.idperm = p.idperm LEFT join roles as r on imp.idrole = r.idrole LEFT join users as u ON imp.iduserimp = u.id;
+				end;
+			ELSEIF _command = 'create' then
+				begin
+					select 1 as allow;
+				end;
+			end if;
+		END;
+	END if;
+END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Procedure structure for GrantRoleForUserProcedure
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `GrantRoleForUserProcedure`;
+delimiter ;;
+CREATE PROCEDURE `GrantRoleForUserProcedure`(IN `_iduser` int, IN `_command` varchar(255),IN `_catnametype` varchar(255),IN `_curent_url` VARCHAR(255))
+sp:BEGIN
+DECLARE allow int(2) DEFAULT 0;
+	set allow = 0;
+	CALL UserPermDashByCateProcedure ( _iduser, _command, _catnametype, _curent_url, allow );
+	if allow = 0 THEN 
+		BEGIN
+			SELECT 0 as allow;
+			LEAVE sp;
+		END;
+	 ELSE
+		BEGIN
+			if _command = 'select' then
+				begin
+					 SELECT 1 as allow, g.idgrant, r.idrole, r.`name` as namerole, (select name from users where id = g.to_iduser) as touser, (select name from users where id=g.by_iduser) as byuser from `grants` as g LEFT join roles as r on g.idrole = r.idrole;
+				end;
+			ELSEIF _command = 'create' then
+				begin
+					select 1 as allow;
+				end;
+			end if;
+		END;
+	END if;
+END
 ;;
 delimiter ;
 
@@ -3158,7 +3377,7 @@ DECLARE allow int(2) DEFAULT 0;
 		BEGIN
 			if _command = 'select' then
 				begin
-					SELECT *,1 as allow  from permissions;
+					SELECT 1 as allow, p.idperm, p.`name`, p.description, pc.command, c.namecat FROM `permissions` as p LEFT JOIN perm_commands as pc on p.idpermcommand = pc.idpercommand LEFT JOIN categories as c on p.idcategory = c.idcategory;
 				end;
 			ELSEIF _command = 'create' then
 				begin
@@ -3168,7 +3387,6 @@ DECLARE allow int(2) DEFAULT 0;
 		END;
 	END if;
 END
-;
 ;;
 delimiter ;
 
