@@ -17,23 +17,30 @@ Route::get('/deletesession', function () {
       session()->forget('orderhistory');
 });
 
-Route::get('/testdata', function () {
-        //$_curent_url = url()->current();
-        $_command = "select";
-        $url1 = \Request::segment(1);
-        $url2 = \Request::segment(2);
-        $url3 = \Request::segment(3);
-        if($url3&&strcmp($url2,"categoryby") == 0){
-            $_command = '';
-            $url3 = '/'.$url3;
-        }else{
-            $_command = $url3;
-            $url3 = '/'.$url3;
+Route::get('/admin/testdata', function () {
+        $totalSegsCount = count(\Request::segments());
+        $url = '';
+        for ($i = 0; $i < $totalSegsCount; $i++) { 
+            $url .= \Request::segment($i+1)."/";
         }
-        if($url2){
-            $url2 = '/'.$url2;
+        $url = rtrim($url, '/');
+      	echo $url;
+      	$_command = "select";
+        $pattern_index = "/admin\/testdata$/";
+        $pattern_create = "/admin\/aduser\/create$/";
+        $pattern_edit = "/admin\/aduser\/[0-9]+\/edit$/";
+        $matches = array();
+        if (preg_match($pattern_index, $url, $matches)){
+        	$_command = "select";
+            $url = "admin/aduser";
+        }elseif (preg_match($pattern_create, $url, $matches)){
+        	$_command = "create";
+            $url = "admin/aduser/create";
+        }elseif (preg_match($pattern_edit, $url, $matches)){
+        	$_command = "edit";
+            $url = "admin/aduser/0/edit";
         }
-        $result = array('url'=>$url1.$url2.$url3,'command'=>$_command);
+        $result = array('url'=>$url,'command'=>$_command);
        	var_dump($result); 
 });
 
@@ -187,198 +194,61 @@ Route::post('postlogin', ['as' => 'Auth', 'uses' => 'Auth\LoginController@postLo
 
 
 Route::get('register', ['as' => 'Auth', 'uses' => 'Auth\RegisterController@register']);
-
-
-
 Route::post('register', ['as' => 'Auth', 'uses' => 'Auth\RegisterController@register']);
 
-
-
 //login modal
-
-
-
 Route::get('teamilk/complete', ['uses' =>'teamilk\ShopCartController@complete']);
-
-
-
 Route::post('teamilk/complete', ['uses' =>'teamilk\ShopCartController@complete']);
-
-
-
 //login modal
-
-
-
 Route::get('loginmodal', 'Auth\LoginController@postloginmodal');
-
-
-
 Route::post('loginmodal', 'Auth\LoginController@postloginmodal');
-
-
-
-
-
-
-
 Route::get('logout','Auth\LoginController@logout');
-
-
-
 Route::get('signout','Auth\LoginController@signout');
-
-
-
 Route::post('signout','Auth\LoginController@signout');
-
-
-
 Route::get('profile/{_iduser}', function () {
-
-
-
      if (!Auth::check()) {
-
-
-
      		return redirect('admin/login');
-
-
-
         } 
-
-
 
 });
 
-
-
 //Route::group(['prefix' => 'admin',  'middleware' => 'auth'], function()
-
-
-
 Route::group(['middleware' => 'auth'], function() {
-
-
-
 	//account
-
-
-
 	Route::get('profile/{_iduser}', 'account\AccountController@getprofile');
-
-
-
 	Route::post('profile/{_iduser}', 'account\AccountController@getprofile');
-
-
-
-
-
-
-
 	Route::get('updateprofile/{_iduser}', 'account\AccountController@update');
-
-
-
 	Route::post('updateprofile/{_iduser}', 'account\AccountController@update');
-
-
-
-
-
-
 
 	Route::get('changepassword/{_iduser}', 'account\AccountController@changepassword');
 
-
-
 	Route::post('changepassword/{_iduser}', 'account\AccountController@changepassword');
-
-
-
-
-
-
 
 	Route::post('profile/uploadavatar/{iduser}/{idprofile}',['uses' =>'account\AccountController@uploadavatar']);
 
-
-
 	Route::get('profile/uploadavatar/{iduser}/{idprofile}',['uses' =>'account\AccountController@uploadavatar']);
 
-
-
-
-
-
-
 	Route::resource('svcustomer','SvCustomerController');
-
-
-
 	Route::resource('svposttype','SvPostTypeController');
-
-
-
 	//Route::get('svpost/makepost', 'SvPostController@makepost');
-
-
-
 	//Route::post('svpost/makepost', 'SvPostController@makepost');
-
-
-
 	Route::resource('svpost','SvPostController');
-
-
-
 	Route::resource('category','CategoryController');
-
-
-
     Route::resource('admin/aduser' , 'Admin\AduserController', array('as'=>'admin') );
-
-
-
 	Route::resource('admin/adsvcustomer' , 'Admin\AdsvcustomerController', array('as'=>'admin') );
-
-
-
 	Route::get('admin/category/listcategorybyid', 'Admin\CategoryController@listcatbyidcat');
-
-
-
 	Route::post('admin/category/listcategorybyid', 'Admin\CategoryController@listcatbyidcat');
-
-
 	Route::get('admin/category/catebyidcatetype/{_idcatetype}', 'Admin\CategoryController@category_by_idcatetype');
-
-
 	Route::post('admin/category/catebyidcatetype/{_idcatetype}', 'Admin\CategoryController@category_by_idcatetype');
-
-
 	Route::get('admin/categoryby/{_namecattype}', ['uses' =>'Admin\CategoryController@CategoryBynametype', 'as'=>'admin']);
 	Route::post('admin/categoryby/{_namecattype}', ['uses' =>'Admin\CategoryController@CategoryBynametype', 'as'=>'admin']);
-
-
-
 	Route::get('admin/category/createby/{_namecattype}' , ['uses' =>'Admin\CategoryController@createby', 'as'=>'admin'] );
-
-
-
 	Route::post('admin/category/createby/{_namecattype}' , ['uses' =>'Admin\CategoryController@createby', 'as'=>'admin'] );
-
-
 	Route::get('admin/category/storeby/{_namecattype}' , ['uses' =>'Admin\CategoryController@storeby', 'as'=>'admin'] );
 	Route::post('admin/category/storeby/{_namecattype}' , ['uses' =>'Admin\CategoryController@storeby', 'as'=>'admin'] );
-	
-	Route::get('admin/category/editbycatetype/{_idcategory?}/{_idcattype?}', ['as' => 'admin.category.editbycatetype', 'uses' => 'Admin\CategoryController@editbycatetype']);
+		Route::get('admin/category/editbycatetype/{_idcategory?}/{_idcattype?}', ['as' => 'admin.category.editbycatetype', 'uses' => 'Admin\CategoryController@editbycatetype']);
 	Route::post('admin/category/editbycatetype/{_idcategory?}/{_idcattype?}', ['as' => 'admin.category.editbycatetype', 'uses' => 'Admin\CategoryController@editbycatetype']);
-	
-	Route::resource('admin/category' , 'Admin\CategoryController', array('as'=>'admin') );
-
+		Route::resource('admin/category' , 'Admin\CategoryController', array('as'=>'admin') );
 	Route::get('admin/menu/hasidcate/{_idmenu}', 'Admin\MenuController@menuhasidcate');
 	Route::post('admin/menu/hasidcate/{_idmenu}', 'Admin\MenuController@menuhasidcate');
 	Route::resource('admin/menu' , 'Admin\MenuController', array('as'=>'admin') );

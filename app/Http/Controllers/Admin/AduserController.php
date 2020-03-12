@@ -208,19 +208,18 @@ class AduserController extends Controller
 
     public function edit($id)
     {
-
-        $users = User::find($id);
-
-        $result = DB::select('call ListDepartParentProcedure()');
-
-        $departparents = json_decode(json_encode($result), true);
-
-        $rs_empdepart_seleted = DB::select('call ListSelEmpDepartProcedure(?)',array($id));
-
-        $l_empdepart_seleted = json_decode(json_encode($rs_empdepart_seleted), true);
-
-        return view('admin.aduser.edit',compact('users','id','departparents','l_empdepart_seleted'));
-
+        $users = $this->CheckPermission();
+        $allow = $users[0]['allow'];
+        if($allow > 0 ){
+            $users = User::find($id);
+            $result = DB::select('call ListDepartParentProcedure()');
+            $departparents = json_decode(json_encode($result), true);
+            $rs_empdepart_seleted = DB::select('call ListSelEmpDepartProcedure(?)',array($id));
+            $l_empdepart_seleted = json_decode(json_encode($rs_empdepart_seleted), true);
+            return view('admin.aduser.edit',compact('users','id','departparents','l_empdepart_seleted'));
+        }else{
+            return view('admin.welcome.disable');
+        } 
     }
 
 
@@ -291,30 +290,50 @@ class AduserController extends Controller
 
         //$users = User::find($id);
         //$users->delete();
-        try {
-            $qr_delete_user = DB::select('call DeleteUserProcedure(?)',array($id));
-            $rs_delete_user = json_decode(json_encode($qr_delete_user), true);
-        } catch (\Illuminate\Database\QueryException $ex) {
-            $errors = new MessageBag(['error' => $ex->getMessage()]);
-            //return redirect()->route('admin.aduser.create')->with('error',$errors);
-            return redirect()->route('admin.aduser.create')->with(compact('errors'));
-        }       
-        return redirect()->route('admin.aduser.index')->with('success','record have deleted');
+        $users = $this->CheckPermission();
+        $allow = $users[0]['allow'];
+        if($allow > 0 ){
+            try {
+                $qr_delete_user = DB::select('call DeleteUserProcedure(?)',array($id));
+                $rs_delete_user = json_decode(json_encode($qr_delete_user), true);
+            } catch (\Illuminate\Database\QueryException $ex) {
+                $errors = new MessageBag(['error' => $ex->getMessage()]);
+                //return redirect()->route('admin.aduser.create')->with('error',$errors);
+                return redirect()->route('admin.aduser.index')->with(compact('errors'));
+            }       
+            return redirect()->route('admin.aduser.index')->with('success','record have deleted');
+        }else{
+            return view('admin.welcome.disable');
+        } 
+        
     }
     public function curent_url(){
-        //$_curent_url = url()->current();
+        $totalSegsCount = count(\Request::segments());
+        $url = '';
+        for ($i = 0; $i < $totalSegsCount; $i++) { 
+            $url .= \Request::segment($i+1)."/";
+        }
+        $url = rtrim($url, '/');
         $_command = "select";
-        $url1 = \Request::segment(1);
-        $url2 = \Request::segment(2);
-        $url3 = \Request::segment(3);
-        if($url2){
-            $url2 = '/'.$url2;
+        $pattern_index = "/admin\/aduser$/";
+        $pattern_create = "/admin\/aduser\/create$/";
+        $pattern_edit = "/admin\/aduser\/[0-9]+\/edit$/";
+        $pattern_delete = "/admin\/aduser\/[0-9]+$/";
+        $matches = array();
+        if (preg_match($pattern_index, $url, $matches)){
+            $_command = "select";
+            $url = "admin/aduser";
+        }elseif (preg_match($pattern_create, $url, $matches)){
+            $_command = "create";
+            $url = "admin/aduser/create";
+        }elseif (preg_match($pattern_edit, $url, $matches)){
+            $_command = "edit";
+            $url = "admin/aduser/0/edit";
+        }elseif (preg_match($pattern_delete, $url, $matches)){
+            $_command = "delete";
+            $url = "admin/aduser/0";
         }
-        if($url3){
-            $_command = $url3;
-            $url3 = '/'.$url3;
-        }
-        $result = array('url'=>$url1.$url2.$url3,'command'=>$_command);
+        $result = array('url'=>$url,'command'=>$_command);
         return $result;
     }
     public function CheckPermission(){

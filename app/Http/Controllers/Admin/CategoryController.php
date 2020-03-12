@@ -224,10 +224,8 @@ class CategoryController extends Controller
 
     {
 
-         $categories = category::find($idcategory);
-
-        $categories->delete();
-
+        //$categories = category::find($idcategory);
+        //$categories->delete();
         return redirect()->route('admin.category.index')->with('success','record have deleted');
 
     }
@@ -426,32 +424,32 @@ class CategoryController extends Controller
         return 0;
     }
     public function curent_url(){
-        //$_curent_url = url()->current();
         $totalSegsCount = count(\Request::segments());
+        $url = '';
+        for ($i = 0; $i < $totalSegsCount; $i++) { 
+            $url .= \Request::segment($i+1)."/";
+        }
+        $url = rtrim($url, '/');
         $_command = "select";
-        $url1 = \Request::segment(1);
-        $url2 = \Request::segment(2);
-        $url3 = \Request::segment(3);
-        $url4 = \Request::segment(4);
-        if($url3&&strcmp($url2,"categoryby") == 0){
-            $_command = 'select';
-            $url3 = '/'.$url3;
-        }elseif (strcmp($url3,"createby")== 0 && strcmp($url2,"category")==0){
-            $_command = 'create';
-            $url3 = '/'.$url3;
+        $pattern_index = "/admin\/categoryby\/dashboard$/";
+        $pattern_create = "/admin\/category\/createby\/dashboard$/";
+        $pattern_edit = "/admin\/category\/editbycatetype\/[0-9]+\/[0-9]+$/";
+        $pattern_delete = "/admin\/aduser\/[0-9]+$/";
+        $matches = array();
+        if (preg_match($pattern_index, $url, $matches)){
+            $_command = "select";
+            $url = "admin/categoryby/dashboard";
+        }elseif (preg_match($pattern_create, $url, $matches)){
+            $_command = "create";
+            $url = "admin/category/createby/dashboard";
+        }elseif (preg_match($pattern_edit, $url, $matches)){
+            $_command = "edit";
+            $url = "admin/category/editbycatetype/0/0";
+        }elseif (preg_match($pattern_delete, $url, $matches)){
+            $_command = "delete";
+            $url = "admin/aduser/0";
         }
-        else{
-            $_command = $url3;
-            $url3 = '/'.$url3;
-        }
-        if($url2){
-            $url2 = '/'.$url2;
-        }
-        if($url4){
-            $url4 = '/'.$url4;
-        }
-        $currentroute = \Route::current()->getName();
-        $result = array('url'=>$url1.$url2.$url3.$url4,'command'=>$_command,'route'=>$currentroute,'totalSegsCount'=>$totalSegsCount);
+        $result = array('url'=>$url,'command'=>$_command);
         return $result;
     }
     public function CheckPermission(){
