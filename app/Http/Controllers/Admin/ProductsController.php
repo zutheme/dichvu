@@ -731,7 +731,8 @@ class ProductsController extends Controller
             $rs_lstcate = json_decode(json_encode($qr_lst));
             $strlst = "";
             foreach ($rs_lstcate as $item) {
-            $url = action('Admin\ProductsController@edit', ['idproduct' => $item->idproduct]);
+            //$url = action('Admin\ProductsController@edit', ['idproduct' => $item->idproduct]);
+            $url = url('admin/product/'.$item->idproduct.'/edit');
             $strlst .= '<li><input class="listcheck" type="radio" value="'.$item->idproduct.'" name="listchoose"><img src="'.$urlpath.$item->urlfile.'"><label><a target="_blank" href="'.$url.'">'.$item->namepro.'</a></label><p>&nbsp;&nbsp;('.$item->price.')</p></li>';  
             }     
             return response()->json($strlst); 
