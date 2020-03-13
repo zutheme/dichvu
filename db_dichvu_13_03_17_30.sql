@@ -11,7 +11,7 @@
  Target Server Version : 100133
  File Encoding         : 65001
 
- Date: 12/03/2020 17:43:17
+ Date: 13/03/2020 17:31:04
 */
 
 SET NAMES utf8mb4;
@@ -41,75 +41,80 @@ CREATE TABLE `categories`  (
   `slug` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `guid` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `pathroute` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `trash` tinyint(5) UNSIGNED NULL DEFAULT 0,
   `created_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`idcategory`) USING BTREE,
   INDEX `fr_cattype`(`idcattype`) USING BTREE,
   CONSTRAINT `fr_cattype` FOREIGN KEY (`idcattype`) REFERENCES `category_types` (`idcattype`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 73 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 77 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of categories
 -- ----------------------------
-INSERT INTO `categories` VALUES (1, NULL, 'promotion-reg', 1, 0, NULL, NULL, NULL, '2019-04-17 08:49:08', '2019-07-14 22:28:26');
-INSERT INTO `categories` VALUES (2, NULL, 'localhost', 2, 0, NULL, NULL, NULL, '2019-04-17 08:50:18', '2019-07-14 22:28:26');
-INSERT INTO `categories` VALUES (3, NULL, 'thammyvienthienkhue.vn', 2, 0, NULL, NULL, NULL, '2019-04-17 10:35:14', '2019-07-14 22:28:26');
-INSERT INTO `categories` VALUES (4, NULL, 'Tương tác', 3, 0, NULL, NULL, NULL, '2019-04-17 11:43:13', '2019-07-14 22:28:26');
-INSERT INTO `categories` VALUES (5, NULL, 'cuocthigiambeo.thammyvienthienkhue.vn', 2, 0, NULL, NULL, NULL, '2019-05-15 16:11:49', '2019-07-14 22:28:26');
-INSERT INTO `categories` VALUES (6, NULL, 'Trị nám tàn nhang', 4, 0, NULL, NULL, NULL, '2019-05-23 17:08:10', '2019-08-03 10:09:55');
-INSERT INTO `categories` VALUES (9, NULL, 'Trẻ hóa xóa nhăn', 4, 0, NULL, NULL, NULL, '2019-05-24 10:41:11', '2019-08-23 13:57:06');
-INSERT INTO `categories` VALUES (10, NULL, 'Xóa nhăn', 4, 0, NULL, NULL, NULL, '2019-05-24 10:43:06', '2019-07-14 22:28:26');
-INSERT INTO `categories` VALUES (11, 'order', 'Đơn hàng', 5, 0, NULL, NULL, NULL, '2019-06-11 11:57:54', '2019-07-14 22:28:26');
-INSERT INTO `categories` VALUES (12, 'process', 'Xử lý', 5, 0, NULL, NULL, NULL, '2019-06-11 11:58:28', '2019-07-14 22:28:26');
-INSERT INTO `categories` VALUES (13, 'produce', 'Sản xuất', 5, 0, NULL, NULL, NULL, '2019-06-11 11:59:25', '2019-07-14 22:28:26');
-INSERT INTO `categories` VALUES (14, 'transfer', 'Vận chuyển', 5, 0, NULL, NULL, NULL, '2019-06-11 11:59:38', '2019-07-14 22:28:26');
-INSERT INTO `categories` VALUES (15, 'post', 'Giao hàng', 5, 0, NULL, NULL, NULL, '2019-06-11 12:01:00', '2019-07-14 22:28:26');
-INSERT INTO `categories` VALUES (17, NULL, 'Trị sẹo', 4, 0, NULL, NULL, NULL, '2019-07-08 17:25:44', '2019-07-14 22:28:26');
-INSERT INTO `categories` VALUES (24, NULL, 'Thẩm mỹ nội khoa', 4, 0, NULL, NULL, NULL, '2019-07-08 22:02:32', '2019-07-14 22:28:26');
-INSERT INTO `categories` VALUES (28, NULL, 'Giảm béo', 4, 0, NULL, NULL, NULL, '2019-07-14 21:50:28', '2019-07-14 22:28:26');
-INSERT INTO `categories` VALUES (29, NULL, 'Chăm sóc spa', 4, 0, NULL, NULL, NULL, '2019-07-14 21:57:55', '2019-08-23 11:13:08');
-INSERT INTO `categories` VALUES (30, NULL, 'mgk.edu.vn', 2, 0, NULL, NULL, NULL, '2019-08-01 14:59:17', '2019-08-02 10:22:16');
-INSERT INTO `categories` VALUES (31, 'import', 'Nhập hàng', 5, 0, NULL, '', NULL, '2019-08-02 10:08:41', '2019-08-24 13:49:17');
-INSERT INTO `categories` VALUES (32, NULL, '', NULL, NULL, NULL, NULL, NULL, '2019-08-24 13:49:20', '2019-08-24 13:49:20');
-INSERT INTO `categories` VALUES (33, NULL, 'weekcare', 4, 29, NULL, NULL, NULL, '2019-10-12 11:33:55', '2019-10-12 11:33:55');
-INSERT INTO `categories` VALUES (34, NULL, 'Cơ sở TP Hồ Chí Minh', 7, 0, NULL, NULL, NULL, '2019-10-23 16:56:06', '2019-10-23 16:56:06');
-INSERT INTO `categories` VALUES (35, NULL, 'dailycare', 4, 29, NULL, NULL, NULL, '2020-02-04 11:19:38', '2020-02-04 11:19:38');
-INSERT INTO `categories` VALUES (36, NULL, 'Quản lý khách hàng', 9, 0, NULL, NULL, NULL, '2020-02-07 09:23:20', '2020-02-07 09:23:20');
-INSERT INTO `categories` VALUES (37, NULL, 'Quản lý sản phẩm', 9, 0, NULL, NULL, NULL, '2020-02-07 09:23:45', '2020-02-07 09:23:45');
-INSERT INTO `categories` VALUES (38, NULL, 'Quản lý nội dung', 9, 0, NULL, NULL, NULL, '2020-02-07 09:24:05', '2020-02-07 09:24:05');
-INSERT INTO `categories` VALUES (39, NULL, 'Nhân sự', 9, 0, NULL, NULL, NULL, '2020-02-07 09:24:24', '2020-02-07 09:24:24');
-INSERT INTO `categories` VALUES (40, NULL, 'Sản phẩm', 9, 37, NULL, NULL, '/admin/product', '2020-02-07 09:26:41', '2020-02-22 17:46:47');
-INSERT INTO `categories` VALUES (41, NULL, 'Chuyên mục', 9, 40, NULL, NULL, 'admin/categoryby/product', '2020-02-07 09:27:35', '2020-03-12 17:14:58');
-INSERT INTO `categories` VALUES (42, NULL, 'Liệt kê', 9, 40, NULL, NULL, '/admin/product', '2020-02-07 09:28:51', '2020-02-23 15:38:50');
-INSERT INTO `categories` VALUES (43, NULL, 'thienkhue', 9, 36, NULL, NULL, '/admin/customerreg/listcustomerbycat/3/1/0', '2020-02-09 17:01:20', '2020-02-22 17:46:56');
-INSERT INTO `categories` VALUES (44, NULL, 'mgk.edu.vn', 9, 36, NULL, NULL, '/admin/customerreg/listcustomerbycat/30/1/0', '2020-02-09 17:08:18', '2020-02-22 17:47:02');
-INSERT INTO `categories` VALUES (45, NULL, 'Tổng hợp', 9, 0, NULL, NULL, NULL, '2020-02-09 17:32:12', '2020-02-09 17:32:12');
-INSERT INTO `categories` VALUES (46, NULL, 'Hệ thống', 9, 0, NULL, NULL, NULL, '2020-02-25 17:06:41', '2020-02-25 17:06:41');
-INSERT INTO `categories` VALUES (47, NULL, 'Phân quyền', 9, 46, NULL, NULL, NULL, '2020-02-25 17:23:46', '2020-02-25 17:23:46');
-INSERT INTO `categories` VALUES (48, NULL, 'Vai trò', 9, 47, NULL, NULL, 'admin/roles', '2020-02-25 17:29:46', '2020-02-25 17:29:46');
-INSERT INTO `categories` VALUES (49, NULL, 'Lệnh thực thi', 9, 47, NULL, NULL, 'admin/perm_command', '2020-02-28 15:43:00', '2020-02-28 15:43:00');
-INSERT INTO `categories` VALUES (50, NULL, 'Danh sách quyền', 9, 47, NULL, NULL, 'admin/permission', '2020-02-28 16:15:43', '2020-03-10 11:50:42');
-INSERT INTO `categories` VALUES (51, NULL, 'Cấp quyền cho nhóm', 9, 47, NULL, NULL, 'admin/impperm', '2020-02-28 16:16:30', '2020-02-28 16:16:30');
-INSERT INTO `categories` VALUES (52, NULL, 'Cấp quyền người dùng', 9, 47, NULL, NULL, 'admin/grantperm', '2020-02-28 16:17:02', '2020-02-28 16:17:14');
-INSERT INTO `categories` VALUES (53, NULL, 'Quản lý người dùng', 9, 47, NULL, NULL, 'admin/aduser', '2020-02-28 16:27:45', '2020-02-28 16:27:45');
-INSERT INTO `categories` VALUES (54, NULL, 'Chuyên mục quyền', 9, 47, NULL, NULL, 'admin/categoryby/dashboard', '2020-02-28 16:28:20', '2020-03-10 17:03:24');
-INSERT INTO `categories` VALUES (55, NULL, 'Loại nội dung', 9, 46, NULL, NULL, NULL, '2020-03-06 17:03:40', '2020-03-06 17:03:40');
-INSERT INTO `categories` VALUES (56, NULL, 'Kiểu chuyên mục', 9, 55, NULL, NULL, 'admin/cattype', '2020-03-06 17:04:27', '2020-03-06 17:04:27');
-INSERT INTO `categories` VALUES (57, NULL, 'Kiểu nội dung', 9, 55, NULL, NULL, 'admin/posttype', '2020-03-06 17:06:08', '2020-03-06 17:06:08');
-INSERT INTO `categories` VALUES (58, NULL, 'Kiểu trạng thái', 9, 55, NULL, NULL, 'admin/statustype', '2020-03-06 17:06:39', '2020-03-06 17:06:58');
-INSERT INTO `categories` VALUES (59, NULL, 'Tạo mới role', 9, 47, NULL, NULL, 'admin/roles/create', '2020-03-06 17:25:23', '2020-03-06 17:25:23');
-INSERT INTO `categories` VALUES (60, NULL, 'Enable create new permission', 9, 47, NULL, NULL, 'admin/permission/create', '2020-03-10 12:52:28', '2020-03-10 12:52:28');
-INSERT INTO `categories` VALUES (61, NULL, 'Enable grant permission for role', 9, 47, NULL, NULL, 'admin/impperm/create', '2020-03-10 14:44:24', '2020-03-10 14:50:21');
-INSERT INTO `categories` VALUES (63, NULL, 'enable grant user into role', 9, 47, NULL, NULL, 'admin/grantperm/create', '2020-03-10 16:59:00', '2020-03-10 16:59:00');
-INSERT INTO `categories` VALUES (64, NULL, 'Create new user', 9, 47, NULL, NULL, 'admin/aduser/create', '2020-03-11 08:31:18', '2020-03-11 08:31:18');
-INSERT INTO `categories` VALUES (65, NULL, 'Create new category', 9, 47, NULL, NULL, 'admin/category/createby/dashboard', '2020-03-11 09:18:36', '2020-03-11 09:18:36');
-INSERT INTO `categories` VALUES (66, NULL, 'Enable create category type', 9, 47, NULL, NULL, 'admin/cattype/create', '2020-03-11 14:08:33', '2020-03-11 14:08:33');
-INSERT INTO `categories` VALUES (67, NULL, 'Create new status type', 9, 47, NULL, NULL, 'admin/statustype/create', '2020-03-11 14:20:16', '2020-03-11 14:20:16');
-INSERT INTO `categories` VALUES (68, NULL, 'Create new post type', 9, 47, NULL, NULL, 'admin/posttype/create', '2020-03-12 09:13:51', '2020-03-12 09:13:51');
-INSERT INTO `categories` VALUES (69, NULL, 'Edit user', 9, 47, NULL, NULL, 'admin/aduser/0/edit', '2020-03-12 12:32:34', '2020-03-12 13:49:09');
-INSERT INTO `categories` VALUES (70, NULL, 'Create new command', 9, 47, NULL, NULL, 'admin/perm_command/create', '2020-03-12 15:37:33', '2020-03-12 15:37:33');
-INSERT INTO `categories` VALUES (71, NULL, 'Delete user', 9, 47, NULL, NULL, 'admin/aduser/0', '2020-03-12 15:50:15', '2020-03-12 15:50:15');
-INSERT INTO `categories` VALUES (72, NULL, 'Edit category', 9, 47, NULL, NULL, 'admin/category/editbycatetype/0/0', '2020-03-12 17:25:00', '2020-03-12 17:25:00');
+INSERT INTO `categories` VALUES (1, NULL, 'promotion-reg', 1, 0, NULL, NULL, NULL, 0, '2019-04-17 08:49:08', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (2, NULL, 'localhost', 2, 0, NULL, NULL, NULL, 0, '2019-04-17 08:50:18', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (3, NULL, 'thammyvienthienkhue.vn', 2, 0, NULL, NULL, NULL, 0, '2019-04-17 10:35:14', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (4, NULL, 'Tương tác', 3, 0, NULL, NULL, NULL, 0, '2019-04-17 11:43:13', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (5, NULL, 'cuocthigiambeo.thammyvienthienkhue.vn', 2, 0, NULL, NULL, NULL, 0, '2019-05-15 16:11:49', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (6, NULL, 'Trị nám tàn nhang', 4, 0, NULL, NULL, NULL, 0, '2019-05-23 17:08:10', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (9, NULL, 'Trẻ hóa xóa nhăn', 4, 0, NULL, NULL, NULL, 0, '2019-05-24 10:41:11', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (10, NULL, 'Xóa nhăn', 4, 0, NULL, NULL, NULL, 0, '2019-05-24 10:43:06', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (11, 'order', 'Đơn hàng', 5, 0, NULL, NULL, NULL, 0, '2019-06-11 11:57:54', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (12, 'process', 'Xử lý', 5, 0, NULL, NULL, NULL, 0, '2019-06-11 11:58:28', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (13, 'produce', 'Sản xuất', 5, 0, NULL, NULL, NULL, 0, '2019-06-11 11:59:25', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (14, 'transfer', 'Vận chuyển', 5, 0, NULL, NULL, NULL, 0, '2019-06-11 11:59:38', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (15, 'post', 'Giao hàng', 5, 0, NULL, NULL, NULL, 0, '2019-06-11 12:01:00', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (17, NULL, 'Trị sẹo', 4, 0, NULL, NULL, NULL, 0, '2019-07-08 17:25:44', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (24, NULL, 'Thẩm mỹ nội khoa', 4, 0, NULL, NULL, NULL, 0, '2019-07-08 22:02:32', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (28, NULL, 'Giảm béo', 4, 0, NULL, NULL, NULL, 0, '2019-07-14 21:50:28', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (29, NULL, 'Chăm sóc spa', 4, 0, NULL, NULL, NULL, 0, '2019-07-14 21:57:55', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (30, NULL, 'mgk.edu.vn', 2, 0, NULL, NULL, NULL, 0, '2019-08-01 14:59:17', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (31, 'import', 'Nhập hàng', 5, 0, NULL, '', NULL, 0, '2019-08-02 10:08:41', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (32, NULL, '', NULL, NULL, NULL, NULL, NULL, 0, '2019-08-24 13:49:20', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (33, NULL, 'weekcare', 4, 29, NULL, NULL, NULL, 0, '2019-10-12 11:33:55', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (34, NULL, 'Cơ sở TP Hồ Chí Minh', 7, 0, NULL, NULL, NULL, 0, '2019-10-23 16:56:06', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (35, NULL, 'dailycare', 4, 29, NULL, NULL, NULL, 0, '2020-02-04 11:19:38', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (36, NULL, 'Quản lý khách hàng', 9, 0, NULL, NULL, NULL, 0, '2020-02-07 09:23:20', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (37, NULL, 'Quản lý sản phẩm', 9, NULL, NULL, NULL, '#', 0, '2020-02-07 09:23:45', '2020-03-13 16:35:40');
+INSERT INTO `categories` VALUES (38, NULL, 'Quản lý nội dung', 9, 0, NULL, NULL, NULL, 0, '2020-02-07 09:24:05', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (39, NULL, 'Nhân sự', 9, 0, NULL, NULL, NULL, 0, '2020-02-07 09:24:24', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (40, NULL, 'Sản phẩm', 9, 37, NULL, NULL, '#', 0, '2020-02-07 09:26:41', '2020-03-13 16:39:54');
+INSERT INTO `categories` VALUES (41, NULL, 'Chuyên mục', 9, 40, NULL, NULL, 'admin/categoryby/product', 0, '2020-02-07 09:27:35', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (42, NULL, 'Liệt kê', 9, 40, NULL, NULL, 'admin/product', 0, '2020-02-07 09:28:51', '2020-03-13 17:10:43');
+INSERT INTO `categories` VALUES (43, NULL, 'thienkhue', 9, 36, NULL, NULL, '/admin/customerreg/listcustomerbycat/3/1/0', 0, '2020-02-09 17:01:20', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (44, NULL, 'mgk.edu.vn', 9, 36, NULL, NULL, '/admin/customerreg/listcustomerbycat/30/1/0', 0, '2020-02-09 17:08:18', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (45, NULL, 'Tổng hợp', 9, 0, NULL, NULL, NULL, 0, '2020-02-09 17:32:12', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (46, NULL, 'Hệ thống', 9, 0, NULL, NULL, NULL, 0, '2020-02-25 17:06:41', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (47, NULL, 'Phân quyền', 9, 46, NULL, NULL, NULL, 0, '2020-02-25 17:23:46', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (48, NULL, 'Vai trò', 9, 47, NULL, NULL, 'admin/roles', 0, '2020-02-25 17:29:46', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (49, NULL, 'Lệnh thực thi', 9, 47, NULL, NULL, 'admin/perm_command', 0, '2020-02-28 15:43:00', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (50, NULL, 'Danh sách quyền', 9, 47, NULL, NULL, 'admin/permission', 0, '2020-02-28 16:15:43', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (51, NULL, 'Cấp quyền cho nhóm', 9, 47, NULL, NULL, 'admin/impperm', 0, '2020-02-28 16:16:30', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (52, NULL, 'Cấp quyền người dùng', 9, 47, NULL, NULL, 'admin/grantperm', 0, '2020-02-28 16:17:02', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (53, NULL, 'Quản lý người dùng', 9, 47, NULL, NULL, 'admin/aduser', 0, '2020-02-28 16:27:45', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (54, NULL, 'Chuyên mục quyền', 9, 47, NULL, NULL, 'admin/categoryby/dashboard', 0, '2020-02-28 16:28:20', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (55, NULL, 'Loại nội dung', 9, 46, NULL, NULL, NULL, 0, '2020-03-06 17:03:40', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (56, NULL, 'Kiểu chuyên mục', 9, 55, NULL, NULL, 'admin/cattype', 0, '2020-03-06 17:04:27', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (57, NULL, 'Kiểu nội dung', 9, 55, NULL, NULL, 'admin/posttype', 0, '2020-03-06 17:06:08', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (58, NULL, 'Kiểu trạng thái', 9, 55, NULL, NULL, 'admin/statustype', 0, '2020-03-06 17:06:39', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (59, NULL, 'Tạo mới role', 9, 47, NULL, NULL, 'admin/roles/create', 0, '2020-03-06 17:25:23', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (60, NULL, 'Enable create new permission', 9, 47, NULL, NULL, 'admin/permission/create', 0, '2020-03-10 12:52:28', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (61, NULL, 'Enable grant permission for role', 9, 47, NULL, NULL, 'admin/impperm/create', 0, '2020-03-10 14:44:24', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (63, NULL, 'enable grant user into role', 9, 47, NULL, NULL, 'admin/grantperm/create', 0, '2020-03-10 16:59:00', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (64, NULL, 'Create new user', 9, 47, NULL, NULL, 'admin/aduser/create', 0, '2020-03-11 08:31:18', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (65, NULL, 'Create new category', 9, 47, NULL, NULL, 'admin/category/createby/dashboard', 0, '2020-03-11 09:18:36', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (66, NULL, 'Enable create category type', 9, 47, NULL, NULL, 'admin/cattype/create', 0, '2020-03-11 14:08:33', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (67, NULL, 'Create new status type', 9, 47, NULL, NULL, 'admin/statustype/create', 0, '2020-03-11 14:20:16', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (68, NULL, 'Create new post type', 9, 47, NULL, NULL, 'admin/posttype/create', 0, '2020-03-12 09:13:51', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (69, NULL, 'Edit user', 9, 47, NULL, NULL, 'admin/aduser/0/edit', 0, '2020-03-12 12:32:34', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (70, NULL, 'Create new command', 9, 47, NULL, NULL, 'admin/perm_command/create', 0, '2020-03-12 15:37:33', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (71, NULL, 'Delete user', 9, 47, NULL, NULL, 'admin/aduser/0', 0, '2020-03-12 15:50:15', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (72, NULL, 'Edit category', 9, 47, NULL, NULL, 'admin/category/editbycatetype/0/0', 0, '2020-03-12 17:25:00', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (73, NULL, 'Edit role', 9, 47, NULL, NULL, 'admin/roles/0/edit', 0, '2020-03-13 14:00:12', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (74, NULL, 'delete role', 9, 47, NULL, NULL, 'admin/roles/0', 0, '2020-03-13 14:02:12', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (75, NULL, 'Edit command', 9, 47, NULL, NULL, 'admin/perm_command/1/edit', 0, '2020-03-13 14:16:56', '2020-03-13 14:56:13');
+INSERT INTO `categories` VALUES (76, NULL, 'Edit permission', 9, 47, NULL, NULL, 'admin/permission/0/edit', 0, '2020-03-13 16:47:04', '2020-03-13 16:47:04');
 
 -- ----------------------------
 -- Table structure for category_types
@@ -659,7 +664,7 @@ CREATE TABLE `imp_perms`  (
   CONSTRAINT `fr_impperm` FOREIGN KEY (`idperm`) REFERENCES `permissions` (`idperm`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fr_impperm_role` FOREIGN KEY (`idrole`) REFERENCES `roles` (`idrole`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fr_impperm_user` FOREIGN KEY (`iduserimp`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 35 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 43 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of imp_perms
@@ -696,6 +701,14 @@ INSERT INTO `imp_perms` VALUES (31, 26, 1, 2, '2020-03-12 09:15:09', '2020-03-12
 INSERT INTO `imp_perms` VALUES (32, 27, 1, 2, '2020-03-12 12:33:26', '2020-03-12 12:33:26');
 INSERT INTO `imp_perms` VALUES (33, 28, 1, 2, '2020-03-12 15:38:23', '2020-03-12 15:38:23');
 INSERT INTO `imp_perms` VALUES (34, 29, 1, 2, '2020-03-12 15:54:24', '2020-03-12 15:54:24');
+INSERT INTO `imp_perms` VALUES (35, 31, 1, 2, '2020-03-13 14:01:15', '2020-03-13 14:01:15');
+INSERT INTO `imp_perms` VALUES (36, 32, 1, 2, '2020-03-13 14:03:22', '2020-03-13 14:03:22');
+INSERT INTO `imp_perms` VALUES (37, 33, 1, 2, '2020-03-13 14:17:45', '2020-03-13 14:17:45');
+INSERT INTO `imp_perms` VALUES (38, 30, 1, 2, '2020-03-13 16:21:47', '2020-03-13 16:21:47');
+INSERT INTO `imp_perms` VALUES (39, 34, 1, 2, '2020-03-13 16:42:02', '2020-03-13 16:42:02');
+INSERT INTO `imp_perms` VALUES (40, 35, 1, 2, '2020-03-13 16:44:08', '2020-03-13 16:44:08');
+INSERT INTO `imp_perms` VALUES (41, 36, 1, 2, '2020-03-13 16:47:55', '2020-03-13 16:47:55');
+INSERT INTO `imp_perms` VALUES (42, 37, 1, 2, '2020-03-13 17:11:48', '2020-03-13 17:11:48');
 
 -- ----------------------------
 -- Table structure for imp_products
@@ -1173,6 +1186,7 @@ INSERT INTO `oauth_access_tokens` VALUES ('17b21775cf6079c603283918bb55014cb927a
 INSERT INTO `oauth_access_tokens` VALUES ('1965204fe3ef4e6e544b64b1ecb76d6e15f8a9a48139d910616d35f7107a44f12057969a6b7aa4a1', 2, 1, 'MyApp', '[]', 0, '2019-07-06 08:36:46', '2019-07-06 08:36:46', '2020-07-06 08:36:46');
 INSERT INTO `oauth_access_tokens` VALUES ('1a0d2c5b55c8eae6c89a0768a6042d6f3edbed863d9c28852b0b76566134a1970a6f90fe678befb9', 2, 1, 'MyApp', '[]', 0, '2019-05-30 09:21:00', '2019-05-30 09:21:00', '2020-05-30 09:21:00');
 INSERT INTO `oauth_access_tokens` VALUES ('1ac74cf32baae6591346d6eb6cc6f19b369ec9aab755b619a6084a9b749f0242f08cb23f74d776b1', 2, 9, 'MyApp', '[]', 0, '2020-03-07 10:08:40', '2020-03-07 10:08:40', '2021-03-07 10:08:40');
+INSERT INTO `oauth_access_tokens` VALUES ('1c29ea624a989003a55f6b2546ba6b0b59964228688c0e96d0a676d45f899e44dc4900f17e2272b2', 2, 9, 'MyApp', '[]', 0, '2020-03-13 17:22:55', '2020-03-13 17:22:55', '2021-03-13 17:22:55');
 INSERT INTO `oauth_access_tokens` VALUES ('1c924153c83792025006713f21e037468db18b2c724ff404b83420811845eabf57a1d256c5f630c6', 2, 1, 'MyApp', '[]', 0, '2019-05-17 14:04:51', '2019-05-17 14:04:51', '2020-05-17 14:04:51');
 INSERT INTO `oauth_access_tokens` VALUES ('1d94de5a8b51dcb733805d5e494b75b90008775d490e3bb6a58738d916c5717f9d06dcf385a66a10', 2, 9, 'MyApp', '[]', 0, '2020-02-10 09:17:41', '2020-02-10 09:17:41', '2021-02-10 09:17:41');
 INSERT INTO `oauth_access_tokens` VALUES ('1e1a23c4e9674bfece4379f73d15468e20cc93117bef03de63fb810baabe0e147d47647222e3d0eb', 2, 7, 'MyApp', '[]', 0, '2019-09-29 09:53:21', '2019-09-29 09:53:21', '2020-09-29 09:53:21');
@@ -1197,6 +1211,7 @@ INSERT INTO `oauth_access_tokens` VALUES ('28a0fcfa1ade07d20ac6da7747bbf31d7435d
 INSERT INTO `oauth_access_tokens` VALUES ('295bc9007134ae31d525ab3209a83d13cbf1c68fcc68cb4f12836e2001f2659a3539c988a05c56e1', 2, 9, 'MyApp', '[]', 0, '2020-01-29 08:44:36', '2020-01-29 08:44:36', '2021-01-29 08:44:36');
 INSERT INTO `oauth_access_tokens` VALUES ('29f32cd7e62afccec2f43fb5df42b2a7f48a38a4e0c8ea56a728d2fdaba864deea206834784167fe', 2, 1, 'MyApp', '[]', 0, '2019-02-27 10:15:01', '2019-02-27 10:15:01', '2020-02-27 10:15:01');
 INSERT INTO `oauth_access_tokens` VALUES ('2a1c77e9b2f2ab04ab04abbb8e33587a187d9b8a2bd2364b86791e8e7bc0346463ab29770a6bdcaa', 2, 1, 'MyApp', '[]', 0, '2019-07-03 08:50:54', '2019-07-03 08:50:54', '2020-07-03 08:50:54');
+INSERT INTO `oauth_access_tokens` VALUES ('2cba882915664fbc39f5544ee473cb65956038fd270c9ad249039393b7e742d5f671e3b5619244c7', 2, 9, 'MyApp', '[]', 0, '2020-03-13 08:56:27', '2020-03-13 08:56:27', '2021-03-13 08:56:27');
 INSERT INTO `oauth_access_tokens` VALUES ('2d437e02c4ffd98fd86eae21d0e9f0ea1f6556db5dd7290001f02575ccc773766d855857bb2182a8', 2, 1, 'MyApp', '[]', 0, '2019-07-25 22:22:26', '2019-07-25 22:22:26', '2020-07-25 22:22:26');
 INSERT INTO `oauth_access_tokens` VALUES ('2d48e6079962345f9fb322fbafd7e55a933c0384b2c281786f8f92e8e98af187d60e2f9c229d61c8', 2, 1, 'MyApp', '[]', 0, '2019-07-27 08:17:11', '2019-07-27 08:17:11', '2020-07-27 08:17:11');
 INSERT INTO `oauth_access_tokens` VALUES ('2d4e4f6c487aeb65d97a4c1ca61110c68d53de18a7b459c9c7b9f3ccbfa13ed883a35eb07ca4cbc9', 2, 1, 'MyApp', '[]', 0, '2019-05-14 08:05:49', '2019-05-14 08:05:49', '2020-05-14 08:05:49');
@@ -1236,6 +1251,7 @@ INSERT INTO `oauth_access_tokens` VALUES ('434881af631f2459939d5f9685fe752f8c226
 INSERT INTO `oauth_access_tokens` VALUES ('43b9ed78e7c9778bfc62b2241119bd7e966de4b148a481282325daf5b666da51994c56e10a5563cc', 2, 1, 'MyApp', '[]', 0, '2019-05-03 20:00:48', '2019-05-03 20:00:48', '2020-05-03 20:00:48');
 INSERT INTO `oauth_access_tokens` VALUES ('43d805f5102cbb4fceed27e90da0391cc3c71749643b6f09bbaef304a24fa01992c52979f2daee3d', 2, 1, 'MyApp', '[]', 0, '2019-05-28 08:16:19', '2019-05-28 08:16:19', '2020-05-28 08:16:19');
 INSERT INTO `oauth_access_tokens` VALUES ('44ec7b99efd12d73fa64e6fff946edc47a34262246fcbe95baa9eee84e924cfc71e90e1f954516dc', 2, 1, 'MyApp', '[]', 0, '2019-07-05 17:32:54', '2019-07-05 17:32:54', '2020-07-05 17:32:54');
+INSERT INTO `oauth_access_tokens` VALUES ('457e7f21f88806f11d88bb7c9f7b4cf5434dd78f778ff37a75276bf3a52bfc89ba86bea40b778d6f', 2, 9, 'MyApp', '[]', 0, '2020-03-13 13:32:26', '2020-03-13 13:32:26', '2021-03-13 13:32:26');
 INSERT INTO `oauth_access_tokens` VALUES ('45a885012978aaf183fd066168f2c6f23a197bbe222bbfe6f83ad34b033f614c1a357f7fb5c0d04e', 2, 1, 'MyApp', '[]', 0, '2019-05-04 22:54:03', '2019-05-04 22:54:03', '2020-05-04 22:54:03');
 INSERT INTO `oauth_access_tokens` VALUES ('473786458558c1d7c54f830b15808d3d8b56aecfbf81bb0beacad8ce730bfbdc05ce5c409a8d5e39', 2, 1, 'MyApp', '[]', 0, '2019-07-09 11:41:08', '2019-07-09 11:41:08', '2020-07-09 11:41:08');
 INSERT INTO `oauth_access_tokens` VALUES ('473be711d7540fbc5f93c69099bb24f24a25757b168d85c08682c8c52f2204c0163a003b4eff4991', 2, 9, 'MyApp', '[]', 0, '2020-03-12 15:35:44', '2020-03-12 15:35:44', '2021-03-12 15:35:44');
@@ -1665,6 +1681,7 @@ CREATE TABLE `perm_commands`  (
   `idpercommand` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `command` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+  `trash` tinyint(5) NULL DEFAULT NULL,
   `created_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`idpercommand`) USING BTREE
@@ -1673,12 +1690,12 @@ CREATE TABLE `perm_commands`  (
 -- ----------------------------
 -- Records of perm_commands
 -- ----------------------------
-INSERT INTO `perm_commands` VALUES (1, 'select', 'Liệt kê', '2019-10-15 08:49:52', '2019-11-12 11:16:19');
-INSERT INTO `perm_commands` VALUES (2, 'update', 'cập nhật', '2019-10-15 08:50:04', '2019-11-12 11:16:07');
-INSERT INTO `perm_commands` VALUES (3, 'insert', 'Chèn dữ liệu', '2019-10-15 08:50:13', '2019-11-12 11:15:57');
-INSERT INTO `perm_commands` VALUES (4, 'edit', 'Chỉnh sửa', '2019-11-12 10:59:34', '2019-11-12 11:14:44');
-INSERT INTO `perm_commands` VALUES (7, 'create', 'Create new command', '2020-03-06 17:17:12', '2020-03-07 10:12:22');
-INSERT INTO `perm_commands` VALUES (8, 'delete', 'delete', '2020-03-12 15:53:14', '2020-03-12 15:53:14');
+INSERT INTO `perm_commands` VALUES (1, 'select', 'Liệt kê', 0, '2019-10-15 08:49:52', '2020-03-13 14:05:37');
+INSERT INTO `perm_commands` VALUES (2, 'update', 'cập nhật', 0, '2019-10-15 08:50:04', '2020-03-13 14:05:39');
+INSERT INTO `perm_commands` VALUES (3, 'insert', 'Chèn dữ liệu', 0, '2019-10-15 08:50:13', '2020-03-13 14:05:40');
+INSERT INTO `perm_commands` VALUES (4, 'edit', 'Chỉnh sửa', 0, '2019-11-12 10:59:34', '2020-03-13 14:05:41');
+INSERT INTO `perm_commands` VALUES (7, 'create', 'Create new command', 0, '2020-03-06 17:17:12', '2020-03-13 14:05:41');
+INSERT INTO `perm_commands` VALUES (8, 'delete', 'delete', 0, '2020-03-12 15:53:14', '2020-03-13 14:05:47');
 
 -- ----------------------------
 -- Table structure for permissions
@@ -1704,7 +1721,7 @@ CREATE TABLE `permissions`  (
   CONSTRAINT `fr_permission_category` FOREIGN KEY (`idcategory`) REFERENCES `categories` (`idcategory`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fr_permission_command` FOREIGN KEY (`idpermcommand`) REFERENCES `perm_commands` (`idpercommand`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fr_permission_product` FOREIGN KEY (`idproduct`) REFERENCES `products` (`idproduct`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 31 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 38 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of permissions
@@ -1739,6 +1756,13 @@ INSERT INTO `permissions` VALUES (27, 'Enable edit user', 'Enable edit user', 4,
 INSERT INTO `permissions` VALUES (28, 'Enable create new command', 'Enable create new command', 7, 70, NULL, NULL, NULL, NULL);
 INSERT INTO `permissions` VALUES (29, 'Enable delete user', 'Enable delete user', 8, 71, NULL, NULL, NULL, NULL);
 INSERT INTO `permissions` VALUES (30, 'Enable edit category', 'Enable edit category', 4, 72, NULL, NULL, NULL, NULL);
+INSERT INTO `permissions` VALUES (31, 'Enable edit role', 'Enable edit role', 4, 73, NULL, NULL, NULL, NULL);
+INSERT INTO `permissions` VALUES (32, 'Enable delete role', 'Enable delete role', 8, 74, NULL, NULL, NULL, NULL);
+INSERT INTO `permissions` VALUES (33, 'Enable edit command', 'Enable edit command', 4, 75, NULL, NULL, NULL, NULL);
+INSERT INTO `permissions` VALUES (34, 'System product', 'System product', 1, 37, NULL, NULL, NULL, NULL);
+INSERT INTO `permissions` VALUES (35, 'Group product', 'Group product', 1, 40, NULL, NULL, NULL, NULL);
+INSERT INTO `permissions` VALUES (36, 'Enable edit permission', 'Enable edit permission', 4, 76, NULL, NULL, NULL, NULL);
+INSERT INTO `permissions` VALUES (37, 'List product', 'List product', 1, 42, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for post_has_files
@@ -2052,18 +2076,20 @@ CREATE TABLE `roles`  (
   `idrole` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `trash` tinyint(5) NULL DEFAULT NULL,
   `created_at` timestamp(0) NULL DEFAULT NULL,
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`idrole`) USING BTREE,
   UNIQUE INDEX `roles_name_unique`(`name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of roles
 -- ----------------------------
-INSERT INTO `roles` VALUES (1, 'administrator', 'Quản trị', '2019-04-13 08:29:22', '2019-04-13 08:30:50');
-INSERT INTO `roles` VALUES (2, 'moderator', 'Điều hành viên', '2019-11-20 15:37:25', '2019-11-20 15:37:25');
-INSERT INTO `roles` VALUES (3, 'Member', 'Thành viên', '2019-11-20 15:38:06', '2019-11-20 15:38:06');
+INSERT INTO `roles` VALUES (1, 'administrator', 'Quản trị', 0, '2019-04-13 08:29:22', '2019-04-13 08:30:50');
+INSERT INTO `roles` VALUES (2, 'moderator', 'Điều hành viên', 0, '2019-11-20 15:37:25', '2019-11-20 15:37:25');
+INSERT INTO `roles` VALUES (3, 'Member', 'Thành viên', 0, '2019-11-20 15:38:06', '2019-11-20 15:38:06');
+INSERT INTO `roles` VALUES (4, 'super admin', 'super admin', 1, '2020-03-13 13:41:59', '2020-03-13 13:41:59');
 
 -- ----------------------------
 -- Table structure for sessions
@@ -2331,14 +2357,14 @@ INSERT INTO `users` VALUES (2, 'admin', 'admin@mgkgroup.vn', NULL, '$2y$10$3Ds/X
 INSERT INTO `users` VALUES (15, 'cskh1@mgkgroup.vn', 'cskh1@mgkgroup.vn', NULL, '$2y$10$QQCa0HdnBDnIbXmac1q3euNSAhSnCp9.75tzydSfab4Cpa88zEKoi', 'QhcnYmV641mrg4G6mWf2d3Et2ohEPbjyJXBpoZyL2Ha0lbEkN6QGnWZ9bsdf', 0, '2019-05-08 22:13:47', '2019-08-01 16:39:29');
 INSERT INTO `users` VALUES (16, 'letan01dn', 'letan01dn@mgkgroup.vn', NULL, '$2y$10$GPgP6YIMxSp5S0pUj8MDmu97gE0Co4UIWKjNH3eLaYG7KBtdc7wV6', 'eOcQTpyMQvUYbC894ZGvSxivsDCMYr7xF35mqagEGtuommze8DZHJncb5wNQ', 1, '2019-05-17 09:36:04', '2019-05-17 09:36:04');
 INSERT INTO `users` VALUES (17, 'letan01bd', 'letan01bd@mgkgroup.vn', NULL, '$2y$10$KH39/RhVD6ai0St8ZW0b6O9PGz5C0E1.l2F1lzfJVqNf5nO/dyCz6', NULL, 1, '2019-05-17 09:36:49', '2019-05-17 09:36:49');
-INSERT INTO `users` VALUES (18, 'digital1', 'digital1@mgkgroup.vn', NULL, '$2y$10$h2zeZyxVFQbky62Kbz.q2OympEwRlfNecRc/cm7TDVwQGE3PmJ6Lu', 'dslUs9Vmvfi3jEF3kJx0kD0FL6gqJNDbvuS8M4yk6OcOGXtZgGVWKEwvLpV6', 0, '2019-05-17 09:39:23', '2019-05-17 09:39:23');
+INSERT INTO `users` VALUES (18, 'digital1', 'digital1@mgkgroup.vn', NULL, '$2y$10$h2zeZyxVFQbky62Kbz.q2OympEwRlfNecRc/cm7TDVwQGE3PmJ6Lu', 'dslUs9Vmvfi3jEF3kJx0kD0FL6gqJNDbvuS8M4yk6OcOGXtZgGVWKEwvLpV6', 1, '2019-05-17 09:39:23', '2019-05-17 09:39:23');
 INSERT INTO `users` VALUES (23, 'cskh2@mgkgroup.vn', 'cskh2@mgkgroup.vn', NULL, '$2y$10$FymjL7jOLo7VX9L2saQ9JOIg2c.mX67jM0P/XNSNEAQudxbo2E2ny', NULL, 0, '2019-08-01 16:40:25', '2019-08-01 16:40:25');
 INSERT INTO `users` VALUES (24, 'cskh3@mgkgroup.vn', 'cskh3@mgkgroup.vn', NULL, '$2y$10$WOJe5BFGj5iwFnLcOD4ZpejjnbQmTQai0dCwHCFvjvL3fSI.N1XKm', NULL, 0, '2019-08-01 16:49:21', '2019-08-01 16:49:21');
 INSERT INTO `users` VALUES (25, 'cskh4@mgkgroup.vn', 'cskh4@mgkgroup.vn', NULL, '$2y$10$W4MKtJvIWLkAvhw5dMcvPeHbmW1BOFUR.t5fiLGJGy2CN97THP2ge', NULL, 0, '2019-08-01 16:49:58', '2019-08-01 16:49:58');
 INSERT INTO `users` VALUES (27, 'cskh6@mgkgroup.vn', 'cskh6@mgkgroup.vn', NULL, '$2y$10$v/qSfGpRPI/gMyVP8qYMFOEc3yybjeNSgLOzJ6ZZ.2zuqhIl3Nk8m', NULL, 0, '2019-08-01 16:51:49', '2019-08-01 16:51:49');
 INSERT INTO `users` VALUES (28, 'cskhmgk01@mgkgroup.vn', 'cskhmgk01@mgkgroup.vn', NULL, '$2y$10$WfE64sKZUp21jJhQ8cIOu..3OGkdCm.gNVEP8mmfHoeP9rDeNkQiG', NULL, 0, '2019-08-01 16:56:43', '2019-08-01 17:01:08');
 INSERT INTO `users` VALUES (29, 'cskh5@mgkgroup.vn', 'cskh5@mgkgroup.vn', NULL, '$2y$10$tiYAKeSW8n41rE67tplEwe6M6plZlS9VvpY5wGKD8YxmesB2TNVae', NULL, 0, '2019-08-01 17:50:50', '2019-08-01 17:50:50');
-INSERT INTO `users` VALUES (30, 'Tan hau', 'hatazu@gmail.com', NULL, '$2y$10$zut/sBB2QwdypTjZu0qyO.w1VA7LyD83NPiSIO//kZSPYDcj1BUg.', NULL, 0, '2019-09-01 10:10:14', '2019-09-01 10:10:14');
+INSERT INTO `users` VALUES (30, 'Tan hau', 'hatazu@gmail.com', NULL, '$2y$10$zut/sBB2QwdypTjZu0qyO.w1VA7LyD83NPiSIO//kZSPYDcj1BUg.', NULL, 1, '2019-09-01 10:10:14', '2019-09-01 10:10:14');
 
 -- ----------------------------
 -- Table structure for ward
@@ -2579,6 +2605,18 @@ BEGIN
 delimiter ;
 
 -- ----------------------------
+-- Procedure structure for DeleteRoleProcedure
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `DeleteRoleProcedure`;
+delimiter ;;
+CREATE PROCEDURE `DeleteRoleProcedure`(IN `_idrole` int)
+BEGIN
+	update roles set trash = 1 WHERE idrole = _idrole;
+END
+;;
+delimiter ;
+
+-- ----------------------------
 -- Procedure structure for DeleteUserProcedure
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `DeleteUserProcedure`;
@@ -2735,6 +2773,14 @@ DECLARE allow int(2) DEFAULT 0;
 				begin
 					select 1 as allow;
 				end;
+			ELSEIF _command = 'edit' then
+				begin
+					select 1 as allow;
+				end;
+			ELSEIF _command = 'delete' then
+				begin
+					select 1 as allow;
+				end;
 			end if;
 		END;
 	END if;
@@ -2883,6 +2929,14 @@ DECLARE allow int(2) DEFAULT 0;
 				begin
 					select 1 as allow;
 				end;
+			ELSEIF _command = 'edit' then
+				begin
+					select 1 as allow;
+				end;
+			ELSEIF _command = 'delete' then
+				begin
+					select 1 as allow;
+				end;
 			end if;
 		END;
 	END if;
@@ -2912,6 +2966,14 @@ DECLARE allow int(2) DEFAULT 0;
 					 SELECT 1 as allow, g.idgrant, r.idrole, r.`name` as namerole, (select name from users where id = g.to_iduser) as touser, (select name from users where id=g.by_iduser) as byuser from `grants` as g LEFT join roles as r on g.idrole = r.idrole;
 				end;
 			ELSEIF _command = 'create' then
+				begin
+					select 1 as allow;
+				end;
+			ELSEIF _command = 'edit' then
+				begin
+					select 1 as allow;
+				end;
+			ELSEIF _command = 'delete' then
 				begin
 					select 1 as allow;
 				end;
@@ -3443,6 +3505,14 @@ DECLARE allow int(2) DEFAULT 0;
 				begin
 					select 1 as allow;
 				end;
+			ELSEIF _command = 'edit' then
+				begin
+					select 1 as allow;
+				end;
+			ELSEIF _command = 'delete' then
+				begin
+					select 1 as allow;
+				end;
 			end if;
 		END;
 	END if;
@@ -3589,11 +3659,18 @@ DECLARE allow int(2) DEFAULT 0;
 				begin
 					select 1 as allow;
 				end;
+				ELSEIF _command = 'edit' then
+				begin
+					select 1 as allow;
+				end;
+				ELSEIF _command = 'delete' then
+				begin
+					select 1 as allow;
+				end;
 			end if;
 		END;
 	END if;
 END
-;
 ;;
 delimiter ;
 
@@ -3807,9 +3884,17 @@ DECLARE allow int(2) DEFAULT 0;
 		BEGIN
 			if _command = 'select' then
 				begin
-					SELECT *,1 as allow  from roles;
+					SELECT *,1 as allow  from roles WHERE trash < 1;
 				end;
 			ELSEIF _command = 'create' then
+				begin
+					select 1 as allow;
+				end;
+			ELSEIF _command = 'edit' then
+				begin
+					select 1 as allow;
+				end;
+				ELSEIF _command = 'delete' then
 				begin
 					select 1 as allow;
 				end;
@@ -3817,7 +3902,6 @@ DECLARE allow int(2) DEFAULT 0;
 		END;
 	END if;
 END
-;
 ;;
 delimiter ;
 

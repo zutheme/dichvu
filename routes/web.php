@@ -246,8 +246,8 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::post('admin/category/createby/{_namecattype}' , ['uses' =>'Admin\CategoryController@createby', 'as'=>'admin'] );
 	Route::get('admin/category/storeby/{_namecattype}' , ['uses' =>'Admin\CategoryController@storeby', 'as'=>'admin'] );
 	Route::post('admin/category/storeby/{_namecattype}' , ['uses' =>'Admin\CategoryController@storeby', 'as'=>'admin'] );
-		Route::get('admin/category/editbycatetype/{_idcategory?}/{_idcattype?}', ['as' => 'admin.category.editbycatetype', 'uses' => 'Admin\CategoryController@editbycatetype']);
-	Route::post('admin/category/editbycatetype/{_idcategory?}/{_idcattype?}', ['as' => 'admin.category.editbycatetype', 'uses' => 'Admin\CategoryController@editbycatetype']);
+	Route::get('admin/category/editbycatetype/{_idcategory}/{_idcattype}', ['as' => 'admin.category.editbycatetype', 'uses' => 'Admin\CategoryController@editbycatetype']);
+	Route::post('admin/category/editbycatetype/{_idcategory}/{_idcattype}', ['as' => 'admin.category.editbycatetype', 'uses' => 'Admin\CategoryController@editbycatetype']);
 		Route::resource('admin/category' , 'Admin\CategoryController', array('as'=>'admin') );
 	Route::get('admin/menu/hasidcate/{_idmenu}', 'Admin\MenuController@menuhasidcate');
 	Route::post('admin/menu/hasidcate/{_idmenu}', 'Admin\MenuController@menuhasidcate');

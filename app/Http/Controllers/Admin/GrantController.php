@@ -85,11 +85,17 @@ class GrantController extends Controller{
      */
     public function edit($idgrant)
     {
-        $users = user::all()->toArray();
-        $roles = Role::all()->toArray();
-        $result = DB::select('call ListgrantbyidProcedure(?)',array($idgrant));
-        $selected = json_decode(json_encode($result), true);
-        return view('admin.grantperm.edit',compact('users','roles','selected','idgrant'));
+        $grantperms = $this->CheckPermission();
+        $allow = $grantperms[0]['allow'];
+        if($allow > 0 ){
+            $users = user::all()->toArray();
+            $roles = Role::all()->toArray();
+            $result = DB::select('call ListgrantbyidProcedure(?)',array($idgrant));
+            $selected = json_decode(json_encode($result), true);
+            return view('admin.grantperm.edit',compact('users','roles','selected','idgrant'));
+        }else{
+            return view('admin.welcome.disable');
+        } 
     }
 
     /**
@@ -119,24 +125,46 @@ class GrantController extends Controller{
      */
     public function destroy($idgrant)
     {
-        $grant = Grant::find($idgrant);
-        $grant->delete();
-        return redirect()->route('admin.grantperm.index')->with('success','record have deleted');
+        //$grant = Grant::find($idgrant);
+        //$grant->delete();
+        $grantperms = $this->CheckPermission();
+        $allow = $grantperms[0]['allow'];
+        if($allow > 0 ){
+            $result = DB::select('call ListgrantbyidProcedure(?)',array($idgrant));
+            //$selected = json_decode(json_encode($result), true);
+            return redirect()->route('admin.grantperm.index')->with('success','record have deleted');
+        }else{
+            return view('admin.welcome.disable');
+        } 
+        
     }
     public function curent_url(){
-        //$_curent_url = url()->current();
+        $totalSegsCount = count(\Request::segments());
+        $url = '';
+        for ($i = 0; $i < $totalSegsCount; $i++) { 
+            $url .= \Request::segment($i+1)."/";
+        }
+        $url = rtrim($url, '/');
         $_command = "select";
-        $url1 = \Request::segment(1);
-        $url2 = \Request::segment(2);
-        $url3 = \Request::segment(3);
-        if($url2){
-            $url2 = '/'.$url2;
+        $pattern_index = "/admin\/grantperm$/";
+        $pattern_create = "/admin\/grantperm\/create$/";
+        $pattern_edit = "/admin\/grantperm\/[0-9]+\/edit$/";
+        $pattern_delete = "/admin\/grantperm\/[0-9]+$/";
+        $matches = array();
+        if (preg_match($pattern_index, $url, $matches)){
+            $_command = "select";
+            $url = "admin/grantperm";
+        }elseif (preg_match($pattern_create, $url, $matches)){
+            $_command = "create";
+            $url = "admin/grantperm/create";
+        }elseif (preg_match($pattern_edit, $url, $matches)){
+            $_command = "edit";
+            $url = "admin/grantperm/0/edit";
+        }elseif (preg_match($pattern_delete, $url, $matches)){
+            $_command = "delete";
+            $url = "admin/grantperm/0";
         }
-        if($url3){
-            $_command = $url3;
-            $url3 = '/'.$url3;
-        }
-        $result = array('url'=>$url1.$url2.$url3,'command'=>$_command);
+        $result = array('url'=>$url,'command'=>$_command);
         return $result;
     }
     public function CheckPermission(){

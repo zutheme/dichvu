@@ -25,8 +25,6 @@ class perm_commandContronler extends Controller
         }else{
             return view('admin.welcome.disable');
         } 
-        //$perm_commands = perm_command::all()->toArray();
-        //return view('admin.perm_command.index',compact('perm_commands'));
     }
 
     /**
@@ -42,10 +40,7 @@ class perm_commandContronler extends Controller
             return view('admin.perm_command.create');
         }else{
             return view('admin.welcome.disable');
-            //return redirect()->route('admin.welcome.disable')->with('disable');
         } 
-        //$perm_commands = perm_command::all()->toArray();
-        //return view('admin.perm_command.create',compact('perm_commands'));
     }
 
     /**
@@ -94,8 +89,15 @@ class perm_commandContronler extends Controller
      */
     public function edit($idpercommand)
     {
-        $perm_command = perm_command::find($idpercommand);
-        return view('admin.perm_command.edit',compact('perm_command','idpercommand'));
+        $perm_commands = $this->CheckPermission();      
+        $allow = $perm_commands[0]['allow'];
+        if($allow > 0 ){
+            $perm_command = perm_command::find($idpercommand);
+            return view('admin.perm_command.edit',compact('perm_command','idpercommand'));
+        }else{
+            return view('admin.welcome.disable');
+        } 
+
     }
 
     /**
@@ -123,26 +125,45 @@ class perm_commandContronler extends Controller
      */
     public function destroy($idpercommand)
     {
-        $perm_command = perm_command::find($idpercommand);
-        $perm_command->delete();
-        return redirect()->route('admin.perm_command.index')->with('success','record have deleted');
+        $perm_commands = $this->CheckPermission();      
+        $allow = $perm_commands[0]['allow'];
+        if($allow > 0 ){
+            //$perm_command = perm_command::find($idpercommand);
+            $qr_perm_commands = DB::select('call DeleteCommandProcedure(?)',array($idpercommand));
+            return redirect()->route('admin.perm_command.index')->with('success','record have deleted');
+        }else{
+            return view('admin.welcome.disable');
+        } 
+        
     }
     public function curent_url()
     {
-        //$host = $request->getHttpHost();
-        //$_curent_url = url()->current();
+       $totalSegsCount = count(\Request::segments());
+        $url = '';
+        for ($i = 0; $i < $totalSegsCount; $i++) { 
+            $url .= \Request::segment($i+1)."/";
+        }
+        $url = rtrim($url, '/');
         $_command = "select";
-        $url1 = \Request::segment(1);
-        $url2 = \Request::segment(2);
-        $url3 = \Request::segment(3);
-        if($url2){
-            $url2 = '/'.$url2;
+        $pattern_index = "/admin\/perm_command$/";
+        $pattern_create = "/admin\/perm_command\/create$/";
+        $pattern_edit = "/admin\/perm_command\/[0-9]+\/edit$/";
+        $pattern_delete = "/admin\/perm_command\/[0-9]+$/";
+        $matches = array();
+        if (preg_match($pattern_index, $url, $matches)){
+            $_command = "select";
+            $url = "admin/perm_command";
+        }elseif (preg_match($pattern_create, $url, $matches)){
+            $_command = "create";
+            $url = "admin/perm_command/create";
+        }elseif (preg_match($pattern_edit, $url, $matches)){
+            $_command = "edit";
+            $url = "admin/perm_command/0/edit";
+        }elseif (preg_match($pattern_delete, $url, $matches)){
+            $_command = "delete";
+            $url = "admin/perm_command/0";
         }
-        if($url3){
-            $_command = $url3;
-            $url3 = '/'.$url3;
-        }
-        $result = array('url'=>$url1.$url2.$url3,'command'=>$_command);
+        $result = array('url'=>$url,'command'=>$_command);
         return $result;
     }
     public function CheckPermission(){

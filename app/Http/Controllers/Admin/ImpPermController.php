@@ -94,13 +94,18 @@ class ImpPermController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id_impperm)
-    {       
-        $permissions = Permission::all()->toArray();
-        $roles = Role::all()->toArray();
-        $result = DB::select('call ImppermbyidProcedure(?)',array($id_impperm));
-        $selected = json_decode(json_encode($result), true);
-        return view('admin.impperm.edit',compact('permissions','roles','selected','id_impperm'));
+    public function edit($id_impperm){       
+        $impperms = $this->CheckPermission();
+        $allow = $impperms[0]['allow'];
+        if($allow > 0 ){
+            $permissions = Permission::all()->toArray();
+            $roles = Role::all()->toArray();
+            $result = DB::select('call ImppermbyidProcedure(?)',array($id_impperm));
+            $selected = json_decode(json_encode($result), true);
+            return view('admin.impperm.edit',compact('permissions','roles','selected','id_impperm'));
+        }else{
+            return view('admin.welcome.disable');
+        }   
     }
 
     /**
@@ -130,25 +135,44 @@ class ImpPermController extends Controller
      */
     public function destroy($id_impperm)
     {
-        $impperm = ImpPerm::find($id_impperm);
-        $impperm->delete();
-        return redirect()->route('admin.impperm.index')->with('success','record have deleted');
+        $impperms = $this->CheckPermission();
+        $allow = $impperms[0]['allow'];
+        if($allow > 0 ){
+            $result = DB::select('call DeleteProcedure(?)',array($id_impperm));
+            return redirect()->route('admin.impperm.index')->with('success','record have deleted');
+        }else{
+            return view('admin.welcome.disable');
+        }  
+        
     }
     public function curent_url()
     {
-        //$_curent_url = url()->current();
+       $totalSegsCount = count(\Request::segments());
+        $url = '';
+        for ($i = 0; $i < $totalSegsCount; $i++) { 
+            $url .= \Request::segment($i+1)."/";
+        }
+        $url = rtrim($url, '/');
         $_command = "select";
-        $url1 = \Request::segment(1);
-        $url2 = \Request::segment(2);
-        $url3 = \Request::segment(3);
-        if($url2){
-            $url2 = '/'.$url2;
+        $pattern_index = "/admin\/impperm$/";
+        $pattern_create = "/admin\/impperm\/create$/";
+        $pattern_edit = "/admin\/impperm\/[0-9]+\/edit$/";
+        $pattern_delete = "/admin\/impperm\/[0-9]+$/";
+        $matches = array();
+        if (preg_match($pattern_index, $url, $matches)){
+            $_command = "select";
+            $url = "admin/impperm";
+        }elseif (preg_match($pattern_create, $url, $matches)){
+            $_command = "create";
+            $url = "admin/impperm/create";
+        }elseif (preg_match($pattern_edit, $url, $matches)){
+            $_command = "edit";
+            $url = "admin/impperm/0/edit";
+        }elseif (preg_match($pattern_delete, $url, $matches)){
+            $_command = "delete";
+            $url = "admin/impperm/0";
         }
-        if($url3){
-            $_command = $url3;
-            $url3 = '/'.$url3;
-        }
-        $result = array('url'=>$url1.$url2.$url3,'command'=>$_command);
+        $result = array('url'=>$url,'command'=>$_command);
         return $result;
     }
     public function CheckPermission(){

@@ -138,37 +138,56 @@ class CategoryController extends Controller
      */
     public function editbycatetype(Request $request, $_idcategory, $_idcattype)
     {
-        $categorybyid = category::find($_idcategory);
-        $categories = category::all()->toArray();
-        $categorytypes = CategoryType::all()->toArray();
-        $result = DB::select('call SelCategorybyIdProcedure(?)',array($_idcategory));
-        $selected = json_decode(json_encode($result), true);
-        $qr_parent_cate = DB::select('call ListParentCatbyIdcattypeProcedure(?)',array($_idcattype));
-        $parent_cate = json_decode(json_encode($qr_parent_cate), true);
-        return view('admin.category.edit',compact('categorybyid','categories','_idcategory','categorytypes','selected','parent_cate'));
+        $categories = $this->CheckPermission();
+        $allow = $categories[0]['allow'];
+        if($allow > 0 ){
+            $categorybyid = category::find($_idcategory);
+            $categories = category::all()->toArray();
+            $categorytypes = CategoryType::all()->toArray();
+            $result = DB::select('call SelCategorybyIdProcedure(?)',array($_idcategory));
+            $selected = json_decode(json_encode($result), true);
+            $qr_parent_cate = DB::select('call ListParentCatbyIdcattypeProcedure(?)',array($_idcattype));
+            $parent_cate = json_decode(json_encode($qr_parent_cate), true);
+            return view('admin.category.edit',compact('categorybyid','categories','_idcategory','categorytypes','selected','parent_cate'));
+        }else{
+            return view('admin.welcome.disable');
+        } 
+
     }
     // public function edit(Request $request, $idcategory,$_namecattype)
     public function edit($idcategory,$_namecattype)
     {
-        $categorybyid = category::find($idcategory);
-        $categories = category::all()->toArray();
-        $categorytypes = CategoryType::all()->toArray();
-        $result = DB::select('call SelCategorybyIdProcedure(?)',array($idcategory));
-        $selected = json_decode(json_encode($result), true);
-        $qr_parent_cate = DB::select('call ListParentCatByTypeProcedure(?)',array($_namecattype));
-        $parent_cate = json_decode(json_encode($qr_parent_cate), true);
-        return view('admin.category.edit',compact('categorybyid','categories','idcategory','categorytypes','selected'));
+        $categories = $this->CheckPermission();
+        $allow = $categories[0]['allow'];
+        if($allow > 0 ){
+            $categorybyid = category::find($idcategory);
+            $categories = category::all()->toArray();
+            $categorytypes = CategoryType::all()->toArray();
+            $result = DB::select('call SelCategorybyIdProcedure(?)',array($idcategory));
+            $selected = json_decode(json_encode($result), true);
+            $qr_parent_cate = DB::select('call ListParentCatByTypeProcedure(?)',array($_namecattype));
+            $parent_cate = json_decode(json_encode($qr_parent_cate), true);
+            return view('admin.category.edit',compact('categorybyid','categories','idcategory','categorytypes','selected'));
+        }else{
+            return view('admin.welcome.disable');
+        }
     }
 
     public function editbynametype($idcategory,$nametypecat)
     {
-        $categorybyid = category::find($idcategory);
-        $categories = category::all()->toArray();
-        $categorytypes = CategoryType::all()->toArray();
-        $result = DB::select('call SelCategorybyIdProcedure(?)',array($idcategory));
-        $selected = json_decode(json_encode($result), true);
-        //return view('admin.category.edit',compact('categorybyid','categories','idcategory','categorytypes','selected'));
-        return redirect()->route('admin.category.edit')->with(compact('categorybyid','categories','idcategory','categorytypes','selected'));
+        $categories = $this->CheckPermission();
+        $allow = $categories[0]['allow'];
+        if($allow > 0 ){
+            $categorybyid = category::find($idcategory);
+            $categories = category::all()->toArray();
+            $categorytypes = CategoryType::all()->toArray();
+            $result = DB::select('call SelCategorybyIdProcedure(?)',array($idcategory));
+            $selected = json_decode(json_encode($result), true);
+            //return view('admin.category.edit',compact('categorybyid','categories','idcategory','categorytypes','selected'));
+            return redirect()->route('admin.category.edit')->with(compact('categorybyid','categories','idcategory','categorytypes','selected'));
+        }else{
+            return view('admin.welcome.disable');
+        }
     }
 
     /**
@@ -226,7 +245,13 @@ class CategoryController extends Controller
 
         //$categories = category::find($idcategory);
         //$categories->delete();
-        return redirect()->route('admin.category.index')->with('success','record have deleted');
+        $categories = $this->CheckPermission();
+        $allow = $categories[0]['allow'];
+        if($allow > 0 ){
+            return redirect()->route('admin.category.index')->with('success','record have deleted');
+        }else{
+            return view('admin.welcome.disable');
+        }
 
     }
 
@@ -262,8 +287,7 @@ class CategoryController extends Controller
         }else{
             return view('admin.welcome.disable');
         } 
-        
-        //return redirect()->route('admin.category.index')->with(compact('posttypes','categories','statustypes'));
+ 
     }
 
     public function createby($_namecattype){ 

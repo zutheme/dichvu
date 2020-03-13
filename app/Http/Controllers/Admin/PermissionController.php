@@ -36,9 +36,6 @@ class PermissionController extends Controller
             return view('admin.welcome.disable');
             //return redirect()->route('admin.welcome.disable')->with('disable');
         } 
-        //$qr_permission = DB::select('call ListPermissionProcedure()',array());
-        //$permissions = json_decode(json_encode($qr_permission), true);
-        //return view('admin.permission.index',compact('permissions'));
     }
 
     /**
@@ -116,24 +113,31 @@ class PermissionController extends Controller
      */
     public function edit($idperm)
     {
-        DB::enableQueryLog();
-        //$permissions = permission::find($idperm);
-        $qr_permissions = DB::select('call PermissionByidProcedure(?)',array($idperm));
-        $permissions = new \stdClass();
-        foreach ($qr_permissions as $item) {
-            foreach ($item as $key => $value) {
-                $permissions->$key = $value;
+        $rt_permissions = $this->CheckPermission();
+        $allow = $rt_permissions[0]['allow'];
+        if($allow > 0 ){
+             DB::enableQueryLog();
+            //$permissions = permission::find($idperm);
+            $qr_permissions = DB::select('call PermissionByidProcedure(?)',array($idperm));
+            $permissions = new \stdClass();
+            foreach ($qr_permissions as $item) {
+                foreach ($item as $key => $value) {
+                    $permissions->$key = $value;
+                }
             }
-        }
-        $categorytypes = CategoryType::all()->toArray();
-        $perm_commands = perm_command::all()->toArray();
-        $result = DB::select('call ListRoleIdpermProcedure(?)',array($idperm));
-        $roles = json_decode(json_encode($result), true);
-        $idcategory = $permissions->idcategory;
-        $cate_selected = array($idcategory);
-        $idcattype = $permissions->idcattype;
-        $listcate = $this->catebytype($idcattype,$cate_selected);
-        return view('admin.permission.edit',compact('permissions','idperm','roles','perm_commands','categorytypes','listcate'));
+            $categorytypes = CategoryType::all()->toArray();
+            $perm_commands = perm_command::all()->toArray();
+            $result = DB::select('call ListRoleIdpermProcedure(?)',array($idperm));
+            $roles = json_decode(json_encode($result), true);
+            $idcategory = $permissions->idcategory;
+            $cate_selected = array($idcategory);
+            $idperm = $permissions->idperm;
+            $listcate = $this->catebytype($idperm,$cate_selected);
+            return view('admin.permission.edit',compact('permissions','idperm','roles','perm_commands','categorytypes','listcate'));
+        }else{
+            return view('admin.welcome.disable');
+        } 
+
     }
     public function map($value){
         return (array)$value;
@@ -181,9 +185,15 @@ class PermissionController extends Controller
      */
     public function destroy($idperm)
     {
-        $permission = permission::find($idperm);
-        $permission->delete();
-        return redirect()->route('admin.permission.index')->with('success','record have deleted');
+        //$permission = permission::find($idperm);
+        //$permission->delete();
+        $permissions = $this->CheckPermission();
+        $allow = $permissions[0]['allow'];
+        if($allow > 0 ){
+            return redirect()->route('admin.permission.index')->with('success','record have deleted');
+        }else{
+            return view('admin.welcome.disable');
+        }
     }
     //show sub category
     public function catebytypehtml($_idcatetype,$cate_selected = array()) {
@@ -229,19 +239,32 @@ class PermissionController extends Controller
     }
     public function curent_url()
     {
-        //$_curent_url = url()->current();
+        $totalSegsCount = count(\Request::segments());
+        $url = '';
+        for ($i = 0; $i < $totalSegsCount; $i++) { 
+            $url .= \Request::segment($i+1)."/";
+        }
+        $url = rtrim($url, '/');
         $_command = "select";
-        $url1 = \Request::segment(1);
-        $url2 = \Request::segment(2);
-        $url3 = \Request::segment(3);
-        if($url2){
-            $url2 = '/'.$url2;
+        $pattern_index = "/admin\/permission$/";
+        $pattern_create = "/admin\/permission\/create$/";
+        $pattern_edit = "/admin\/permission\/[0-9]+\/edit$/";
+        $pattern_delete = "/admin\/permission\/[0-9]+$/";
+        $matches = array();
+        if (preg_match($pattern_index, $url, $matches)){
+            $_command = "select";
+            $url = "admin/permission";
+        }elseif (preg_match($pattern_create, $url, $matches)){
+            $_command = "create";
+            $url = "admin/permission/create";
+        }elseif (preg_match($pattern_edit, $url, $matches)){
+            $_command = "edit";
+            $url = "admin/permission/0/edit";
+        }elseif (preg_match($pattern_delete, $url, $matches)){
+            $_command = "delete";
+            $url = "admin/permission/0";
         }
-        if($url3){
-            $_command = $url3;
-            $url3 = '/'.$url3;
-        }
-        $result = array('url'=>$url1.$url2.$url3,'command'=>$_command);
+        $result = array('url'=>$url,'command'=>$_command);
         return $result;
     }
     public function CheckPermission(){

@@ -81,10 +81,16 @@ class PostTypeController extends Controller
      */
     public function edit($idposttype)
     {
-        $rs_categories = DB::select('call ListAllCategoryProcedure()');
-        $categories = json_decode(json_encode($rs_categories), true);
-        $posttype = PostType::find($idposttype);
-        return view('admin.posttype.edit',compact('posttype','idposttype','categories'));
+        $posttypes = $this->CheckPermission();
+        $allow = $posttypes[0]['allow'];
+        if($allow > 0 ){
+            $rs_categories = DB::select('call ListAllCategoryProcedure()');
+            $categories = json_decode(json_encode($rs_categories), true);
+            $posttype = PostType::find($idposttype);
+            return view('admin.posttype.edit',compact('posttype','idposttype','categories'));
+        }else{
+            return view('admin.welcome.disable');
+        }  
     }
 
     /**
@@ -111,29 +117,44 @@ class PostTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-   public function destroy($idposttype)
-    {
-        $posttype = PostType::find($idposttype);
-
-        $posttype->delete();
-
-        return redirect()->route('admin.posttype.index')->with('success','record have deleted');
+   public function destroy($idposttype){
+        //$posttype = PostType::find($idposttype);
+        //$posttype->delete();
+        $posttypes = $this->CheckPermission();
+        $allow = $posttypes[0]['allow'];
+        if($allow > 0 ){
+            return redirect()->route('admin.posttype.index')->with('success','record have deleted');
+        }else{
+            return view('admin.welcome.disable');
+        }
     }
-    public function curent_url()
-    {
-        //$_curent_url = url()->current();
+    public function curent_url(){
+        $totalSegsCount = count(\Request::segments());
+        $url = '';
+        for ($i = 0; $i < $totalSegsCount; $i++) { 
+            $url .= \Request::segment($i+1)."/";
+        }
+        $url = rtrim($url, '/');
         $_command = "select";
-        $url1 = \Request::segment(1);
-        $url2 = \Request::segment(2);
-        $url3 = \Request::segment(3);
-        if($url2){
-            $url2 = '/'.$url2;
+        $pattern_index = "/admin\/posttype$/";
+        $pattern_create = "/admin\/posttype\/create$/";
+        $pattern_edit = "/admin\/posttype\/[0-9]+\/edit$/";
+        $pattern_delete = "/admin\/posttype\/[0-9]+$/";
+        $matches = array();
+        if (preg_match($pattern_index, $url, $matches)){
+            $_command = "select";
+            $url = "admin/posttype";
+        }elseif (preg_match($pattern_create, $url, $matches)){
+            $_command = "create";
+            $url = "admin/posttype/create";
+        }elseif (preg_match($pattern_edit, $url, $matches)){
+            $_command = "edit";
+            $url = "admin/posttype/0/edit";
+        }elseif (preg_match($pattern_delete, $url, $matches)){
+            $_command = "delete";
+            $url = "admin/posttype/0";
         }
-        if($url3){
-            $_command = $url3;
-            $url3 = '/'.$url3;
-        }
-        $result = array('url'=>$url1.$url2.$url3,'command'=>$_command);
+        $result = array('url'=>$url,'command'=>$_command);
         return $result;
     }
     public function CheckPermission(){

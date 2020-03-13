@@ -34,7 +34,7 @@ class CategoryTypeController extends Controller
      */
     public function create()
     {
-         $cattypes = $this->CheckPermission();
+        $cattypes = $this->CheckPermission();
         $allow = $cattypes[0]['allow'];
         if($allow > 0 ){
              return view('admin.cattype.create');
@@ -79,9 +79,14 @@ class CategoryTypeController extends Controller
      */
      public function edit($idcattype)
     {
-        $cattype = CategoryType::find($idcattype);
-
-        return view('admin.cattype.edit',compact('cattype','idcattype'));
+        $cattypes = $this->CheckPermission();
+        $allow = $cattypes[0]['allow'];
+        if($allow > 0 ){
+             $cattype = CategoryType::find($idcattype);
+            return view('admin.cattype.edit',compact('cattype','idcattype'));
+        }else{
+            return view('admin.welcome.disable');
+        }  
     }
 
     /**
@@ -107,29 +112,45 @@ class CategoryTypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-   public function destroy($idcattype)
-    {
-        $cattype = CategoryType::find($idcattype);
-
-        $cattype->delete();
-
-        return redirect()->route('admin.cattype.index')->with('success','record have deleted');
+   public function destroy($idcattype){
+        //$cattype = CategoryType::find($idcattype);
+        //$cattype->delete();
+        $cattypes = $this->CheckPermission();
+        $allow = $cattypes[0]['allow'];
+        if($allow > 0 ){
+            return redirect()->route('admin.cattype.index')->with('success','record have deleted');
+        }else{
+            return view('admin.welcome.disable');
+        }   
     }
     public function curent_url()
     {
-        //$_curent_url = url()->current();
+        $totalSegsCount = count(\Request::segments());
+        $url = '';
+        for ($i = 0; $i < $totalSegsCount; $i++) { 
+            $url .= \Request::segment($i+1)."/";
+        }
+        $url = rtrim($url, '/');
         $_command = "select";
-        $url1 = \Request::segment(1);
-        $url2 = \Request::segment(2);
-        $url3 = \Request::segment(3);
-        if($url2){
-            $url2 = '/'.$url2;
+        $pattern_index = "/admin\/cattype$/";
+        $pattern_create = "/admin\/cattype\/create$/";
+        $pattern_edit = "/admin\/cattype\/[0-9]+\/edit$/";
+        $pattern_delete = "/admin\/cattype\/[0-9]+$/";
+        $matches = array();
+        if (preg_match($pattern_index, $url, $matches)){
+            $_command = "select";
+            $url = "admin/cattype";
+        }elseif (preg_match($pattern_create, $url, $matches)){
+            $_command = "create";
+            $url = "admin/cattype/create";
+        }elseif (preg_match($pattern_edit, $url, $matches)){
+            $_command = "edit";
+            $url = "admin/cattype/0/edit";
+        }elseif (preg_match($pattern_delete, $url, $matches)){
+            $_command = "delete";
+            $url = "admin/cattype/0";
         }
-        if($url3){
-            $_command = $url3;
-            $url3 = '/'.$url3;
-        }
-        $result = array('url'=>$url1.$url2.$url3,'command'=>$_command);
+        $result = array('url'=>$url,'command'=>$_command);
         return $result;
     }
     public function CheckPermission(){

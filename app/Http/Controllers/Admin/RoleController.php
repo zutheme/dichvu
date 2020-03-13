@@ -92,8 +92,14 @@ class RoleController extends Controller
      */
     public function edit($idrole)
     {
-        $roles = role::find($idrole);
-        return view('admin.roles.edit',compact('roles','idrole'));
+        $roles = $this->CheckPermission();
+        $allow = $roles[0]['allow'];
+        if($allow > 0 ){
+            $roles = role::find($idrole);
+            return view('admin.roles.edit',compact('roles','idrole'));
+        }else{
+            return view('admin.welcome.disable');
+        }  
     }
 
     /**
@@ -121,27 +127,46 @@ class RoleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($idrole)
-    {
-        $role = role::find($idrole);
-        $role->delete();
-        return redirect()->route('admin.roles.index')->with('success','record have deleted');
+    {     
+        $roles = $this->CheckPermission();
+        $allow = $roles[0]['allow'];
+        if($allow > 0 ){
+            $qr_roles = DB::select('call DeleteRoleProcedure(?)',array($idrole));
+            //$roles = json_decode(json_encode($qr_roles), true);
+            return redirect()->route('admin.roles.index')->with('success','record have deleted');
+        }else{
+            return view('admin.welcome.disable');
+        }  
+
     }
     public function curent_url()
     {
-        //$host = $request->getHttpHost();
-        //$_curent_url = url()->current();
+        $totalSegsCount = count(\Request::segments());
+        $url = '';
+        for ($i = 0; $i < $totalSegsCount; $i++) { 
+            $url .= \Request::segment($i+1)."/";
+        }
+        $url = rtrim($url, '/');
         $_command = "select";
-        $url1 = \Request::segment(1);
-        $url2 = \Request::segment(2);
-        $url3 = \Request::segment(3);
-        if($url2){
-            $url2 = '/'.$url2;
+        $pattern_index = "/admin\/roles$/";
+        $pattern_create = "/admin\/roles\/create$/";
+        $pattern_edit = "/admin\/roles\/[0-9]+\/edit$/";
+        $pattern_delete = "/admin\/roles\/[0-9]+$/";
+        $matches = array();
+        if (preg_match($pattern_index, $url, $matches)){
+            $_command = "select";
+            $url = "admin/roles";
+        }elseif (preg_match($pattern_create, $url, $matches)){
+            $_command = "create";
+            $url = "admin/roles/create";
+        }elseif (preg_match($pattern_edit, $url, $matches)){
+            $_command = "edit";
+            $url = "admin/roles/0/edit";
+        }elseif (preg_match($pattern_delete, $url, $matches)){
+            $_command = "delete";
+            $url = "admin/roles/0";
         }
-        if($url3){
-            $_command = $url3;
-            $url3 = '/'.$url3;
-        }
-        $result = array('url'=>$url1.$url2.$url3,'command'=>$_command);
+        $result = array('url'=>$url,'command'=>$_command);
         return $result;
     }
     public function CheckPermission(){

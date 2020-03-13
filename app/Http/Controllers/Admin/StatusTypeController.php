@@ -32,7 +32,7 @@ class StatusTypeController extends Controller{
      */
     public function create()
     {
-         $statustypes = $this->CheckPermission();
+        $statustypes = $this->CheckPermission();
         $allow = $statustypes[0]['allow'];
         if($allow > 0 ){
              return view('admin.statustype.create');
@@ -76,11 +76,15 @@ class StatusTypeController extends Controller{
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id_status_type)
-    {
-        $statustypes = status_type::find($id_status_type);
-
-        return view('admin.statustype.edit',compact('statustypes','id_status_type'));
+    public function edit($id_status_type){
+        $statustypes = $this->CheckPermission();
+        $allow = $statustypes[0]['allow'];
+        if($allow > 0 ){
+             $statustypes = status_type::find($id_status_type);
+             return view('admin.statustype.edit',compact('statustypes','id_status_type'));
+        }else{
+            return view('admin.welcome.disable');
+        } 
     }
 
     /**
@@ -108,27 +112,44 @@ class StatusTypeController extends Controller{
      */
    public function destroy($idstatustype)
     {
-        $statustype = status_type::find($idstatustype);
-
-        $statustype->delete();
-
-        return redirect()->route('admin.statustype.index')->with('success','record have deleted');
+        //$statustype = status_type::find($idstatustype);
+        //$statustype->delete();
+        $statustypes = $this->CheckPermission();
+        $allow = $statustypes[0]['allow'];
+        if($allow > 0 ){
+             return redirect()->route('admin.statustype.index')->with('success','record have deleted');
+        }else{
+            return view('admin.welcome.disable');
+        } 
     }
     public function curent_url()
     {
-        //$_curent_url = url()->current();
+        $totalSegsCount = count(\Request::segments());
+        $url = '';
+        for ($i = 0; $i < $totalSegsCount; $i++) { 
+            $url .= \Request::segment($i+1)."/";
+        }
+        $url = rtrim($url, '/');
         $_command = "select";
-        $url1 = \Request::segment(1);
-        $url2 = \Request::segment(2);
-        $url3 = \Request::segment(3);
-        if($url2){
-            $url2 = '/'.$url2;
+        $pattern_index = "/admin\/statustype$/";
+        $pattern_create = "/admin\/statustype\/create$/";
+        $pattern_edit = "/admin\/statustype\/[0-9]+\/edit$/";
+        $pattern_delete = "/admin\/statustype\/[0-9]+$/";
+        $matches = array();
+        if (preg_match($pattern_index, $url, $matches)){
+            $_command = "select";
+            $url = "admin/statustype";
+        }elseif (preg_match($pattern_create, $url, $matches)){
+            $_command = "create";
+            $url = "admin/statustype/create";
+        }elseif (preg_match($pattern_edit, $url, $matches)){
+            $_command = "edit";
+            $url = "admin/statustype/0/edit";
+        }elseif (preg_match($pattern_delete, $url, $matches)){
+            $_command = "delete";
+            $url = "admin/statustype/0";
         }
-        if($url3){
-            $_command = $url3;
-            $url3 = '/'.$url3;
-        }
-        $result = array('url'=>$url1.$url2.$url3,'command'=>$_command);
+        $result = array('url'=>$url,'command'=>$_command);
         return $result;
     }
     public function CheckPermission(){
