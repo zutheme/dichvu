@@ -77,7 +77,6 @@ class ProductsController extends Controller
     public function listproduct(Request $request)
     {
          try {
-            
             $_filter = $request->get('filter');
             $_start_date_get = $request->get('_start_date');
             $_end_date_get = $request->get('_end_date');
@@ -183,6 +182,8 @@ class ProductsController extends Controller
             $title_strip = strtolower($title_strip); 
             $_slug = preg_replace('/\s+/', '-', $title_strip);
             $_description = $request->get('body');
+            $_sku_category = $request->get('sku_category');
+            $_sku_product = $request->get('sku_product');
             $_id_post_type = $request->get('sel_idposttype');
             $_id_status_type = $request->get('sel_idstatustype');
             $_price_import = $request->get('price_import');
@@ -201,7 +202,7 @@ class ProductsController extends Controller
                 return redirect()->route('admin.product.create')->with(compact('errors'));           
             }
             //create product
-            $product = new Products(['namepro'=> $_namepro,'slug'=> $_slug,'short_desc'=> $_short_desc,'description'=>$_description,'idsize'=>$_idsize,'idcolor'=>$_idcolor,'id_post_type'=>$_id_post_type]);
+            $product = new Products(['namepro'=> $_namepro,'sku_category'=>$_sku_category, 'sku_product'=>$_sku_product, 'slug'=> $_slug,'short_desc'=> $_short_desc,'description'=>$_description,'idsize'=>$_idsize,'idcolor'=>$_idcolor,'id_post_type'=>$_id_post_type]);
             $product->save();
             $idproduct = $product->idproduct;
             $list_checks = $request->input('list_check');
@@ -357,6 +358,8 @@ class ProductsController extends Controller
             $_quality_sale = $request->get('quality_sale');
             //update product
             $_namepro = $request->get('title');
+            $_sku_category = $request->get('sku_category');
+            $_sku_product = $request->get('sku_product');
             $_short_desc = $request->get('short_desc');
             $_description = $request->get('body');
             $_id_post_type = $request->get('sel_idposttype');
@@ -365,6 +368,8 @@ class ProductsController extends Controller
             $product = Products::find($idproduct);
             $product->namepro = $_namepro;
             $product->slug = $_slug;
+            $product->sku_category = $_sku_category;
+            $product->sku_product = $_sku_product;
             $product->short_desc = $_short_desc;
             $product->description = $_description;
             $product->id_post_type = $_id_post_type;

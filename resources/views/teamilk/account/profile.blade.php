@@ -8,30 +8,32 @@
 @stop
 @section('content')
 	<!-- BEGIN: LAYOUT/BREADCRUMBS/BREADCRUMBS-2 -->
-	<?php if(isset($profile)) {
-	    $sel_sex = 0;
-	    $url_avatar = "";
-	    foreach($profile as $row) {
-	        $idprofile = $row["idprofile"];
-	        $firstname = $row["firstname"];
-	        $lastname = $row['lastname'];
-	        $middlename = $row['middlename'];
-	        $idsex = $row['idsex'];
-	        $birthday = $row['birthday'];
-	        $address = $row['address'];
-	        $mobile = $row['mobile'];
-	        $email = $row['email'];
-	        $url_avatar = $row['url_avatar'];
-	        $idcountry = $row['idcountry'];
-	        $idprovince = $row['idprovince'];
-	        $idcitytown = $row['idcitytown'];
-	        $iddistrict = $row['iddistrict'];
-	        $idward = $row['idward'];
-	     }
-	      echo "<script>var birthday='".$birthday."';</script>";
-	     $url_avartar_sex = ($sel_sex == 0) ? 'dashboard/production/images/avatar/avatar-female.jpg' : 'dashboard/production/images/avatar/avatar-male.jpg';
-	     $url_avatar = (strlen($url_avatar) > 0) ? $url_avatar : $url_avartar_sex; 
-	   } ?>
+	<?php 	  $str_profile = session()->get('profile'); 
+              $profile = json_decode($str_profile, true); 
+              if(isset($profile)) {
+              $sel_sex = 0;
+              $url_avatar = "";
+              foreach($profile as $row) {
+                  $idprofile = $row["idprofile"];
+                  $firstname = $row["firstname"];
+                  $lastname = $row['lastname'];
+                  $middlename = $row['middlename'];
+                  $idsex = $row['idsex'];
+                  $birthday = $row['birthday'];
+                  $address = $row['address'];
+                  $mobile = $row['mobile'];
+                  $email = $row['email'];
+                  $url_avatar = $row['url_avatar'];
+                  $idcountry = $row['idcountry'];
+                  $idprovince = $row['idprovince'];
+                  $idcitytown = $row['idcitytown'];
+                  $iddistrict = $row['iddistrict'];
+                  $idward = $row['idward'];
+               }
+               $url_avartar_sex = ($sel_sex == 0) ? 'dashboard/production/images/avatar/avatar-female.jpg' : 'dashboard/production/images/avatar/avatar-male.jpg';
+               $url_avatar = (strlen($url_avatar) > 0) ? $url_avatar : $url_avartar_sex;
+             } ?>
+             <script>var birthday = '<?php echo $birthday; ?>';</script>
 	<div class="c-layout-breadcrumbs-1 c-subtitle c-fonts-uppercase c-fonts-bold c-bordered c-bordered-both">
 		<div class="container">
 			<div class="c-page-title c-pull-left">

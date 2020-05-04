@@ -117,6 +117,7 @@ class ProfileController extends Controller
             $profile = json_decode(json_encode($qr_select_profile), true);
 
             return view('profile.show',compact('profile','iduser'));
+            //return view('profile.show',compact('iduser'));
 
         } catch (\Illuminate\Database\QueryException $ex) {
 
@@ -195,7 +196,9 @@ class ProfileController extends Controller
             $qr_update_profile = DB::select('call UpdateProfileProcedure(?,?,?,?,?,?,?,?)',array($_idprofile,$_firstname,$_lastname,$_middlename,$_sel_sex,$_birthday,$address,$mobile));
 
             $rs_update_profile = json_decode(json_encode($qr_update_profile), true);
-
+            $qr_select_profile = DB::select('call SelectProfileProcedure(?)',array($iduser));
+            $profile = json_encode($qr_select_profile);
+            session()->put('profile', $profile); 
         } catch (\Illuminate\Database\QueryException $ex) {
 
             $errors = new MessageBag(['errorlogin' => $ex->getMessage()]);

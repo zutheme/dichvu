@@ -70,6 +70,7 @@ class LoginController extends Controller
            $success['token'] =  $user->createToken('MyApp')->accessToken;
            $str_dashboard = $this->ListAllCateByTypeId($iduser,'select','dashboard',0);
            session()->put('sidebar-admin', $str_dashboard);
+           //select store move       
            //profile
            $qr_select_profile = DB::select('call SelectProfileProcedure(?)',array($iduser));
            $profile = json_encode($qr_select_profile);
@@ -121,5 +122,6 @@ class LoginController extends Controller
             }
             
         }
-    } 
+    }
+    
 }

@@ -18,7 +18,7 @@
 
       <link href="{{ asset('dashboard/build/css/custom.min.css') }}" rel="stylesheet">
 
-      <link href="{{ asset('dashboard/production/css/custom.css?v=0.4.0') }}" rel="stylesheet">
+      <link href="{{ asset('dashboard/production/css/custom.css?v=0.4.2') }}" rel="stylesheet">
 
       <!-- bootstrap-daterangepicker -->
 
@@ -40,8 +40,11 @@
                 <div class="x_panel">
 
                   <div class="x_title">
-                    @if(isset($errors))
-                      {{ $errors }}
+                    @if(isset($_idstore))
+                      {{ $_idstore }}
+                    @endif
+                    @if(isset($sel_idstore))
+                      {{ $sel_idstore }}
                     @endif
                      @if($message = Session::get('error'))
                           <h2 class="card-subtitle">{{ $message }}</h2>
@@ -75,7 +78,7 @@
                               <th>Đơn giá</th>
                               <th>Số Lượng</th>
                               <th>Thành giá</th>
-                              <th>-</th>  
+                              <th>Trạng thái</th>  
                            </tr>
                        </thead>                    
                           <tbody>
@@ -91,7 +94,16 @@
                                       <td style="text-align: right;">{{ $row['amount'] }}</td>
                                       <?php $unitprice_quality = $row['price']*$row['amount'] ; ?>
                                       <td style="text-align: right;"><span class="currency">{{ $unitprice_quality }}</span><span class="vnd"></span></td>
-                                      <td>-</td>    
+                                      <td align="center">
+                                        <form method="post" class="delete_form" action="{{ url('admin/orderlist/moveto/'.$ordernumber.'/'.$_idstore) }}">
+                                          {{csrf_field()}}
+                                         {{-- <input type="hidden" name="_method" value="PATCH"> --}}
+                                           {!! $str_select_store !!}
+                                          <input type="hidden" name="idexp" value="{{ $row['idexp'] }}">
+                                          <input type="hidden" name="idexp" value="{{ $row['idexp'] }}">
+                                          <button type="submit" class="btn btn-default"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></button>
+                                         </form>
+                                      </td>    
                                     </tr>
                                   <?php $subtotal = $subtotal + $unitprice_quality; ?>
                               @endforeach

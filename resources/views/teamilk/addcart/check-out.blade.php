@@ -1,34 +1,9 @@
+{{-- @extends('teamilk.master') --}}
 @extends('teamilk.master')
 @section('other_styles')
    <link href="{{ asset('assets-tea/css/custom-product.css?v=0.8.7') }}" rel="stylesheet" type="text/css">
 @stop
 @section('content')
-<?php 
-	$idprofile = 0;$firstname = "";$lastname = "";$middlename = "";$idsex = 0;$birthday="00-00-0000";$address = "";$mobile = "";$email = "";$url_avatar = "";$idcountry = 0;$idprovince = 0;$idcitytown = 0;$iddistrict = 0;$idward = 0;
-	if(isset($profile)) {
-	    $sel_sex = 0;
-	    $url_avatar = "";
-	    foreach($profile as $row) {
-	        $idprofile = $row["idprofile"];
-	        $firstname = $row["firstname"];
-	        $lastname = $row['lastname'];
-	        $middlename = $row['middlename'];
-	        $idsex = $row['idsex'];
-	        $birthday = $row['birthday'];
-	        $address = $row['address'];
-	        $mobile = $row['mobile'];
-	        $email = $row['email'];
-	        $url_avatar = $row['url_avatar'];
-	        $idcountry = $row['idcountry'];
-	        $idprovince = $row['idprovince'];
-	        $idcitytown = $row['idcitytown'];
-	        $iddistrict = $row['iddistrict'];
-	        $idward = $row['idward'];
-	        echo "<script>var birthday='".$birthday."';</script>";
-	     }
-	     $url_avartar_sex = ($sel_sex == 0) ? 'dashboard/production/images/avatar/avatar-female.jpg' : 'dashboard/production/images/avatar/avatar-male.jpg';
-	     $url_avatar = (strlen($url_avatar) > 0) ? $url_avatar : $url_avartar_sex; 
-	   } ?>
 <!-- BEGIN: LAYOUT/BREADCRUMBS/BREADCRUMBS-2 -->
 <div class="c-layout-breadcrumbs-1 c-subtitle c-fonts-uppercase c-fonts-bold c-bordered c-bordered-both">
 	<div class="container">
@@ -46,6 +21,47 @@
 		</ul> --}}
 	</div>
 </div><!-- END: LAYOUT/BREADCRUMBS/BREADCRUMBS-2 -->
+<?php $str_profile = session()->get('profile'); 
+        $profile = json_decode($str_profile, true); 
+        if(isset($profile)) {
+
+      $sel_sex = 0;
+
+      $url_avatar = "";
+
+      foreach($profile as $row) {
+
+          $idprofile = $row["idprofile"];
+
+          $firstname = $row["firstname"];
+
+          $lastname = $row['lastname'];
+
+          $middlename = $row['middlename'];
+
+          $idsex = $row['idsex'];
+
+          $birthday = $row['birthday'];
+
+          $address = $row['address'];
+
+          $mobile = $row['mobile'];
+
+          $email = $row['email'];
+
+          $url_avatar = $row['url_avatar'];
+
+          $idcountry = $row['idcountry'];
+          $idprovince = $row['idprovince'];
+          $idcitytown = $row['idcitytown'];
+          $iddistrict = $row['iddistrict'];
+          $idward = $row['idward'];
+       }
+       $url_avartar_sex = ($sel_sex == 0) ? 'dashboard/production/images/avatar/avatar-female.jpg' : 'dashboard/production/images/avatar/avatar-male.jpg';
+
+       $url_avatar = (strlen($url_avatar) > 0) ? $url_avatar : $url_avartar_sex; 
+
+     } ?>
 		<!-- BEGIN: PAGE CONTENT -->
 		<div class="c-content-box c-size-lg">
 			<div class="container">

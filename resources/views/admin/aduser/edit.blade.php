@@ -76,7 +76,7 @@
 
 		</form>
 
-		<script type="text/javascript">
+		{{-- <script type="text/javascript">
 
 		var list_sel_empdepart = [];
 
@@ -94,7 +94,7 @@
 
 		</script>
 
-		@endforeach
+		@endforeach --}}
 
 		<form method="post" action="{{action('Admin\AduserController@update',$id)}}">
 
@@ -102,41 +102,20 @@
 
 			<input type="hidden" name="_method" value="PATCH">
 
-			<div class="form-group row">
+			<div class="form-group">
+            	<select class="form-control type-category" name="selidcategory" required="true">
+            		<option value="">Chuyên mục</option>
+            		@foreach($categorytypes as $row)
+            			<option value="{{ $row['idcattype'] }}">{{ $row['catnametype'] }}</option>
+					@endforeach        
+	         	</select>
+	        </div>
+			<div class="form-group">
+	            <div class="catebyidcatetype">     
+	            </div>
+	        </div>
 
-                <label class="col-lg-12 col-form-label" for="sel_idcategory">Cơ sở<span class="text-danger">*</span></label>
-
-                <div class="col-lg-12">
-
-                    <select class="form-control cus-drop" name="sel_iddepart_main" required>
-
-                    	<option value="">Chọn ...</option>
-
-                    	@foreach($departparents as $row)
-
-                    		 <option value="{{ $row['iddepart'] }}">{{ $row['namedepart'] }}</option>
-
-						@endforeach        
-
-                    </select>
-
-                </div>
-
-            </div>
-
-            <div class="form-group row">
-
-                <label class="col-lg-12 col-form-label" for="sel_iddepart">Gồm <span class="text-danger required_sub_cat">*</span></label>
-
-                <div class="col-lg-12">
-
-                    	<ul class="list-check">
-
-                     	</ul>
-
-                </div>
-
-            </div>
+            
 
 			<div class="form-group">
 
@@ -163,7 +142,7 @@
     <script src="{{ asset('dashboard/production/js/custom.js?v=0.0.3') }}"></script>
 
     {{-- <script src="{{ asset('dashboard/production/js/create_mutiselect_department.js?v=0.0.7') }}"></script> --}}
-
-    <script src="{{ asset('dashboard/production/js/edit_user_depart.js?v=0.0.7') }}"></script>
+    <script src="{{ asset('dashboard/production/js/select-cate-by-type.js?v=0.0.0.9') }}"></script>
+    {{-- <script src="{{ asset('dashboard/production/js/edit_user_depart.js?v=0.0.7') }}"></script> --}}
 
 @stop

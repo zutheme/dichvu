@@ -132,97 +132,32 @@
 
 			<div class="form-group">
 
-
-
 				<input type="password" name="password" class="form-control">
 
 
-
 			</div>
-
 
 
 			<div class="form-group">
 
-
-
 				<input type="password" name="c_password" class="form-control">
-
 
 
 			</div>
 
 
-
-			<div class="form-group row">
-
-
-
-                <label class="col-lg-12 col-form-label" for="sel_idcategory">Cơ sở<span class="text-danger">*</span></label>
-
-
-
-                <div class="col-lg-12">
-
-
-
-                    <select class="form-control cus-drop" name="sel_iddepart_main" required>
-
-
-
-                    	<option value="">Chọn ...</option>
-
-
-
-                    	@foreach($departparents as $row)
-
-
-
-                    		 <option value="{{ $row['iddepart'] }}">{{ $row['namedepart'] }}</option>
-
-
-
-						@endforeach        
-
-
-
-                    </select>
-
-
-
-                </div>
-
-
-
-            </div>
-
-
-
-            <div class="form-group row">
-
-
-
-                <label class="col-lg-12 col-form-label" for="sel_idcategory">Gồm <span class="text-danger required_sub_cat">*</span></label>
-
-
-
-                <div class="col-lg-12">
-
-
-
-                    	<ul class="list-check">
-
-
-
-                     	</ul>
-
-
-
-                </div>
-
-
-
-            </div>
+            <div class="form-group">
+            	<select class="form-control type-category" name="selidcategory" required="true">
+            		<option value="">Chuyên mục</option>
+            		@foreach($categorytypes as $row)
+            			<option value="{{ $row['idcattype'] }}">{{ $row['catnametype'] }}</option>
+					@endforeach        
+	         	</select>
+	        </div>
+			<div class="form-group">
+	            <div class="catebyidcatetype">     
+	            </div>
+	        </div>
 
 
 
@@ -270,9 +205,9 @@
 
 
 
-    <script src="{{ asset('dashboard/production/js/create_mutiselect_department.js?v=0.1.0') }}"></script>
+  {{--   <script src="{{ asset('dashboard/production/js/create_mutiselect_department.js?v=0.1.0') }}"></script> --}}
 
-
+	<script src="{{ asset('dashboard/production/js/select-cate-by-type.js?v=0.0.0.8') }}"></script>
 
 @stop
 

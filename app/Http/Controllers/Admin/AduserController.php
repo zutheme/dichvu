@@ -19,7 +19,7 @@ use App\Department;
 use Illuminate\Support\Facades\DB;
 
 use App\profile;
-
+use App\CategoryType;
 class AduserController extends Controller
 
 {
@@ -57,9 +57,12 @@ class AduserController extends Controller
         $users = $this->CheckPermission();
         $allow = $users[0]['allow'];
         if($allow > 0 ){
-            $result = DB::select('call ListDepartParentProcedure()');
-            $departparents = json_decode(json_encode($result), true);
-            return view('admin.aduser.create',compact('departparents'));
+            //DB::select('call ListSelEmpDepartProcedure(?)',array($id));
+            $result = DB::select('call ListAllCatByTypeProcedure(?)',array('department'));
+            $categorytypes = json_decode(json_encode($result), true);
+            //$categorytypes = CategoryType::all()->toArray();
+            //$perm_commands = perm_command::all()->toArray();
+            return view('admin.aduser.create',compact('categorytypes'));
         }else{
             return view('admin.welcome.disable');
         } 
@@ -212,11 +215,13 @@ class AduserController extends Controller
         $allow = $users[0]['allow'];
         if($allow > 0 ){
             $users = User::find($id);
-            $result = DB::select('call ListDepartParentProcedure()');
-            $departparents = json_decode(json_encode($result), true);
-            $rs_empdepart_seleted = DB::select('call ListSelEmpDepartProcedure(?)',array($id));
-            $l_empdepart_seleted = json_decode(json_encode($rs_empdepart_seleted), true);
-            return view('admin.aduser.edit',compact('users','id','departparents','l_empdepart_seleted'));
+            //$result = DB::select('call ListDepartParentProcedure()');
+            //$departparents = json_decode(json_encode($result), true);
+            //$rs_empdepart_seleted = DB::select('call ListSelEmpDepartProcedure(?)',array($id));
+            //$l_empdepart_seleted = json_decode(json_encode($rs_empdepart_seleted), true);
+            $result = DB::select('call ListAllCatByTypeProcedure(?)',array('department'));
+            $categorytypes = json_decode(json_encode($result), true);
+            return view('admin.aduser.edit',compact('users','id','categorytypes'));
         }else{
             return view('admin.welcome.disable');
         } 
@@ -344,6 +349,39 @@ class AduserController extends Controller
         $qr_permission = DB::select('call EnableAddUserProcedure(?,?,?,?)',array($_iduser, $_command ,'dashboard', $_curent_url));
         $permissions = json_decode(json_encode($qr_permission), true);
         return $permissions;
-    }  
+    } 
+     //show sub category
+    private $main_menu;
+    public function catebyidcatetype($_idcatetype) {
+        $qr_catebytype = DB::select('call ListAllCateByIdcatetype(?)',array($_idcatetype));
+        $categories = json_decode(json_encode($qr_catebytype), true);
+        $this->showCategory($categories,0);
+        $result =  $this->main_menu;
+        return response()->json(array('success' => true, 'result' => $result), 200);
+    }
+    public function showCategory($categories, $idparent = 0){
+        $cate_child = array();
+        foreach ($categories as $key => $item) {
+            if ($item['idparent'] == $idparent){
+                $cate_child[] = $item;
+                unset($categories[$key]);
+            }
+        }
+        $list_cat="";     
+        if($cate_child) {
+            $checked='';
+            $this->main_menu .= '<ul class="list-check">';
+            foreach ($cate_child as $key => $item){
+                $this->main_menu .= '<li><input class="array-parent" type="hidden" value="'.$idparent.'">';
+                // if(in_array($item['idcategory'], $_cate_selected)){
+                //      $checked='checked';
+                // }
+                $this->main_menu .= '<input name="list_check[]" class="array-check" type="checkbox" value="'.$item['idcategory'].'"><label>'.$item['namecat'].'</label>';
+                $this->showCategory($categories, $item['idcategory']);
+                $this->main_menu .= '</li>';
+            }
+            $this->main_menu .= '</ul>';
+        }
+    } 
 }
 

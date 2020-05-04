@@ -4,7 +4,9 @@
 @stop
 @section('content')
 <?php 
-	$idprofile = 0;$firstname = "";$lastname = "";$middlename = "";$idsex = 0;$birthday="00-00-0000";$address = "";$mobile = "";$email = "";$url_avatar = "";$idcountry = 0;$idprovince = 0;$idcitytown = 0;$iddistrict = 0;$idward = 0;
+	//$idprofile = 0;$firstname = "";$lastname = "";$middlename = "";$idsex = 0;$birthday="00-00-0000";$address = "";$mobile = "";$email = "";$url_avatar = "";$idcountry = 0;$idprovince = 0;$idcitytown = 0;$iddistrict = 0;$idward = 0;
+	 $str_profile = session()->get('profile'); 
+      $profile = json_decode($str_profile, true); 
 	if(isset($profile)) {
 	    $sel_sex = 0;
 	    $url_avatar = "";
@@ -35,21 +37,21 @@
 		<div class="c-page-title c-pull-left">
 			<h3 class="c-font-uppercase c-font-sbold">Thanh toán</h3>
 			<h4 class="">Vui lòng cung cấp thông tin chi tiết để được phục vụ tốt hơn</h4>
-			@if(isset($result))
-				{{ $result }}
+			@if(isset($str_qr))
+				{{-- {{ $str_qr }} --}}
 			@endif
 		</div>
-		<ul class="c-page-breadcrumbs c-theme-nav c-pull-right c-fonts-regular">
+		{{-- <ul class="c-page-breadcrumbs c-theme-nav c-pull-right c-fonts-regular">
 			<li><a href="shop-checkout.htm">Checkout</a></li>
 			<li>/</li>
 			<li class="c-state_active">Jango Components</li>							
-		</ul>
+		</ul> --}}
 	</div>
 </div><!-- END: LAYOUT/BREADCRUMBS/BREADCRUMBS-2 -->
 		<!-- BEGIN: PAGE CONTENT -->
 		<div class="c-content-box c-size-lg">
 			<div class="container">
-				<form class="c-shop-form-1" method="post" action="{{ url('teamilk/submitcheckout') }}" enctype='application/json'>
+				<form class="c-shop-form-1" method="post" action="{{ url('submitcheckout') }}" enctype='application/json'>
 					{{ csrf_field() }}
 					<div class="row">
 						<!-- BEGIN: ADDRESS FORM -->
@@ -59,7 +61,7 @@
 							<div class="row">
 								<div class="col-md-12">
 									@if(isset($error_reg))
-										{{ $error_reg }}
+										{{-- {{ $error_reg }} --}}
 									@endif
 								</div>
 							</div>
@@ -155,91 +157,6 @@
 									</div>
 								</div>
 							@endif
-							<!-- BILLING ADDRESS -->
-							<!-- SHIPPING ADDRESS -->
-							<h3 class="c-font-bold c-font-uppercase c-font-24">Địa chỉ giao hàng</h3>
-							<div class="row">
-								<div class="form-group col-md-12">
-									<div class="c-checkbox-inline">
-										<div class="c-checkbox c-toggle-hide" data-object-selector="c-shipping-address" data-animation-speed="600">
-											<input type="checkbox" id="checkbox6-444" class="c-check" name="check_other_address">
-											<label for="checkbox6-444">
-												<span class="inc"></span>
-												<span class="check"></span>
-												<span class="box"></span>
-												Vận chuyển đến địa chỉ khác ?
-											</label>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="c-shipping-address">
-								<div class="row">
-									<div class="col-md-12">
-										<div class="row">
-											<div class="form-group col-md-4">
-												<label class="control-label">Họ</label>
-												<input type="text" class="form-control c-square c-theme" name="reci_lastname" placeholder="">
-											</div>
-											<div class="form-group col-md-4">
-												<label class="control-label">Tên đệm</label>
-												<input type="text" class="form-control c-square c-theme" name="reci_middlename" placeholder="">
-											</div>
-											<div class="form-group col-md-4">
-												<label class="control-label">Tên</label>
-												<input type="text" class="form-control c-square c-theme" name="reci_firstname" placeholder="">
-											</div>
-										</div>
-									</div>
-								</div>						
-								<div class="row">
-									<div class="form-group col-md-12">
-										<label class="control-label">Địa chỉ</label>
-										<input type="text" class="form-control c-square c-theme" placeholder="" name="reci_address">
-									</div>
-								</div>
-								<div class="row">
-									<div class="form-group col-md-12">
-										<label class="control-label">Quận</label>
-										<select class="form-control c-square c-theme" name="sel_reci_district">
-											<option value="0">Chọn ... </option>
-											@if(isset($rs_district))
-								                  	@foreach($rs_district as $row)
-								                		<option value="{{ $row['iddistrict'] }}">{{ $row['namedist'] }}</option>
-													@endforeach
-												@endif 
-										</select>
-									</div>
-								</div>
-								<div class="row">
-									<div class="form-group col-md-12">
-										<label class="control-label">Tỉnh/Thành</label>
-										<select class="form-control c-square c-theme" name="sel_reci_citytown">
-											<option value="0">Chọn ... </option>
-											@if(isset($rs_citytown))
-								                  	@foreach($rs_citytown as $row)
-								                		<option value="{{ $row['idcitytown'] }}">{{ $row['namecitytown'] }}</option>
-													@endforeach
-												@endif 		
-										</select>
-									</div>
-								</div>					
-								<div class="row">
-									<div class="col-md-12">
-										<div class="row">
-											<div class="form-group col-md-6">
-												<label class="control-label">Địa chỉ Email</label>
-												<input type="email" class="form-control c-square c-theme" name="reci_email" placeholder="">
-											</div>
-											<div class="col-md-6">
-												<label class="control-label">Điện thoại</label>
-												<input type="tel" class="form-control c-square c-theme" name="reci_phone" placeholder="">
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- SHIPPING ADDRESS -->
 							<div class="row">
 								<div class="form-group col-md-12">
 									<label class="control-label">Ghi chú</label>
@@ -251,10 +168,41 @@
 						<!-- BEGIN: ORDER FORM -->
 						<div class="col-md-5">
 							<div class="c-content-bar-1 c-align-left c-bordered c-theme-border c-shadow">
-							<h1 class="c-font-bold c-font-uppercase c-font-24">Đơn hàng</h1>
+							<h1 class="c-font-bold c-font-uppercase c-font-24">Đặt mua dịch vụ</h1>
 							<ul class="c-order list-unstyled list_order">
 							</ul>
 							<ul class="c-order list-unstyled">
+								<li class="row c-margin-b-15">
+							<div class="col-md-6 c-font-20"><h2>Dịch vụ</h2></div>
+							<div class="col-md-6 c-font-20"><h2>Tổng</h2></div>
+						</li>
+						<?php $subtotal = 0; ?>
+			@foreach($rs_lstordsess as $row)
+				 <?php $_total_item_parent = $row['price']*$row['inp_session'];?>
+				 	<li class="row c-border-bottom"></li>
+					<li class="row c-margin-b-15 c-margin-t-15">
+						<div class="col-md-6 c-font-20"><a href="{{ action('teamilk\ProductController@show',$row['idproduct']) }}" class="c-theme-link">{{ $row['namepro'] }} x  {{ $row['inp_session'] }} (buổi)</a></div>
+						<div class="col-md-6 c-font-20">
+							<p class=""><span class="currency">{{ $_total_item_parent }}</span><span class="vnd"></span></p>
+						</div>
+					</li>
+		  				<input type="hidden" name="l_idproduct[]" value="{{ $row['idproduct'] }}">
+		  				<input type="hidden" name="l_idorder[]" value="{{ $row['idorder'] }}">
+	  				<input type="hidden" name="l_parent_id[]" value="{{ $row['parent'] }}">
+	 				<input type="hidden" name="l_quality[]" value="{{ $row['inp_session'] }}">
+	  				<input type="hidden" name="l_unit_price[]" value="{{ $row['price'] }}">
+				 <?php $subtotal = $subtotal + $_total_item_parent; ?>
+				
+			@endforeach
+						
+						<li class="row c-margin-b-15 c-margin-t-15">
+							<div class="col-md-6 c-font-20">
+								<p class="c-font-30">Tổng</p>
+							</div>
+							<div class="col-md-6 c-font-20">
+								<p class="c-font-bold c-font-30"><span class="c-shipping-total"><span class="currency">{{ $subtotal }}</span><span class="vnd"></span></span></p>
+							</div>
+						</li>
 								<li class="row">
 									<div class="col-md-12">
 										<div class="c-radio-list">
@@ -264,9 +212,9 @@
 													<span class="inc"></span>
 													<span class="check"></span>
 													<span class="box"></span>
-													Thanh toán khi nhận hàng
+													Xác nhận để nhận gói ưu đãi 
 												</label>
-												<p class="help-block">Miễn trả hàng khi đã xác nhận mua hàng, miễn phí vận chuyển trong vòng bán kích 50km.</p>
+												<p class="help-block">Tất cả giá dưới đây chỉ được áp dụng theo gói combo.Hệ thống chúng tôi sẽ phản hồi khi quý khách xác nhận</p>
 											</div>
 											
 										</div>

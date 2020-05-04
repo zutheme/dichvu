@@ -52,28 +52,17 @@
 ?>
 
 <script type="text/javascript">
-
   var _start_date_sl = '<?php echo $_start_date_sl; ?>';
-
   var _end_date_sl = '<?php echo $_end_date_sl; ?>';
-
 </script>
    <div class="col-md-12 col-sm-12 col-xs-12">
-
                 <div class="x_panel">
-
-                  <div class="x_title">
-                    
+                  <div class="x_title">                   
                     {{-- @if(isset($errors))
-
                       {{ $errors }}
-
                     @endif --}}
-
                      @if($message = Session::get('error'))
-
                           <h2 class="card-subtitle">{{ $message }}</h2>
-
                      @endif
 
                     <ul class="nav navbar-right panel_toolbox">
@@ -85,21 +74,13 @@
                       <li class="dropdown">
 
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-
                         {{-- <ul class="dropdown-menu" role="menu">
-
                           <li><a href="#">Settings 1</a>
-
                           </li>
-
                           <li><a href="#">Settings 2</a>
-
                           </li>
-
                         </ul>  --}}      
-
                       </li>
-
                       <li><a class="close-link"><i class="fa fa-close"></i></a>
 
                       </li>
@@ -252,7 +233,7 @@
                               <td>{!! $row['namecitytown'] !!}</td>
                               <td>{!! $row['nameprovince'] !!}</td>                
                               <td>{!! $row['id_status_type'] !!}</td>
-                              <td><a href="{{ url('/admin/orderlist/show/') }}/{{ $row['idnumberorder'] }}"><span class="fa fa-search-plus"></span></a></td>     
+                              <td><a href="{{ url('/admin/orderlist/show/') }}/{{ $row['idnumberorder'] }}/{{ $_idstore }}"><span class="fa fa-search-plus"></span></a></td>     
                             </tr>
                             @endforeach                
                       </tbody>

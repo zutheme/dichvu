@@ -85,6 +85,18 @@
 					<p><input type="button" style="display: none" class="btn btn-default btn-more-file" name="btn-more-file" value="Thêm file" /></p>
 				</div>
 			</div>
+			<div class="form-group">
+	            <label class="control-label col-md-3 col-sm-3 col-xs-12">Mã SKU phân loại:</label>
+	            <div class="col-md-9 col-sm-9 col-xs-12">
+	              <input type="text" name="sku_category" class="form-controls" />
+	            </div>
+	          </div>
+	          <div class="form-group">
+	            <label class="control-label col-md-3 col-sm-3 col-xs-12">Mã SKU sản phẩm:</label>
+	            <div class="col-md-9 col-sm-9 col-xs-12">
+	              <input type="text" name="sku_product" class="form-controls" />
+	            </div>
+	          </div>
 			  <div class="form-group">
 	            <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá nhập hàng:</label>
 	            <div class="col-md-9 col-sm-9 col-xs-12">
@@ -247,8 +259,9 @@
 	<script src="{{ asset('dashboard/production/js/process_images/capture_image.js?v=0.3.1') }}"></script>
   	<script src="{{ asset('dashboard/production/editor/editor.js?v=0.0.1') }}"></script>
   	<script src="{{ asset('dashboard/production/js/edit_post.js?v=0.0.9') }}"></script>
-  	<script src="{{ asset('dashboard/production/js/create_mutiselect.js?v=0.6.7') }}"></script>
-  	{{-- <script src="{{ asset('dashboard/production/js/edit_muti_select.js?v=0.1.6') }}"></script> --}}		
+  	{{-- <script src="{{ asset('dashboard/production/js/create_mutiselect.js?v=0.6.7') }}"></script> --}}
+  	{{-- <script src="{{ asset('dashboard/production/js/edit_muti_select.js?v=0.1.6') }}"></script> --}}
+  	<script src="{{ asset('dashboard/production/js/edit_update_category.js?v=0.0.3.6') }}"></script>
   	{{-- <script src="{{ asset('dashboard/production/js/process_images/image_product.js.js?v=0.0.2') }}"></script> --}}
   	<script src="{{ asset('dashboard/production/js/uploadmultifile.js?v=0.6.4') }}"></script>
     <script src="{{ asset('dashboard/production/js/media-galerry.js?v=0.3.1') }}"></script>

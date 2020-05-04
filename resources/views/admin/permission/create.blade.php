@@ -50,22 +50,7 @@
 	            <div class="catebyidcatetype">     
 	            </div>
 	        </div>
-	       {{--  <div class="form-group"> 
-            	<select class="select2_single form-control" name="selidcatetype">
-            		<option value="0">Chọn kiểu chuyên mục ...</option>
-                	@foreach($categorytypes as $row)
-                      <option value="{{ $row['idcattype'] }}">{{ $row['catnametype'] }}</option>
-					@endforeach 
-				 </select>                                         
-            </div> --}}
-            {{-- <div class="form-group"> 
-            	<select class="select2_single form-control" name="selposttype">
-            		<option value="0">Chọn kiểu post ...</option>
-                	@foreach($posttypes as $row)
-                      <option value="{{ $row['idposttype'] }}">{{ $row['nametype'] }}</option>
-					@endforeach 
-				 </select>                                         
-            </div>	 --}} 
+	       
 			<div class="form-group">
 				<input type="submit" class="btn btn-default btn-submit" name="btn-submit" value="Xác nhận" />
 			</div>

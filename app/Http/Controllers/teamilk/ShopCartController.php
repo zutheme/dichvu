@@ -302,23 +302,14 @@ class ShopCartController extends Controller
        }
 
         if($_id_reci_customer > 0) {
-
             $qr_customer = DB::select('call DetailCustomerProcedure(?)',array($_id_reci_customer));
-
             $rs_customer = json_decode(json_encode($qr_customer), true); 
-
         }else if( $_idcustomer > 0){
-
             $qr_customer = DB::select('call DetailCustomerProcedure(?)',array($_idcustomer));
-
             $rs_customer = json_decode(json_encode($qr_customer), true); 
-
         }else if($_iduser_curent > 0){
-
             $qr_customer = DB::select('call SelectProfileProcedure(?)',array($_iduser_curent));
-
             $rs_customer = json_decode(json_encode($qr_customer), true); 
-
         }
 
         $request->session()->forget('orderhistory');
@@ -328,8 +319,6 @@ class ShopCartController extends Controller
     }
 
     public function complete(Request $request,$ordernumber){
-
-        
 
         $qr_shorttotal = DB::select('call ShortTotalProcedure(?)',array($ordernumber));
 

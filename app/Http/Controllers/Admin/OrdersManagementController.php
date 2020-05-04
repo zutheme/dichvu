@@ -24,9 +24,9 @@ use App\func_global;
 
 class OrdersManagementController extends Controller
 { 
+    private $main_menu;
     public function listorder(Request $request,$_idstore)
     {
-         
          //try { 
         $request->session()->forget('order_start_date');
         $request->session()->forget('order_end_date');
@@ -58,12 +58,72 @@ class OrdersManagementController extends Controller
             //return View('admin.orderlist.index')->with(compact('errors'));
         //}
     }
-    public function show($ordernumber)
+    public function show($ordernumber,$_idstore)
     {
+        $iduser = Auth::id();
         $qr_customerorder = DB::select('call InfoCustomerOrderProcedure(?)',array($ordernumber));
         $rs_customerorder = json_decode(json_encode($qr_customerorder), true);
-        $qr_orderproduct = DB::select('call DetailOrderByIdorderProcedure(?)',array($ordernumber));
+        $qr_orderproduct = DB::select('call DetailOrderByIdorderProcedure(?,?)',array($ordernumber,$_idstore));
         $rs_orderproduct = json_decode(json_encode($qr_orderproduct), true);
-        return View('admin.orderlist.show')->with(compact('rs_orderproduct','rs_customerorder'));
+        $str_select_store = $this->ListSelectAllCateByTypeId($iduser,'select','store',0);
+        return View('admin.orderlist.show')->with(compact('rs_orderproduct','rs_customerorder','str_select_store','ordernumber','_idstore'));
     }
+    public function moveto(Request $request, $ordernumber,$_idstore){
+         $iduser = Auth::id();
+         //$sel_idstore = 0;
+         $_idexp = $request->get('idexp');
+         $sel_idstore = $request->get('namestore');
+         //foreach ($_idstore_radio as $value) {
+             //$sel_idstore = $value;
+         //}
+        $qr_expmove = DB::select('call MoveOrderToStoreProcedure(?,?,?)',array($iduser,$_idexp,$sel_idstore));
+        $rs_expmove = json_decode(json_encode($qr_expmove), true);
+        $sel_idstore .= ','.$_idexp;
+        $qr_customerorder = DB::select('call InfoCustomerOrderProcedure(?)',array($ordernumber));
+        $rs_customerorder = json_decode(json_encode($qr_customerorder), true);
+        $qr_orderproduct = DB::select('call DetailOrderByIdorderProcedure(?,?)',array($ordernumber,$_idstore));
+        $rs_orderproduct = json_decode(json_encode($qr_orderproduct), true);
+        $str_select_store = $this->ListSelectAllCateByTypeId($iduser,'select','store',0);
+        return View('admin.orderlist.show')->with(compact('rs_orderproduct','rs_customerorder','str_select_store','ordernumber','sel_idstore','_idstore'));
+    }
+    public function ListSelectAllCateByTypeId( $_iduser,$_command,$_catnametype,$result) {
+        $qr_cate = DB::select('call ListCatPermDashboardByTypeProcedure(?,?,?)',array($_iduser , $_command, $_catnametype));
+        //$result = DB::select('call ListCatPermissionByTypeProcedure(?)',array($_catnametype));
+        $categories = json_decode(json_encode($qr_cate), true);
+        $this->showSelectCategories($categories, 0, 0);   
+        $str_html = $this->main_menu;
+        return $str_html; 
+    }
+    public function showSelectCategories($categories, $idparent = 0, $level = 0){
+        $cate_child = array();
+        foreach ($categories as $key => $item){
+            if ($item['idparent'] == $idparent){
+                $cate_child[] = $item;
+                unset($categories[$key]);
+            }
+        }
+        $list_cat="";       
+        if ($cate_child){
+            if($level == 0 ){
+             $this->main_menu = '<div class="moveto"><ul class="depth-'.$level.'">';
+            }else{
+                $this->main_menu .= '<ul class="child depth-'.$level.'">';
+            }
+            foreach ($cate_child as $key => $item){    
+               $route = "#";
+               if(isset($item['pathroute'])&&$item['haschild'] < 1){
+                    $route = $item['pathroute'];
+                }
+                $this->main_menu .= '<li><input name="namestore" type="radio" value="'.$item['idcategory'].'">'.$item['namecat'].'</input>';
+                $this->showSelectCategories($categories, $item['idcategory'], $level+1);
+                $this->main_menu .= '</li>';
+            }
+            if($level == 0){
+                $this->main_menu .= '</ul></div>';
+            }else{
+                $this->main_menu .= '</ul>';
+            }
+            
+        }
+    }  
 }

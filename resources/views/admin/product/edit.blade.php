@@ -105,7 +105,19 @@
 				</div>
 			</div>
 			<div class="row">
-				 <div class="col-sm-12 col-xs-12">	
+				 <div class="col-sm-12 col-xs-12">
+				   <div class="form-group">
+		            <label class="control-label col-md-3 col-sm-3 col-xs-12">Mã SKU phân loại:</label>
+		            <div class="col-md-9 col-sm-9 col-xs-12">
+		              <input type="text" name="sku_category" class="form-controls" value="{{ $product[0]['sku_category'] }}" />
+		            </div>
+		          </div>
+		          <div class="form-group">
+		            <label class="control-label col-md-3 col-sm-3 col-xs-12">Mã SKU sản phẩm:</label>
+		            <div class="col-md-9 col-sm-9 col-xs-12">
+		              <input type="text" name="sku_product" class="form-controls" value="{{ $product[0]['sku_product'] }}" />
+		            </div>
+		          </div>	
 			       <div class="form-group">
 		            <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá nhập hàng:</label>
 		            <div class="col-md-9 col-sm-9 col-xs-12">

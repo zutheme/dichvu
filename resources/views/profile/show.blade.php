@@ -44,7 +44,11 @@
 
    <!-- page content --> 
 
-            <?php if(isset($profile)) {
+            <?php 
+              $birthday ='2020-01-01:00:00';
+              $str_profile = session()->get('profile'); 
+              $profile = json_decode($str_profile, true);
+            if(isset($profile)) {
               $sel_sex = 0;
               $url_avatar = "";
               foreach($profile as $row) {

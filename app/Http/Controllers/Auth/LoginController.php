@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Validator;
 use Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\MessageBag;
 class LoginController extends Controller
 {
@@ -79,10 +80,14 @@ class LoginController extends Controller
         $email = $request->input('email');
         $password = $request->input('password');
         if( Auth::attempt(['email' => $email, 'password' =>$password])) {
-           $user = Auth::user(); 
+           $user = Auth::user();
+           $iduser = Auth::id();  
            $success['token'] =  $user->createToken('MyApp')->accessToken;
            //return redirect()->intended('dashboard');
            $value = $request->session()->get('key');
+            $qr_select_profile = DB::select('call SelectProfileProcedure(?)',array($iduser));
+            $profile = json_encode($qr_select_profile);
+            session()->put('profile', $profile); 
           return redirect('/');
            //return redirect()->route('teamilk.home')->with('success',$value);
         } else {

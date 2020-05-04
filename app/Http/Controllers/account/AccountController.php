@@ -21,15 +21,15 @@ class AccountController extends Controller
             return view('teamilk.login');
         }
         try {
-            $qr_select_profile = DB::select('call SelectProfileProcedure(?)',array($iduser));
-            $profile = json_decode(json_encode($qr_select_profile), true);
+            // $qr_select_profile = DB::select('call SelectProfileProcedure(?)',array($iduser));
+            // $profile = json_decode(json_encode($qr_select_profile), true);
             $qr_district = DB::select('call SelDicstrictProcedure(1)');
             $rs_district = json_decode(json_encode($qr_district), true);
             $qr_citytown = DB::select('call SelCityTownProcedure()');
             $rs_citytown = json_decode(json_encode($qr_citytown), true);
             $qr_sex = DB::select('call SelSexProcedure()');
             $rs_sex = json_decode(json_encode($qr_sex), true);
-            return view('teamilk.account.profile',compact('profile','rs_district','iduser','rs_citytown','rs_sex'));
+            return view('teamilk.account.profile',compact('rs_district','iduser','rs_citytown','rs_sex'));
         } catch (\Illuminate\Database\QueryException $ex) {
             $errors = new MessageBag(['error' => $ex->getMessage()]);
             //return redirect()->route('teamilk.account.profile')->with('error',$errors);
@@ -55,6 +55,9 @@ class AccountController extends Controller
             $_sel_citytown = $request->get('sel_citytown');
             $qr_update_profile = DB::select('call UpdateProfileProcedure(?,?,?,?,?,?,?,?,?,?)',array($_idprofile,$_firstname,$_lastname,$_middlename,$_sel_sex,$_birthday,$_address,$_mobile,$_sel_citytown,$_sel_district));
             $rs_update_profile = json_decode(json_encode($qr_update_profile), true);
+            $qr_select_profile = DB::select('call SelectProfileProcedure(?)',array($iduser));
+            $profile = json_encode($qr_select_profile);
+            session()->put('profile', $profile); 
         } catch (\Illuminate\Database\QueryException $ex) {
             $errors = new MessageBag(['error' => $ex->getMessage()]);
             //return redirect()->route('profile/'.$iduser)->with('error',$errors);

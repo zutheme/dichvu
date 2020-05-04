@@ -15,6 +15,7 @@
 
 Route::get('/deletesession', function () {
       session()->forget('orderhistory');
+      session()->forget('profile');
 });
 
 Route::get('/admin/testdata', function () {
@@ -234,7 +235,11 @@ Route::group(['middleware' => 'auth'], function() {
 	//Route::post('svpost/makepost', 'SvPostController@makepost');
 	Route::resource('svpost','SvPostController');
 	Route::resource('category','CategoryController');
+
+	Route::get('admin/aduser/departmentby/{_idcatetype}', 'Admin\AduserController@catebyidcatetype');
+	Route::post('admin/aduser/departmentby/{_idcatetype}', 'Admin\AduserController@catebyidcatetype');
     Route::resource('admin/aduser' , 'Admin\AduserController', array('as'=>'admin') );
+
 	Route::resource('admin/adsvcustomer' , 'Admin\AdsvcustomerController', array('as'=>'admin') );
 	Route::get('admin/category/listcategorybyid', 'Admin\CategoryController@listcatbyidcat');
 	Route::post('admin/category/listcategorybyid', 'Admin\CategoryController@listcatbyidcat');
@@ -368,6 +373,7 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::resource('admin/grantperm','Admin\GrantController', array('as'=>'admin'));
 
+    Route::resource('admin/supplier','Admin\SupplierControler', array('as'=>'admin'));
     //profile
 
     Route::post('admin/profile/uploadavatar/{iduser}/{idprofile}',['uses' =>'ProfileController@uploadavatar']);
@@ -387,14 +393,17 @@ Route::group(['middleware' => 'auth'], function() {
 
 	Route::resource('admin/profile','ProfileController');
 	//list order
-	Route::post('admin/orderlist/show/{_ordernumber}',['uses' =>'Admin\OrdersManagementController@show']);
+	Route::post('admin/orderlist/show/{_ordernumber}/{_idstore}',['uses' =>'Admin\OrdersManagementController@show']);
 
-	Route::get('admin/orderlist/show/{_ordernumber}',['uses' =>'Admin\OrdersManagementController@show']);
+	Route::get('admin/orderlist/show/{_ordernumber}/{_idstore}',['uses' =>'Admin\OrdersManagementController@show']);
 
 	Route::post('admin/orderlist/{_idstore}',['uses' =>'Admin\OrdersManagementController@listorder']);
 
 	Route::get('admin/orderlist/{_idstore}',['uses' =>'Admin\OrdersManagementController@listorder']);
 
+	Route::post('admin/orderlist/moveto/{_ordernumber}/{_idstore}',['uses' =>'Admin\OrdersManagementController@moveto']);
+	Route::get('admin/orderlist/moveto/{_ordernumber}/{_idstore}',['uses' =>'Admin\OrdersManagementController@moveto']);
+	Route::resource('admin/importproduct','Admin\ImportProductController', array('as'=>'admin'));
 });
 
 
