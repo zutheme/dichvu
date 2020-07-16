@@ -20,9 +20,9 @@ class RoleController extends Controller
      */
     public function index(Request $request)
     {
-        //$roles = role::all()->toArray();
-        $roles = $this->CheckPermission();
-        $allow = $roles[0]['allow'];
+        $roles = role::all()->toArray();
+        $chkroles = $this->CheckPermission();
+        $allow = $chkroles[0]['allow'];
         if($allow > 0 ){
             return view('admin.roles.index',compact('roles'));
         }else{

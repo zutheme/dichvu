@@ -13,22 +13,22 @@
 {{ $error }}
 
 @endif
+@include('teamilk.shop-3-1')
+{{-- @include('teamilk.shop-banner')  --}}
 
-{{-- @include('teamilk.shop-banner') --}}
+{{-- @include('teamilk.grid-3') --}}
 
-@include('teamilk.grid-3')
+{{-- @include('teamilk.shop-2-2') --}}
 
-@include('teamilk.shop-2-2')
+{{-- @include('teamilk.shop-1-5') --}}
 
-@include('teamilk.shop-1-5')
+{{-- @include('teamilk.promo-1-2') --}}
 
-@include('teamilk.promo-1-2')
-
-{{--  @include('teamilk.shop-4-1') --}}
+{{-- @include('teamilk.shop-4-1') --}}
 
 @include('teamilk.shop-2-7')
 
-{{-- @include('teamilk.shop-3-1') --}}
+
 
 {{-- @include('teamilk.shop-6-1')  --}}
 

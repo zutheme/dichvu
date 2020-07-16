@@ -28,14 +28,14 @@ class HomeController extends Controller
             $_idcategory = 6;
             $_limit = 4;
             $_idstore = 31;
-            $qr_LstProCombo = DB::select('call ListProductComboProcedure(?)',array($_limit));
-            $rs_LstProCombo = json_decode(json_encode($qr_LstProCombo), true);
+            //$qr_LstProCombo = DB::select('call ListProductComboProcedure(?)',array($_limit));
+            //$rs_LstProCombo = json_decode(json_encode($qr_LstProCombo), true);
             //teamilk
-            $qr_promotion = DB::select('call LatestPromotionProcedure(?,?)',array($_idstore,$_limit));
-            $rs_promotion = json_decode(json_encode($qr_promotion), true);
+            //$qr_promotion = DB::select('call LatestPromotionProcedure(?,?)',array($_idstore,$_limit));
+            //$rs_promotion = json_decode(json_encode($qr_promotion), true);
             $_limit1 = 4;
-            $qr_teamilk1 = DB::select('call LatestProductByIdcateProcedure(?,?,?)',array($_idcategory, $_idstore, $_limit1));
-            $teamilks1 = json_decode(json_encode($qr_teamilk1), true);
+            ///$qr_teamilk1 = DB::select('call LatestProductByIdcateProcedure(?,?,?)',array($_idcategory, $_idstore, $_limit1));
+            //$teamilks1 = json_decode(json_encode($qr_teamilk1), true);
 
             $_limit2 = 8;
             $qr_teamilk2 = DB::select('call LatestProductByIdcateProcedure(?,?,?)',array($_idcategory, $_idstore, $_limit2));
@@ -43,8 +43,8 @@ class HomeController extends Controller
 
             $qr_popular = DB::select('call RelateProductProcedure');
             $popular = json_decode(json_encode($qr_popular), true);
-
-            return view('teamilk.home',compact('popular','rs_LstProCombo','rs_promotion','teamilks1','teamilks2'));
+            return view('teamilk.home',compact('teamilks2'));
+            //return view('teamilk.home',compact('popular','rs_LstProCombo','rs_promotion','teamilks1','teamilks2'));
         } catch (\Illuminate\Database\QueryException $ex) {
             $errors = new MessageBag(['error' => $ex->getMessage()]);
             //return redirect()->route('teamilk.home')->with('error',$errors);
